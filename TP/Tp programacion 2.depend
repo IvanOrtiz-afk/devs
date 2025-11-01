@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1762037448 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.cpp
+	<iostream>
+	"Establecimientos.h"
+
+1762038997 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.h
+
+1761963827 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
+	<iostream>
+
