@@ -1,0 +1,2 @@
+agregar valoraciones a los platos (similar a las estrellas en uber pero con int) SOLO del plato consumido y solo una vez
+luego mostrar un informe de valoraciones de los diferentes platos (ej: platos mas valorados, etc)
