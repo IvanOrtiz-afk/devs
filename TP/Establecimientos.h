@@ -3,6 +3,7 @@
 class Establecimientos
 {
     public:
+        Establecimientos();
         Establecimientos(int idestablecimiento, const char *nombreestablecimiento, const char *direccionesta, const char*tipoesta);
         int getidestablecimiento();
         const char *getnombreestablecimiento();

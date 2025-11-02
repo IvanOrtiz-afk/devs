@@ -2,6 +2,7 @@
 #include <cstring>
 #include "Establecimientos.h"
 
+Establecimientos::Establecimientos(){};
 Establecimientos::Establecimientos(int idestablecimiento, const char *nombreestablecimiento, const char *direccionesta, const char*tipoesta)
 {
     _idestablecimiento = idestablecimiento;

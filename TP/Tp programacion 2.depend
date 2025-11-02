@@ -1,13 +1,18 @@
 # depslib dependency file v1.0
-1762041169 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.cpp
+1762045725 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.cpp
 	<iostream>
 	<cstring>
 	"Establecimientos.h"
 
-1762041497 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.h
+1762045725 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.h
 
-1761963827 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
+1762061096 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
 	<iostream>
+	"Archivo.h"
+	"Menues.h"
+	"Establecimientos.h"
+	"TipoAlmuerzo.h"
+	"Fecha.h"
 
 1762045478 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\tipoalmuerzo.cpp
 	<iostream>
@@ -31,4 +36,14 @@
 1762045478 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menues.h
 	"TipoAlmuerzo.h"
 	"Fecha.h"
+
+1762057680 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivo.cpp
+	<iostream>
+	<string>
+	"Archivo.h"
+	"Establecimientos.h"
+	"Menues.h"
+
+1762061142 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivo.h
+	<string>
 
