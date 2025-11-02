@@ -3,6 +3,7 @@
 class TipoAlmuerzo
 {
 public:
+    TipoAlmuerzo();
     TipoAlmuerzo(int idtipo, const char* nombretipo, const char* desctipo);
     int getidtipo();
     const char* getnombretipo();

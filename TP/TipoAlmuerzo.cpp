@@ -2,6 +2,7 @@
 #include <cstring>
 #include "TipoAlmuerzo.h"
 
+TipoAlmuerzo::TipoAlmuerzo(){};
 TipoAlmuerzo::TipoAlmuerzo(int idtipo, const char* nombretipo, const char* desctipo)
 {
     _idtipo=idtipo;

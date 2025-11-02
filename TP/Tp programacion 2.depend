@@ -9,3 +9,26 @@
 1761963827 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
 	<iostream>
 
+1762045478 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\tipoalmuerzo.cpp
+	<iostream>
+	<cstring>
+	"TipoAlmuerzo.h"
+
+1762045478 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\tipoalmuerzo.h
+
+1762044257 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\fecha.cpp
+	<iostream>
+	"Fecha.h"
+
+1762043703 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\fecha.h
+
+1762045495 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menues.cpp
+	<iostream>
+	<cstring>
+	"Menues.h"
+	"TipoAlmuerzo.h"
+
+1762045478 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menues.h
+	"TipoAlmuerzo.h"
+	"Fecha.h"
+
