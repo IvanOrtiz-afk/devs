@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <string>
 #include "Establecimientos.h"
 
 Establecimientos::Establecimientos(){};
@@ -53,6 +54,11 @@ void Establecimientos::settipoesta(const char* tipoesta)
 {
     strncpy(_tipoesta, tipoesta, sizeof(_tipoesta) - 1);
     _tipoesta[sizeof(_tipoesta) - 1] = '\0';
+};
+
+std::string Establecimientos::toString()
+{
+    return std::to_string(_idestablecimiento) + "/" + std::string(_nombreestablecimiento) + "/" + std::string(_direccionesta);
 };
 
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class Establecimientos
 {
@@ -13,6 +14,7 @@ class Establecimientos
         void setnombreestablecimiento(const char*);
         void setdireccionesta(const char*);
         void settipoesta(const char*);
+        std::string toString();
 
     protected:
         int _idestablecimiento;
