@@ -8,7 +8,7 @@
 1762127095 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.h
 	<string>
 
-1762127414 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
+1762131848 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
 	<iostream>
 	"Archivos.h"
 	"Menues.h"
@@ -49,11 +49,10 @@
 1762061142 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivo.h
 	<string>
 
-1762127079 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.cpp
-	<iostream>
+1762131598 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.cpp
 	"Archivos.h"
 
-1762126553 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.h
+1762131675 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.h
 	<string>
 	"Establecimientos.h"
 	"Menues.h"

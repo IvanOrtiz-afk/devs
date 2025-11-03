@@ -1,83 +1,102 @@
-#include <iostream>
+/**#include <iostream>
 #include "Archivos.h"
 
-Archivos::Archivos(std::string nombreArchivo){
+template <typename Tipos>
+Archivos::Archivos(std::string nombreArchivo)
+{
     _nombreArchivo = nombreArchivo;
 }
 
-///ARCHIVO ESTABLECIMIENTOS
-
-bool Archivos::Guardar(Establecimientos registro){
+bool Archivos::Guardar(Tipos registro)
+{
     FILE *pArchivo = fopen(_nombreArchivo.c_str(), "ab");
-    if(pArchivo == NULL){
+    if(pArchivo == NULL)
+    {
         return false;
     }
-    bool ok = fwrite(&registro, sizeof(Establecimientos), 1, pArchivo);
+    bool ok = fwrite(&registro, sizeof(Tipos), 1, pArchivo);
     fclose(pArchivo);
     return ok;
 }
 
-bool Archivos::Guardar(Establecimientos registro, int posicion){
+bool Archivos::Guardar(Tipos registro, int posicion)
+{
     FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb+");
-    if(pArchivo == NULL){
+    if(pArchivo == NULL)
+    {
         return false;
     }
-    fseek(pArchivo, sizeof(Establecimientos) * posicion, SEEK_SET);
-    bool ok = fwrite(&registro, sizeof(Establecimientos), 1, pArchivo);
+    fseek(pArchivo, sizeof(Tipos) * posicion, SEEK_SET);
+    bool ok = fwrite(&registro, sizeof(Tipos), 1, pArchivo);
     fclose(pArchivo);
     return ok;
 }
 
-int Archivos::Buscar(int idestablecimiento){
+int Archivos::Buscar(int idbuscado)
+{
     FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb");
-    if(pArchivo == NULL){
+    if(pArchivo == NULL)
+    {
         return -1;
     }
-    Establecimientos registro;
-    int i = 0;
-    while(fread(&registro, sizeof(Establecimientos), 1, pArchivo)){
-        if(registro.getidestablecimiento() == idestablecimiento){
+    Tipos registro;
+    int i = 0, j=1;
+
+    while(fread(&registro, sizeof(Tipos), 1, pArchivo))
+    {
+        if(j == idbuscado)  ///ARREGLAR ACA
+        {
             fclose(pArchivo);
             return i;
         }
+        j++;
         i++;
     }
     fclose(pArchivo);
     return -1;
 }
 
-Establecimientos Archivos::Leer(int posicion){
+Tipos Archivos::Leer(int posicion)
+{
+    std::string mensaje="No se pudo leer el archivo" << endl;
     FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb");
-    if(pArchivo == NULL){
-        return Establecimientos();
+    if(pArchivo == NULL)
+    {
+        return Tipos(); ///ARREGLAR ACA
     }
-    Establecimientos registro;
-    fseek(pArchivo, sizeof(Establecimientos) * posicion, SEEK_SET);
-    fread(&registro, sizeof(Establecimientos), 1, pArchivo);
+    Tipos registro;
+    fseek(pArchivo, sizeof(Tipos) * posicion, SEEK_SET);
+    fread(&registro, sizeof(Tipos), 1, pArchivo);
     fclose(pArchivo);
     return registro;
 }
 
-int Archivos::CantidadRegistros(){
+int Archivos::CantidadRegistros()
+{
     FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb");
-    if(pArchivo == NULL){
+    if(pArchivo == NULL)
+    {
         return 0;
     }
     fseek(pArchivo, 0, SEEK_END);
-    int cantidadRegistros = ftell(pArchivo) / sizeof(Establecimientos);
+    int cantidadRegistros = ftell(pArchivo) / sizeof(Tipos);
     fclose(pArchivo);
     return cantidadRegistros;
 }
 
-void Archivos::Leer(int cantidadRegistros, Establecimientos *vector){
+void Archivos::Leer(int cantidadRegistros, Tipos *vector)
+{
     FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb");
-    if(pArchivo == NULL){
+    if(pArchivo == NULL)
+    {
         return;
     }
-    for(int i = 0; i < cantidadRegistros; i++){
-        fread(&vector[i], sizeof(Establecimientos), 1, pArchivo);
+    for(int i = 0; i < cantidadRegistros; i++)
+    {
+        fread(&vector[i], sizeof(Tipos), 1, pArchivo);
     }
     fclose(pArchivo);
-}
+}*/
+
 
 
