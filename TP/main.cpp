@@ -23,7 +23,8 @@ int main()
     archivo2.Leer(0);
     archivo.Leer(0);
 
-    cout << registro3.toString(tipotest, fechatest) << endl;
+    ///ESTE registro3.tostring(tipotest, fechatest) ES SOLO PARA TESTEOS CON HARDCODEO, DUDO MUCHO QUE LO USEMOS ASI PARA LA VERSION FINAL
+    cout << registro3.toString(tipotest, fechatest) << endl; ///ENVIO COMO PARAMETROS LOS DOS DATOS QUE HARCODIE DESDE MAIN, DADO QUE SE HARDCODEARON EN MAIN TENGO QUE USAR tostring DE ESTA FORMA
     cout << registro.toString() << endl;
     cout << "HOLA CHICOS ESTA ES UNA PRUEBA DEL TP!!!" << endl;
     return 0;
