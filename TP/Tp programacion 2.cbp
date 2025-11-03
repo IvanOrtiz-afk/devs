@@ -36,8 +36,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Archivo.cpp" />
-		<Unit filename="Archivo.h" />
+		<Unit filename="Archivos.h" />
 		<Unit filename="Establecimientos.cpp" />
 		<Unit filename="Establecimientos.h" />
 		<Unit filename="Fecha.cpp" />

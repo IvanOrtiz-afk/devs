@@ -2,7 +2,7 @@
 #include <cstring>
 #include "TipoAlmuerzo.h"
 
-TipoAlmuerzo::TipoAlmuerzo(){};
+TipoAlmuerzo::TipoAlmuerzo() {};
 TipoAlmuerzo::TipoAlmuerzo(int idtipo, const char* nombretipo, const char* desctipo)
 {
     _idtipo=idtipo;
@@ -36,4 +36,8 @@ void TipoAlmuerzo::setdesctipo(const char* desctipo)
 {
     strncpy(_desctipo, desctipo, sizeof(_desctipo) - 1);
     _desctipo[sizeof(_desctipo)-1]='\0';
+};
+std::string TipoAlmuerzo::toString()
+{
+    return std::to_string(_idtipo) + "/" + std::string(_nombretipo) + "/" + std::string(_desctipo);
 };

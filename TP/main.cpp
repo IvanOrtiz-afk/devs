@@ -10,22 +10,21 @@ using namespace std;
 int main()
 {
     Archivos <Establecimientos> archivo("TEST.dat");
+    Archivos <Menues> archivo2("TEST2.dat");
+
     Establecimientos registro(123, "establecimiento test", "direccion test", "tipo test");
     Fecha fechatest (19, 05, 1991);
     TipoAlmuerzo tipotest (12, "vegano", "saludable");
-    Menues registro3(13, "ensalada vegana", 2300.54, tipotest, fechatest);
-    Establecimientos registro2;
-    Menues registro4;
+    Menues registro3(13, "ensalada vegana", 2300.50, tipotest, fechatest);
 
-    ///archivo.Guardar(registro);
-    archivo.Guardar(registro3);
+    archivo.Guardar(registro);
+    archivo2.Guardar(registro3);
 
-    registro4=archivo.Leer(13);
-    registro2=archivo.Leer(1);
+    archivo2.Leer(0);
+    archivo.Leer(0);
 
-    ///TESTEO DE TEMPLATE <Tipos>, FALTA TERMINAR CLASE MENUES PARA PROBAR!!!
-    cout << registro4.toString() << endl;
-    cout << registro2.toString() << endl;
+    cout << registro3.toString(tipotest, fechatest) << endl;
+    cout << registro.toString() << endl;
     cout << "HOLA CHICOS ESTA ES UNA PRUEBA DEL TP!!!" << endl;
     return 0;
 }

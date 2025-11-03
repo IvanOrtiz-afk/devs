@@ -11,6 +11,7 @@ public:
     void setidtipo(int);
     void setnombretipo(const char*);
     void setdesctipo(const char*);
+    std::string toString();
 
 protected:
     char _nombretipo[30];

@@ -17,6 +17,7 @@ public:
     void setvalorplato(float);
     void settipo(TipoAlmuerzo);
     void setfecha(Fecha);
+    std::string toString(TipoAlmuerzo datotipo, Fecha datofecha);
 
 protected:
     char _nombremenu[30];
