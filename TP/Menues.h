@@ -5,8 +5,8 @@
 class Menues
 {
 public:
-    Menues();
     Menues(int idmenu, const char* nombremenu, float valorplato, TipoAlmuerzo tipo, Fecha fecha);
+    Menues();
     int getidmenu();
     const char* getnombremenu();
     float getvalorplato();
@@ -17,7 +17,7 @@ public:
     void setvalorplato(float);
     void settipo(TipoAlmuerzo);
     void setfecha(Fecha);
-    std::string toString(TipoAlmuerzo datotipo, Fecha datofecha);
+    std::string toString();
 
 protected:
     char _nombremenu[30];

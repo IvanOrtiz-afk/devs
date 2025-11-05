@@ -1,8 +1,11 @@
 #include <iostream>
+#include <string>
 #include <cstring>
-#include "TipoAlmuerzo.h"
+#include "Comensales.h"
+#include "Fecha.h"
+#include "Establecimientos.h"
+#include "Archivos.h"
 
-TipoAlmuerzo::TipoAlmuerzo() {};
 TipoAlmuerzo::TipoAlmuerzo(int idtipo, const char* nombretipo, const char* desctipo)
 {
     _idtipo=idtipo;
@@ -11,6 +14,7 @@ TipoAlmuerzo::TipoAlmuerzo(int idtipo, const char* nombretipo, const char* desct
     strncpy(_desctipo, desctipo, sizeof(_desctipo) - 1);
     _desctipo[sizeof(_desctipo)-1]='\0';
 }
+TipoAlmuerzo::TipoAlmuerzo() {};
 int TipoAlmuerzo::getidtipo()
 {
     return _idtipo;

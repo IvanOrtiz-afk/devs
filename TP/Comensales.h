@@ -3,7 +3,8 @@
 #include "Fecha.h"
 #include "Establecimientos.h"
 
-class Comensal {
+class Comensal
+{
 
 private:
     char _nombre[15];
@@ -13,14 +14,14 @@ private:
     Establecimientos _IDestablecimiento;
 
 public:
-    Comensal();
     Comensal(int idcomensal, const char *nombre, const char *direccion, Fecha fechanacimiento, Establecimientos idestablecimiento);
+    Comensal();
     void setNombre (const char *nombre);
     void setIDcomensal (int IDcomensal);
     void setDireccion (const char *direccion);
     void setFechaNacimiento (Fecha fechaNacimiento);
     void setIDEstablecimiento (Establecimientos IDestablecimiento);
-    std::string toString(Fecha datofecha, Establecimientos datoesta);
+    std::string toString();
 
     const char* getNombre();
     int getIDcomensal();

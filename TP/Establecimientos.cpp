@@ -1,9 +1,11 @@
 #include <iostream>
-#include <cstring>
 #include <string>
+#include <cstring>
+#include "Comensales.h"
+#include "Fecha.h"
 #include "Establecimientos.h"
+#include "Archivos.h"
 
-Establecimientos::Establecimientos(){};
 Establecimientos::Establecimientos(int idestablecimiento, const char *nombreestablecimiento, const char *direccionesta, const char*tipoesta)
 {
     _idestablecimiento = idestablecimiento;
@@ -18,7 +20,7 @@ Establecimientos::Establecimientos(int idestablecimiento, const char *nombreesta
     strncpy(_tipoesta, tipoesta, sizeof(_tipoesta) - 1);
     _tipoesta[sizeof(_tipoesta) - 1] = '\0';
 }
-
+Establecimientos::Establecimientos(){};
 int Establecimientos::getidestablecimiento()
 {
     return _idestablecimiento;

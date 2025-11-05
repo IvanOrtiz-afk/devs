@@ -1,9 +1,11 @@
 #include <iostream>
+#include <string>
 #include <cstring>
-#include "Menues.h"
-#include "TipoAlmuerzo.h"
+#include "Comensales.h"
+#include "Fecha.h"
+#include "Establecimientos.h"
+#include "Archivos.h"
 
-Menues::Menues() {};
 Menues::Menues(int idmenu, const char* nombremenu, float valorplato, TipoAlmuerzo tipo, Fecha fecha)
 {
     _idmenu=idmenu;
@@ -13,6 +15,7 @@ Menues::Menues(int idmenu, const char* nombremenu, float valorplato, TipoAlmuerz
     _tipo=tipo;
     _fecha=fecha;
 };
+Menues::Menues() {};
 int Menues::getidmenu()
 {
     return _idmenu;
@@ -54,9 +57,9 @@ void Menues::setfecha(Fecha fecha)
 {
     _fecha=fecha;
 };
-std::string Menues::toString(TipoAlmuerzo datotipo, Fecha datofecha)
+std::string Menues::toString()
 {
-    return std::to_string(_idmenu) + "/" + std::string(_nombremenu) + "/" + std::to_string(_valorplato) + "/" + datotipo.toString() + "/" + datofecha.toString();
+    return std::to_string(_idmenu) + "/" + std::string(_nombremenu) + "/" + std::to_string(_valorplato) + "/" + _tipo.toString() + "/" + _fecha.toString();
     ///Tengo que enviar como parametros los dos tipos de dato "TipoAlmuerzo" y "Fecha" que necesito imprimir como string
 };
 

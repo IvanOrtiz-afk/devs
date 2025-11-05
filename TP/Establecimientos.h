@@ -4,8 +4,8 @@
 class Establecimientos
 {
     public:
-        Establecimientos();
         Establecimientos(int idestablecimiento, const char *nombreestablecimiento, const char *direccionesta, const char*tipoesta);
+        Establecimientos();
         int getidestablecimiento();
         const char *getnombreestablecimiento();
         const char *getdireccionesta();

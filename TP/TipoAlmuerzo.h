@@ -3,8 +3,8 @@
 class TipoAlmuerzo
 {
 public:
-    TipoAlmuerzo();
     TipoAlmuerzo(int idtipo, const char* nombretipo, const char* desctipo);
+    TipoAlmuerzo();
     int getidtipo();
     const char* getnombretipo();
     const char* getdesctipo();

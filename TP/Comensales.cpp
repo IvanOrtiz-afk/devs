@@ -6,7 +6,6 @@
 #include "Establecimientos.h"
 #include "Archivos.h"
 
-Comensal::Comensal(){};
 Comensal::Comensal(int idcomensal, const char *nombre, const char *direccion, Fecha fechanacimiento, Establecimientos idestablecimiento)
 {
     _IDcomensal=idcomensal;
@@ -17,6 +16,7 @@ Comensal::Comensal(int idcomensal, const char *nombre, const char *direccion, Fe
     _fechaNacimiento=fechanacimiento;
     _IDestablecimiento=idestablecimiento;
 };
+Comensal::Comensal(){};
 const char* Comensal::getNombre()
 {
     return _nombre;
@@ -59,8 +59,8 @@ void Comensal::setIDEstablecimiento (Establecimientos IDestablecimiento)
 {
     _IDestablecimiento= IDestablecimiento;
 };
-std::string Comensal::toString(Fecha datofecha, Establecimientos datoesta)
+std::string Comensal::toString()
 {
-    return std::to_string(_IDcomensal) + "/" + std::string(_nombre) + "/" + std::string(_direccion) + "/" + datofecha.toString() + "/" + datoesta.toString();
+    return std::to_string(_IDcomensal) + "/" + std::string(_nombre) + "/" + std::string(_direccion) + "/" + _fechaNacimiento.toString() + "/" + _IDestablecimiento.toString();
 };
 

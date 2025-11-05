@@ -1,5 +1,10 @@
 #include <iostream>
+#include <string>
+#include <cstring>
+#include "Comensales.h"
 #include "Fecha.h"
+#include "Establecimientos.h"
+#include "Archivos.h"
 
 Fecha::Fecha()
 {
