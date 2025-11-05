@@ -41,6 +41,8 @@
 		<Unit filename="Comensales.h" />
 		<Unit filename="Establecimientos.cpp" />
 		<Unit filename="Establecimientos.h" />
+		<Unit filename="Facturas.cpp" />
+		<Unit filename="Facturas.h" />
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
 		<Unit filename="Menues.cpp" />
