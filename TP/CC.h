@@ -1,24 +1,18 @@
 #pragma once
+#include "Factura.h"
 #include "Fecha.h"
-#include "Menues.h"
-#include "Comensales.h"
+#include "Comensal.h"
 
-class Factura {
+class CuentaCorriente : public Factura{
 
 private:
-    int _numeroFactura;
-    Menues _idmenu;
-    char _medioDePago [10];
-
-protected:
-    Comensal _IDcomensal;
-    Fecha _fecha;
-    float _importe;
+    int _IDcuenta;
+    float _saldo;
 
 public:
-    Factura();
-    Factura(int numeroFactura, Comensal IDcomensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago);
-
+    CuentaCorriente();
+    CuentaCorriente(int IDcuenta, Comensal IDcomensal, Fecha fecha, float saldo);
+/*
     void setNumeroFactura (int numeroFactura);
     void setIDcomensal (Comensal IDcomensal);
     void setFecha (Fecha fecha);
@@ -33,4 +27,4 @@ public:
     Menues getIDmenu ();
     float getImporte ();
     const char* getMedioDePago ();
-};
+}; */

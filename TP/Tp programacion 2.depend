@@ -219,3 +219,18 @@
 	"Establecimientos.h"
 	"Archivos.h"
 
+1762362584 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\facturas.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"Facturas.h"
+	"Comensales.h"
+	"Establecimientos.h"
+	"Fecha.h"
+	"Archivos.h"
+
+1762374617 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\facturas.h
+	"Fecha.h"
+	"Menues.h"
+	"Comensales.h"
+
