@@ -128,3 +128,55 @@
 	"Fecha.h"
 	"Establecimientos.h"
 
+1762195768 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\establecimientos.cpp
+	<iostream>
+	<cstring>
+	<string>
+	"Establecimientos.h"
+
+1762195768 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\establecimientos.h
+	<string>
+
+1762195768 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\fecha.cpp
+	<iostream>
+	"Fecha.h"
+
+1762195768 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\fecha.h
+
+1762310183 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\main.cpp
+	<iostream>
+	"Archivos.h"
+	"Menues.h"
+	"Establecimientos.h"
+	"TipoAlmuerzo.h"
+	"Fecha.h"
+	"Comensales.h"
+
+1762310183 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\archivos.h
+	<string>
+	"Establecimientos.h"
+	"Menues.h"
+	"Comensales.h"
+
+1762195768 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menues.h
+	"TipoAlmuerzo.h"
+	"Fecha.h"
+
+1762195768 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\tipoalmuerzo.h
+
+1762310183 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\comensales.h
+	<string>
+	"Fecha.h"
+	"Establecimientos.h"
+
+1762195768 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menues.cpp
+	<iostream>
+	<cstring>
+	"Menues.h"
+	"TipoAlmuerzo.h"
+
+1762195768 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\tipoalmuerzo.cpp
+	<iostream>
+	<cstring>
+	"TipoAlmuerzo.h"
+

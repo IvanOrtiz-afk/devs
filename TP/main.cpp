@@ -34,6 +34,6 @@ int main()
     cout << registro10.toString(fechatest, registro) << endl;
     cout << registro3.toString(tipotest, fechatest) << endl; ///ENVIO COMO PARAMETROS LOS DOS DATOS QUE HARCODIE DESDE MAIN, DADO QUE SE HARDCODEARON EN MAIN TENGO QUE USAR tostring DE ESTA FORMA
     cout << registro.toString() << endl;
-    cout << "HOLA CHICOS ESTA ES UNA PRUEBA DEL TP!!!" << endl;
+    cout << "HOLA CHICOS ESTA ES UNA PRUEBA DEL TP!!!!!!" << endl;
     return 0;
 }
