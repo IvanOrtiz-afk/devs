@@ -57,3 +57,58 @@
 	"Establecimientos.h"
 	"Menues.h"
 
+1762195768 source:c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\establecimientos.cpp
+	<iostream>
+	<cstring>
+	<string>
+	"Establecimientos.h"
+
+1762195768 c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\establecimientos.h
+	<string>
+
+1762195768 source:c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\fecha.cpp
+	<iostream>
+	"Fecha.h"
+
+1762195768 c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\fecha.h
+
+1762195768 source:c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\main.cpp
+	<iostream>
+	"Archivos.h"
+	"Menues.h"
+	"Establecimientos.h"
+	"TipoAlmuerzo.h"
+	"Fecha.h"
+
+1762195768 c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\archivos.h
+	<string>
+	"Establecimientos.h"
+	"Menues.h"
+
+1762195768 c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\menues.h
+	"TipoAlmuerzo.h"
+	"Fecha.h"
+
+1762195768 c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\tipoalmuerzo.h
+
+1762195768 source:c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\menues.cpp
+	<iostream>
+	<cstring>
+	"Menues.h"
+	"TipoAlmuerzo.h"
+
+1762195768 source:c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\tipoalmuerzo.cpp
+	<iostream>
+	<cstring>
+	"TipoAlmuerzo.h"
+
+1762293781 source:c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\comensales.cpp
+	<iostream>
+	"Comensales.h"
+	"Fecha.h"
+	"Establecimientos.h"
+
+1762293782 c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\comensales.h
+	"Fecha.h"
+	"Establecimientos.h"
+
