@@ -8,13 +8,14 @@
 1762127095 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.h
 	<string>
 
-1762142410 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
+1762308694 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
 	<iostream>
 	"Archivos.h"
 	"Menues.h"
 	"Establecimientos.h"
 	"TipoAlmuerzo.h"
 	"Fecha.h"
+	"Comensales.h"
 
 1762140458 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\tipoalmuerzo.cpp
 	<iostream>
@@ -29,7 +30,7 @@
 
 1762043703 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\fecha.h
 
-1762142672 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menues.cpp
+1762142885 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menues.cpp
 	<iostream>
 	<cstring>
 	"Menues.h"
@@ -52,10 +53,11 @@
 1762131598 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.cpp
 	"Archivos.h"
 
-1762131675 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.h
+1762308578 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.h
 	<string>
 	"Establecimientos.h"
 	"Menues.h"
+	"Comensales.h"
 
 1762195768 source:c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\establecimientos.cpp
 	<iostream>
@@ -109,6 +111,20 @@
 	"Establecimientos.h"
 
 1762293782 c:\users\eveer\onedrive\escritorio\repositorios\devs\tp\comensales.h
+	"Fecha.h"
+	"Establecimientos.h"
+
+1762307811 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\comensales.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"Comensales.h"
+	"Fecha.h"
+	"Establecimientos.h"
+	"Archivos.h"
+
+1762307862 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\comensales.h
+	<string>
 	"Fecha.h"
 	"Establecimientos.h"
 

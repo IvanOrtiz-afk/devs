@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "Fecha.h"
 #include "Establecimientos.h"
 
@@ -13,11 +14,13 @@ private:
 
 public:
     Comensal();
-    void setNombre (char nombre);
+    Comensal(int idcomensal, const char *nombre, const char *direccion, Fecha fechanacimiento, Establecimientos idestablecimiento);
+    void setNombre (const char *nombre);
     void setIDcomensal (int IDcomensal);
-    void setDireccion (char direccion);
+    void setDireccion (const char *direccion);
     void setFechaNacimiento (Fecha fechaNacimiento);
     void setIDEstablecimiento (Establecimientos IDestablecimiento);
+    std::string toString(Fecha datofecha, Establecimientos datoesta);
 
     const char* getNombre();
     int getIDcomensal();

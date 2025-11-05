@@ -2,6 +2,7 @@
 #include <string>
 #include "Establecimientos.h"
 #include "Menues.h"
+#include "Comensales.h"
 
 template <typename Tipos>
 class Archivos
