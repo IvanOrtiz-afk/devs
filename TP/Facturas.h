@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "Fecha.h"
 #include "Menues.h"
 #include "Comensales.h"
@@ -8,27 +9,30 @@ class Factura {
 private:
     int _numeroFactura;
     Menues _idmenu;
-    char _medioDePago [10];
+    char _medioDePago [20];
 
 protected:
-    Comensal _IDcomensal;
+    int _IDcomensal;
+    char _nombrecomensal[15];
     Fecha _fecha;
     float _importe;
 
 public:
+    Factura(int numeroFactura, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago);
     Factura();
-    Factura(int numeroFactura, Comensal IDcomensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago);
 
+    void setNombrecomensal (Comensal comensal);
     void setNumeroFactura (int numeroFactura);
-    void setIDcomensal (Comensal IDcomensal);
+    void setIDcomensal (Comensal comensal);
     void setFecha (Fecha fecha);
     void setIDmenu (Menues idmenu);
     void setImporte (float importe);
     void setMedioDePago (const char *medioDePago);
-    std::string toString(Comensal datoComensal, Fecha datofecha, Menues datoMenu);
+    std::string toString();
 
+    const char *getnombrecomensal();
     int getNumeroFactura();
-    Comensal getIDcomensal ();
+    int getIDcomensal ();
     Fecha getFecha ();
     Menues getIDmenu ();
     float getImporte ();

@@ -11,7 +11,7 @@
 1762317339 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.h
 	<string>
 
-1762319362 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
+1762393956 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -19,6 +19,7 @@
 	"Fecha.h"
 	"Establecimientos.h"
 	"Archivos.h"
+	"Facturas.h"
 
 1762319181 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\tipoalmuerzo.cpp
 	<iostream>
@@ -230,6 +231,22 @@
 	"Archivos.h"
 
 1762374617 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\facturas.h
+	"Fecha.h"
+	"Menues.h"
+	"Comensales.h"
+
+1762393319 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\facturas.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"Facturas.h"
+	"Comensales.h"
+	"Establecimientos.h"
+	"Fecha.h"
+	"Archivos.h"
+
+1762394001 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\facturas.h
+	<string>
 	"Fecha.h"
 	"Menues.h"
 	"Comensales.h"
