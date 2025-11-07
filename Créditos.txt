@@ -1,0 +1,4 @@
+CRÉDITOS DEL PROYECTO
+
+Tabulate:
+https://github.com/p-ranav/tabulate/tree/master
