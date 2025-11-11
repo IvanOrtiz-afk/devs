@@ -20,47 +20,47 @@ Establecimientos::Establecimientos(int idestablecimiento, const char *nombreesta
     strncpy(_tipoesta, tipoesta, sizeof(_tipoesta) - 1);
     _tipoesta[sizeof(_tipoesta) - 1] = '\0';
 }
-Establecimientos::Establecimientos(){};
+Establecimientos::Establecimientos(){}
 int Establecimientos::getidestablecimiento()
 {
     return _idestablecimiento;
-};
+}
 const char * Establecimientos::getnombreestablecimiento()
 {
     return _nombreestablecimiento;
-};
+}
 const char * Establecimientos::getdireccionesta()
 {
     return _direccionesta;
-};
+}
 const char * Establecimientos::gettipoesta()
 {
     return _tipoesta;
-};
+}
 void Establecimientos::setidestablecimiento(int idestablecimiento)
 {
     _idestablecimiento=idestablecimiento;
 
-};
+}
 void Establecimientos::setnombreestablecimiento(const char* nombreestablecimiento)
 {
     strncpy(_nombreestablecimiento, nombreestablecimiento, sizeof(_nombreestablecimiento) - 1);
     _nombreestablecimiento[sizeof(_nombreestablecimiento) - 1] = '\0';
-};
+}
 void Establecimientos::setdireccionesta(const char* direccionesta)
 {
     strncpy(_direccionesta, direccionesta, sizeof(_direccionesta) - 1);
     _direccionesta[sizeof(_direccionesta) - 1] = '\0';
-};
+}
 void Establecimientos::settipoesta(const char* tipoesta)
 {
     strncpy(_tipoesta, tipoesta, sizeof(_tipoesta) - 1);
     _tipoesta[sizeof(_tipoesta) - 1] = '\0';
-};
+}
 
 std::string Establecimientos::toString()
 {
     return std::to_string(_idestablecimiento) + "/" + std::string(_nombreestablecimiento) + "/" + std::string(_direccionesta);
-};
+}
 
 

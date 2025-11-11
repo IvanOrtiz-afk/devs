@@ -37,8 +37,12 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="Archivos.h" />
+		<Unit filename="CC.cpp" />
+		<Unit filename="CC.h" />
 		<Unit filename="Comensales.cpp" />
 		<Unit filename="Comensales.h" />
+		<Unit filename="Comprobante.cpp" />
+		<Unit filename="Comprobante.h" />
 		<Unit filename="Establecimientos.cpp" />
 		<Unit filename="Establecimientos.h" />
 		<Unit filename="Facturas.cpp" />
@@ -50,6 +54,7 @@
 		<Unit filename="TipoAlmuerzo.cpp" />
 		<Unit filename="TipoAlmuerzo.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="tabulate.hpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

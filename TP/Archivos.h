@@ -3,6 +3,9 @@
 #include "Establecimientos.h"
 #include "Menues.h"
 #include "Comensales.h"
+#include "Comprobante.h"
+#include "Facturas.h"
+#include "CC.h"
 
 template <typename Tipos>
 class Archivos
