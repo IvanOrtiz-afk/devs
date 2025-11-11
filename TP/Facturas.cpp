@@ -47,11 +47,11 @@ const char * Factura::getTipoFactura()
 
 std::string Factura::toString()
 {
-    std::string strPadre = Comprobante::toString();
-    strPadre += "/" + std::to_string(_cuit);
-    strPadre += "/" + std::string(_tipoFactura);
+    std::string strComprobante = Comprobante::toString();
+    strComprobante += "/" + std::to_string(_cuit);
+    strComprobante += "/" + std::string(_tipoFactura);
 
-    return strPadre;
+    return strComprobante;
        /// return std::to_string(_numeroFactura) + "/" + std::to_string(_IDcomensal) + "/" + std::string (_nombrecomensal) + "/" + _fecha.toString() + "/" + _idmenu.toString() + "/" + std::to_string(_importe) + "/" + std::string (_medioDePago);
 }
 

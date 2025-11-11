@@ -1,30 +1,29 @@
 #pragma once
-#include "Factura.h"
-#include "Fecha.h"
-#include "Comensal.h"
+#include "Comprobante.h"
 
-class CuentaCorriente : public Factura{
 
-private:
-    int _IDcuenta;
-    float _saldo;
+class CuentaCorriente : public Comprobante{
 
 public:
     CuentaCorriente();
-    CuentaCorriente(int IDcuenta, Comensal IDcomensal, Fecha fecha, float saldo);
-/*
-    void setNumeroFactura (int numeroFactura);
-    void setIDcomensal (Comensal IDcomensal);
-    void setFecha (Fecha fecha);
-    void setIDmenu (Menues idmenu);
-    void setImporte (float importe);
-    void setMedioDePago (const char *medioDePago);
-    std::string toString(Comensal datoComensal, Fecha datofecha, Menues datoMenu);
+    CuentaCorriente(int numeroCuenta, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago,float saldoActual, float saldoAnterior, bool tipoMovimiento);
 
-    int getNumeroFactura();
-    Comensal getIDcomensal ();
-    Fecha getFecha ();
-    Menues getIDmenu ();
-    float getImporte ();
-    const char* getMedioDePago ();
-}; */
+    void setSaldoActual (float saldoActual);
+    float getSaldoActual ();
+
+    void setSaldoAnterior (float saldoAnterior);
+    float getSaldoAnterior ();
+
+    void setTipoMovimiento (bool tipoMovimiento);
+    bool getTipoMovimiento ();
+
+    std::string toString();
+
+private:
+
+
+    float _saldoActual;
+    float _saldoAnterior;
+    bool _tipoMovimiento; /// si es true es una deuda, si es false es un pago
+
+};
