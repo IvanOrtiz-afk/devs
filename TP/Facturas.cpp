@@ -2,101 +2,57 @@
 #include <string>
 #include <cstring>
 #include "Facturas.h"
+#include "Comprobante.h"
 #include "Comensales.h"
-#include "Establecimientos.h"
 #include "Fecha.h"
 #include "Archivos.h"
+#include "Menues.h"
 
-Factura::Factura(int numeroFactura, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago)
+
+
+Factura::Factura(int numeroFactura, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago, int cuit, const char *tipoFactura)
+    :Comprobante(numeroFactura, comensal, fecha, idmenu, importe, medioDePago)
 {
-    _numeroFactura=numeroFactura;
-    _IDcomensal=comensal.getIDcomensal(); ///_IDcomensal INT = INT
-    strncpy(_nombrecomensal, comensal.getNombre(), sizeof(_nombrecomensal) - 1);
-    _nombrecomensal[sizeof(_nombrecomensal) - 1] = '\0';
-    _fecha = fecha;
-    _idmenu=idmenu;
-    _importe=importe;
-    strncpy(_medioDePago, medioDePago, sizeof(_medioDePago) - 1);
-    _medioDePago[sizeof(_medioDePago) - 1] = '\0';
-};
 
-Factura::Factura(){};
+    _cuit = cuit;
+    strncpy(_tipoFactura, tipoFactura, sizeof(_tipoFactura) - 1);
+    _tipoFactura[sizeof(_tipoFactura) - 1] = '\0';
+}
 
-const char *Factura::getnombrecomensal()
+Factura::Factura()
+    :Comprobante () {}
+
+void Factura::setCuit(int cuit)
 {
-    return _nombrecomensal;
-};
+    _cuit = cuit;
+}
 
-void Factura::setNombrecomensal (Comensal comensal)
+int Factura::getCuit()
 {
-    strncpy(_nombrecomensal, comensal.getNombre(), sizeof(_nombrecomensal) - 1);
-    _nombrecomensal[sizeof(_nombrecomensal) - 1] = '\0';
-};
+    return _cuit;
+}
 
-int Factura::getNumeroFactura()
+void Factura::setTipoFactura(const char * tipoFactura)
 {
-    return _numeroFactura;
-};
+    strncpy(_tipoFactura, tipoFactura, sizeof(_tipoFactura) - 1);
+    _tipoFactura[sizeof(_tipoFactura) - 1] = '\0';
+}
 
-int Factura::getIDcomensal()
+const char * Factura::getTipoFactura()
 {
-    return _IDcomensal;
-};
+    return _tipoFactura;
+}
 
-Fecha Factura::getFecha()
-{
-    return _fecha;
-};
 
-Menues Factura::getIDmenu()
-{
-    return _idmenu;
-};
-
-float Factura::getImporte()
-{
-    return _importe;
-};
-
-const char* Factura::getMedioDePago()
-{
-    return _medioDePago;
-};
-
-void Factura::setNumeroFactura(int numeroFactura)
-{
-    _numeroFactura=numeroFactura;
-};
-
-void Factura::setIDcomensal (Comensal comensal)
-{
-    _IDcomensal=comensal.getIDcomensal();
-};
-
-void Factura::setFecha(Fecha fecha)
-{
-    _fecha=fecha;
-};
-
-void Factura::setIDmenu (Menues idmenu)
-{
-    _idmenu=idmenu;
-};
-
-void Factura::setImporte(float importe)
-{
-    _importe=importe;
-};
-
-void Factura::setMedioDePago(const char* medioDePago)
-{
-    strncpy(_medioDePago, medioDePago, sizeof(_medioDePago) - 1);
-    _medioDePago[sizeof(_medioDePago) - 1] = '\0';
-};
 
 std::string Factura::toString()
 {
-    return std::to_string(_numeroFactura) + "/" + std::to_string(_IDcomensal) + "/" + std::string (_nombrecomensal) + "/" + _fecha.toString() + "/" + _idmenu.toString() + "/" + std::to_string(_importe) + "/" + std::string (_medioDePago);
-};
-// ver xq no compila
+    std::string strPadre = Comprobante::toString();
+    strPadre += "/" + std::to_string(_cuit);
+    strPadre += "/" + std::string(_tipoFactura);
+
+    return strPadre;
+       /// return std::to_string(_numeroFactura) + "/" + std::to_string(_IDcomensal) + "/" + std::string (_nombrecomensal) + "/" + _fecha.toString() + "/" + _idmenu.toString() + "/" + std::to_string(_importe) + "/" + std::string (_medioDePago);
+}
+
 
