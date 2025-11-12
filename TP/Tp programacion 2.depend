@@ -283,3 +283,18 @@
 1762890372 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\cc.h
 	"Comprobante.h"
 
+1762897062 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\recibo.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"Recibo.h"
+
+1762897089 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\recibo.h
+	"Comprobante.h"
+
+1762971536 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\app.cpp
+	<iostream>
+	"App.h"
+
+1762971536 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\app.h
+

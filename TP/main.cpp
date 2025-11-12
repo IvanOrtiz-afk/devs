@@ -6,27 +6,35 @@
 #include "Establecimientos.h"
 #include "Archivos.h"
 #include "Facturas.h"
+#include "CC.h"
+#include "Recibo.h"
+#include "APP.h"
 
 using namespace std;
 
 int main()
 {
+
+     App app;
+     app.run();
+
     Archivos <Establecimientos> archivo("TEST.dat");
     Archivos <Menues> archivo2("TEST2.dat");
     Archivos <Comensal> archivo3("TEST3.dat");
-    Archivos <Factura> archivo88("TEST_FACTURA.dat");
+    Archivos <Factura> archivoFacturas ("TEST_FACTURA.dat");
 
     Establecimientos registro;
     Menues registro3;
     Comensal registro10;
     Fecha fechatest;
+    Factura facturatest;
 
     registro10=archivo3.Leer(0); ///NOS OLVIDAMOS DE IGUALAR LA VARIABLE CREADA CON LO LEIDO EN EL ARCHIVO!
     registro3=archivo2.Leer(0); ///POR ESO NO LEIA!!!
     registro=archivo.Leer(0);
     fechatest=registro10.getFechaNacimiento();
 
-    ///Factura registroFACTURA(1000112034, registro10, fechatest, registro3, 15.000, "Tarjeta de cr‚dito");
+    ///Factura facturatest(1000112034, registro10, fechatest, registro3, 15.000, "Tarjeta de cr‚dito");
 
     ///HARDCODEO QUE HICE PARA GUARDAR LOS ARCHIVOS TEST, ESTA COMENTADO PARA VER SI ME TRAE ESTOS DATOS DESDE EL .DAT
     ///AHORA FUNCIONA!!!
