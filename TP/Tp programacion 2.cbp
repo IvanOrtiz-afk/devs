@@ -36,9 +36,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="APP.cpp" />
+		<Unit filename="APP.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Archivos.h" />
 		<Unit filename="CC.cpp" />
 		<Unit filename="CC.h" />
+		<Unit filename="ComensalManager.cpp" />
+		<Unit filename="ComensalManager.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Comensales.cpp" />
 		<Unit filename="Comensales.h" />
 		<Unit filename="Comprobante.cpp" />

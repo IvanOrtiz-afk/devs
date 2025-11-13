@@ -167,7 +167,7 @@
 
 1762800729 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\fecha.h
 
-1762980781 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\main.cpp
+1762993313 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\main.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -295,11 +295,13 @@
 1762897089 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\recibo.h
 	"Comprobante.h"
 
-1762993148 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\app.cpp
+1763011346 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\app.cpp
 	<iostream>
 	"App.h"
+	"MenuSistema.h"
 
-1762971536 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\app.h
+1763011218 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\app.h
+	"MenuSistema.h"
 
 1762993148 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\comensalmanager.cpp
 	"ComensalManager.h"
@@ -311,4 +313,24 @@
 1762993148 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\comensalmanager.h
 	"Archivos.h"
 	"Comensales.h"
+
+1763011434 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\submenu.cpp
+	"Submenu.h"
+
+1763010852 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\submenu.h
+	<iostream>
+
+1763011420 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menucomensal.cpp
+	"Menucomensal.h"
+
+1763010852 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menucomensal.h
+	"Submenu.h"
+	<string>
+
+1763011354 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menusistema.cpp
+	<iostream>
+	"MenuSistema.h"
+
+1763011346 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menusistema.h
+	"Menucomensal.h"
 

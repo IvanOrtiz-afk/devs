@@ -1,12 +1,12 @@
 #include <iostream>
-#include "App.h"
 #include "MenuSistema.h"
 using namespace std;
 
-App::App(){
-  _cantidadOpciones = 3;
+MenuSistema::MenuSistema(){
+  _cantidadOpciones = 7;
 }
-void App::run(){
+
+void MenuSistema::run(){
   int opcion;
 
   do{
@@ -17,14 +17,18 @@ void App::run(){
   }while(opcion != 0);
 }
 
-void App::mostrarOpciones(){    /// lo arme a modo de ejemplo
-  cout << "--- HOLA! SELECCIONA UNA OPCION: ---" << endl;
-  cout << "1- QUERES COMER? "<<endl;
-  cout << "2- INGRESAR AL SISTEMA" <<endl;
+void MenuSistema::mostrarOpciones(){    /// lo arme a modo de ejemplo
+  cout << "--- MENU PRINCIPAL ---" << endl;
+  cout << "1- PLATOS "<<endl;
+  cout << "2- ESTABLECIMIENTOS" <<endl;
+  cout << "3- COMENSALES "<<endl;
+  cout << "4- FACTURACION "<<endl;
+  cout << "5- AJUSTE DE CUENTA CORRIENTE "<<endl;
+  cout << "6- RECIBOS "<<endl;
   cout << "0- Salir "<<endl;
 }
 
-int App::seleccionOpcion(){
+int MenuSistema::seleccionOpcion(){
   int opcion;
   mostrarOpciones();
   cout << "---------------" << endl;
@@ -39,12 +43,13 @@ int App::seleccionOpcion(){
   return opcion;
 }
 
-void App::ejecutarOpcion(int opcion){
+void MenuSistema::ejecutarOpcion(int opcion){
   switch(opcion){
   case 1:
-    /// mostrar los platos
+    /// ir mostrando el menu de cada clase, hay que armar un menu para almuerzos, facturas, etc..
   break;
-  case 2: _menuSistema.run();
+  case 3:
+  _menuComensal.run();
   break;
   case 0:
     cout << "Gracias por utilizar mi APP :) " << endl;
