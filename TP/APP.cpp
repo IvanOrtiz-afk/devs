@@ -3,7 +3,7 @@
 using namespace std;
 
 App::App(){
-  _cantidadOpciones = 7;
+  _cantidadOpciones = 3;
 }
 void App::run(){
   int opcion;
@@ -18,12 +18,8 @@ void App::run(){
 
 void App::mostrarOpciones(){    /// lo arme a modo de ejemplo
   cout << "--- MENU PRINCIPAL ---" << endl;
-  cout << "1- ALMUERZOS "<<endl;
-  cout << "2- FACTURACION" <<endl;
-  cout << "3- CUENTA CORRIENTE" << endl;
-  cout << "4- PAGOS" << endl;
-  cout << "5- ESTABLECIMIENTOS" << endl;
-  cout << "6- COMENSALES" << endl;
+  cout << "1- QUERES COMER? "<<endl;
+  cout << "2- INGRESAR AL SISTEMA" <<endl;
   cout << "0- Salir "<<endl;
 }
 

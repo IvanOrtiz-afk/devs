@@ -15,8 +15,8 @@ using namespace std;
 int main()
 {
 
-     App app;
-     app.run();
+    App app;
+    app.run();
 
     Archivos <Establecimientos> archivo("TEST.dat");
     Archivos <Menues> archivo2("TEST2.dat");
@@ -27,14 +27,17 @@ int main()
     Menues registro3;
     Comensal registro10;
     Fecha fechatest;
-    Factura facturatest;
+    ///Factura facturatest(1000112034, registro10, fechatest, registro3, 15.000, "Tarjeta de credito");  /// testeo factura, queda pendiente probarlo
+    
+    ///archivoFacturas.Guardar(facturatest);  /// testeo factura, queda pendiente probarlo
 
     registro10=archivo3.Leer(0); ///NOS OLVIDAMOS DE IGUALAR LA VARIABLE CREADA CON LO LEIDO EN EL ARCHIVO!
     registro3=archivo2.Leer(0); ///POR ESO NO LEIA!!!
     registro=archivo.Leer(0);
     fechatest=registro10.getFechaNacimiento();
+    ///facturatest = archivoFacturas.Leer(0); /// testeo factura, queda pendiente probarlo
 
-    ///Factura facturatest(1000112034, registro10, fechatest, registro3, 15.000, "Tarjeta de cr‚dito");
+   
 
     ///HARDCODEO QUE HICE PARA GUARDAR LOS ARCHIVOS TEST, ESTA COMENTADO PARA VER SI ME TRAE ESTOS DATOS DESDE EL .DAT
     ///AHORA FUNCIONA!!!
@@ -50,7 +53,7 @@ int main()
 
     ///ESTE registro3.tostring(tipotest, fechatest) ES SOLO PARA TESTEOS CON HARDCODEO, DUDO MUCHO QUE LO USEMOS ASI PARA LA VERSION FINAL
     cout << "HOLA CHICOS ESTA ES UNA PRUEBA DEL TP!!!!!!" << endl;
-   // cout << registroFACTURA.toString() << endl;
+    ///cout << registroFACTURA.toString() << endl;
     //cout << registro10.toString() << endl;
     //cout << registro3.toString() << endl; ///ENVIO COMO PARAMETROS LOS DOS DATOS QUE HARCODIE DESDE MAIN, DADO QUE SE HARDCODEARON EN MAIN TENGO QUE USAR tostring DE ESTA FORMA
     //cout << registro.toString() << endl;

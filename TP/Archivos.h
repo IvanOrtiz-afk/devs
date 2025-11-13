@@ -77,6 +77,7 @@ public:
         fclose(pArchivo);
         return registro;
     }
+    
 
     int CantidadRegistros()
     {
