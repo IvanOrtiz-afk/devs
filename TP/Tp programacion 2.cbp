@@ -43,10 +43,6 @@
 		<Unit filename="Archivos.h" />
 		<Unit filename="CC.cpp" />
 		<Unit filename="CC.h" />
-		<Unit filename="ComensalManager.cpp" />
-		<Unit filename="ComensalManager.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="Comensales.cpp" />
 		<Unit filename="Comensales.h" />
 		<Unit filename="Comprobante.cpp" />
@@ -57,6 +53,18 @@
 		<Unit filename="Facturas.h" />
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
+		<Unit filename="MenuPadreABML.cpp" />
+		<Unit filename="MenuPadreABML.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="MenuSistema.cpp" />
+		<Unit filename="MenuSistema.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Menucomensal.cpp" />
+		<Unit filename="Menucomensal.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Menues.cpp" />
 		<Unit filename="Menues.h" />
 		<Unit filename="TipoAlmuerzo.cpp" />

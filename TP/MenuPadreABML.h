@@ -3,23 +3,22 @@
 
 using namespace std;
 
-class Submenu
+class MenuPadreABML
 {
-  public:
-    
+public:
+
     void run();
-    virtual ~Submenu();  // destructor virtual
-    
-  protected:
+    virtual ~MenuPadreABML();  // destructor virtual
+
+protected:
     void mostrarOpciones();
     int seleccionOpcion();
     void ejecutarOpcion(int opcion);
- 
-    
+
     //ESTO ES DE VIRTUAL ES POLIMORFISMO ---> (virtuales puros) <---
-    // (= 0) significa que el .cpp NO tiene código 
+    // (= 0) significa que el .cpp NO tiene código
     // Obliga a las clases hijas a implementarlos SI O SI.
-    
+
     virtual void cargar() = 0;
     virtual void modificar() = 0;
     virtual void eliminar() = 0;

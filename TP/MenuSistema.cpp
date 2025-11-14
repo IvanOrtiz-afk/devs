@@ -1,12 +1,12 @@
 #include <iostream>
 #include "MenuSistema.h"
 using namespace std;
-
-MenuSistema::MenuSistema(){
+ 
+MenuSistema::MenuSistema(){ /// repetido en app
   _cantidadOpciones = 7;
 }
 
-void MenuSistema::run(){
+void MenuSistema::run(){  /// repetido en app
   int opcion;
 
   do{
@@ -28,7 +28,7 @@ void MenuSistema::mostrarOpciones(){    /// lo arme a modo de ejemplo
   cout << "0- Salir "<<endl;
 }
 
-int MenuSistema::seleccionOpcion(){
+int MenuSistema::seleccionOpcion(){ /// repetido en app
   int opcion;
   mostrarOpciones();
   cout << "---------------" << endl;
@@ -43,7 +43,7 @@ int MenuSistema::seleccionOpcion(){
   return opcion;
 }
 
-void MenuSistema::ejecutarOpcion(int opcion){
+void MenuSistema::ejecutarOpcion(int opcion){ /// repetido en app
   switch(opcion){
   case 1:
     /// ir mostrando el menu de cada clase, hay que armar un menu para almuerzos, facturas, etc..

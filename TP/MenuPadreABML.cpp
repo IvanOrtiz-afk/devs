@@ -1,10 +1,10 @@
-#include "Submenu.h"
+#include "MenuPadreABML.h"
 
-Submenu::~Submenu()
+MenuPadreABML::~MenuPadreABML()
 {
 }
 
-void Submenu::run(){
+void MenuPadreABML::run(){
   int opcion;
 
   do{
@@ -16,7 +16,7 @@ void Submenu::run(){
 }
 
 
-void Submenu::mostrarOpciones(){   
+void MenuPadreABML::mostrarOpciones(){   
   cout << "--- MENU" << getTitulo() <<  "---" << endl;
   cout << "1- NUEVO" << endl;
   cout << "2- MODIFICAR" <<endl;
@@ -26,7 +26,7 @@ void Submenu::mostrarOpciones(){
 }
 
 
-int Submenu::seleccionOpcion(){
+int MenuPadreABML::seleccionOpcion(){
   int opcion;
   mostrarOpciones();
   cout << "---------------" << endl;
@@ -36,7 +36,7 @@ int Submenu::seleccionOpcion(){
   return opcion;
 }
 
-void Submenu::ejecutarOpcion(int opcion){
+void MenuPadreABML::ejecutarOpcion(int opcion){
   switch(opcion){
         case 1:
             cargar(); // Llama a alta() (el método virtual puro)

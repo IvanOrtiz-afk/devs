@@ -1,7 +1,7 @@
-#include "Submenu.h"
+#include "MenuPadreABML.h"
 #include <string>
 
-class Menucomensal : public Submenu
+class Menucomensal : public MenuPadreABML
 {
 
 public:
