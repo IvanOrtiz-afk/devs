@@ -39,19 +39,18 @@ void Menucomensal::ejecutarmenu()
     mostrar(tipocel, 3);
     std::cout << "Seleccione la opcion deseada:";
     cin >> opcion;
-    if (opcion==1)
+    switch (opcion)
     {
+        case 1:
         _menubuscado=buscarplatos(tipocom); ///aca se carga el consumo
-    }
-    else if (opcion==2)
-    {
+        break;
+        case 2:
         _menubuscado=buscarplatos(tipoveg); ///aca se carga el consumo
-    }
-    else if (opcion==3)
-    {
+        break;
+        case 3:
         _menubuscado=buscarplatos(tipocel); ///aca se carga el consumo
+        break;
     }
-
 }
 
 Menues Menucomensal::buscarplatos(const char* tipo)
@@ -71,6 +70,7 @@ Menues Menucomensal::buscarplatos(const char* tipo)
         else
         {
             return menu=Menues();
+            break;
         };
     }
     return menu;
@@ -94,6 +94,7 @@ Comensal Menucomensal::buscarcliente(int id, bool &loop)
             std::cout << "El ID ingresado no es v lido o no existe, intente nuevamente" << std::endl;
             loop=false;
             return cliente=Comensal();
+            break;
         };
     }
     return cliente;
