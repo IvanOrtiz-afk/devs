@@ -8,7 +8,14 @@ App::App(){
 }
 void App::run(){
   int opcion;
-
+///dentro de app vamos a correr todo el programa
+///por mas que intente no pude usar polimorfismo ni tampoco use mucha herencia (aun la sigo usando pero para cosas minimas)
+///perdi mucho tiempo intentando hacer el el codigo mas breve pero mas complejo con la herencia y polimorfismo
+///yo diria que sigamos con lo que sabemos o con lo que nos es comodo de usar
+///literalmente no le encontre utilidad alguna al polimorfismo, y la herencia la verdad que el heredar las propiedades de un menu a otros submenus
+///que usan esas propiedades pero todos lo usan de forma diferente, no le encuentro sentido...si seguimos intentando con esto vamos a demorar mucho
+///volvi a hacer pero de forma mas prolija lo que ya habia programado antes, vamos a ir plasmando todo el programa en app, cada submenu usara una o doa propiedades de menu padre
+///ma¤ana domingo voy a seguir con "menucomensales", "menupadreABML" y "menu sistema"
   do{
     system("cls");
     opcion = seleccionOpcion();
@@ -40,14 +47,5 @@ int App::seleccionOpcion(){
 }
 
 void App::ejecutarOpcion(int opcion){
-  switch(opcion){
-  case 1:
-    /// mostrar los platos
-  break;
-  case 2: _menuSistema.run();
-  break;
-  case 0:
-    cout << "Gracias por utilizar mi APP :) " << endl;
-  break;
-  }
+
 }

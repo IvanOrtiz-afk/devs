@@ -1,4 +1,4 @@
-#pragma once
+/**#pragma once
 #include "Menucomensal.h"
 
 class MenuSistema
@@ -17,3 +17,4 @@ class MenuSistema
     int _cantidadOpciones;
     Menucomensal _menuComensal;
 };
+*/

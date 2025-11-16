@@ -11,6 +11,7 @@ public:
     int getDia();
     int getMes();
     int getAnio();
+    Fecha hoy();
     void setDia(int dia);
     void setMes(int mes);
     void setAnio(int anio);

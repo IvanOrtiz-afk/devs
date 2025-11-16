@@ -1,4 +1,6 @@
 #include "MenuPadreABML.h"
+#include "Comensales.h"
+#include "Menues.h"
 #include <string>
 
 class Menucomensal : public MenuPadreABML
@@ -6,16 +8,14 @@ class Menucomensal : public MenuPadreABML
 
 public:
 
-protected:
-    
-    void cargar() override;    /// Override: hace referencia a que esta función está sobrescribiendo una función virtual que heredé de mi clase Padre
-    void modificar() override;
-    void eliminar() override;
-    void mostrar() override;
-    std::string getTitulo() override;
-    
-private:
-   
- ///  _ComensalManager
+    Menucomensal(Comensal clientebuscado, Menues menubuscado);
+    void ejecutarmenu();
+    Menues buscarplatos(const char* tipo);
+    Comensal buscarcliente(int id, bool &loop);
+    void mostrar(const char* tipo, int num);
 
+private:
+
+    Comensal _clientebuscado;
+    Menues _menubuscado;
 };
