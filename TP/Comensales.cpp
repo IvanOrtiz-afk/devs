@@ -14,7 +14,7 @@ Comensal::Comensal(int idcomensal, const char *nombre, const char *direccion, Fe
     strncpy(_direccion, direccion, sizeof(_direccion) - 1);
     _direccion[sizeof(_direccion) - 1] = '\0';
     _fechaNacimiento=fechanacimiento;
-    _IDestablecimiento=idestablecimiento;
+    _IDestablecimiento=idestablecimiento.getidestablecimiento();
 }
 
 Comensal::Comensal() {}
@@ -72,11 +72,11 @@ Fecha Comensal::getFechaNacimiento ()
 
 void Comensal::setIDEstablecimiento (Establecimientos IDestablecimiento)
 {
-    _IDestablecimiento= IDestablecimiento;
+    _IDestablecimiento=IDestablecimiento.getidestablecimiento();
 }
 
 
-Establecimientos Comensal::getIDestablecimiento()
+int Comensal::getIDestablecimiento()
 {
     return _IDestablecimiento;
 }
@@ -85,6 +85,6 @@ Establecimientos Comensal::getIDestablecimiento()
 
 std::string Comensal::toString()
 {
-    return std::to_string(_IDcomensal) + "/" + std::string(_nombre) + "/" + std::string(_direccion) + "/" + _fechaNacimiento.toString() + "/" + _IDestablecimiento.toString();
+    return std::to_string(_IDcomensal) + "/" + std::string(_nombre) + "/" + std::string(_direccion) + "/" + _fechaNacimiento.toString() + "/" + std::to_string(_IDestablecimiento);
 }
 

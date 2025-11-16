@@ -19,6 +19,15 @@ Fecha::Fecha(int dia, int mes, int anio)
     _mes=mes;
     _anio=anio;
 }
+bool Fecha::operator==(const Fecha& otra) const
+{
+    // Compara el d¡a, mes y a¤o del objeto actual con el objeto 'otra'
+    if (_dia==otra._dia&&_mes==otra._mes&&_anio==otra._anio)
+    {
+        return true;
+    }
+    return false;
+}
 Fecha Fecha::hoy()
 {
     std::time_t tiempoAhora = std::time(nullptr);

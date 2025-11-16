@@ -62,17 +62,18 @@ Menues Menucomensal::buscarplatos(const char* tipo)
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
     {
-        menu=arch.Leer(i); ///programar el operador == para que iguale dos datos tipo Fecha (fecha_actual.hoy()==menu.getfecha())
+        menu=arch.Leer(i);
         if (fecha_actual.hoy()==menu.getfecha()&&_clientebuscado.getIDestablecimiento()==menu.getesta()&&strcmp(tipo, menu.gettipo())==0)
         { ///agregar id de establecimiento a la clase menues
             return menu;
             break;
-        };
+        }
         else
         {
-            return Menues();
-        }
+            return menu=Menues();
+        };
     }
+    return menu;
 }
 
 Comensal Menucomensal::buscarcliente(int id, bool &loop)
@@ -87,14 +88,15 @@ Comensal Menucomensal::buscarcliente(int id, bool &loop)
         {
             return cliente;
             break;
-        };
+        }
         else
         {
             std::cout << "El ID ingresado no es v lido o no existe, intente nuevamente" << std::endl;
             loop=false;
-            return Comensal();
-        }
+            return cliente=Comensal();
+        };
     }
+    return cliente;
 }
 
 void Menucomensal::mostrar(const char* tipo, int num)

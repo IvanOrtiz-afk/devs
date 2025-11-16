@@ -24,7 +24,7 @@ public:
     Fecha getFechaNacimiento ();
 
     void setIDEstablecimiento (Establecimientos IDestablecimiento);
-    Establecimientos getIDestablecimiento();
+    int getIDestablecimiento();
 
     std::string toString();
 
@@ -35,6 +35,6 @@ private:
     int _IDcomensal;
     char _direccion[30];
     Fecha _fechaNacimiento;
-    Establecimientos _IDestablecimiento;
+    int _IDestablecimiento;
 
 };

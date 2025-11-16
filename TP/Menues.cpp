@@ -6,13 +6,14 @@
 #include "Establecimientos.h"
 #include "Archivos.h"
 
-Menues::Menues(int idmenu, const char* nombremenu, float valorplato, TipoAlmuerzo tipo, Fecha fecha)
+Menues::Menues(int idmenu, const char* nombremenu, Establecimientos esta, float valorplato, TipoAlmuerzo tipo, Fecha fecha)
 {
     _idmenu=idmenu;
     strncpy(_nombremenu, nombremenu, sizeof(_nombremenu) - 1);
     _nombremenu[sizeof(_nombremenu) - 1]='\0';
+    _esta=esta.getidestablecimiento();
     _valorplato=valorplato;
-    _tipo=tipo;
+    _tipo=tipo.getnombretipo();
     _fecha=fecha;
 }
 Menues::Menues() {}
@@ -28,13 +29,21 @@ float Menues::getvalorplato()
 {
     return _valorplato;
 }
-TipoAlmuerzo Menues::gettipo()
+const char* Menues::gettipo()
 {
     return _tipo;
 }
 Fecha Menues::getfecha()
 {
     return _fecha;
+}
+int Menues::getesta()
+{
+    return _esta;
+}
+void Menues::setesta(Establecimientos esta)
+{
+    _esta=esta.getidestablecimiento();
 }
 void Menues::setidmenu(int idmenu)
 {
@@ -51,7 +60,7 @@ void Menues::setvalorplato(float valorplato)
 }
 void Menues::settipo(TipoAlmuerzo tipo)
 {
-    _tipo=tipo;
+    _tipo=tipo.getnombretipo();
 }
 void Menues::setfecha(Fecha fecha)
 {
@@ -59,7 +68,7 @@ void Menues::setfecha(Fecha fecha)
 }
 std::string Menues::toString()
 {
-    return std::to_string(_idmenu) + "/" + std::string(_nombremenu) + "/" + std::to_string(_valorplato) + "/" + _tipo.toString() + "/" + _fecha.toString();
+    return std::to_string(_idmenu) + "/" + std::string(_nombremenu) + "/" + std::to_string(_valorplato) + "/" + std::string(_tipo) + "/" + _fecha.toString();
     ///Tengo que enviar como parametros los dos tipos de dato "TipoAlmuerzo" y "Fecha" que necesito imprimir como string
 }
 

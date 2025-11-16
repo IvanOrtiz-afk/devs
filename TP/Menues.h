@@ -1,17 +1,20 @@
 #pragma once
 #include "TipoAlmuerzo.h"
 #include "Fecha.h"
+#include "Establecimientos.h"
 
 class Menues
 {
 public:
-    Menues(int idmenu, const char* nombremenu, float valorplato, TipoAlmuerzo tipo, Fecha fecha);
+    Menues(int idmenu, const char* nombremenu, Establecimientos esta, float valorplato, TipoAlmuerzo tipo, Fecha fecha);
     Menues();
     int getidmenu();
     const char* getnombremenu();
     float getvalorplato();
-    TipoAlmuerzo gettipo();
+    const char* gettipo();
     Fecha getfecha();
+    int getesta();
+    void setesta(Establecimientos);
     void setidmenu(int);
     void setnombremenu(const char*);
     void setvalorplato(float);
@@ -20,8 +23,9 @@ public:
     std::string toString();
 
 protected:
+    int _esta;
     char _nombremenu[30];
-    TipoAlmuerzo _tipo;
+    const char* _tipo;
     float _valorplato;
     Fecha _fecha;
 
