@@ -10,46 +10,24 @@
 
 
 
-Factura::Factura(int numeroFactura, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago, int cuit, const char *tipoFactura)
+Factura::Factura(int numeroFactura, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago)
     :Comprobante(numeroFactura, comensal, fecha, idmenu, importe, medioDePago)
 {
 
-    _cuit = cuit;
-    strncpy(_tipoFactura, tipoFactura, sizeof(_tipoFactura) - 1);
-    _tipoFactura[sizeof(_tipoFactura) - 1] = '\0';
+
 }
 
 Factura::Factura()
     :Comprobante () {}
 
-void Factura::setCuit(int cuit)
-{
-    _cuit = cuit;
-}
 
-int Factura::getCuit()
-{
-    return _cuit;
-}
-
-void Factura::setTipoFactura(const char * tipoFactura)
-{
-    strncpy(_tipoFactura, tipoFactura, sizeof(_tipoFactura) - 1);
-    _tipoFactura[sizeof(_tipoFactura) - 1] = '\0';
-}
-
-const char * Factura::getTipoFactura()
-{
-    return _tipoFactura;
-}
 
 
 
 std::string Factura::toString()
 {
     std::string strComprobante = Comprobante::toString();
-    strComprobante += "/" + std::to_string(_cuit);
-    strComprobante += "/" + std::string(_tipoFactura);
+
 
     return strComprobante;
        /// return std::to_string(_numeroFactura) + "/" + std::to_string(_IDcomensal) + "/" + std::string (_nombrecomensal) + "/" + _fecha.toString() + "/" + _idmenu.toString() + "/" + std::to_string(_importe) + "/" + std::string (_medioDePago);

@@ -21,7 +21,7 @@ void Consumos::setfecha(Fecha fecha)
 {
     _fecha=fecha;
 }
-/**
+/*
 bool Fecha::operator==(const Fecha& otra) const ///CREAR SOBRECARGA DE OPERADOR ==
 */
 
@@ -69,3 +69,4 @@ int Consumos::getvaloracion()
 {
     return _valoracion;
 }
+

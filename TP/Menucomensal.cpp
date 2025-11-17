@@ -147,3 +147,4 @@ void Menucomensal::mostrar(const char* tipo, int num)
     std::cout << _menubuscado.toString() << std::endl;
 }
 
+

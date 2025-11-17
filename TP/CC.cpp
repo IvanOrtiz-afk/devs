@@ -4,7 +4,7 @@
 #include "CC.h"
 
 
-CuentaCorriente::CuentaCorriente(int numeroCuenta, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago, float saldoActual, float saldoAnterior, bool tipoMovimiento)
+CuentaCorriente::CuentaCorriente(int numeroCuenta, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago, float saldoAnterior, bool tipoMovimiento)
     :Comprobante(numeroCuenta, comensal, fecha, idmenu, importe, medioDePago)
 {
 
