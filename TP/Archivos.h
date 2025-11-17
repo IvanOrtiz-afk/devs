@@ -28,19 +28,6 @@ public:
         return ok;
     }
 
-    bool Guardarconid(Tipos registro)
-    {
-        FILE *pArchivo = fopen(_nombreArchivo.c_str(), "ab");
-        if(pArchivo == NULL)
-        {
-            return false;
-        }
-        bool ok = fwrite(&registro, sizeof(Tipos), 1, pArchivo);
-        _id_registro++;
-        fclose(pArchivo);
-        return ok;
-    }
-
     bool Guardar(Tipos registro, int posicion)
     {
         FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb+");

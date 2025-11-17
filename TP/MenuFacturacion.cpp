@@ -1,4 +1,4 @@
-#include <iostream>
+/**#include <iostream>
 #include "MenuFacturacion.h"
 #include "Facturas.h"
 #include "Fecha.h"
@@ -20,24 +20,24 @@ void MenuFacturacion::registrarVenta (Comensal comensal, Menues menues)
     Fecha hoy;
     int numeroFactura = 1; /// getNuevoID(); /// implementar nuevo ID
     char medioDePago[20];
-    
+
     Factura nuevaFactura (numeroFactura, comensal, hoy, menues, importe, "VER");
-    
+
     char opcion;
     cout << "Sumar importe a la cuenta corriente? S/N" << endl;
     cin >> opcion;
 
     if (opcion == 'S' or opcion == 's')
     {
-        
+
         cout << "Registrando en la Cuenta Corriente.." << endl;
         nuevaFactura.setMedioDePago ("Cuenta Corriente");
-        
-        
-        int numeroCuenta = 1; // getNuevoID(); // 
+
+
+        int numeroCuenta = 1; // getNuevoID(); //
         float saldoAnterior = 1; ///getSaldoAnterior(comensal.getIDcomensal());
         ///VER!! FALTA IMPLEMENTAR EL BUSCAR SI EL CLIETNE YA TIENE UNA CUENTA CORRIENTE ACTIVA EN VEZ DE CREAR UNA NUEVA
-        
+
         CuentaCorriente nuevoMovimiento(numeroCuenta, comensal, hoy, menues, importe, "noaplica" , saldoAnterior, true);
         _archivoCC.Guardar(nuevoMovimiento);
 
@@ -51,10 +51,11 @@ void MenuFacturacion::registrarVenta (Comensal comensal, Menues menues)
 
     }
 
-   
+
     nuevaFactura.setMedioDePago(medioDePago);
-    
+
     _archivoFacturas.Guardar(nuevaFactura);
     cout << "Factura n # " << numeroFactura << " creada exitosamente." << endl;
 }
 
+*/

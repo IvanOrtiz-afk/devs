@@ -1,29 +1,31 @@
 #pragma once
-#include "Comprobante.h"
+#include "Comensales.h"
 
 
-class CuentaCorriente : public Comprobante{
-
+class CuentaCorriente
+{
 public:
     CuentaCorriente();
-    CuentaCorriente(int numeroCuenta, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago, float saldoAnterior, bool tipoMovimiento);
+    CuentaCorriente(int numeracion, Comensal comensal, float saldoactual, bool estadodeuda);
 
-    void setSaldoActual (float saldoActual);
+    void setSaldoActual (float saldoactual);
     float getSaldoActual ();
 
-    void setSaldoAnterior (float saldoAnterior);
-    float getSaldoAnterior ();
+    void setnumeracion (int numeracion);
+    int getnumeracion ();
 
-    void setTipoMovimiento (bool tipoMovimiento);
-    bool getTipoMovimiento ();
+    void setcomensal (Comensal comensal);
+    int getcomensal ();
+
+    void setestadodeuda (bool estadodeuda);
+    bool getestadodeuda ();
 
     std::string toString();
 
 private:
-
-
+    int _numeracion;
+    int _idcomensal;
     float _saldoActual;
-    float _saldoAnterior;
-    bool _tipoMovimiento; /// si es true es una deuda, si es false es un pago
+    bool _estadodeuda; /// si es true tiene deuda, si es false no tiene deuda
 
 };

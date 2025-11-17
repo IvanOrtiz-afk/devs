@@ -2,67 +2,69 @@
 #include <string>
 #include <cstring>
 #include "CC.h"
+#include "Comensales.h"
 
-
-CuentaCorriente::CuentaCorriente(int numeroCuenta, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago, float saldoAnterior, bool tipoMovimiento)
-    :Comprobante(numeroCuenta, comensal, fecha, idmenu, importe, medioDePago)
-{
-
-    _saldoAnterior = saldoAnterior;
-    _tipoMovimiento = tipoMovimiento;
-
-    ///calcula el saldo actual, teniendo en cuenta que si el importe es positivo es deuda, si es negativo es un pago
-    _saldoActual = _saldoAnterior + getImporte();
-}
 
 CuentaCorriente::CuentaCorriente()
-    :Comprobante () {}
-
-
-
-void CuentaCorriente::setSaldoActual (float saldoActual)
 {
-    _saldoActual = saldoActual;
+
+}
+CuentaCorriente::CuentaCorriente(int numeracion, Comensal comensal, float saldoactual, bool estadodeuda)
+{
+    _numeracion=numeracion;
+    _idcomensal=comensal.getIDcomensal();
+    _saldoActual=saldoactual;
+    _estadodeuda=estadodeuda;
 }
 
+void CuentaCorriente::setSaldoActual (float saldoactual)
+{
+    _saldoActual=saldoactual;
+}
 float CuentaCorriente::getSaldoActual ()
 {
     return _saldoActual;
 }
-
-void CuentaCorriente::setSaldoAnterior (float saldoAnterior)
+void CuentaCorriente::setnumeracion (int numeracion)
 {
-    _saldoAnterior = saldoAnterior;
+    _numeracion=numeracion;
+}
+int CuentaCorriente::getnumeracion ()
+{
+    return _numeracion;
+}
+void CuentaCorriente::setcomensal (Comensal comensal)
+{
+    _idcomensal=comensal.getIDcomensal();
+}
+int CuentaCorriente::getcomensal ()
+{
+    return _idcomensal;
+}
+void CuentaCorriente::setestadodeuda (bool estadodeuda)
+{
+    _estadodeuda=estadodeuda;
+}
+bool CuentaCorriente::getestadodeuda ()
+{
+    return _estadodeuda;
 }
 
-float CuentaCorriente::getSaldoAnterior ()
-{
-    return _saldoAnterior;
-}
-
-void CuentaCorriente::setTipoMovimiento (bool tipoMovimiento)
-{
-    _tipoMovimiento = tipoMovimiento;
-}
-
-bool CuentaCorriente::getTipoMovimiento ()
-{
-    return _tipoMovimiento;
-}
-
-
-std::string CuentaCorriente::toString()
+/**std::string CuentaCorriente::toString()
 {
     std::string strComprobante = Comprobante::toString();
     strComprobante += "/" + std::to_string(_saldoActual);
     strComprobante += "/" + std::to_string(_saldoAnterior);
 
-    if (_tipoMovimiento) {
+    if (_tipoMovimiento)
+    {
         strComprobante += "CARGO";
-    } else {
+    }
+    else
+    {
         strComprobante += "PAGO";
     }
 
     return strComprobante;
-       /// averiguar si asi esta bien pasar a texto un booleano
-}
+    /// averiguar si asi esta bien pasar a texto un booleano
+}*/

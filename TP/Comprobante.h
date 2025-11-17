@@ -8,7 +8,7 @@ class Comprobante
 {
 
 public:
-    Comprobante(int numeracion, Comensal comensal, Fecha fecha, Menues idmenu, float importe, const char *medioDePago);
+    Comprobante(int numeracion, Comensal comensal, Fecha fecha, Menues idmenu, float importe, bool medioDePago);
     Comprobante();
 
     void setNumeracion (int numeracion);
@@ -24,12 +24,12 @@ public:
     Fecha getFecha ();
 
     void setIDmenu (Menues idmenu);
-    Menues getIDmenu ();
+    int getIDmenu ();
 
     void setImporte (float importe);
     float getImporte ();
 
-    void setMedioDePago (const char *medioDePago);
+    void setMedioDePago (bool medioDePago);
     const char* getMedioDePago ();
 
     std::string toString();
@@ -39,9 +39,9 @@ protected:
     int _IDcomensal;
     char _nombrecomensal[15];
     Fecha _fecha;
-    Menues _idmenu;
+    int _idmenu;
     float _importe;
-    char _medioDePago[15];
+    char _medioDePago[24];
 
 
 private:

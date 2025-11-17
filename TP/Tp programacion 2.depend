@@ -74,7 +74,7 @@
 1762131598 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.cpp
 	"Archivos.h"
 
-1763347627 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.h
+1763404459 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.h
 	<string>
 	"Establecimientos.h"
 	"Menues.h"
@@ -255,7 +255,7 @@
 	"Menues.h"
 	"Comensales.h"
 
-1763145717 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\facturas.cpp
+1763405182 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\facturas.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -266,7 +266,7 @@
 	"Archivos.h"
 	"Menues.h"
 
-1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\facturas.h
+1763405182 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\facturas.h
 	<string>
 	"Comprobante.h"
 	"Fecha.h"
@@ -369,33 +369,34 @@
 1763275829 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menusistema.h
 	"Menucomensal.h"
 
-1763278254 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.h
+1763404459 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.h
 	"MenuPadreABML.h"
 	"Comensales.h"
 	"Menues.h"
 	<string>
 
-1763276057 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.h
+1763407422 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.h
 	<iostream>
 	<vector>
 	<string>
 
-1763145717 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\cc.cpp
+1763404855 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\cc.cpp
 	<iostream>
 	<string>
 	<cstring>
 	"CC.h"
+	"Comensales.h"
 
-1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\cc.h
-	"Comprobante.h"
+1763404835 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\cc.h
+	"Comensales.h"
 
-1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\comprobante.h
+1763404874 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\comprobante.h
 	<string>
 	"Fecha.h"
 	"Menues.h"
 	"Comensales.h"
 
-1763145717 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\comprobante.cpp
+1763404459 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\comprobante.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -462,4 +463,33 @@
 	"Menues.h"
 	"Comensales.h"
 	"Archivos.h"
+
+1763405275 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menufacturacion.cpp
+	"MenuFacturacion.h"
+	"Facturas.h"
+	"Fecha.h"
+	"CC.h"
+	"Menues.h"
+	"Comensales.h"
+
+1763405275 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menufacturacion.h
+	"Facturas.h"
+	"CC.h"
+	"Fecha.h"
+	"Menues.h"
+	"Comensales.h"
+	"Archivos.h"
+
+1763406050 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\consumos.cpp
+	<iostream>
+	<string>
+	<cstring>
+	"Comensales.h"
+	"Fecha.h"
+	"Establecimientos.h"
+	"Archivos.h"
+	"Consumos.h"
+	"Menues.h"
+
+1763405221 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\consumos.h
 

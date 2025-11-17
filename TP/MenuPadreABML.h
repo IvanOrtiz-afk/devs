@@ -13,4 +13,6 @@ public:
     void line(char simbolo='-', int cant=30);
     void menuinicial();
     ~MenuPadreABML();
+protected:
+    int _opcion;
 };

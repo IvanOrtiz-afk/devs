@@ -8,15 +8,18 @@
 #include "Consumos.h"
 #include "Menues.h"
 
-Consumos::Consumos(Fecha fecha, Comensal idcliente, CuentaCorriente tipo_movimiento, Menues plato, int valoracion)
+Consumos::Consumos(Fecha fecha, Comensal idcliente, Menues plato)
 {
     _fecha=fecha;
     _idcliente=idcliente.getIDcomensal();
-    _tipo_movimiento=tipo_movimiento.getTipoMovimiento();
-    _plato=plato.getnombremenu();
-    _valoracion=valoracion; ///quizas esto lo podriamos poner directamente desde menu sistema
-}       ///que el usuario sea el que pueda valorar cuando hace login en su perfil
+    strncpy(_plato, plato.getnombremenu(), sizeof(_plato) - 1);
+    _plato[sizeof(_plato) - 1] = '\0';
+    _importe=plato.getvalorplato();
+}
+Consumos::Consumos()
+{
 
+}
 void Consumos::setfecha(Fecha fecha)
 {
     _fecha=fecha;
@@ -25,24 +28,15 @@ void Consumos::setfecha(Fecha fecha)
 bool Fecha::operator==(const Fecha& otra) const ///CREAR SOBRECARGA DE OPERADOR ==
 */
 
-void Consumos::setcliente(Comensal cliente)
+void Consumos::setcliente(Comensal idcliente)
 {
     _idcliente=idcliente.getIDcomensal();
 }
 
-void Consumos::settipo_mov(CuentaCorriente tipo_mov)
-{
-    _tipo_movimiento=tipo_movimiento.getTipoMovimiento();
-}
-
 void Consumos::setplatoconsumido(Menues plato)
 {
-    _plato=plato.getnombremenu();
-}
-
-void Consumos::setvaloracion(int valoracion)
-{
-    _valoracion=valoracion;
+    strncpy(_plato, plato.getnombremenu(), sizeof(_plato) - 1);
+    _plato[sizeof(_plato) - 1] = '\0';
 }
 
 Fecha Consumos::getfecha()
@@ -55,18 +49,16 @@ int Consumos::getcliente()
     return _idcliente;
 }
 
-bool Consumos::gettipo_mov()
-{
-    return _tipo_movimiento;
-}
-
 const char* Consumos::getplato()
 {
     return _plato;
 }
-
-int Consumos::getvaloracion()
+float Consumos::getimporte()
 {
-    return _valoracion;
+    return _importe;
+}
+void Consumos::setimporte(Menues plato)
+{
+    _importe=plato.getvalorplato();
 }
 

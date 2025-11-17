@@ -1,4 +1,4 @@
-#pragma once
+/**#pragma once
 #include "Facturas.h"
 #include "CC.h"
 #include "Fecha.h"
@@ -19,3 +19,4 @@ private:
     Archivos<CuentaCorriente> _archivoCC;
 
 };
+*/
