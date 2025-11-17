@@ -5,6 +5,7 @@
 #include "Comensales.h"
 #include "Menues.h"
 #include "Archivos.h"
+#include "Consumos.h"
 
 Menucomensal::Menucomensal(Comensal clientebuscado, Menues menubuscado)
 {
@@ -41,13 +42,14 @@ void Menucomensal::ejecutarmenu()
     cin >> opcion;
     switch (opcion)
     {
-        case 1:
+    case 1:
         _menubuscado=buscarplatos(tipocom); ///aca se carga el consumo
+
         break;
-        case 2:
+    case 2:
         _menubuscado=buscarplatos(tipoveg); ///aca se carga el consumo
         break;
-        case 3:
+    case 3:
         _menubuscado=buscarplatos(tipocel); ///aca se carga el consumo
         break;
     }
@@ -63,7 +65,7 @@ Menues Menucomensal::buscarplatos(const char* tipo)
     {
         menu=arch.Leer(i);
         if (fecha_actual.hoy()==menu.getfecha()&&_clientebuscado.getIDestablecimiento()==menu.getesta()&&strcmp(tipo, menu.gettipo())==0)
-        { ///agregar id de establecimiento a la clase menues
+        {
             return menu;
             break;
         }
@@ -98,6 +100,44 @@ Comensal Menucomensal::buscarcliente(int id, bool &loop)
         };
     }
     return cliente;
+}
+
+void Menucomensal::generarconsumo()
+{
+    Fecha fecha_generar;
+    int id_generar;
+    bool tipomov_generar;
+    const char* plato_generar;
+    float precio_generar;
+    const char* tipomenu_generar;
+    Consumos consumodelcomensal;
+    fecha_generar=_menubuscado.getfecha();
+    id_generar=_clientebuscado.getIDcomensal();
+    tipomov_generar=tipodeconsumo(); ///pasar la clase completa
+    plato_generar=_menubuscado.getnombremenu();
+    precio_generar=_menubuscado.getvalorplato();
+    tipomenu_generar=_menubuscado.gettipo();
+    consumodelcomensal(_menubuscado.getfecha(), _clientebuscado.getIDcomensal(), )
+
+}
+
+bool Menucomensal::tipodeconsumo()
+{
+    system("cls");
+    line('-');
+    std::cout << "Desea abonar ahora o generar deuda en cuenta corriente?" << std::endl;
+    line('-');
+    std::cout << "Pulse 1 para abonar ahora o 2 para cargar deuda en cuenta corriente" << std::endl;
+    cin >> opcion;
+    switch(opcion)
+    {
+    case 1:
+        return true;
+        break;
+    case 2:
+        return false;
+        break;
+    }
 }
 
 void Menucomensal::mostrar(const char* tipo, int num)

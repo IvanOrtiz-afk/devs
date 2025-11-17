@@ -1,57 +1,71 @@
 #include <iostream>
+#include <string>
+#include <cstring>
+#include "Comensales.h"
+#include "Fecha.h"
+#include "Establecimientos.h"
+#include "Archivos.h"
 #include "Consumos.h"
+#include "Menues.h"
 
-Consumos::Consumos()
+Consumos::Consumos(Fecha fecha, Comensal idcliente, CuentaCorriente tipo_movimiento, Menues plato, int valoracion)
 {
+    _fecha=fecha;
+    _idcliente=idcliente.getIDcomensal();
+    _tipo_movimiento=tipo_movimiento.getTipoMovimiento();
+    _plato=plato.getnombremenu();
+    _valoracion=valoracion; ///quizas esto lo podriamos poner directamente desde menu sistema
+}       ///que el usuario sea el que pueda valorar cuando hace login en su perfil
 
+void Consumos::setfecha(Fecha fecha)
+{
+    _fecha=fecha;
+}
+/**
+bool Fecha::operator==(const Fecha& otra) const ///CREAR SOBRECARGA DE OPERADOR ==
+*/
+
+void Consumos::setcliente(Comensal cliente)
+{
+    _idcliente=idcliente.getIDcomensal();
 }
 
-void setfecha(Fecha fecha)
+void Consumos::settipo_mov(CuentaCorriente tipo_mov)
 {
-
+    _tipo_movimiento=tipo_movimiento.getTipoMovimiento();
 }
 
-void setcliente(Comensal cliente)
+void Consumos::setplatoconsumido(Menues plato)
 {
-
+    _plato=plato.getnombremenu();
 }
 
-void settipo_mov(CuentaCorriente tipo_mov)
+void Consumos::setvaloracion(int valoracion)
 {
-
+    _valoracion=valoracion;
 }
 
-void setplatoconsumido(Menues plato)
+Fecha Consumos::getfecha()
 {
-
+    return _fecha;
 }
 
-void setvaloracion(int valoracion)
+int Consumos::getcliente()
 {
-
+    return _idcliente;
 }
 
-Fecha getfecha()
+bool Consumos::gettipo_mov()
 {
-
+    return _tipo_movimiento;
 }
 
-int getcliente()
+const char* Consumos::getplato()
 {
-
+    return _plato;
 }
 
-bool gettipo_mov()
+int Consumos::getvaloracion()
 {
-
-}
-
-Menues getplato()
-{
-
-}
-
-int getvaloracion()
-{
-
+    return _valoracion;
 }

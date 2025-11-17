@@ -3,7 +3,7 @@
 class Consumos
 {
     public:
-        Consumos();
+        Consumos(Fecha fecha, Comensal idcliente, CuentaCorriente tipo_movimiento, Menues plato, int valoracion);
         void setfecha(Fecha fecha);
         void setcliente(Comensal cliente);
         void settipo_mov(CuentaCorriente tipo_mov);
@@ -12,16 +12,16 @@ class Consumos
         Fecha getfecha();
         int getcliente();
         bool gettipo_mov();
-        Menues getplato();
+        const char* getplato();
         int getvaloracion();
 
     protected:
 
     private:
         Fecha _fecha;
-        Comensal _idcliente;
-        CuentaCorriente _tipo_movimiento;
-        Menues _plato;
+        int _idcliente;
+        bool _tipo_movimiento;
+        char _plato[30];
         int _valoracion;
 };
 

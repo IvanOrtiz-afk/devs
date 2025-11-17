@@ -74,7 +74,7 @@
 1762131598 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.cpp
 	"Archivos.h"
 
-1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.h
+1763347627 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\archivos.h
 	<string>
 	"Establecimientos.h"
 	"Menues.h"
@@ -397,8 +397,14 @@
 1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\recibo.h
 	"Comprobante.h"
 
-1763145717 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.cpp
+1763335297 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.cpp
+	<iostream>
+	<string>
+	<cstring>
 	"Menucomensal.h"
+	"Comensales.h"
+	"Menues.h"
+	"Archivos.h"
 
 1763276248 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.cpp
 	<vector>
