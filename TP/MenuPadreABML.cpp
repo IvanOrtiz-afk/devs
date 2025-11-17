@@ -20,7 +20,7 @@ MenuPadreABML::~MenuPadreABML()
     {
         system("cls");
         _opcion = seleccionOpcion();
-        system("cls");
+        system("cls"); ///QUIZAS ACA PONGAMOS LA EJECUCION DE TODOS LOS MENUES ASI EN LA APP NO HACEMOS TANTO CHOCLO
         ejecutarOpcion(_opcion);
     }
     while(_opcion != 0);
@@ -39,7 +39,7 @@ void MenuPadreABML::menuinicial()
 {
     line('*', 40);
     std::cout << "BIENVENIDO A NUESTRO SISTEMA DE CONTROL DE ALMUERZOS" << endl;
-    line('*', 40);
+    line('*', 40); ///QUIZAS DERIVEMOS DE ACA MISMO LA PREGUNTA DE SI DESEA COMER O HACER LOGIN AL SISTEMA
     system("cls");
 }
 

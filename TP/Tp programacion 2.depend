@@ -409,7 +409,7 @@
 1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\recibo.h
 	"Comprobante.h"
 
-1763335297 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.cpp
+1763407585 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -417,8 +417,11 @@
 	"Comensales.h"
 	"Menues.h"
 	"Archivos.h"
+	"Consumos.h"
+	"CC.h"
+	"Fecha.h"
 
-1763276248 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.cpp
+1763408040 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.cpp
 	<vector>
 	<string>
 	<cstring>
