@@ -55,8 +55,6 @@
 		<Unit filename="Facturas.h" />
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
-		<Unit filename="MenuFacturacion.cpp" />
-		<Unit filename="MenuFacturacion.h" />
 		<Unit filename="MenuPadreABML.cpp" />
 		<Unit filename="MenuPadreABML.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -65,6 +63,8 @@
 		<Unit filename="MenuSistema.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="Menuadmin.cpp" />
+		<Unit filename="Menuadmin.h" />
 		<Unit filename="Menucomensal.cpp" />
 		<Unit filename="Menucomensal.h">
 			<Option target="&lt;{~None~}&gt;" />
