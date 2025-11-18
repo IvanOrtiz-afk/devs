@@ -430,7 +430,7 @@
 	"CC.h"
 	"Fecha.h"
 
-1763490573 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.cpp
+1763495552 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -511,7 +511,7 @@
 
 1763405221 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\consumos.h
 
-1763488423 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menuadmin.cpp
+1763495552 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menuadmin.cpp
 	<iostream>
 	"Menuadmin.h"
 	"MenuPadreABML.h"
