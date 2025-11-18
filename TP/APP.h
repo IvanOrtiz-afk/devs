@@ -1,6 +1,7 @@
 #pragma once
 #include "MenuSistema.h"
 #include "MenuPadreABML.h"
+#include "Menucomensal.h"
 
 class App
 {

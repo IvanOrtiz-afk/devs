@@ -360,7 +360,7 @@
 	<vector>
 	<string>
 
-1763485574 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\app.cpp
+1763486507 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\app.cpp
 	<iostream>
 	<string>
 	"App.h"
@@ -368,24 +368,24 @@
 	"Menucomensal.h"
 	"MenuPadreABML.h"
 
-1763485574 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\app.h
+1763489692 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\app.h
 	"MenuSistema.h"
 	"MenuPadreABML.h"
+	"Menucomensal.h"
 
 1763275829 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menusistema.h
 	"Menucomensal.h"
 
-1763473840 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.h
-	<cstdlib>
-	<string>
+1763490445 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.h
 	"MenuPadreABML.h"
 	"Comensales.h"
 	"Menues.h"
+	"Archivos.h"
+	"Consumos.h"
+	"CC.h"
+	"Fecha.h"
 
-1763486370 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.h
-	<iostream>
-	<vector>
-	<string>
+1763490445 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.h
 
 1763404855 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\cc.cpp
 	<iostream>
@@ -416,12 +416,13 @@
 1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\recibo.h
 	"Comprobante.h"
 
-1763486292 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.cpp
+1763490596 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.cpp
 	<iostream>
 	<string>
 	<cstring>
 	<cstdlib>
 	"Menucomensal.h"
+	"MenuPadreABML.h"
 	"Comensales.h"
 	"Menues.h"
 	"Archivos.h"
@@ -429,12 +430,18 @@
 	"CC.h"
 	"Fecha.h"
 
-1763486065 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.cpp
-	<vector>
+1763490573 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.cpp
+	<iostream>
 	<string>
 	<cstring>
 	<cstdlib>
 	"MenuPadreABML.h"
+	"Comensales.h"
+	"Menues.h"
+	"Archivos.h"
+	"Consumos.h"
+	"CC.h"
+	"Fecha.h"
 
 1763275835 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menusistema.cpp
 	"MenuSistema.h"
@@ -503,4 +510,12 @@
 	"Menues.h"
 
 1763405221 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\consumos.h
+
+1763488423 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menuadmin.cpp
+	<iostream>
+	"Menuadmin.h"
+	"MenuPadreABML.h"
+
+1763488423 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menuadmin.h
+	"MenuPadreABML.h"
 

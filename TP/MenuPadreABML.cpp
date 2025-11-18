@@ -1,8 +1,14 @@
-#include <vector>
+#include <iostream>
 #include <string>
 #include <cstring>
 #include <cstdlib>
 #include "MenuPadreABML.h"
+#include "Comensales.h" ///OJO COMO SE AGREGAN LAS LIBRERIAS, CUANDO MANEJAMOS HERENCIA LLEVAN UN ORDEN ESTAS
+#include "Menues.h"
+#include "Archivos.h"
+#include "Consumos.h"
+#include "CC.h"
+#include "Fecha.h"
 
 MenuPadreABML::MenuPadreABML()
 {
@@ -51,7 +57,7 @@ int MenuPadreABML::menuinicial()
         std::cout << "1. Comer en comedor" << std::endl;
         std::cout << "2. Ingresar al sistema" << std::endl;
         salida(0); ///si es 0 va a imprimir "salir" si es 1 va a imprimir "atras"
-        cin >> opcion;
+        std::cin >> opcion;
         if (opcion>0&&opcion<3||opcion==0)
         {
             _opcion=opcion;

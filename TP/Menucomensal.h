@@ -1,13 +1,14 @@
 #pragma once
-#include <cstdlib>
-#include <string>
 #include "MenuPadreABML.h"
 #include "Comensales.h"
 #include "Menues.h"
+#include "Archivos.h"
+#include "Consumos.h"
+#include "CC.h"
+#include "Fecha.h"
 
 class Menucomensal : public MenuPadreABML
 {
-
 public:
 
     Menucomensal(Comensal clientebuscado, Menues menubuscado);

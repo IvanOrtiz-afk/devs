@@ -3,6 +3,7 @@
 #include <cstring>
 #include <cstdlib>
 #include "Menucomensal.h"
+#include "MenuPadreABML.h"
 #include "Comensales.h"
 #include "Menues.h"
 #include "Archivos.h"
@@ -31,13 +32,13 @@ void Menucomensal::ejecutarmenu()
     const int tipocom = 1; ///Com£n
     const int tipoveg = 2; ///Vegetariano
     const int tipocel = 3; ///Cel¡aco
-    line('*');
-    std::cout << "BIENVENIDO AL COMEDOR" << endl;
-    line('*');
+    MenuPadreABML::line('*');
+    std::cout << "BIENVENIDO AL COMEDOR" << std::endl;
+    MenuPadreABML::line('*');
     do
     {
         std::cout << "Por favor ingrese su ID de cliente:";
-        cin >> id;
+        std::cin >> id;
         _clientebuscado=buscarcliente(id, loop);
     }
     while(loop==false);
@@ -50,7 +51,7 @@ void Menucomensal::ejecutarmenu()
     mostrar(tipoveg, 2);
     mostrar(tipocel, 3);
     std::cout << "Seleccione la opcion deseada:";
-    cin >> opcion;
+    std::cin >> opcion;
     do
     {
         switch (opcion)
@@ -206,7 +207,7 @@ bool Menucomensal::tipodeconsumo()
         std::cout << "Desea abonar ahora o generar deuda en cuenta corriente?" << std::endl;
         line('-');
         std::cout << "Pulse 1 para abonar ahora o 2 para cargar deuda en cuenta corriente" << std::endl;
-        cin >> opcion;
+        std::cin >> opcion;
         switch(opcion)
         {
         case 1:
