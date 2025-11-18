@@ -198,6 +198,7 @@ void Menucomensal::generarconsumo()
 bool Menucomensal::tipodeconsumo()
 {
     bool loop=false;
+    int opcion;
     do
     {
         system("cls");
@@ -205,8 +206,8 @@ bool Menucomensal::tipodeconsumo()
         std::cout << "Desea abonar ahora o generar deuda en cuenta corriente?" << std::endl;
         line('-');
         std::cout << "Pulse 1 para abonar ahora o 2 para cargar deuda en cuenta corriente" << std::endl;
-        cin >> _opcion;
-        switch(_opcion)
+        cin >> opcion;
+        switch(opcion)
         {
         case 1:
             std::cout << "Gracias por abonar, pago generado exitosamente!" << std::endl;

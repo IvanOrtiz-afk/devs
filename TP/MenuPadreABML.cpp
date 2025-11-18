@@ -52,7 +52,7 @@ int MenuPadreABML::menuinicial()
         std::cout << "2. Ingresar al sistema" << std::endl;
         salida(0); ///si es 0 va a imprimir "salir" si es 1 va a imprimir "atras"
         cin >> opcion;
-        if (opcion>=0&&opcion<=2)
+        if (opcion>0&&opcion<3||opcion==0)
         {
             _opcion=opcion;
             return _opcion;
