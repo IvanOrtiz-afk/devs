@@ -25,7 +25,8 @@ void App::run()
         }
         else if(opcion_general==2)
         {
-            ///ACA ARRANCA MENU SISTEMA CON EL LOGIN Y DEMAS COSAS
+            MenuSistema menu_sistema;
+            menu_sistema.mostrarOpciones();
         }
         else if(opcion_general==0)
         {

@@ -1,20 +1,21 @@
-/**#pragma once
-#include "Menucomensal.h"
+#pragma once
 
 class MenuSistema
 {
   public:
     MenuSistema();
+    MenuSistema(int rolUsuario);
     void run();
-
-  protected:
+    
     void mostrarOpciones();
-    int seleccionOpcion();
-    void ejecutarOpcion(int opcion);
-
-    ///agregar aca los menu que va a mostrar adentro del menu principal una vez esten hechos
+    void gestionarPlatos();
+    void gestionarEstablecimientos();
+    void gestionarComensales();
+    void gestionarFacturas();
+    void gestionarCC();
+    void gestionarConsumos();
+   
   private:
     int _cantidadOpciones;
-    Menucomensal _menuComensal;
+    int _rolActual;
 };
-*/
