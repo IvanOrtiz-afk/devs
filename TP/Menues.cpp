@@ -13,8 +13,7 @@ Menues::Menues(int idmenu, const char* nombremenu, Establecimientos esta, float 
     _nombremenu[sizeof(_nombremenu) - 1]='\0';
     _esta=esta.getidestablecimiento();
     _valorplato=valorplato;
-    strncpy(_tipo, tipo.getnombretipo(), sizeof(_tipo) - 1);
-    _tipo[sizeof(_tipo) - 1]='\0';
+    _tipo=tipo;
     _fecha=fecha;
 }
 Menues::Menues() {}
@@ -30,7 +29,7 @@ float Menues::getvalorplato()
 {
     return _valorplato;
 }
-const char* Menues::gettipo()
+int Menues::gettipo()
 {
     return _tipo;
 }
@@ -61,8 +60,7 @@ void Menues::setvalorplato(float valorplato)
 }
 void Menues::settipo(TipoAlmuerzo tipo)
 {
-    strncpy(_tipo, tipo.getnombretipo(), sizeof(_tipo) - 1);
-    _tipo[sizeof(_tipo) - 1]='\0';
+    _tipo=tipo;
 }
 void Menues::setfecha(Fecha fecha)
 {

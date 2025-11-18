@@ -28,9 +28,9 @@ void Menucomensal::ejecutarmenu()
     int id;
     int opcion;
     bool loop=true;
-    char tipocom = {"Comun"};
-    const char tipoveg = {"Vegetariano"};
-    const char tipocel = {"Cel¡aco"};
+    int tipocom = 1;
+    int tipoveg = 2;
+    int tipocel = 3;
     line('*');
     std::cout << "BIENVENIDO AL COMEDOR" << endl;
     line('*');
@@ -72,7 +72,7 @@ Menues Menucomensal::buscarplatos(const char tipo)
 {
     Archivos <Menues> arch ("Menues.dat");
     Menues menu;
-    arch.Guardar(menu);
+    arch.Guardar(menu); ///SACAR DESPUES
     Fecha fecha_actual;
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
@@ -96,7 +96,7 @@ Comensal Menucomensal::buscarcliente(int id, bool &loop)
 {
     Archivos <Comensal> arch ("Comensales.dat");
     Comensal cliente;
-    arch.Guardar(cliente);
+    arch.Guardar(cliente); ///SACAR DESPUES
     int i, registros=arch.CantidadRegistros();
     for (i=0; i<registros; i++)
     {

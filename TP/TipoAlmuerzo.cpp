@@ -9,7 +9,7 @@
 TipoAlmuerzo::TipoAlmuerzo(int idtipo, const char* nombretipo, const char* desctipo)
 {
     _idtipo=idtipo;
-    strncpy(_nombretipo, nombretipo, sizeof(_nombretipo ) - 1);
+    strncpy(_nombretipo, nombretipo, sizeof(_nombretipo) - 1);
     _nombretipo[sizeof(_nombretipo) - 1]='\0';
     strncpy(_desctipo, desctipo, sizeof(_desctipo) - 1);
     _desctipo[sizeof(_desctipo)-1]='\0';
