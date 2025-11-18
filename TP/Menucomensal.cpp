@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <cstdlib>
 #include "Menucomensal.h"
 #include "Comensales.h"
 #include "Menues.h"
@@ -16,14 +17,20 @@ Menucomensal::Menucomensal(Comensal clientebuscado, Menues menubuscado)
     _menubuscado=menubuscado;
 }
 
+Menucomensal::Menucomensal()
+    :MenuPadreABML()
+{
+
+}
+
 void Menucomensal::ejecutarmenu()
 {
     int id;
     int opcion;
-    bool loop=false;
-    const char* tipocom = {"Com£n"};
-    const char* tipoveg = {"Vegetariano"};
-    const char* tipocel = {"Cel¡aco"};
+    bool loop=true;
+    char tipocom = {"Comun"};
+    const char tipoveg = {"Vegetariano"};
+    const char tipocel = {"Cel¡aco"};
     line('*');
     std::cout << "BIENVENIDO AL COMEDOR" << endl;
     line('*');
@@ -36,6 +43,7 @@ void Menucomensal::ejecutarmenu()
     while(loop==false);
     system("cls");
     std::cout << "Bienvenido " << _clientebuscado.getNombre() << std::endl;
+    system("pause");
     system("cls");
     std::cout << "Estos son los men£s del d¡a:" << std::endl;
     mostrar(tipocom, 1);
@@ -60,10 +68,11 @@ void Menucomensal::ejecutarmenu()
     }
 }
 
-Menues Menucomensal::buscarplatos(const char* tipo)
+Menues Menucomensal::buscarplatos(const char tipo)
 {
     Archivos <Menues> arch ("Menues.dat");
     Menues menu;
+    arch.Guardar(menu);
     Fecha fecha_actual;
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
@@ -87,23 +96,24 @@ Comensal Menucomensal::buscarcliente(int id, bool &loop)
 {
     Archivos <Comensal> arch ("Comensales.dat");
     Comensal cliente;
-    int registros=arch.CantidadRegistros();
-    for (int i=0; i<registros; i++)
+    arch.Guardar(cliente);
+    int i, registros=arch.CantidadRegistros();
+    for (i=0; i<registros; i++)
     {
         cliente=arch.Leer(i);
         if (id==cliente.getIDcomensal())
         {
-            return cliente;
-            break;
+            loop=true;
+            return cliente; ///en la linea donde este el return LA INSTRUCCION TERMINA FORZADAMENTE
         }
-        else
-        {
-            std::cout << "El ID ingresado no es v lido o no existe, intente nuevamente" << std::endl;
-            loop=false;
-            return cliente=Comensal();
-            break;
-        };
     }
+    if (i==registros&&id!=cliente.getIDcomensal())
+    {
+        std::cout << "El ID ingresado no es v lido o no existe, intente nuevamente" << std::endl;
+        loop=false;
+        return cliente=Comensal();
+    };
+
     return cliente;
 }
 
@@ -114,7 +124,7 @@ void Menucomensal::generarconsumo()
     Fecha fecha_generar;
     fecha_generar.hoy();
     Consumos consumodelcomensal(fecha_generar, _clientebuscado, _menubuscado);
-    bool cliente_encontrado, tiene_deuda=false;
+    bool cliente_encontrado=false, tiene_deuda=false;
     Archivos <Consumos> arch ("Consumos.dat");
     arch.Guardar(consumodelcomensal);
     Archivos <CuentaCorriente> arch2 ("CC.dat");
@@ -141,11 +151,11 @@ void Menucomensal::generarconsumo()
                     cantregistros2=1;
                 }
                 Factura fc_consumo(cantregistros2, _clientebuscado, fecha_generar, _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
-                arch3.Guardar(fc_consumo);
+                arch3.Guardar(fc_consumo); ///0002-00001
                 cliente_encontrado=true;
                 break;
             }
-            else
+            else ///esto es lo mismo que arriba, solo que la cuenta no resta el 10%
             {
                 float saldoauxiliar=actualizar_cuenta.getSaldoActual();
                 saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
@@ -214,7 +224,7 @@ bool Menucomensal::tipodeconsumo()
     while(loop==false);
 }
 
-void Menucomensal::mostrar(const char* tipo, int num)
+void Menucomensal::mostrar(const char tipo, int num)
 {
     _menubuscado=buscarplatos(tipo);
     std::cout << "Opci¢n # " << num << std::endl;

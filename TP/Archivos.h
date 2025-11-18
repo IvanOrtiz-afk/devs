@@ -66,12 +66,12 @@ public:
 
     Tipos Leer(int posicion)
     {
+        Tipos registro;
         FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb");
         if(pArchivo == NULL)
         {
-            return Tipos(); ///ARREGLAR ACA
+            return registro; ///ARREGLAR ACA
         }
-        Tipos registro;
         fseek(pArchivo, sizeof(Tipos) * posicion, SEEK_SET);
         fread(&registro, sizeof(Tipos), 1, pArchivo);
         fclose(pArchivo);

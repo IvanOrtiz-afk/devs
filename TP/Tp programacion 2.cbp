@@ -55,6 +55,8 @@
 		<Unit filename="Facturas.h" />
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
+		<Unit filename="MenuFacturacion.cpp" />
+		<Unit filename="MenuFacturacion.h" />
 		<Unit filename="MenuPadreABML.cpp" />
 		<Unit filename="MenuPadreABML.h">
 			<Option target="&lt;{~None~}&gt;" />

@@ -1,6 +1,8 @@
 #include <iostream>
 #include "App.h"
 #include "MenuSistema.h"
+#include "Menucomensal.h"
+
 using namespace std;
 
 App::App(){
@@ -47,5 +49,8 @@ int App::seleccionOpcion(){
 }
 
 void App::ejecutarOpcion(int opcion){
+
+Menucomensal asd;
+asd.ejecutarmenu();
 
 }

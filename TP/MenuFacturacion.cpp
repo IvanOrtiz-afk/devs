@@ -51,11 +51,11 @@ void MenuFacturacion::registrarVenta (Comensal comensal, Menues menues)
 
     }
 
-
     nuevaFactura.setMedioDePago(medioDePago);
 
     _archivoFacturas.Guardar(nuevaFactura);
     cout << "Factura n # " << numeroFactura << " creada exitosamente." << endl;
 }
+
 
 */

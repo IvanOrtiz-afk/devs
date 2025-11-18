@@ -13,7 +13,8 @@ Menues::Menues(int idmenu, const char* nombremenu, Establecimientos esta, float 
     _nombremenu[sizeof(_nombremenu) - 1]='\0';
     _esta=esta.getidestablecimiento();
     _valorplato=valorplato;
-    _tipo=tipo.getnombretipo();
+    strncpy(_tipo, tipo.getnombretipo(), sizeof(_tipo) - 1);
+    _tipo[sizeof(_tipo) - 1]='\0';
     _fecha=fecha;
 }
 Menues::Menues() {}
@@ -60,7 +61,8 @@ void Menues::setvalorplato(float valorplato)
 }
 void Menues::settipo(TipoAlmuerzo tipo)
 {
-    _tipo=tipo.getnombretipo();
+    strncpy(_tipo, tipo.getnombretipo(), sizeof(_tipo) - 1);
+    _tipo[sizeof(_tipo) - 1]='\0';
 }
 void Menues::setfecha(Fecha fecha)
 {
@@ -68,7 +70,7 @@ void Menues::setfecha(Fecha fecha)
 }
 std::string Menues::toString()
 {
-    return std::to_string(_idmenu) + "/" + std::string(_nombremenu) + "/" + std::to_string(_valorplato) + "/" + std::string(_tipo) + "/" + _fecha.toString();
+    return std::string(_nombremenu) + "/" + std::to_string(_valorplato);
     ///Tengo que enviar como parametros los dos tipos de dato "TipoAlmuerzo" y "Fecha" que necesito imprimir como string
 }
 

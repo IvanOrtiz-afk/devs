@@ -25,7 +25,7 @@ public:
 protected:
     int _esta;
     char _nombremenu[30];
-    const char* _tipo;
+    char _tipo[10];
     float _valorplato;
     Fecha _fecha;
 
