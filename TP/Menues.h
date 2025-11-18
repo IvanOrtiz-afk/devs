@@ -6,26 +6,29 @@
 class Menues
 {
 public:
-    Menues(int idmenu, const char* nombremenu, Establecimientos esta, float valorplato, TipoAlmuerzo tipo, Fecha fecha);
+    Menues(int idmenu, const char* nombremenu, Establecimientos esta, float valorplato, TipoAlmuerzo idtipo, Fecha fecha);
     Menues();
     int getidmenu();
     const char* getnombremenu();
     float getvalorplato();
-    const char* gettipo();
+    int getidtipo();
     Fecha getfecha();
     int getesta();
+    const char *getdesctipo();
+    void setdesctipo(TipoAlmuerzo);
     void setesta(Establecimientos);
     void setidmenu(int);
     void setnombremenu(const char*);
     void setvalorplato(float);
-    void settipo(TipoAlmuerzo);
+    void setidtipo(TipoAlmuerzo);
     void setfecha(Fecha);
     std::string toString();
 
 protected:
     int _esta;
     char _nombremenu[30];
-    char _tipo[10];
+    int _idtipo;
+    char _desctipo[20];
     float _valorplato;
     Fecha _fecha;
 

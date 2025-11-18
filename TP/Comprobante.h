@@ -41,7 +41,7 @@ protected:
     Fecha _fecha;
     int _idmenu;
     float _importe;
-    char _medioDePago[24];
+    char _medioDePago[25];
 
 
 private:

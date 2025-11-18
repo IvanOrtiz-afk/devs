@@ -11,7 +11,7 @@
 1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\establecimientos.h
 	<string>
 
-1763434363 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
+1763482338 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\main.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -24,7 +24,7 @@
 	"Recibo.h"
 	"APP.h"
 
-1763145717 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\tipoalmuerzo.cpp
+1763472723 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\tipoalmuerzo.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -33,7 +33,7 @@
 	"Establecimientos.h"
 	"Archivos.h"
 
-1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\tipoalmuerzo.h
+1763473520 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\tipoalmuerzo.h
 
 1763279391 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\fecha.cpp
 	<iostream>
@@ -47,16 +47,18 @@
 
 1763279391 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\fecha.h
 
-1763434523 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menues.cpp
+1763482951 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menues.cpp
 	<iostream>
 	<string>
+	<sstream>
 	<cstring>
+	<iomanip>
 	"Comensales.h"
 	"Fecha.h"
 	"Establecimientos.h"
 	"Archivos.h"
 
-1763434460 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menues.h
+1763474835 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menues.h
 	"TipoAlmuerzo.h"
 	"Fecha.h"
 	"Establecimientos.h"
@@ -358,26 +360,29 @@
 	<vector>
 	<string>
 
-1763429331 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\app.cpp
+1763484824 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\app.cpp
 	<iostream>
+	<string>
 	"App.h"
 	"MenuSistema.h"
 	"Menucomensal.h"
+	"MenuPadreABML.h"
 
-1763429331 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\app.h
+1763485574 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\app.h
 	"MenuSistema.h"
+	"MenuPadreABML.h"
 
 1763275829 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menusistema.h
 	"Menucomensal.h"
 
-1763434608 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.h
+1763473840 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.h
 	<cstdlib>
 	<string>
 	"MenuPadreABML.h"
 	"Comensales.h"
 	"Menues.h"
 
-1763407422 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.h
+1763484844 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menupadreabml.h
 	<iostream>
 	<vector>
 	<string>
@@ -392,7 +397,7 @@
 1763404835 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\cc.h
 	"Comensales.h"
 
-1763404874 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\comprobante.h
+1763474835 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\comprobante.h
 	<string>
 	"Fecha.h"
 	"Menues.h"
@@ -411,7 +416,7 @@
 1763145717 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\recibo.h
 	"Comprobante.h"
 
-1763434347 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.cpp
+1763483355 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menucomensal.cpp
 	<iostream>
 	<string>
 	<cstring>

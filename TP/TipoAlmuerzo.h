@@ -3,7 +3,7 @@
 class TipoAlmuerzo
 {
 public:
-    TipoAlmuerzo(int idtipo, const char* nombretipo, const char* desctipo);
+    TipoAlmuerzo(int idtipo);
     TipoAlmuerzo();
     int getidtipo();
     const char* getnombretipo();
@@ -14,10 +14,8 @@ public:
     std::string toString();
 
 protected:
-    char _nombretipo[30];
-
-private:
+    char _nombretipo[20];
     int _idtipo;
-    char _desctipo[60];
+    char _desctipo[20];
 };
 

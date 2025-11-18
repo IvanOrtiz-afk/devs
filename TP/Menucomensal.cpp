@@ -28,9 +28,9 @@ void Menucomensal::ejecutarmenu()
     int id;
     int opcion;
     bool loop=true;
-    int tipocom = 1;
-    int tipoveg = 2;
-    int tipocel = 3;
+    const int tipocom = 1; ///Com£n
+    const int tipoveg = 2; ///Vegetariano
+    const int tipocel = 3; ///Cel¡aco
     line('*');
     std::cout << "BIENVENIDO AL COMEDOR" << endl;
     line('*');
@@ -51,43 +51,46 @@ void Menucomensal::ejecutarmenu()
     mostrar(tipocel, 3);
     std::cout << "Seleccione la opcion deseada:";
     cin >> opcion;
-    switch (opcion)
+    do
     {
-    case 1:
-        _menubuscado=buscarplatos(tipocom); ///aca se carga el consumo
-        generarconsumo();
-        break;
-    case 2:
-        _menubuscado=buscarplatos(tipoveg); ///aca se carga el consumo
-        generarconsumo();
-        break;
-    case 3:
-        _menubuscado=buscarplatos(tipocel); ///aca se carga el consumo
-        generarconsumo();
-        break;
+        switch (opcion)
+        {
+        case 1:
+            _menubuscado=buscarplatos(tipocom); ///aca se carga el consumo
+            generarconsumo();
+            break;
+        case 2:
+            _menubuscado=buscarplatos(tipoveg); ///aca se carga el consumo
+            generarconsumo();
+            break;
+        case 3:
+            _menubuscado=buscarplatos(tipocel); ///aca se carga el consumo
+            generarconsumo();
+            break;
+        default:
+            std::cout << "Opci¢n incorrecta, intente nuevamente" << std::endl;
+            loop=false;
+            break;
+        }
     }
+    while(loop==false);
+    std::cout << "Consumo cargado!" << std::endl;
 }
 
-Menues Menucomensal::buscarplatos(const char tipo)
+Menues Menucomensal::buscarplatos(int tipo)
 {
     Archivos <Menues> arch ("Menues.dat");
     Menues menu;
-    arch.Guardar(menu); ///SACAR DESPUES
     Fecha fecha_actual;
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
     {
         menu=arch.Leer(i);
-        if (fecha_actual.hoy()==menu.getfecha()&&_clientebuscado.getIDestablecimiento()==menu.getesta()&&strcmp(tipo, menu.gettipo())==0)
+        if (fecha_actual.hoy()==menu.getfecha()&&_clientebuscado.getIDestablecimiento()==menu.getesta()&&tipo==menu.getidtipo())
         {
             return menu;
             break;
         }
-        else
-        {
-            return menu=Menues();
-            break;
-        };
     }
     return menu;
 }
@@ -96,7 +99,6 @@ Comensal Menucomensal::buscarcliente(int id, bool &loop)
 {
     Archivos <Comensal> arch ("Comensales.dat");
     Comensal cliente;
-    arch.Guardar(cliente); ///SACAR DESPUES
     int i, registros=arch.CantidadRegistros();
     for (i=0; i<registros; i++)
     {
@@ -111,7 +113,6 @@ Comensal Menucomensal::buscarcliente(int id, bool &loop)
     {
         std::cout << "El ID ingresado no es v lido o no existe, intente nuevamente" << std::endl;
         loop=false;
-        return cliente=Comensal();
     };
 
     return cliente;
@@ -120,14 +121,13 @@ Comensal Menucomensal::buscarcliente(int id, bool &loop)
 void Menucomensal::generarconsumo()
 {
     Archivos <Factura> arch3 ("Facturas.dat");
+    Archivos <Consumos> arch ("Consumos.dat");
+    Archivos <CuentaCorriente> arch2 ("CC.dat");
+    bool cliente_encontrado=false, tiene_deuda=false;
     bool tipo_consumo=tipodeconsumo();
     Fecha fecha_generar;
-    fecha_generar.hoy();
     Consumos consumodelcomensal(fecha_generar, _clientebuscado, _menubuscado);
-    bool cliente_encontrado=false, tiene_deuda=false;
-    Archivos <Consumos> arch ("Consumos.dat");
     arch.Guardar(consumodelcomensal);
-    Archivos <CuentaCorriente> arch2 ("CC.dat");
     CuentaCorriente actualizar_cuenta;
     int cantregistros=arch2.CantidadRegistros();
     for (int i=0; i<cantregistros; i++)
@@ -209,22 +209,30 @@ bool Menucomensal::tipodeconsumo()
         switch(_opcion)
         {
         case 1:
+            std::cout << "Gracias por abonar, pago generado exitosamente!" << std::endl;
+            system("pause");
+            system("cls");
             loop=true;
             return true;
             break;
         case 2:
+            std::cout << "Se genero una deuda en su cuenta corriente, puede abonarla mas tarde" << std::endl;
+            system("pause");
+            system("cls");
             loop=true;
             return false;
             break;
         default:
             std::cout << "Opci¢n incorrecta, intente nuevamente" << std::endl;
+            system("pause");
+            system("cls");
             break;
         }
     }
     while(loop==false);
 }
 
-void Menucomensal::mostrar(const char tipo, int num)
+void Menucomensal::mostrar(int tipo, int num)
 {
     _menubuscado=buscarplatos(tipo);
     std::cout << "Opci¢n # " << num << std::endl;

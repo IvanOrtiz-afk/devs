@@ -14,17 +14,17 @@ MenuPadreABML::~MenuPadreABML()
 
 }
 
-/**void MenuPadreABML::run()
+void MenuPadreABML::salida(int saliroatras)
 {
-    do
+    if (saliroatras==0)
     {
-        system("cls");
-        _opcion = seleccionOpcion();
-        system("cls"); ///QUIZAS ACA PONGAMOS LA EJECUCION DE TODOS LOS MENUES ASI EN LA APP NO HACEMOS TANTO CHOCLO
-        ejecutarOpcion(_opcion);
+        std::cout << "0. Salir" << std::endl;
     }
-    while(_opcion != 0);
-}*/
+    else if (saliroatras==1)
+    {
+        std::cout << "0. Volver atras" << std::endl;
+    }
+}
 
 void MenuPadreABML::line(char simbolo, int cant)
 {
@@ -35,11 +35,35 @@ void MenuPadreABML::line(char simbolo, int cant)
     std::cout << "\n";
 }
 
-void MenuPadreABML::menuinicial()
+int MenuPadreABML::menuinicial()
 {
+    int opcion;
     line('*', 40);
-    std::cout << "BIENVENIDO A NUESTRO SISTEMA DE CONTROL DE ALMUERZOS" << endl;
+    std::cout << "BIENVENIDO A NUESTRO SISTEMA DE CONTROL DE ALMUERZOS" << std::endl;
     line('*', 40); ///QUIZAS DERIVEMOS DE ACA MISMO LA PREGUNTA DE SI DESEA COMER O HACER LOGIN AL SISTEMA
+    system("pause");
     system("cls");
+    do
+    {
+        line('-', 40);
+        std::cout << "Seleccione la opcion deseada" << std::endl;
+        line('-', 40);
+        std::cout << "1. Comer en comedor" << std::endl;
+        std::cout << "2. Ingresar al sistema" << std::endl;
+        salida(0); ///si es 0 va a imprimir "salir" si es 1 va a imprimir "atras"
+        cin >> opcion;
+        if (opcion>=0&&opcion<=2)
+        {
+            _opcion=opcion;
+            return _opcion;
+        }
+        else
+        {
+            std::cout << "Opci¢n inv lida, intente nuevamente" << std::endl;
+            system("pause");
+            system("cls");
+        }
+    }
+    while(opcion<0||opcion>2);
 }
 

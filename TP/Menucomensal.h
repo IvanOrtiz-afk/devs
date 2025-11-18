@@ -13,9 +13,9 @@ public:
     Menucomensal(Comensal clientebuscado, Menues menubuscado);
     Menucomensal();
     void ejecutarmenu();
-    Menues buscarplatos(const char tipo);
+    Menues buscarplatos(int tipo);
     Comensal buscarcliente(int id, bool &loop);
-    void mostrar(const char tipo, int num);
+    void mostrar(int tipo, int num);
     void generarconsumo();
     bool tipodeconsumo();
 

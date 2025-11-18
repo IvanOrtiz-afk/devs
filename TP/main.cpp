@@ -15,21 +15,26 @@ using namespace std;
 int main()
 {
     /**Archivos <Comensal> arch ("Comensales.dat");
-    //Establecimientos asd(12, "San juanito", "moreno", "empresa");
-    //Fecha fechatest;
-    //Comensal test(12, "Ivan", "Moreno", fechatest.hoy(), asd);
-    Comensal test;
-    //arch.Guardar(test);
-    test=arch.Leer(0);
-
-    cout << test.toString() << endl;*/
-
-    /**Archivos <Menues> arch ("Menues.dat");
-    TipoAlmuerzo tipotest (34, "Comun", "para gente normal");
+    Archivos <Menues> arch2 ("Menues.dat");
     Establecimientos asd(12, "San juanito", "moreno", "empresa");
     Fecha fechatest;
-    Menues menutest (32, "Milanesa con papas", asd, 2300.00, tipotest, fechatest.hoy());
-    arch.Guardar(menutest);*/
+    TipoAlmuerzo tipotest (1);
+    TipoAlmuerzo tipotest2 (2);
+    TipoAlmuerzo tipotest3 (3);
+    Comensal test(12, "Ivan", "Moreno", fechatest.hoy(), asd);
+    Menues menutest (32, "Milanesa con papas", asd, 2300, tipotest, fechatest.hoy());
+    Menues menutest2 (33, "Milanesa integral", asd, 2000, tipotest2, fechatest.hoy());
+    Menues menutest3 (34, "Milanesa sin TACC", asd, 3000, tipotest3, fechatest.hoy());
+    //Comensal test;
+    arch.Guardar(test);
+    arch2.Guardar(menutest);
+    arch2.Guardar(menutest2);
+    arch2.Guardar(menutest3);
+
+    test=arch.Leer(0);
+
+    cout << test.toString() << endl;
+    cout << menutest.toString() << endl;*/
 
     App app;
     app.run();

@@ -6,14 +6,29 @@
 #include "Establecimientos.h"
 #include "Archivos.h"
 
-TipoAlmuerzo::TipoAlmuerzo(int idtipo, const char* nombretipo, const char* desctipo)
+TipoAlmuerzo::TipoAlmuerzo(int idtipo)
 {
     _idtipo=idtipo;
-    strncpy(_nombretipo, nombretipo, sizeof(_nombretipo) - 1);
+    if (idtipo==1)
+    {strncpy(_nombretipo, "Com£n", sizeof(_nombretipo) - 1);
     _nombretipo[sizeof(_nombretipo) - 1]='\0';
-    strncpy(_desctipo, desctipo, sizeof(_desctipo) - 1);
+    strncpy(_desctipo, "Almuerzo est ndar", sizeof(_desctipo) - 1);
     _desctipo[sizeof(_desctipo)-1]='\0';
+    }
+    if (idtipo==2)
+    {strncpy(_nombretipo, "Vegetariano", sizeof(_nombretipo) - 1);
+    _nombretipo[sizeof(_nombretipo) - 1]='\0';
+    strncpy(_desctipo, "Opci¢n vegetariana", sizeof(_desctipo) - 1);
+    _desctipo[sizeof(_desctipo)-1]='\0';
+    }
+    if (idtipo==3)
+    {strncpy(_nombretipo, "Cel¡aco", sizeof(_nombretipo) - 1);
+    _nombretipo[sizeof(_nombretipo) - 1]='\0';
+    strncpy(_desctipo, "Apto cel¡aco", sizeof(_desctipo) - 1);
+    _desctipo[sizeof(_desctipo)-1]='\0';
+    }
 }
+
 TipoAlmuerzo::TipoAlmuerzo() {}
 int TipoAlmuerzo::getidtipo()
 {

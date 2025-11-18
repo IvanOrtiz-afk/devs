@@ -9,9 +9,9 @@ class MenuPadreABML
 {
 public:
     MenuPadreABML();
-    void run();
+    void salida(int);
     void line(char simbolo='-', int cant=30);
-    void menuinicial();
+    int menuinicial();
     ~MenuPadreABML();
 protected:
     int _opcion;
