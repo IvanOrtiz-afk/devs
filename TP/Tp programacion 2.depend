@@ -191,7 +191,7 @@
 	"Recibo.h"
 	"APP.h"
 
-1763513609 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\archivos.h
+1763569967 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\archivos.h
 	<string>
 	"Establecimientos.h"
 	"Menues.h"
@@ -202,7 +202,7 @@
 	"usuario.h"
 	"Login.h"
 
-1763504221 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menues.h
+1763569967 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menues.h
 	"TipoAlmuerzo.h"
 	"Fecha.h"
 	"Establecimientos.h"
@@ -214,7 +214,7 @@
 	"Fecha.h"
 	"Establecimientos.h"
 
-1763504221 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menues.cpp
+1763569967 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menues.cpp
 	<iostream>
 	<string>
 	<sstream>
@@ -243,7 +243,7 @@
 	"Establecimientos.h"
 	"Archivos.h"
 
-1763504221 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\facturas.cpp
+1763569967 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\facturas.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -254,7 +254,7 @@
 	"Archivos.h"
 	"Menues.h"
 
-1763504221 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\facturas.h
+1763569967 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\facturas.h
 	<string>
 	"Comprobante.h"
 	"Fecha.h"
@@ -314,7 +314,7 @@
 1763504221 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\recibo.h
 	"Comprobante.h"
 
-1763516037 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\app.cpp
+1763572616 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\app.cpp
 	<iostream>
 	<string>
 	"App.h"
@@ -367,15 +367,22 @@
 	"CC.h"
 	"Fecha.h"
 
-1763516916 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menusistema.cpp
+1763572408 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menusistema.cpp
 	<iostream>
 	<string>
 	<cstring>
+	"MenuPadreABML.h"
 	"MenuSistema.h"
+	"Menuadmin.h"
 	"usuario.h"
 	"Login.h"
 
-1763517652 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menusistema.h
+1763570834 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menusistema.h
+	"MenuPadreABML.h"
+	"MenuSistema.h"
+	"Menuadmin.h"
+	"usuario.h"
+	"Login.h"
 
 1763504221 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menupadreabml.h
 
@@ -478,12 +485,14 @@
 
 1763504221 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\consumos.h
 
-1763504221 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menupadreabml.cpp
+1763569967 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menupadreabml.cpp
 	<iostream>
 	<string>
 	<cstring>
 	<cstdlib>
 	"MenuPadreABML.h"
+	"Menuadmin.h"
+	"MenuSistema.h"
 	"Comensales.h"
 	"Menues.h"
 	"Archivos.h"
@@ -545,21 +554,27 @@
 1763488423 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\tp\menuadmin.h
 	"MenuPadreABML.h"
 
-1763504221 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menuadmin.cpp
+1763569967 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menuadmin.cpp
 	<iostream>
+	<string>
+	<cstring>
+	<vector>
+	"MenuPadreABML.h"
+	"MenuSistema.h"
 	"Menuadmin.h"
+	"Archivos.h"
+	"Menues.h"
+
+1763569967 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menuadmin.h
 	"MenuPadreABML.h"
 
-1763504221 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\menuadmin.h
-	"MenuPadreABML.h"
-
-1763517529 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\usuario.cpp
+1763572126 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\usuario.cpp
 	"usuario.h"
 	<cstring>
 
-1763517529 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\usuario.h
+1763572084 c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\usuario.h
 
-1763517670 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\login.cpp
+1763578915 source:c:\users\eveer\onedrive\documentos\utn - tec. universitaria en programacion\cuatrimestre 2\programacion ii\tp final gestion\devs\tp\login.cpp
 	<iostream>
 	<string>
 	<cstring>

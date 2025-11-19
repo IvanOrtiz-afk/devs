@@ -46,40 +46,63 @@ void login::crearNuevoUsuario()
 
 void login::iniciarSesion()
 {
-   
+
     Archivos <usuario> archUsuario ("Usuario.dat");
     int cantidad = archUsuario.CantidadRegistros();
 
     std::string nombreUsuario;
     std::string password;
+    bool encontrado = false;
 
-    std::cout << "===== INICIAR SESION =====" << std::endl;
-    std::cout << "Usuario: "<< std::endl;
-    std::cin >> nombreUsuario;
-    std::cout << "Password: "<< std::endl;
-    std::cin >> password;
-
-    for (int i=0; i<cantidad; i++)
+    do
     {
-        usuario usuario_buscado=archUsuario.Leer(i); /// ver si pincha por comparar un char con un char cons *
-        if (nombreUsuario==usuario_buscado.getNombreUsuario()&&password==usuario_buscado.getPassword())
+        std::cout << "===== INICIAR SESION =====" << std::endl;
+        std::cout << "Usuario: "<< std::endl;
+        std::cin >> nombreUsuario;
+        std::cout << "Password: "<< std::endl;
+        std::cin >> password;
+
+        for (int i=0; i<cantidad; i++)
         {
-            
-            std::cout << "Sesion iniciada con rol " << usuario_buscado.getRol() << std::endl;
-             system("pause");
-             MenuSistema menu_sistema(usuario_buscado.getRol());
-             menu_sistema.mostrarOpciones();
-              
-             return;
+            usuario usuario_buscado=archUsuario.Leer(i);
+
+            if (nombreUsuario==usuario_buscado.getNombreUsuario()&&password==usuario_buscado.getPassword())
+            {
+                encontrado = true;
+                int rol = usuario_buscado.getRol();
+                if (rol == 1)
+                {
+                    std::cout << "Sesion iniciada como Administrador" << std::endl;
+                    system("pause");
+                }
+                else if (rol == 2)
+                {
+                    std::cout << "Sesion iniciada como Encargado" << std::endl;
+                    system("pause");
+                }
+                else
+                {
+                    std::cout << "Sesion iniciada como Comensal" << std::endl;
+                    system("pause");
+                }
+
+                MenuSistema menu_sistema(rol);
+                menu_sistema.run();
+
+                return;
+            }
         }
-        else
+        if (encontrado == false)
         {
             std::cout << "Credenciales incorrectas. Intente nuevamente" << std::endl;
-             system("pause");
-        }   
-        
+            system("pause");
+            system("cls");
+        }
+
+
+
+
     }
-   
-    
+    while(encontrado == false);
 }
 

@@ -14,7 +14,8 @@ void App::run()
     MenuPadreABML menu_entrada;
     Menucomensal menu_comer;
     login iniciar_sesion;
-   /// MenuSistema menu_sistema;
+    login nuevo_usuario;
+
     int opcion_general;
     do
     {
@@ -26,9 +27,10 @@ void App::run()
             menu_comer.ejecutarmenu();
         }
         else if(opcion_general==2)
-        {  
+        {   
+
             iniciar_sesion.iniciarSesion();
-           /// menu_sistema.mostrarOpciones();
+           
         }
         else if(opcion_general==0)
         {

@@ -2,9 +2,9 @@
 #include <cstring>
 
 usuario::usuario(){}
-usuario::usuario( const char *nombreUsuario, const char *password, int rol)
+usuario::usuario(const char *nombreUsuario, const char *password, int rol)
 {
-   ///_id = id;
+  /// _id = id;
 
     strncpy(_nombreUsuario, nombreUsuario, sizeof(_nombreUsuario) - 1);
     _nombreUsuario[sizeof(_nombreUsuario) - 1] = '\0';
@@ -33,7 +33,8 @@ usuario::usuario( const char *nombreUsuario, const char *password, int rol)
 */
 }
 
-/*void usuario::setID(int id)
+/*
+void usuario::setID(int id)
 {
     _id = id;
 }
@@ -88,7 +89,8 @@ const char* usuario::getNombreUsuario()
     return _nombreUsuario;
 }
 
-/*int usuario::getID()
+/*
+int usuario::getID()
 {
     return _id;
 }
