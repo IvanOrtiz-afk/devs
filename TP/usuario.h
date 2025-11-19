@@ -14,10 +14,10 @@ public:
     int getRol();
     const char *getPassword();
     const char *getNombreUsuario();
-   /// int getID();
+    int getID();
 
 private:
-    ///int _id;
+   /// int _id;
     char _nombreUsuario[20];
     char _password[20];
     int _rol;

@@ -25,17 +25,33 @@ MenuSistema::MenuSistema(int rol)
     _cantidadOpciones=8;
 }
 
-void MenuSistema::run()
+void MenuSistema::mostrarOpciones()
 {
     int opcion;
     do
     {
         system("cls");
-        mostrarOpciones();
-        std::cout << "Ingrese su opcion: " << std::endl;
-        std::cin >> opcion;
-        system("pause");
-        
+        cout << "--- MENU PRINCIPAL ---" << endl;
+        cout << "-------------------------" << endl;
+        cout << "1- PLATOS "<<endl;
+        cout << "2- FACTURACION" <<endl;
+        cout << "3- ESTADO CUENTA CORRIENTE "<<endl;
+        cout << "4- CONSUMOS" << endl;
+
+        if (_rolActual == 1 or _rolActual == 2)  // admin y establecimientos
+        {
+            cout << "5- GESTIONAR COMENSALES" << endl;
+        }
+        if (_rolActual == 1)  // admin
+        {
+            cout << "6- GESTIONAR ESTABLECIMIENTOS" << endl;
+            cout << "7- GESTIONAR USUARIOS" << endl;
+
+        }
+
+        cout << "0- Salir" << endl;
+        cin >> opcion;
+
         switch(opcion)
         {
         case 1:
@@ -71,32 +87,8 @@ void MenuSistema::run()
             break;
         }
         system("pause");
-    } while(opcion != 0);
-}
-
-void MenuSistema::mostrarOpciones()
-{
-
-    cout << "--- MENU PRINCIPAL ---" << endl;
-    cout << "-------------------------" << endl;
-    cout << "1- PLATOS "<<endl;
-    cout << "2- FACTURACION" <<endl;
-    cout << "3- ESTADO CUENTA CORRIENTE "<<endl;
-    cout << "4- CONSUMOS" << endl;
-
-    if (_rolActual == 1 or _rolActual == 2)  // admin y establecimientos
-    {
-        cout << "5- GESTIONAR COMENSALES" << endl;
     }
-    if (_rolActual == 1)  // admin
-    {
-        cout << "6- GESTIONAR ESTABLECIMIENTOS" << endl;
-        cout << "7- GESTIONAR USUARIOS" << endl;
-
-    }
-
-    cout << "0- Salir" << endl;
-
+    while(opcion != 0);
 }
 
 
@@ -188,7 +180,7 @@ void MenuSistema::gestionarFacturas()
             if (_rolActual == 1)
             {
                 /// cargar();
-
+                _ejecutarmenu.cargarfactura();
             }
             else
             {
@@ -199,6 +191,7 @@ void MenuSistema::gestionarFacturas()
 
         case 0:
             cout << "Volviendo al menu principal... " << endl;
+            mostrarOpciones();
             break;
         }
 
@@ -223,8 +216,9 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
         switch(opcion)
         {
         case 1: ///deuda
+            _ejecutarmenu.verCC(); //de momento solo hice que se pueda ver la CC (sea deuda o no)
             break;
-        case 2: ///cargarpago
+        case 2: ///cargarpago (al cargar un pago, de debe emitir FC o recibo y actualizar la CC)
             break;
         case 3: ///listarpagos
         case 0:

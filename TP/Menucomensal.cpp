@@ -6,6 +6,7 @@
 #include "MenuPadreABML.h"
 #include "Comensales.h"
 #include "Menues.h"
+#include "Pagos.h"
 #include "Archivos.h"
 #include "Consumos.h"
 #include "CC.h"
@@ -124,6 +125,7 @@ void Menucomensal::generarconsumo()
     Archivos <Factura> arch3 ("Facturas.dat");
     Archivos <Consumos> arch ("Consumos.dat");
     Archivos <CuentaCorriente> arch2 ("CC.dat");
+    Archivos <Pagos> arch4 ("Pagos.dat");
     bool cliente_encontrado=false, tiene_deuda=false;
     bool tipo_consumo=tipodeconsumo();
     Fecha fecha_generar;
@@ -145,7 +147,10 @@ void Menucomensal::generarconsumo()
                     tiene_deuda=true;
                 }
                 CuentaCorriente actualizar_cuenta(i, _clientebuscado, saldoauxiliar, tiene_deuda);
+
                 arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
+                Pagos pago_guardar (_clientebuscado, _menubuscado.getvalorplato(), fecha_generar.hoy());
+                arch4.Guardar(pago_guardar); ///aca guardo un pago
                 int cantregistros2=arch3.CantidadRegistros();
                 if (cantregistros2==0)
                 {

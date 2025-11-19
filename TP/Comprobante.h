@@ -42,9 +42,4 @@ protected:
     int _idmenu;
     float _importe;
     char _medioDePago[25];
-
-
-private:
-
-
 };

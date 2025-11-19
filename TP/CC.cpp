@@ -33,6 +33,15 @@ int CuentaCorriente::getnumeracion ()
 {
     return _numeracion;
 }
+void CuentaCorriente::setnombrecomensal (Comensal comensal)
+{
+    strncpy(_nombre, comensal.getNombre(), sizeof(_nombre) - 1);
+    _nombre[sizeof(_nombre) - 1] = '\0';
+}
+const char *CuentaCorriente::getnombrecomensal ()
+{
+    return _nombre;
+}
 void CuentaCorriente::setcomensal (Comensal comensal)
 {
     _idcomensal=comensal.getIDcomensal();
@@ -50,21 +59,16 @@ bool CuentaCorriente::getestadodeuda ()
     return _estadodeuda;
 }
 
-/**std::string CuentaCorriente::toString()
+std::string CuentaCorriente::toString()
 {
-    std::string strComprobante = Comprobante::toString();
-    strComprobante += "/" + std::to_string(_saldoActual);
-    strComprobante += "/" + std::to_string(_saldoAnterior);
-
-    if (_tipoMovimiento)
+    std::string strComprobante;
+    if (_estadodeuda==false)
     {
-        strComprobante += "CARGO";
+        strComprobante="CARGO";
     }
-    else
+    else if (_estadodeuda==true)
     {
-        strComprobante += "PAGO";
+        strComprobante="PAGO";
     }
-
-    return strComprobante;
-    /// averiguar si asi esta bien pasar a texto un booleano
-}*/
+    return std::to_string(_numeracion) + "/" + std::to_string(_idcomensal) + "/" + std::string (_nombre) + "/$ " + std::to_string(_saldoActual) + "/" + std::string(strComprobante);
+}

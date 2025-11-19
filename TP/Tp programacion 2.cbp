@@ -55,6 +55,8 @@
 		<Unit filename="Facturas.h" />
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
+		<Unit filename="Login.cpp" />
+		<Unit filename="Login.h" />
 		<Unit filename="MenuPadreABML.cpp" />
 		<Unit filename="MenuPadreABML.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -71,10 +73,14 @@
 		</Unit>
 		<Unit filename="Menues.cpp" />
 		<Unit filename="Menues.h" />
+		<Unit filename="Pagos.cpp" />
+		<Unit filename="Pagos.h" />
 		<Unit filename="TipoAlmuerzo.cpp" />
 		<Unit filename="TipoAlmuerzo.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="tabulate.hpp" />
+		<Unit filename="usuario.cpp" />
+		<Unit filename="usuario.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

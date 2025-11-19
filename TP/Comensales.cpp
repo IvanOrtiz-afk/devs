@@ -82,7 +82,6 @@ int Comensal::getIDestablecimiento()
 }
 
 
-
 std::string Comensal::toString()
 {
     return std::to_string(_IDcomensal) + "/" + std::string(_nombre) + "/" + std::string(_direccion) + "/" + _fechaNacimiento.toString() + "/" + std::to_string(_IDestablecimiento);

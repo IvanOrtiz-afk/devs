@@ -14,6 +14,9 @@ public:
     void setnumeracion (int numeracion);
     int getnumeracion ();
 
+    void setnombrecomensal (Comensal comensal);
+    const char *getnombrecomensal ();
+
     void setcomensal (Comensal comensal);
     int getcomensal ();
 
@@ -23,6 +26,7 @@ public:
     std::string toString();
 
 private:
+    char _nombre[30];
     int _numeracion;
     int _idcomensal;
     float _saldoActual;

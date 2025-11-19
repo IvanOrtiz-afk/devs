@@ -144,12 +144,12 @@ void Menuadmin::cargarplato()
                 if (idesta==esta_muestra.getidestablecimiento())
                 {
                     plato_muestra.setesta(esta_muestra);
-                    break;
                 }
                 if (idesta!=esta_muestra.getidestablecimiento()&&j==registro)
                 {
                     std::cout << "ID ingresado no v lido o no existe, intente nuevamente" << std::endl;
                     loop=false;
+                    break;
                 }
             }
         }
@@ -168,6 +168,7 @@ void Menuadmin::cargarplato()
             {
                 std::cout << "Opci¢n no v lida, intente nuevamente" << std::endl;
                 loop=false;
+                break;
             }
             else
             {
@@ -190,6 +191,7 @@ void Menuadmin::cargarplato()
             system("pause");
             system("cls");
             std::cout << "ERROR del sistema al cargar el registro, intente nuevamente" << std::endl;
+            break;
         }
     }
     while(guardar_ok==false);
@@ -238,6 +240,7 @@ void Menuadmin::listarfacturas()
             {
                 std::cout << "ID no encontrado o no v lido, intente nuevamente" << std::endl;
                 loop=false;
+                break;
             }
         }
     }
@@ -247,15 +250,113 @@ void Menuadmin::listarfacturas()
 void Menuadmin::cargarfactura()
 {
     Archivos <Factura> arch ("Facturas.dat");
+    Archivos <Comensal> arch2 ("Comensales.dat");
+    Archivos <Menues> arch3 ("Menues.dat");
+    Menues plato_muestra;
     Factura fc_muestra;
+    Comensal comensal_muestra;
+    Fecha fecha_hoy;
+    float importe_muestra;
     int id_comensal;
     bool loop=true;
     do
     {
         std::cout << "Seleccione su/el ID de usuario para generar factura" << std::endl;
         std::cin >> id_comensal;
-
-
+        int registros=arch2.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            comensal_muestra=arch2.Leer(i);
+            if (id_comensal==comensal_muestra.getIDcomensal())
+            {
+                std::cout << "Comenzal " << std::string(comensal_muestra.getNombre()) << " encontrado" << std::endl;
+                fc_muestra.setIDcomensal(comensal_muestra);
+            }
+            else if (id_comensal!=comensal_muestra.getIDcomensal()&&registros==i)
+            {
+                std::cout << "Comenzal NO encontrado o no existe, intente nuevamente" << std::endl;
+                loop=false;
+                break;
+            }
+        }
+    }
+    while(loop==false);
+    std::cout << "Ingrese el importe a facturar: "; ///verificar valores negativos
+    std::cin >> importe_muestra;
+    fc_muestra.setImporte(importe_muestra);
+    bool mediopago_muestra=false;
+    fc_muestra.setMedioDePago(mediopago_muestra);
+    do
+    {
+        std::cout << "Seleccione el ID de el men£ consumido por el comensal" << std::endl;
+        int registros=arch3.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            plato_muestra=arch3.Leer(i);
+            if (fecha_hoy.hoy()==plato_muestra.getfecha())
+            {
+                std::cout << plato_muestra.toString() << " ID n£mero " << plato_muestra.getidmenu() << std::endl;
+            }
+        }
+        int id_menu=0;
+        std::cin >> id_menu;
+        registros=arch3.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            plato_muestra=arch3.Leer(i);
+            if (fecha_hoy.hoy()==plato_muestra.getfecha()&&id_menu==plato_muestra.getidmenu())
+            {
+                fc_muestra.setIDmenu(plato_muestra);
+                loop=true;
+            }
+            else if (registros==i&&id_menu!=plato_muestra.getidmenu())
+            {
+                std::cout << "Men£ no encontrado o no existe, intente nuevamente" << std::endl;
+                loop=false;
+                break;
+            }
+        }
+        registros=arch.CantidadRegistros()+1;
+        fc_muestra.setNumeracion(registros);
+        loop=arch.Guardar(fc_muestra);
+        if (loop==false)
+        {
+            std::cout << "Error en guardado del archivo, intente nuevamente" << std::endl;
+        }
     }
     while(loop==false);
 }
+
+void Menuadmin::verCC()
+{
+    Archivos <CuentaCorriente> arch ("CC.dat");
+    CuentaCorriente cc_muestra;
+    bool loop=true;
+    int id_buscado;
+    do
+    {
+        std::cout << "Ingrese el ID de usuario para ver cuenta corriente" << std::endl;
+        std::cin >> id_buscado;
+        int registros=arch.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            cc_muestra=arch.Leer(i);
+            if (id_buscado==cc_muestra.getcomensal())
+            {
+                std::cout << "Estado de cuenta del usuario " << std::string(cc_muestra.getnombrecomensal()) << ":" << std::endl;
+                std::cout << cc_muestra.toString() << std::endl;
+                loop=true;
+            }
+            else if (id_buscado!=cc_muestra.getcomensal()&&registros==i)
+            {
+                std::cout << "Usuario no encontrado o no existe, intente nuevamente" << std::endl;
+                loop=false;
+                break;
+            }
+        }
+    }
+    while(loop==false);
+}
+
+
+
