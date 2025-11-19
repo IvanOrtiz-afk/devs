@@ -12,22 +12,13 @@ Factura::Factura(int numeroFactura, Comensal comensal, Fecha fecha, Menues idmen
     :Comprobante(numeroFactura, comensal, fecha, idmenu, importe, medioDePago)
 {
     const int LIMITE_CORRELATIVO = 99999;
-
     if (numeroFactura < 1)
     {
         numeroFactura = 1;
     }
-
     int sucursal = (numeroFactura - 1) / LIMITE_CORRELATIVO + 1;
     int correlativo = (numeroFactura - 1) % LIMITE_CORRELATIVO + 1;
-
-    std::snprintf(
-        _numero_factura,
-        sizeof(_numero_factura),
-        "%04d-%05d",
-        sucursal,
-        correlativo
-    );
+    std::snprintf(_numero_factura, sizeof(_numero_factura), "%04d-%05d", sucursal, correlativo);
 }
 
 Factura::Factura()
@@ -36,22 +27,13 @@ Factura::Factura()
 void Factura::setnumfc(int numeroFactura)
 {
     const int LIMITE_CORRELATIVO = 99999;
-
     if (numeroFactura < 1)
     {
         numeroFactura = 1;
     }
-
     int sucursal = (numeroFactura - 1) / LIMITE_CORRELATIVO + 1;
     int correlativo = (numeroFactura - 1) % LIMITE_CORRELATIVO + 1;
-
-    std::snprintf(
-        _numero_factura,
-        sizeof(_numero_factura),
-        "%04d-%05d",
-        sucursal,
-        correlativo
-    );
+    std::snprintf(_numero_factura, sizeof(_numero_factura), "%04d-%05d", sucursal, correlativo);
 }
 
 const char* Factura::getnumfc()
@@ -59,7 +41,7 @@ const char* Factura::getnumfc()
     return _numero_factura;
 }
 
-std::string Factura::toString()
+std::string Factura::FCtoString()
 {
     std::string strComprobante = Comprobante::toString();
 

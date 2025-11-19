@@ -80,7 +80,6 @@ public:
         return registro;
     }
 
-
     int CantidadRegistros()
     {
         FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb");

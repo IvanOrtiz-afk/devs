@@ -7,7 +7,12 @@ class Menuadmin : public MenuPadreABML
     public:
         Menuadmin();
         ~Menuadmin();
-        void ejecutarmenu();
+        void listarplatos();
+        void cargarplato();
+        void valoraciones();
+        void eliminarplato();
+        void cargarvaloracion();
+        void listarfacturas();
 
     protected:
 

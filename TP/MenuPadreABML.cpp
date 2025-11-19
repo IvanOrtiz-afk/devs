@@ -3,6 +3,8 @@
 #include <cstring>
 #include <cstdlib>
 #include "MenuPadreABML.h"
+#include "Menuadmin.h"
+#include "MenuSistema.h"
 #include "Comensales.h" ///OJO COMO SE AGREGAN LAS LIBRERIAS, CUANDO MANEJAMOS HERENCIA LLEVAN UN ORDEN ESTAS
 #include "Menues.h"
 #include "Archivos.h"
@@ -58,7 +60,7 @@ int MenuPadreABML::menuinicial()
         std::cout << "2. Ingresar al sistema" << std::endl;
         salida(0); ///si es 0 va a imprimir "salir" si es 1 va a imprimir "atras"
         std::cin >> opcion;
-        if (opcion>0&&opcion<3||opcion==0)
+        if ((opcion>0&&opcion<3)||opcion==0)
         {
             _opcion=opcion;
             return _opcion;
@@ -71,5 +73,6 @@ int MenuPadreABML::menuinicial()
         }
     }
     while(opcion<0||opcion>2);
+    return _opcion;
 }
 

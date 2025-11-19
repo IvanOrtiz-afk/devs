@@ -15,6 +15,8 @@ public:
     Fecha getfecha();
     int getesta();
     const char *getdesctipo();
+    int getvaloracion();
+    void setvaloracion(int);
     void setdesctipo(TipoAlmuerzo);
     void setesta(Establecimientos);
     void setidmenu(int);
@@ -28,6 +30,7 @@ protected:
     int _esta;
     char _nombremenu[30];
     int _idtipo;
+    int _valoracion;
     char _desctipo[20];
     float _valorplato;
     Fecha _fecha;

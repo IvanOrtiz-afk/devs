@@ -49,6 +49,14 @@ const char* Menues::getdesctipo()
 {
     return _desctipo;
 }
+int Menues::getvaloracion()
+{
+    return _valoracion;
+}
+void Menues::setvaloracion(int valoracion)
+{
+    valoracion=_valoracion;
+}
 void Menues::setdesctipo(TipoAlmuerzo desctipo)
 {
     strncpy(_desctipo, desctipo.getnombretipo(), sizeof(_desctipo) - 1);

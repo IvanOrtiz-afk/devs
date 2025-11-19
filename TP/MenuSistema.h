@@ -1,12 +1,17 @@
 #pragma once
+#include "MenuPadreABML.h"
+#include "MenuSistema.h"
+#include "Menuadmin.h"
+#include "usuario.h"
+#include "Login.h"
 
-class MenuSistema
+class MenuSistema : public MenuPadreABML
 {
   public:
     MenuSistema(int rol);
     MenuSistema();
     void run(int rol);
-    
+
     void mostrarOpciones();
     void gestionarPlatos();
     void gestionarEstablecimientos();
@@ -16,8 +21,9 @@ class MenuSistema
     void gestionarConsumos();
     void gestionarUsuarios();
 
-   
+
   private:
     int _cantidadOpciones;
     int _rolActual;
+    Menuadmin _ejecutarmenu;
 };

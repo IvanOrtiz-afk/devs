@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include "MenuPadreABML.h"
 #include "MenuSistema.h"
+#include "Menuadmin.h"
 #include "usuario.h"
 #include "Login.h"
 using namespace std;
@@ -12,10 +14,12 @@ using namespace std;
 /// rol 0 = COMENSALES
 
 MenuSistema::MenuSistema()
+    :MenuPadreABML()
 {
 }
 
 MenuSistema::MenuSistema(int rol)
+    :MenuPadreABML()
 {
     _rolActual=rol;
     _cantidadOpciones=8;
@@ -33,7 +37,7 @@ void MenuSistema::mostrarOpciones()
         cout << "2- FACTURACION" <<endl;
         cout << "3- ESTADO CUENTA CORRIENTE "<<endl;
         cout << "4- CONSUMOS" << endl;
-    
+
         if (_rolActual == 1 or _rolActual == 2)  // admin y establecimientos
         {
             cout << "5- GESTIONAR COMENSALES" << endl;
@@ -110,15 +114,19 @@ void MenuSistema::gestionarPlatos()
     switch(opcion)
     {
     case 1: ///listarmenu
+        _ejecutarmenu.listarplatos();
         break;
     case 2: ///valorar
+        _ejecutarmenu.cargarvaloracion();
         break;
     case 3: /// ver favoritos
+        _ejecutarmenu.valoraciones();
         break;
     case 4:
         if (_rolActual == 1)
         {
             /// cargar();
+            _ejecutarmenu.cargarplato();
         }
         else
         {
@@ -129,6 +137,7 @@ void MenuSistema::gestionarPlatos()
         if (_rolActual == 1)
         {
             /// elminar();
+            _ejecutarmenu.eliminarplato();
         }
         else
         {
@@ -137,6 +146,7 @@ void MenuSistema::gestionarPlatos()
         break;
     case 0:
         cout << "Volviendo al menu principal... " << endl;
+        mostrarOpciones();
         break;
     }
 
@@ -164,6 +174,7 @@ void MenuSistema::gestionarFacturas()
         switch(opcion)
         {
         case 1: ///listar
+            _ejecutarmenu.listarfacturas();
             break;
         case 2:
             if (_rolActual == 1)

@@ -14,7 +14,7 @@ public:
     void setnumfc(int numeroFactura);
     const char* getnumfc();
 
-    std::string toString();
+    std::string FCtoString();
 
 private:
     char _numero_factura[11];
