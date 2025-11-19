@@ -10,7 +10,7 @@ class MenuSistema : public MenuPadreABML
   public:
     MenuSistema(int rol);
     MenuSistema();
-    void run(int rol);
+    void run();
 
     void mostrarOpciones();
     void gestionarPlatos();
