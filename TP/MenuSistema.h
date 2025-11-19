@@ -3,9 +3,9 @@
 class MenuSistema
 {
   public:
+    MenuSistema(int rol);
     MenuSistema();
-    MenuSistema(int rolUsuario);
-    void run();
+    void run(int rol);
     
     void mostrarOpciones();
     void gestionarPlatos();
@@ -14,6 +14,8 @@ class MenuSistema
     void gestionarFacturas();
     void gestionarCC();
     void gestionarConsumos();
+    void gestionarUsuarios();
+
    
   private:
     int _cantidadOpciones;

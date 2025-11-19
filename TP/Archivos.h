@@ -6,6 +6,8 @@
 #include "Comprobante.h"
 #include "Facturas.h"
 #include "CC.h"
+#include "usuario.h"
+#include "Login.h"
 
 template <typename Tipos>
 class Archivos

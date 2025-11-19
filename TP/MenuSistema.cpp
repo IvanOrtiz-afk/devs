@@ -2,21 +2,23 @@
 #include <string>
 #include <cstring>
 #include "MenuSistema.h"
+#include "usuario.h"
+#include "Login.h"
 using namespace std;
 
 
 /// rol 1 = ADMIN
-/// rol 2 = ESTABLECIMIENTOS
+/// rol 2 = ENCARGADO
 /// rol 0 = COMENSALES
 
 MenuSistema::MenuSistema()
 {
 }
 
-MenuSistema::MenuSistema(int rolUsuario)
+MenuSistema::MenuSistema(int rol)
 {
-    _rolActual=rolUsuario;
-    _cantidadOpciones=7;
+    _rolActual=rol;
+    _cantidadOpciones=8;
 }
 
 void MenuSistema::mostrarOpciones()
@@ -31,6 +33,7 @@ void MenuSistema::mostrarOpciones()
         cout << "2- FACTURACION" <<endl;
         cout << "3- ESTADO CUENTA CORRIENTE "<<endl;
         cout << "4- CONSUMOS" << endl;
+    
         if (_rolActual == 1 or _rolActual == 2)  // admin y establecimientos
         {
             cout << "5- GESTIONAR COMENSALES" << endl;
@@ -38,7 +41,10 @@ void MenuSistema::mostrarOpciones()
         if (_rolActual == 1)  // admin
         {
             cout << "6- GESTIONAR ESTABLECIMIENTOS" << endl;
+            cout << "7- GESTIONAR USUARIOS" << endl;
+
         }
+
         cout << "0- Salir" << endl;
         cin >> opcion;
 
@@ -56,7 +62,7 @@ void MenuSistema::mostrarOpciones()
             system("cls");
             gestionarCC();
             break;
-        case 4: 
+        case 4:
             system("cls");
             gestionarConsumos();
             break;
@@ -67,6 +73,10 @@ void MenuSistema::mostrarOpciones()
         case 6:
             system("cls");
             gestionarEstablecimientos();
+            break;
+        case 7:
+            system("cls");
+            gestionarUsuarios();
             break;
         case 0:
             cout << "Saliendo del sistema... " << endl;
@@ -86,23 +96,26 @@ void MenuSistema::gestionarPlatos()
     cout << "---------------------------" << endl;
     cout << "1- VER MENU DEL DIA" << endl;
     cout << "2- VALORAR UN PLATO "<<endl;
+    cout << "3- LISTAR VALORACIONES" << endl; /// chequear punto del parcial
 
     if (_rolActual == 1) // admin
     {
-        cout << "3- CARGAR UN NUEVO PLATO "<<endl; /// admin
-        cout << "4- ELIMINAR UN PLATO" <<endl;  /// admin
+        cout << "4- CARGAR UN NUEVO PLATO "<<endl; /// admin
+        cout << "5- ELIMINAR UN PLATO" <<endl;  /// admin
     };
 
     cout << "0- Volver al menu principal" << endl;
+    cin >> opcion;
 
     switch(opcion)
     {
     case 1: ///listarmenu
         break;
-    case 2: ///valorar o ver favoritos
+    case 2: ///valorar
         break;
-
-    case 3:
+    case 3: /// ver favoritos
+        break;
+    case 4:
         if (_rolActual == 1)
         {
             /// cargar();
@@ -112,7 +125,7 @@ void MenuSistema::gestionarPlatos()
             cout << "Acceso denegado." << endl;
         }
         break;
-    case 4:
+    case 5:
         if (_rolActual == 1)
         {
             /// elminar();
@@ -146,6 +159,7 @@ void MenuSistema::gestionarFacturas()
         };
 
         cout << "0- Volver al menu principal" << endl;
+        cin >> opcion;
 
         switch(opcion)
         {
@@ -172,7 +186,7 @@ void MenuSistema::gestionarFacturas()
 }
 
 
-void MenuSistema::gestionarCC()
+void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros para que el ADMIN pueda ver todos los pagos
 {
 
     {
@@ -184,6 +198,7 @@ void MenuSistema::gestionarCC()
         cout << "2- REALIZAR UN PAGO "<<endl;
         cout << "3- LISTAR PAGOS REALIZADOS" << endl;
         cout << "0- Volver al menu principal" << endl;
+        cin >> opcion;
 
         switch(opcion)
         {
@@ -210,6 +225,7 @@ void MenuSistema::gestionarConsumos()
         cout << "-------------------" << endl;
         cout << "1- LISTAR CONSUMOS" << endl;
         cout << "0- Volver al menu principal" << endl;
+        cin >> opcion;
 
         switch(opcion)
         {
@@ -241,7 +257,7 @@ void MenuSistema::gestionarComensales()
     };
 
     cout << "0- Volver al menu principal" << endl;
-
+    cin >> opcion;
     switch(opcion)
     {
     case 1:
@@ -301,7 +317,7 @@ void MenuSistema::gestionarEstablecimientos()
         cout << "Acceso denegado.." << endl;
     }
 
-
+    cin >> opcion;
     switch(opcion)
     {
     case 1:
@@ -331,6 +347,48 @@ void MenuSistema::gestionarEstablecimientos()
         {
             /// listar();
         }
+        else
+        {
+            cout << "Acceso denegado." << endl;
+        }
+        break;
+
+    case 0:
+        cout << "Volviendo al menu principal... " << endl;
+        break;
+    }
+
+}
+
+void MenuSistema::gestionarUsuarios()
+{
+    int opcion;
+
+    cout << "--- GESTIONAR USUARIOS ---" << endl;
+    cout << "-------------------------------------" << endl;
+
+    if (_rolActual == 1) // admin
+    {
+        cout << "1- CREAR UN NUEVO USUARIO "<<endl; /// admin
+        cout << "0- Volver al menu principal" << endl;
+    }
+    else
+    {
+        cout << "Acceso denegado.." << endl;
+    }
+
+
+    cin >> opcion;
+    switch(opcion)
+    {
+    case 1:
+        if (_rolActual == 1)
+        {
+            system("cls");
+            login nuevo_usuario;
+            nuevo_usuario.crearNuevoUsuario();
+        }
+
         else
         {
             cout << "Acceso denegado." << endl;
