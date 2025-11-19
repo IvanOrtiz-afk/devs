@@ -1,0 +1,13 @@
+# Archivos compilados de C++
+*.o
+*.exe
+*.dll
+
+# Archivos de configuración personal de Code::Blocks
+*.layout
+*.depend
+*.cbp.save
+
+# Carpetas de compilación
+bin/
+obj/
