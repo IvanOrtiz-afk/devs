@@ -137,7 +137,7 @@ void MenuSistema::gestionarPlatos()
         if (_rolActual == 1)
         {
             /// elminar();
-            _ejecutarmenu.eliminarplato();
+            _ejecutarmenu.eliminarplato(); ///aun no esta hecha porque implementa algo no visto
         }
         else
         {
@@ -146,7 +146,6 @@ void MenuSistema::gestionarPlatos()
         break;
     case 0:
         cout << "Volviendo al menu principal... " << endl;
-        mostrarOpciones();
         break;
     }
 
@@ -191,7 +190,6 @@ void MenuSistema::gestionarFacturas()
 
         case 0:
             cout << "Volviendo al menu principal... " << endl;
-            mostrarOpciones();
             break;
         }
 
@@ -219,6 +217,7 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
             _ejecutarmenu.verCC(); //de momento solo hice que se pueda ver la CC (sea deuda o no)
             break;
         case 2: ///cargarpago (al cargar un pago, de debe emitir FC o recibo y actualizar la CC)
+
             break;
         case 3: ///listarpagos
         case 0:
@@ -231,7 +230,6 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
 
 void MenuSistema::gestionarConsumos()
 {
-
     {
         int opcion;
 

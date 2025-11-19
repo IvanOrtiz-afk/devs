@@ -749,7 +749,7 @@
 1763522758 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\recibo.h
 	"Comprobante.h"
 
-1763590058 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menuadmin.cpp
+1763591385 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menuadmin.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -760,7 +760,7 @@
 	"Archivos.h"
 	"Menues.h"
 
-1763589709 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menuadmin.h
+1763591385 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menuadmin.h
 	"MenuPadreABML.h"
 
 1763586673 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menucomensal.cpp
@@ -804,7 +804,7 @@
 	"CC.h"
 	"Fecha.h"
 
-1763587978 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menusistema.cpp
+1763591385 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menusistema.cpp
 	<iostream>
 	<string>
 	<cstring>
