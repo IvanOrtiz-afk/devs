@@ -180,6 +180,7 @@ void MenuSistema::gestionarFacturas()
             if (_rolActual == 1)
             {
                 /// cargar();
+
             }
             else
             {

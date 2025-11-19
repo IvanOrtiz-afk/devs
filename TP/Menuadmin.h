@@ -13,6 +13,7 @@ class Menuadmin : public MenuPadreABML
         void eliminarplato();
         void cargarvaloracion();
         void listarfacturas();
+        void cargarfactura();
 
     protected:
 

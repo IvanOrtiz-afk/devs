@@ -244,3 +244,18 @@ void Menuadmin::listarfacturas()
     while(loop==false);
 }
 
+void Menuadmin::cargarfactura()
+{
+    Archivos <Factura> arch ("Facturas.dat");
+    Factura fc_muestra;
+    int id_comensal;
+    bool loop=true;
+    do
+    {
+        std::cout << "Seleccione su/el ID de usuario para generar factura" << std::endl;
+        std::cin >> id_comensal;
+
+
+    }
+    while(loop==false);
+}
