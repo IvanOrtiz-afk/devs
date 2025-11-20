@@ -253,7 +253,7 @@ void MenuSistema::gestionarConsumos()
         case 1: 
             system("pause");
             system("cls");
-            _ejecutarmenu.listarconsumos();
+            _ejecutarmenu.listarconsumos(); /// cuando trae los consumos los muestra con Fecha 0/0/0000. REVISAR!
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;

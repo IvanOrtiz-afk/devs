@@ -70,17 +70,20 @@ void login::iniciarSesion()
                 encontrado = true;
                 int rol = usuario_buscado.getRol();
                 if (rol == 1)
-                {
+                {   
+                    system("cls");
                     std::cout << "Sesion iniciada como Administrador" << std::endl;
                     system("pause");
                 }
                 else if (rol == 2)
                 {
+                    system("cls");
                     std::cout << "Sesion iniciada como Encargado" << std::endl;
                     system("pause");
                 }
                 else
                 {
+                    system("cls");
                     std::cout << "Sesion iniciada como Comensal" << std::endl;
                     system("pause");
                 }
