@@ -7,6 +7,7 @@
 #include "Menuadmin.h"
 #include "Archivos.h"
 #include "Menues.h"
+#include "Establecimientos.h"
 
 Menuadmin::Menuadmin()
     :MenuPadreABML()
@@ -359,6 +360,172 @@ void Menuadmin::verCC()
 }
 
 
+void Menuadmin::cargarestablecimiento()
+{
+    Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
+    int idestablecimiento;
+    std::string nombreestablecimiento, direccionesta, tipoesta;
+    std::cout << "NUEVO ESTABLECIMIENTO" << std::endl;
+    std::cout << "-----------------------------" << std::endl;
+    std::cout << "ingrese el ID del nuevo establecimiento:" << std::endl;
+    std::cin >> idestablecimiento;
+
+    std::cout << "ingrese el nombre:" << std::endl;
+    std::cin >> nombreestablecimiento;
+
+    std::cout << "ingrese la direccion:" << std::endl;
+    std::cin >> direccionesta;
+
+    std::cout << "Ingrese el tipo de establecimiento:" << std::endl;
+    std::cin >> tipoesta;
+
+    Establecimientos esta_muestra(idestablecimiento, nombreestablecimiento.c_str(), direccionesta.c_str(), tipoesta.c_str());
+
+    if (arch_establecimientos.Guardar(esta_muestra)== true)
+    {
+        system("pause");
+        system("cls");
+        std::cout << "El establecimiento se guardo exitosamente" << std::endl;
+    }
+    else
+    {
+        system("pause");
+        system("cls");
+        std::cout << "Algo salio mal. Intente mas tarde" << std::endl;
+    }
+
+}
 
 
+void Menuadmin::listarestablecimientos()
+{
+    Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
+    int cantidad = arch_establecimientos.CantidadRegistros();
+    std::cout << "LISTADO DE ESTABLECIMIENTOS"  << std::endl;
+    std::cout << "---------------------------------------"  << std::endl;
+    for (int i= 0; i < cantidad; i++)
+    {
+        Establecimientos establecimientos_muestra = arch_establecimientos.Leer(i);
+        mostrarestablecimientos(establecimientos_muestra);
+        std::cout << "---------------------------------------" << std::endl;
+        
+    }
+}
 
+void Menuadmin::mostrarestablecimientos(Establecimientos establecimientos_muestra)
+
+{
+
+    std::cout << "ID: " << establecimientos_muestra.getidestablecimiento() << std::endl;
+    std::cout << "Nombre: " << establecimientos_muestra.getnombreestablecimiento() << std::endl;
+    std::cout << "Direccion: " << establecimientos_muestra.getdireccionesta() << std::endl;
+    std::cout << "Tipo de establecimiento: " << establecimientos_muestra.gettipoesta() << std::endl;
+
+}
+
+
+void Menuadmin::cargarcomensales()
+{
+    Archivos <Comensal> arch_comensales ("Comensales.dat");
+    int idcomensal, idestablecimiento;
+    std::string nombre, direccion;
+    int dia, mes, anio;
+    Establecimientos guardar_id;
+    
+    
+    std::cout << "NUEVO COMENSAL" << std::endl;
+    std::cout << "-----------------------------" << std::endl;
+    std::cout << "ingrese el ID del nuevo comensal:" << std::endl;
+    std::cin >> idcomensal;
+
+    std::cout << "ingrese el nombre:" << std::endl;
+    std::cin >> nombre;
+    
+    std::cout << "ingrese direccion" << std::endl;
+    std::cin >> direccion;
+
+    std::cout << "ingrese dia de nacimiento: ";
+    std::cin >> dia;
+    std::cout << "ingrese mes de nacimiento: ";
+    std::cin >> mes;
+    std::cout << "ingrese anio de nacimiento: ";
+    std::cin >> anio;
+
+    std::cout << "Ingrese el ID del establecimiento:" << std::endl;
+    std::cin >> idestablecimiento;
+
+    guardar_id.setidestablecimiento(idestablecimiento);
+    Fecha fechanacimiento (dia, mes, anio);
+    Comensal comensal_muestra(idcomensal, nombre.c_str(), direccion.c_str(), fechanacimiento, guardar_id);
+
+    if (arch_comensales.Guardar(comensal_muestra)== true)
+    {
+        system("pause");
+        system("cls");
+        std::cout << "El comensal se guardo exitosamente" << std::endl;
+    }
+    else
+    {
+        system("pause");
+        system("cls");
+        std::cout << "Algo salio mal. Intente mas tarde" << std::endl;
+    }
+}
+
+void Menuadmin::listarcomensales()
+{
+
+    Archivos <Comensal> arch_comensales ("Comensales.dat");
+    int cantidad = arch_comensales.CantidadRegistros();
+    std::cout << "LISTADO DE COMENSALES"  << std::endl;
+    std::cout << "---------------------------------------"  << std::endl;
+    for (int i= 0; i < cantidad; i++)
+    {
+        Comensal comensal_muestra = arch_comensales.Leer(i);
+        mostrarcomensales(comensal_muestra);
+        std::cout << "---------------------------------------" << std::endl;
+        
+    }
+}
+
+void Menuadmin::mostrarcomensales(Comensal comensal_muestra)
+
+{
+
+    std::cout << "ID: " << comensal_muestra.getIDcomensal() << std::endl;
+    std::cout << "Nombre: " << comensal_muestra.getNombre() << std::endl;
+    std::cout << "Direccion: " << comensal_muestra.getDireccion() << std::endl;
+    std::cout << "Fecha de nacimiento: " << comensal_muestra.getFechaNacimiento().toString()<< std::endl;
+    std::cout << "ID Establecimiento : " << comensal_muestra.getIDestablecimiento() << std::endl;
+    
+
+}
+
+
+void Menuadmin::listarconsumos()
+{
+
+    Archivos <Consumos> arch_consumos ("Consumos.dat");
+    int cantidad = arch_consumos.CantidadRegistros();
+    std::cout << "LISTADO DE CONSUMOS"  << std::endl;
+    std::cout << "---------------------------------------"  << std::endl;
+    for (int i= 0; i < cantidad; i++)
+    {
+        Consumos consumos_muestra = arch_consumos.Leer(i);
+        mostrarconsumos(consumos_muestra);
+        std::cout << "---------------------------------------" << std::endl;
+        
+    }
+}
+
+void Menuadmin::mostrarconsumos(Consumos consumos_muestra)
+
+{
+
+    std::cout << "Fecha del consumo: " << consumos_muestra.getfecha().toString() << std::endl;
+    std::cout << "ID del cliente: " << consumos_muestra.getcliente() << std::endl;
+    std::cout << "Plato consumido: " << consumos_muestra.getplato() << std::endl;
+
+    
+
+}

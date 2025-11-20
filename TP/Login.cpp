@@ -30,7 +30,6 @@ void login::crearNuevoUsuario()
     std::cin >> rol;
 
     usuario nuevoUsuario(nombreUsuario, password, rol);
-    archUsuario.Guardar(nuevoUsuario);
     if (archUsuario.Guardar(nuevoUsuario) == true)
     {
         std::cout << "Usuario guardado exitosamente" << std::endl;

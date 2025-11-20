@@ -1,4 +1,7 @@
 #pragma once
+#include "Menues.h" 
+#include "Fecha.h"
+
 
 class Consumos
 {

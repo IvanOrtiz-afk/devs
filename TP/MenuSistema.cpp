@@ -250,7 +250,10 @@ void MenuSistema::gestionarConsumos()
 
         switch(opcion)
         {
-        case 1: ///listar
+        case 1: 
+            system("pause");
+            system("cls");
+            _ejecutarmenu.listarconsumos();
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
@@ -271,7 +274,7 @@ void MenuSistema::gestionarComensales()
     cout << "1- LISTAR COMENSALES" << endl;
 
 
-    if (_rolActual == 1) // admin
+    if (_rolActual == 1) 
     {
         cout << "2- CARGAR UN NUEVO COMENSAL "<<endl; /// admin
         cout << "3- ELIMINAR UN COMENSAL" <<endl;  /// admin
@@ -284,7 +287,9 @@ void MenuSistema::gestionarComensales()
     case 1:
         if (_rolActual == 1 or _rolActual == 2)
         {
-            /// listar;
+            system("pause");
+            system("cls");
+            _ejecutarmenu.listarcomensales();
         }
         else
         {
@@ -295,7 +300,9 @@ void MenuSistema::gestionarComensales()
     case 2:
         if (_rolActual == 1)
         {
-            /// cargar();
+            system("pause");
+            system("cls");
+            _ejecutarmenu.cargarcomensales();
         }
         else
         {
@@ -344,7 +351,9 @@ void MenuSistema::gestionarEstablecimientos()
     case 1:
         if (_rolActual == 1)
         {
-            /// cargar();
+            system("pause");
+            system("cls");
+            _ejecutarmenu.cargarestablecimiento();
         }
         else
         {
@@ -365,8 +374,10 @@ void MenuSistema::gestionarEstablecimientos()
         break;
     case 3:
         if (_rolActual == 1)
-        {
-            /// listar();
+        {   
+            system("pause");
+            system("cls");
+            _ejecutarmenu.listarestablecimientos();
         }
         else
         {
@@ -388,7 +399,7 @@ void MenuSistema::gestionarUsuarios()
     cout << "--- GESTIONAR USUARIOS ---" << endl;
     cout << "-------------------------------------" << endl;
 
-    if (_rolActual == 1) // admin
+    if (_rolActual == 1) 
     {
         cout << "1- CREAR UN NUEVO USUARIO "<<endl; /// admin
         cout << "0- Volver al menu principal" << endl;
