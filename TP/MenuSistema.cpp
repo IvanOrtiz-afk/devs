@@ -263,10 +263,20 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
             system("pause");
             system("cls"); //de momento solo hice que se pueda ver la CC (sea deuda o no)
             break;
-        case 2: ///cargarpago (al cargar un pago, se debe emitir FC o recibo y actualizar la CC)
+        case 2: 
+            system("pause");
+            system("cls");
+            _ejecutarmenu.cargarpago();
+            system("pause");
+            system("cls");
 
             break;
-        case 3: ///listarpagos
+        case 3:
+            system("pause");
+            system("cls");
+            _ejecutarmenu.listarpago();
+            system("pause");
+            system("cls");
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;

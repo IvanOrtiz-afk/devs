@@ -33,10 +33,14 @@ void login::crearNuevoUsuario()
     if (archUsuario.Guardar(nuevoUsuario) == true)
     {
         std::cout << "Usuario guardado exitosamente" << std::endl;
+         system("pause");
+          system("cls");
     }
     else
     {
         std::cout << "Algo salio mal, vuelva a intentar" << std::endl;
+         system("pause");
+          system("cls");
     }
 
 

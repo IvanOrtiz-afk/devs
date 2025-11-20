@@ -539,7 +539,7 @@ void Menuadmin::listarconsumos()
     int cantidad = arch_consumos.CantidadRegistros();
     std::cout << "LISTADO DE CONSUMOS"  << std::endl;
     std::cout << "---------------------------------------"  << std::endl;
-    for (int i= 0; i < cantidad; i++)
+    for (int i= 0; i <= cantidad; i++)
     {
         Consumos consumos_muestra = arch_consumos.Leer(i);
         mostrarconsumos(consumos_muestra);

@@ -13,28 +13,36 @@
 using namespace std;
 
 int main()
-{
-
-    /*Archivos <Comensal> arch ("Comensales.dat");
+{ 
+    /*
+    Archivos <TipoAlmuerzo> tipo_almuerzo ("TipoAlmuerzo.dat");
+    Archivos <Comensal> arch ("Comensales.dat");
     Archivos <Menues> arch2 ("Menues.dat");
-    Archivos <TipoAlmuerzo> arch3 ("TipoAlmuerzo.dat");
-    Establecimientos asd(12, "San juanito", "moreno", "empresa");
+    ///Archivos <TipoAlmuerzo> arch3 ("TipoAlmuerzo.dat");
+    Establecimientos asd(4, "San juanito", "moreno", "empresa");
     Fecha fechatest;
-    TipoAlmuerzo tipotest (1);
-    arch3.Guardar(tipotest);
-    TipoAlmuerzo tipotest2 (2);
-    arch3.Guardar(tipotest2);
-    TipoAlmuerzo tipotest3 (3);
-    arch3.Guardar(tipotest3);
-    Comensal test(12, "Ivan", "Moreno", fechatest.hoy(), asd);
-    Menues menutest (32, "Milanesa con papas", asd, 2300, tipotest, fechatest.hoy());
-    Menues menutest2 (33, "Milanesa integral", asd, 2000, tipotest2, fechatest.hoy());
-    Menues menutest3 (34, "Milanesa sin TACC", asd, 3000, tipotest3, fechatest.hoy());
+    
+    TipoAlmuerzo tipotest(1);
+    TipoAlmuerzo tipotest2(2);
+    TipoAlmuerzo tipotest3(3);
+    Comensal test(1, "Ivan", "Moreno", fechatest.hoy(), asd);
+    Comensal test1(2, "Evelyn", "Tigre", fechatest.hoy(), asd);
+    Comensal test2(3, "Bruno", "Moron", fechatest.hoy(), asd);
+    Comensal test3(4, "Pedro", "Pacheco", fechatest.hoy(), asd);
+    Comensal test4(5, "Felix", "San Fernadno", fechatest.hoy(), asd);
+    Menues menutest (1, "Milanesa con papas", asd, 2300, tipotest, fechatest.hoy());
+    Menues menutest2 (2, "Milanesa integral", asd, 2000, tipotest2, fechatest.hoy());
+    Menues menutest3 (3, "Milanesa sin TACC", asd, 3000, tipotest3, fechatest.hoy());
     //Comensal test;
     arch.Guardar(test);
+    arch.Guardar(test1);
+    arch.Guardar(test2);
+    arch.Guardar(test3);
+    arch.Guardar(test4);
     arch2.Guardar(menutest);
     arch2.Guardar(menutest2);
-    arch2.Guardar(menutest3);*/
+    arch2.Guardar(menutest3);
+    */
 
 
     App app;
