@@ -376,12 +376,18 @@ void Menuadmin::verCC()
 void Menuadmin::cargarestablecimiento()
 {
     Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
-    int idestablecimiento;
+
     std::string nombreestablecimiento, direccionesta, tipoesta;
+    int idestablecimiento = arch_establecimientos.CantidadRegistros()+1;
+    if (idestablecimiento == 0)
+    {
+        idestablecimiento=1;
+    }
+    
     std::cout << "NUEVO ESTABLECIMIENTO" << std::endl;
     std::cout << "-----------------------------" << std::endl;
-    std::cout << "ingrese el ID del nuevo establecimiento:" << std::endl;
-    std::cin >> idestablecimiento;
+    std::cout << "Nuevo establecimiento bajo el ID #:" << idestablecimiento << std::endl;
+    std::cout << std::endl;
 
     std::cout << "ingrese el nombre:" << std::endl;
     std::cin >> nombreestablecimiento;
@@ -431,21 +437,29 @@ void Menuadmin::mostrarestablecimientos(Establecimientos establecimientos_muestr
     std::cout << "Nombre: " << establecimientos_muestra.getnombreestablecimiento() << std::endl;
     std::cout << "Direccion: " << establecimientos_muestra.getdireccionesta() << std::endl;
     std::cout << "Tipo de establecimiento: " << establecimientos_muestra.gettipoesta() << std::endl;
+    
 }
 
 void Menuadmin::cargarcomensales()
 {
     Archivos <Comensal> arch_comensales ("Comensales.dat");
-    int idcomensal, idestablecimiento;
+    int  idestablecimiento;
     std::string nombre, direccion;
     int dia, mes, anio;
+    
+    int idcomensal = arch_comensales.CantidadRegistros()+1;
+    if (idcomensal == 0)
+    {
+        idcomensal=1;
+    }
+
     Establecimientos guardar_id;
 
 
     std::cout << "NUEVO COMENSAL" << std::endl;
     std::cout << "-----------------------------" << std::endl;
-    std::cout << "ingrese el ID del nuevo comensal:" << std::endl;
-    std::cin >> idcomensal;
+    std::cout << "Nuevo comensal bajo el ID #:" << idcomensal << std::endl;
+    std::cout << std::endl;
 
     std::cout << "ingrese el nombre:" << std::endl;
     std::cin >> nombre;
@@ -472,12 +486,16 @@ void Menuadmin::cargarcomensales()
         system("pause");
         system("cls");
         std::cout << "El comensal se guardo exitosamente" << std::endl;
+        system("pause");
+        system("cls");
     }
     else
     {
         system("pause");
         system("cls");
         std::cout << "Algo salio mal. Intente mas tarde" << std::endl;
+        system("pause");
+       system("cls");
     }
 }
 

@@ -258,23 +258,29 @@ void MenuSistema::gestionarConsumos()
     {
         int opcion;
 
-        cout << "--- CONSUMOS ---" << endl;
-        cout << "-------------------" << endl;
-        cout << "1- LISTAR CONSUMOS" << endl;
-        cout << "0- Volver al menu principal" << endl;
-        cin >> opcion;
-
-        switch(opcion)
+        do
         {
-        case 1:
-            system("pause");
-            system("cls");
-            _ejecutarmenu.listarconsumos(); /// REPARADO!!!
-            break;
-        case 0:
-            cout << "Volviendo al menu principal... " << endl;
-            break;
+            cout << "--- CONSUMOS ---" << endl;
+            cout << "-------------------" << endl;
+            cout << "1- LISTAR CONSUMOS" << endl;
+            cout << "0- Volver al menu principal" << endl;
+            cin >> opcion;
+
+            switch(opcion)
+            {
+            case 1:
+                system("pause");
+                system("cls");
+                _ejecutarmenu.listarconsumos(); /// REPARADO!!!
+                system("pause");
+                system("cls");
+                break;
+            case 0:
+                cout << "Volviendo al menu principal... " << endl;
+                break;
+            }
         }
+        while(opcion =! 0);
 
     }
 }
@@ -285,167 +291,187 @@ void MenuSistema::gestionarComensales()
 {
     int opcion;
 
-    cout << "--- GESTIONAR COMENSALES ---" << endl;
-    cout << "------------------------------" << endl;
-    cout << "1- LISTAR COMENSALES" << endl;
-
-
-    if (_rolActual == 1)
+    do
     {
-        cout << "2- CARGAR UN NUEVO COMENSAL "<<endl; /// admin
-        cout << "3- ELIMINAR UN COMENSAL" <<endl;  /// admin
-    };
+        cout << "--- GESTIONAR COMENSALES ---" << endl;
+        cout << "------------------------------" << endl;
+        cout << "1- LISTAR COMENSALES" << endl;
 
-    cout << "0- Volver al menu principal" << endl;
-    cin >> opcion;
-    switch(opcion)
-    {
-    case 1:
-        if (_rolActual == 1 or _rolActual == 2)
-        {
-            system("pause");
-            system("cls");
-            _ejecutarmenu.listarcomensales();
-        }
-        else
-        {
-            cout << "Acceso denegado." << endl;
-        }
-        break;
 
-    case 2:
         if (_rolActual == 1)
         {
-            system("pause");
-            system("cls");
-            _ejecutarmenu.cargarcomensales();
-        }
-        else
+            cout << "2- CARGAR UN NUEVO COMENSAL "<<endl; /// admin
+            cout << "3- ELIMINAR UN COMENSAL" <<endl;  /// admin
+        };
+
+        cout << "0- Volver al menu principal" << endl;
+        cin >> opcion;
+        switch(opcion)
         {
-            cout << "Acceso denegado." << endl;
+        case 1:
+            if (_rolActual == 1 or _rolActual == 2)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.listarcomensales();
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+
+        case 2:
+            if (_rolActual == 1)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.cargarcomensales();
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+        case 3:
+            if (_rolActual == 1)
+            {
+                /// elminar();
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+        case 0:
+            cout << "Volviendo al menu principal... " << endl;
+            break;
         }
-        break;
-    case 3:
-        if (_rolActual == 1)
-        {
-            /// elminar();
-        }
-        else
-        {
-            cout << "Acceso denegado." << endl;
-        }
-        break;
-    case 0:
-        cout << "Volviendo al menu principal... " << endl;
-        break;
     }
-
+    while (opcion != 0);
 }
 
 void MenuSistema::gestionarEstablecimientos()
 {
     int opcion;
 
-    cout << "--- GESTIONAR ESTABLECIMIENTOS ---" << endl;
-    cout << "-------------------------------------" << endl;
+    do
+    {
+        cout << "--- GESTIONAR ESTABLECIMIENTOS ---" << endl;
+        cout << "-------------------------------------" << endl;
 
-    if (_rolActual == 1) // admin
-    {
-        cout << "1- CARGAR UN NUEVO ESTABLICIMIENTO "<<endl; /// admin
-        cout << "2- ELIMINAR UN ESTABLECIMIENTO" <<endl;  /// admin
-        cout << "3- LISTAR ESTABLECIMIENTOS" << endl;/// admin
-        cout << "0- Volver al menu principal" << endl;
-    }
-    else
-    {
-        cout << "Acceso denegado.." << endl;
-    }
-
-    cin >> opcion;
-    switch(opcion)
-    {
-    case 1:
-        if (_rolActual == 1)
+        if (_rolActual == 1) // admin
         {
-            system("pause");
-            system("cls");
-            _ejecutarmenu.cargarestablecimiento();
+            cout << "1- CARGAR UN NUEVO ESTABLICIMIENTO "<<endl; /// admin
+            cout << "2- ELIMINAR UN ESTABLECIMIENTO" <<endl;  /// admin
+            cout << "3- LISTAR ESTABLECIMIENTOS" << endl;/// admin
+            cout << "0- Volver al menu principal" << endl;
         }
         else
         {
-            cout << "Acceso denegado." << endl;
-        }
-        break;
-
-    case 2:
-        if (_rolActual == 1)
-        {
-            /// elminar();
-        }
-        else
-        {
-            cout << "Acceso denegado." << endl;
+            cout << "Acceso denegado.." << endl;
         }
 
-        break;
-    case 3:
-        if (_rolActual == 1)
+        cin >> opcion;
+        switch(opcion)
         {
-            system("pause");
-            system("cls");
-            _ejecutarmenu.listarestablecimientos();
-        }
-        else
-        {
-            cout << "Acceso denegado." << endl;
-        }
-        break;
+        case 1:
+            if (_rolActual == 1)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.cargarestablecimiento();
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
 
-    case 0:
-        cout << "Volviendo al menu principal... " << endl;
-        break;
+        case 2:
+            if (_rolActual == 1)
+            {
+                /// elminar();
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+
+            break;
+        case 3:
+            if (_rolActual == 1)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.listarestablecimientos();
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+
+        case 0:
+            cout << "Volviendo al menu principal... " << endl;
+
+            break;
+        }
     }
-
+    while(opcion =! 0);
 }
 
 void MenuSistema::gestionarUsuarios()
 {
     int opcion;
 
-    cout << "--- GESTIONAR USUARIOS ---" << endl;
-    cout << "-------------------------------------" << endl;
+    do
+    {
+        cout << "--- GESTIONAR USUARIOS ---" << endl;
+        cout << "-------------------------------------" << endl;
 
-    if (_rolActual == 1)
-    {
-        cout << "1- CREAR UN NUEVO USUARIO "<<endl; /// admin
-        cout << "0- Volver al menu principal" << endl;
-    }
-    else
-    {
-        cout << "Acceso denegado.." << endl;
-    }
-
-    cin >> opcion;
-    switch(opcion)
-    {
-    case 1:
         if (_rolActual == 1)
         {
-            system("cls");
-            login nuevo_usuario;
-            nuevo_usuario.crearNuevoUsuario();
+            cout << "1- CREAR UN NUEVO USUARIO "<<endl; /// admin
+            cout << "0- Volver al menu principal" << endl;
         }
-
         else
         {
-            cout << "Acceso denegado." << endl;
+            cout << "Acceso denegado.." << endl;
         }
-        break;
 
-    case 0:
-        cout << "Volviendo al menu principal... " << endl;
-        break;
+        cin >> opcion;
+        switch(opcion)
+        {
+        case 1:
+            if (_rolActual == 1)
+            {
+                system("cls");
+                login nuevo_usuario;
+                nuevo_usuario.crearNuevoUsuario();
+                system("cls");
+
+            }
+
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+
+        case 0:
+            cout << "Volviendo al menu principal... " << endl;
+            break;
+        }
     }
-
+    while (opcion != 0);
 }
 
