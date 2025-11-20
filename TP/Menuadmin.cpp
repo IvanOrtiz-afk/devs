@@ -242,8 +242,13 @@ void Menuadmin::listarfacturas()
             if (fc_muestra.getIDcomensal()==seleccion_id)
             {
                 j++;
+                line('-');
                 std::cout << "Factura del comensal " << std::string(fc_muestra.getnombrecomensal()) << " Nø " << j << std::endl;
-                std::cout << fc_muestra.FCtoString() << std::endl;
+                std::cout << "Bajo el Nø de factura " << fc_muestra.getNumeracion() << std::endl;
+                line('-');
+                std::cout << "Consumo en la fecha de " << fc_muestra.getFecha().toString() << std::endl;
+                std::cout << "Por un total de $" << fc_muestra.getImporte() << std::endl;
+                line('-');
             }
             else
             {
@@ -327,7 +332,7 @@ void Menuadmin::cargarfactura()
             }
         }
         registros=arch.CantidadRegistros()+1;
-        fc_muestra.setNumeracion(registros);
+        fc_muestra.setNumeracion(registros+1);
         loop=arch.Guardar(fc_muestra);
         if (loop==false)
         {
@@ -573,7 +578,7 @@ void Menuadmin::cargarpago()
                 pago_cargar.setIDcomensal(comensal_buscado);
                 pago_cargar.setimporte(importe_cargar);
                 pago_cargar.setfecha(fecha_actual.hoy());
-                saldo_final=CC_buscado.getSaldoActual()-importe_cargar;
+                saldo_final=CC_buscado.getSaldoActual()+importe_cargar;
                 CC_buscado.setSaldoActual(saldo_final);
                 if (arch3.Guardar(CC_buscado, i)==true&&arch.Guardar(pago_cargar)==true) ///sobreescritura
                 {

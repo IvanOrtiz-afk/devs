@@ -142,7 +142,7 @@ void Menucomensal::generarconsumo()
             if (tipo_consumo==true)
             {
                 float saldoauxiliar=actualizar_cuenta.getSaldoActual();
-                saldoauxiliar=actualizar_cuenta.getSaldoActual()-(consumodelcomensal.getimporte()-consumodelcomensal.getimporte()/10);
+                saldoauxiliar=actualizar_cuenta.getSaldoActual()+(consumodelcomensal.getimporte()-consumodelcomensal.getimporte()/10);
                 if (saldoauxiliar<0)
                 {
                     tiene_deuda=true;
@@ -162,7 +162,7 @@ void Menucomensal::generarconsumo()
                 cliente_encontrado=true;
                 break;
             }
-            else ///esto es lo mismo que arriba, solo que la cuenta no resta el 10%
+            else ///esto es si paga por cuenta corriente
             {
                 float saldoauxiliar=actualizar_cuenta.getSaldoActual();
                 saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
@@ -190,14 +190,10 @@ void Menucomensal::generarconsumo()
         float saldoauxiliar=actualizar_cuenta.getSaldoActual();
         saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
         tiene_deuda=true;
-        CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, saldoauxiliar, tiene_deuda);
+        CuentaCorriente actualizar_cuenta(cantregistros+1, _clientebuscado, 0-saldoauxiliar, tiene_deuda);
         arch2.Guardar(actualizar_cuenta);
         int cantregistros2=arch3.CantidadRegistros();
-        if (cantregistros2==0)
-        {
-            cantregistros2=1;
-        }
-        Factura fc_consumo(cantregistros2, _clientebuscado, fecha_generar, _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+        Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar, _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
         arch3.Guardar(fc_consumo);
     }
 }

@@ -759,7 +759,7 @@
 1763522758 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\recibo.h
 	"Comprobante.h"
 
-1763656350 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menuadmin.cpp
+1763663201 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menuadmin.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -768,6 +768,7 @@
 	"MenuSistema.h"
 	"Menuadmin.h"
 	"Archivos.h"
+	"Pagos.h"
 	"Menues.h"
 	"Establecimientos.h"
 
@@ -778,7 +779,7 @@
 	"Consumos.h"
 	"Menues.h"
 
-1763661837 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menucomensal.cpp
+1763668655 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menucomensal.cpp
 	<iostream>
 	<string>
 	<cstring>
