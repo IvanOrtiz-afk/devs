@@ -28,10 +28,10 @@ public:
 
 protected:
     int _esta;
-    char _nombremenu[30];
+    char _nombremenu[60];
     int _idtipo;
     int _valoracion;
-    char _desctipo[20];
+    char _desctipo[30];
     float _valorplato;
     Fecha _fecha;
 

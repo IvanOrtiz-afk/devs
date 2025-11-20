@@ -12,6 +12,7 @@ public:
     int getMes();
     int getAnio();
     bool operator==(const Fecha& otra) const;
+    bool operator!=(const Fecha& otra) const;
     Fecha hoy();
     void setDia(int dia);
     void setMes(int mes);

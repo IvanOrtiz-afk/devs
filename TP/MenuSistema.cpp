@@ -123,18 +123,26 @@ void MenuSistema::gestionarPlatos()
     switch(opcion)
     {
     case 1: ///listarmenu
+        system("pause");
+        system("cls");
         _ejecutarmenu.listarplatos();
         break;
     case 2: ///valorar
+        system("pause");
+        system("cls");
         _ejecutarmenu.cargarvaloracion();
         break;
     case 3: /// ver favoritos
+        system("pause");
+        system("cls");
         _ejecutarmenu.valoraciones();
         break;
     case 4:
         if (_rolActual == 1)
         {
             /// cargar();
+            system("pause");
+            system("cls");
             _ejecutarmenu.cargarplato();
         }
         else
@@ -146,6 +154,8 @@ void MenuSistema::gestionarPlatos()
         if (_rolActual == 1)
         {
             /// elminar();
+            system("pause");
+            system("cls");
             _ejecutarmenu.eliminarplato(); ///aun no esta hecha porque implementa algo no visto
         }
         else
@@ -182,12 +192,16 @@ void MenuSistema::gestionarFacturas()
         switch(opcion)
         {
         case 1: ///listar
+            system("pause");
+            system("cls");
             _ejecutarmenu.listarfacturas();
             break;
         case 2:
             if (_rolActual == 1)
             {
                 /// cargar();
+                system("pause");
+                system("cls");
                 _ejecutarmenu.cargarfactura();
             }
             else
@@ -223,17 +237,19 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
         switch(opcion)
         {
         case 1: ///deuda
+            system("pause");
+            system("cls");
             _ejecutarmenu.verCC(); //de momento solo hice que se pueda ver la CC (sea deuda o no)
             break;
-        case 2: ///cargarpago (al cargar un pago, de debe emitir FC o recibo y actualizar la CC)
+        case 2: ///cargarpago (al cargar un pago, se debe emitir FC o recibo y actualizar la CC)
 
             break;
         case 3: ///listarpagos
+            break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;
         }
-
     }
 }
 
@@ -250,10 +266,10 @@ void MenuSistema::gestionarConsumos()
 
         switch(opcion)
         {
-        case 1: 
+        case 1:
             system("pause");
             system("cls");
-            _ejecutarmenu.listarconsumos(); /// cuando trae los consumos los muestra con Fecha 0/0/0000. REVISAR!
+            _ejecutarmenu.listarconsumos(); /// REPARADO!!!
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
@@ -274,7 +290,7 @@ void MenuSistema::gestionarComensales()
     cout << "1- LISTAR COMENSALES" << endl;
 
 
-    if (_rolActual == 1) 
+    if (_rolActual == 1)
     {
         cout << "2- CARGAR UN NUEVO COMENSAL "<<endl; /// admin
         cout << "3- ELIMINAR UN COMENSAL" <<endl;  /// admin
@@ -374,7 +390,7 @@ void MenuSistema::gestionarEstablecimientos()
         break;
     case 3:
         if (_rolActual == 1)
-        {   
+        {
             system("pause");
             system("cls");
             _ejecutarmenu.listarestablecimientos();
@@ -399,7 +415,7 @@ void MenuSistema::gestionarUsuarios()
     cout << "--- GESTIONAR USUARIOS ---" << endl;
     cout << "-------------------------------------" << endl;
 
-    if (_rolActual == 1) 
+    if (_rolActual == 1)
     {
         cout << "1- CREAR UN NUEVO USUARIO "<<endl; /// admin
         cout << "0- Volver al menu principal" << endl;
@@ -408,7 +424,6 @@ void MenuSistema::gestionarUsuarios()
     {
         cout << "Acceso denegado.." << endl;
     }
-
 
     cin >> opcion;
     switch(opcion)

@@ -21,6 +21,7 @@ class Menuadmin : public MenuPadreABML
         void cargarfactura();
         void verCC();
         void cargarpago();
+        void listarpago();
         void cargarestablecimiento();
         void listarestablecimientos();
         void cargarcomensales();

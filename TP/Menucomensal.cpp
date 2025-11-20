@@ -129,7 +129,7 @@ void Menucomensal::generarconsumo()
     bool cliente_encontrado=false, tiene_deuda=false;
     bool tipo_consumo=tipodeconsumo();
     Fecha fecha_generar;
-    Consumos consumodelcomensal(fecha_generar, _clientebuscado, _menubuscado);
+    Consumos consumodelcomensal(fecha_generar.hoy(), _clientebuscado, _menubuscado);
     arch.Guardar(consumodelcomensal);
     CuentaCorriente actualizar_cuenta;
     int cantregistros=arch2.CantidadRegistros();

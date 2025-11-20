@@ -6,6 +6,7 @@
 #include "MenuSistema.h"
 #include "Menuadmin.h"
 #include "Archivos.h"
+#include "Pagos.h"
 #include "Menues.h"
 #include "Establecimientos.h"
 
@@ -25,6 +26,7 @@ void Menuadmin::listarplatos()
     Archivos <Menues> arch ("Menues.dat");
     Menues plato_muestra;
     Fecha fecha_hoy;
+    fecha_hoy.hoy();
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
     {
@@ -32,6 +34,10 @@ void Menuadmin::listarplatos()
         if (fecha_hoy.hoy()==plato_muestra.getfecha())
         {
             std::cout << plato_muestra.toString() << std::endl;
+        }
+        else if (fecha_hoy.hoy()!=plato_muestra.getfecha()&&registros==i-1)
+        {
+            std::cout << "No se encontro ningun plato para el d¡a de hoy" << std::endl;
         }
     }
 }
@@ -57,6 +63,7 @@ void Menuadmin::cargarvaloracion()
     Archivos <Menues> arch ("Menues.dat");
     Menues plato_muestra;
     Fecha fecha_hoy;
+    fecha_hoy.hoy();
     bool ejecutar_ok=false;
     int valoracion=0;
     int numero, j=0;
@@ -128,6 +135,7 @@ void Menuadmin::cargarplato()
     Establecimientos esta_muestra;
     Menues plato_muestra;
     Fecha fecha_hoy;
+    fecha_hoy.hoy();
     do
     {
         std::cout << "Ingrese el nombre del men£ nuevo" << std::endl;
@@ -146,7 +154,7 @@ void Menuadmin::cargarplato()
                 {
                     plato_muestra.setesta(esta_muestra);
                 }
-                if (idesta!=esta_muestra.getidestablecimiento()&&j==registro)
+                if (idesta!=esta_muestra.getidestablecimiento()&&j-1==registro)
                 {
                     std::cout << "ID ingresado no v lido o no existe, intente nuevamente" << std::endl;
                     loop=false;
@@ -257,6 +265,7 @@ void Menuadmin::cargarfactura()
     Factura fc_muestra;
     Comensal comensal_muestra;
     Fecha fecha_hoy;
+    fecha_hoy.hoy();
     float importe_muestra;
     int id_comensal;
     bool loop=true;
@@ -273,7 +282,7 @@ void Menuadmin::cargarfactura()
                 std::cout << "Comenzal " << std::string(comensal_muestra.getNombre()) << " encontrado" << std::endl;
                 fc_muestra.setIDcomensal(comensal_muestra);
             }
-            else if (id_comensal!=comensal_muestra.getIDcomensal()&&registros==i)
+            else if (id_comensal!=comensal_muestra.getIDcomensal()&&registros==i-1)
             {
                 std::cout << "Comenzal NO encontrado o no existe, intente nuevamente" << std::endl;
                 loop=false;
@@ -310,7 +319,7 @@ void Menuadmin::cargarfactura()
                 fc_muestra.setIDmenu(plato_muestra);
                 loop=true;
             }
-            else if (registros==i&&id_menu!=plato_muestra.getidmenu())
+            else if (registros==i-1&&id_menu!=plato_muestra.getidmenu())
             {
                 std::cout << "Men£ no encontrado o no existe, intente nuevamente" << std::endl;
                 loop=false;
@@ -348,7 +357,7 @@ void Menuadmin::verCC()
                 std::cout << cc_muestra.toString() << std::endl;
                 loop=true;
             }
-            else if (id_buscado!=cc_muestra.getcomensal()&&registros==i)
+            else if (id_buscado!=cc_muestra.getcomensal()&&registros==i-1)
             {
                 std::cout << "Usuario no encontrado o no existe, intente nuevamente" << std::endl;
                 loop=false;
@@ -358,7 +367,6 @@ void Menuadmin::verCC()
     }
     while(loop==false);
 }
-
 
 void Menuadmin::cargarestablecimiento()
 {
@@ -396,7 +404,6 @@ void Menuadmin::cargarestablecimiento()
 
 }
 
-
 void Menuadmin::listarestablecimientos()
 {
     Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
@@ -408,21 +415,18 @@ void Menuadmin::listarestablecimientos()
         Establecimientos establecimientos_muestra = arch_establecimientos.Leer(i);
         mostrarestablecimientos(establecimientos_muestra);
         std::cout << "---------------------------------------" << std::endl;
-        
+
     }
 }
 
 void Menuadmin::mostrarestablecimientos(Establecimientos establecimientos_muestra)
-
 {
 
     std::cout << "ID: " << establecimientos_muestra.getidestablecimiento() << std::endl;
     std::cout << "Nombre: " << establecimientos_muestra.getnombreestablecimiento() << std::endl;
     std::cout << "Direccion: " << establecimientos_muestra.getdireccionesta() << std::endl;
     std::cout << "Tipo de establecimiento: " << establecimientos_muestra.gettipoesta() << std::endl;
-
 }
-
 
 void Menuadmin::cargarcomensales()
 {
@@ -431,8 +435,8 @@ void Menuadmin::cargarcomensales()
     std::string nombre, direccion;
     int dia, mes, anio;
     Establecimientos guardar_id;
-    
-    
+
+
     std::cout << "NUEVO COMENSAL" << std::endl;
     std::cout << "-----------------------------" << std::endl;
     std::cout << "ingrese el ID del nuevo comensal:" << std::endl;
@@ -440,7 +444,7 @@ void Menuadmin::cargarcomensales()
 
     std::cout << "ingrese el nombre:" << std::endl;
     std::cin >> nombre;
-    
+
     std::cout << "ingrese direccion" << std::endl;
     std::cin >> direccion;
 
@@ -474,7 +478,6 @@ void Menuadmin::cargarcomensales()
 
 void Menuadmin::listarcomensales()
 {
-
     Archivos <Comensal> arch_comensales ("Comensales.dat");
     int cantidad = arch_comensales.CantidadRegistros();
     std::cout << "LISTADO DE COMENSALES"  << std::endl;
@@ -484,27 +487,21 @@ void Menuadmin::listarcomensales()
         Comensal comensal_muestra = arch_comensales.Leer(i);
         mostrarcomensales(comensal_muestra);
         std::cout << "---------------------------------------" << std::endl;
-        
+
     }
 }
 
 void Menuadmin::mostrarcomensales(Comensal comensal_muestra)
-
 {
-
     std::cout << "ID: " << comensal_muestra.getIDcomensal() << std::endl;
     std::cout << "Nombre: " << comensal_muestra.getNombre() << std::endl;
     std::cout << "Direccion: " << comensal_muestra.getDireccion() << std::endl;
     std::cout << "Fecha de nacimiento: " << comensal_muestra.getFechaNacimiento().toString()<< std::endl;
     std::cout << "ID Establecimiento : " << comensal_muestra.getIDestablecimiento() << std::endl;
-    
-
 }
-
 
 void Menuadmin::listarconsumos()
 {
-
     Archivos <Consumos> arch_consumos ("Consumos.dat");
     int cantidad = arch_consumos.CantidadRegistros();
     std::cout << "LISTADO DE CONSUMOS"  << std::endl;
@@ -514,18 +511,30 @@ void Menuadmin::listarconsumos()
         Consumos consumos_muestra = arch_consumos.Leer(i);
         mostrarconsumos(consumos_muestra);
         std::cout << "---------------------------------------" << std::endl;
-        
     }
 }
 
 void Menuadmin::mostrarconsumos(Consumos consumos_muestra)
-
 {
-
     std::cout << "Fecha del consumo: " << consumos_muestra.getfecha().toString() << std::endl;
     std::cout << "ID del cliente: " << consumos_muestra.getcliente() << std::endl;
     std::cout << "Plato consumido: " << consumos_muestra.getplato() << std::endl;
+}
 
-    
+void Menuadmin::cargarpago()
+{
+    Archivos <Pagos> arch ("Pagos.dat");
+    Archivos <Comensal> arch2 ("Comensales.dat");
+    Fecha fecha_actual;
+    fecha_actual.hoy();
+    Pagos pago_cargar;
+    int id_buscado;
+    std::cout << "Seleccione el ID del comensal" << std::endl;
+    std::cin >> id_buscado;
+    int registros=arch2.CantidadRegistros();
+}
+
+void Menuadmin::listarpago()
+{
 
 }
