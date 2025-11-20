@@ -154,11 +154,7 @@ void Menucomensal::generarconsumo()
                 Pagos pago_guardar (_clientebuscado, _menubuscado.getvalorplato(), fecha_generar.hoy());
                 arch4.Guardar(pago_guardar); ///aca guardo un pago
                 int cantregistros2=arch3.CantidadRegistros();
-                if (cantregistros2==0)
-                {
-                    cantregistros2=1;
-                }
-                Factura fc_consumo(cantregistros2, _clientebuscado, fecha_generar, _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+                Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
                 arch3.Guardar(fc_consumo); ///0002-00001
                 cliente_encontrado=true;
                 break;
@@ -174,11 +170,7 @@ void Menucomensal::generarconsumo()
                 CuentaCorriente actualizar_cuenta(i, _clientebuscado, saldoauxiliar, tiene_deuda);
                 arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
                 int cantregistros2=arch3.CantidadRegistros();
-                if (cantregistros2==0)
-                {
-                    cantregistros2=1;
-                }
-                Factura fc_consumo(cantregistros2, _clientebuscado, fecha_generar, _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+                Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
                 arch3.Guardar(fc_consumo);
                 cliente_encontrado=true;
                 break;
@@ -194,7 +186,7 @@ void Menucomensal::generarconsumo()
         CuentaCorriente actualizar_cuenta(cantregistros+1, _clientebuscado, 0-saldoauxiliar, tiene_deuda);
         arch2.Guardar(actualizar_cuenta);
         int cantregistros2=arch3.CantidadRegistros();
-        Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar, _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+        Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
         arch3.Guardar(fc_consumo);
     }
 }

@@ -239,12 +239,12 @@ void Menuadmin::listarfacturas()
         for (int i=0; i<registros; i++)
         {
             fc_muestra=arch.Leer(i);
-            if (fc_muestra.getIDcomensal()==seleccion_id)
+            if (fc_muestra.getidcomen()==seleccion_id)
             {
-               j++;
+                j++;
                 line('+');
-                std::cout << "Factura del comensal " << std::string(fc_muestra.getnombrecomensal()) << " Núm. #" << j << std::endl;
-                std::cout << "Bajo el Núm. de factura " << fc_muestra.getnumfc() << std::endl;
+                std::cout << "Factura del comensal " << std::string(fc_muestra.getnombrecomen()) << " Num. #" << j << std::endl;
+                std::cout << "Bajo el Num. de factura " << fc_muestra.getnumfc() << std::endl;
                 line('-');
                 std::cout << "Consumo en la fecha de " << fc_muestra.getFecha().toString() << std::endl;
                 std::cout << "Por un total de $" << fc_muestra.getImporte() << std::endl;
@@ -286,7 +286,8 @@ void Menuadmin::cargarfactura()
             if (id_comensal==comensal_muestra.getIDcomensal())
             {
                 std::cout << "Comensal " << std::string(comensal_muestra.getNombre()) << " encontrado" << std::endl;
-                fc_muestra.setIDcomensal(comensal_muestra);
+                fc_muestra.setidcomen(comensal_muestra);
+                fc_muestra.setnombrecomen(comensal_muestra);
             }
             else if (id_comensal!=comensal_muestra.getIDcomensal()&&registros==i-1)
             {
@@ -304,37 +305,44 @@ void Menuadmin::cargarfactura()
     fc_muestra.setMedioDePago(mediopago_muestra);
     do
     {
-        std::cout << "Seleccione el ID de el men£ consumido por el comensal" << std::endl;
-        int registros=arch3.CantidadRegistros();
-        for (int i=0; i<registros; i++)
+        do
         {
-            plato_muestra=arch3.Leer(i);
-            if (fecha_hoy.hoy()==plato_muestra.getfecha())
+            std::cout << "Seleccione el ID de el men£ consumido por el comensal" << std::endl;
+            int registros=arch3.CantidadRegistros();
+            for (int i=0; i<registros; i++)
             {
-                std::cout << plato_muestra.toString() << " ID n£mero " << plato_muestra.getidmenu() << std::endl;
+                plato_muestra=arch3.Leer(i);
+                if (fecha_hoy.hoy()==plato_muestra.getfecha())
+                {
+                    line('-');
+                    std::cout << plato_muestra.toString() << " ID n£mero " << plato_muestra.getidmenu() << std::endl;
+                    line('-');
+                }
+            }
+            int id_menu=0;
+            std::cin >> id_menu;
+            registros=arch3.CantidadRegistros();
+            for (int i=0; i<registros; i++)
+            {
+                plato_muestra=arch3.Leer(i);
+                if (fecha_hoy.hoy()==plato_muestra.getfecha()&&id_menu==plato_muestra.getidmenu())
+                {
+                    fc_muestra.setIDmenu(plato_muestra);
+                    std::cout << "Factura generada exitosamente" << std::endl;
+                    loop=true;
+                }
+                else if (registros==i-1&&id_menu!=plato_muestra.getidmenu())
+                {
+                    std::cout << "Men£ no encontrado o no existe, intente nuevamente" << std::endl;
+                    loop=false;
+                    break;
+                }
             }
         }
-        int id_menu=0;
-        std::cin >> id_menu;
-        registros=arch3.CantidadRegistros();
-        for (int i=0; i<registros; i++)
-        {
-            plato_muestra=arch3.Leer(i);
-            if (fecha_hoy.hoy()==plato_muestra.getfecha()&&id_menu==plato_muestra.getidmenu())
-            {
-                fc_muestra.setIDmenu(plato_muestra);
-                std::cout << "Factura generada exitosamente" << std::endl;
-                loop=true;
-            }
-            else if (registros==i-1&&id_menu!=plato_muestra.getidmenu())
-            {
-                std::cout << "Men£ no encontrado o no existe, intente nuevamente" << std::endl;
-                loop=false;
-                break;
-            }
-        }
-        registros=arch.CantidadRegistros()+1;
-        fc_muestra.setNumeracion(registros+1);
+        while(loop==false);
+        int registros=arch.CantidadRegistros()+1;
+        fc_muestra.setnumfc(registros+1);
+        fc_muestra.setFecha(fecha_hoy.hoy());
         loop=arch.Guardar(fc_muestra);
         if (loop==false)
         {
@@ -385,7 +393,7 @@ void Menuadmin::cargarestablecimiento()
     {
         idestablecimiento=1;
     }
-    
+
     std::cout << "NUEVO ESTABLECIMIENTO" << std::endl;
     std::cout << "-----------------------------" << std::endl;
     std::cout << "Nuevo establecimiento bajo el ID #:" << idestablecimiento << std::endl;
@@ -439,7 +447,7 @@ void Menuadmin::mostrarestablecimientos(Establecimientos establecimientos_muestr
     std::cout << "Nombre: " << establecimientos_muestra.getnombreestablecimiento() << std::endl;
     std::cout << "Direccion: " << establecimientos_muestra.getdireccionesta() << std::endl;
     std::cout << "Tipo de establecimiento: " << establecimientos_muestra.gettipoesta() << std::endl;
-    
+
 }
 
 void Menuadmin::cargarcomensales()
@@ -448,7 +456,7 @@ void Menuadmin::cargarcomensales()
     int  idestablecimiento;
     std::string nombre, direccion;
     int dia, mes, anio;
-    
+
     int idcomensal = arch_comensales.CantidadRegistros()+1;
     if (idcomensal == 0)
     {
@@ -497,7 +505,7 @@ void Menuadmin::cargarcomensales()
         system("cls");
         std::cout << "Algo salio mal. Intente mas tarde" << std::endl;
         system("pause");
-       system("cls");
+        system("cls");
     }
 }
 
