@@ -84,6 +84,7 @@ Menues Menucomensal::buscarplatos(int tipo)
     Archivos <Menues> arch ("Menues.dat");
     Menues menu;
     Fecha fecha_actual;
+    fecha_actual.hoy();
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
     {

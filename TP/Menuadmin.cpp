@@ -535,6 +535,7 @@ void Menuadmin::cargarpago()
     Comensal comensal_buscado;
     int id_buscado;
     float importe_cargar;
+    float saldo_final;
     bool loop=false;
     do
     {
@@ -566,28 +567,82 @@ void Menuadmin::cargarpago()
         int registros=arch3.CantidadRegistros();
         for (int i=0; i<registros; i++)
         {
+            CC_buscado=arch3.Leer(i);
             if (CC_buscado.getcomensal()==comensal_buscado.getIDcomensal())
             {
+                pago_cargar.setIDcomensal(comensal_buscado);
+                pago_cargar.setimporte(importe_cargar);
+                pago_cargar.setfecha(fecha_actual.hoy());
+                saldo_final=CC_buscado.getSaldoActual()-importe_cargar;
+                CC_buscado.setSaldoActual(saldo_final);
+                if (arch3.Guardar(CC_buscado, i)==true&&arch.Guardar(pago_cargar)==true) ///sobreescritura
+                {
+                    loop=true;
+                    std::cout << "Pago agregado exitosamente, Cuenta corriente actualizada" << std::endl;
+                    break;
+                }
             }
-
-        }
-        pago_cargar(comensal_buscado, importe_cargar, fecha_actual.hoy());
-        if (arch.Guardar(pago_cargar)==true)
-        {
-            loop=true;
-            std::cout << "Pago generado exitosamente!" << std::endl;
-            std::cout << "Desea"
-
-        }
-        else if (arch.Guardar(pago_cargar)==false)
-        {
-            std::cout << "Error al guardar el pago, intente nuevamente" << std::endl;
+            else if((arch3.Guardar(CC_buscado, i)==false)||(arch.Guardar(pago_cargar)==false))
+            {
+                std::cout << "Error de guardado, intente nuevamente" << std::endl;
+            }
         }
     }
     while(loop==false);
+    int seleccion;
+    std::cout << "Desea generar factura para el pago cargado?" << std::endl;
+    std::cout << "1. Si / 2. No" << std::endl;
+    std::cin >> seleccion;
+    switch (seleccion)
+    {
+    case '1':
+        do
+        {
+            int registro=arch4.CantidadRegistros();
+            for (int i=0; i<registro; i++)
+            {
+                fc_generar=arch4.Leer(i);
+                if (fc_generar.getIDcomensal()==comensal_buscado.getIDcomensal())
+                {
+                    fc_generar.setNumeracion(registro+1);
+                    fc_generar.setIDcomensal(comensal_buscado);
+                    fc_generar.setFecha(fecha_actual.hoy());
+                    fc_generar.setImporte(saldo_final);
+                    if (arch4.Guardar(fc_generar)==true)
+                    {
+                        std::cout << "Factura generada correctamente" << std::endl;
+                        break;
+                    }
+                    else if (arch4.Guardar(fc_generar)!=true)
+                    {
+                        std::cout << "Error al generar la factura, intente nuevamente" << std::endl;
+                        loop=false;
+                        break;
+                    }
+                }
+            }
+        }
+        while(loop==false);
+    case '2':
+        std::cout << "Recuerde que debe generarla la factura mas tarde" << std::endl;
+        break;
+    }
 }
 
 void Menuadmin::listarpago()
 {
+    Archivos <Pagos> arch ("Pagos.dat"); ///si se puede, listar pagos por comensal
+    Pagos pago_listado;
 
+    line('*');
+    std::cout << "Listando pagos cargados" << std::endl;
+    line('*');
+
+    int registros=arch.CantidadRegistros();
+    for (int i=0; i<registros; i++)
+    {
+        pago_listado=arch.Leer(i);
+        std::cout << pago_listado.toString() << std::endl;
+        line('-', 50);
+    }
 }

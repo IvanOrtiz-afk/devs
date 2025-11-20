@@ -658,7 +658,7 @@
 	"Menues.h"
 	"Comensales.h"
 
-1763568942 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\facturas.h
+1763663026 c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\facturas.h
 	<string>
 	"Comprobante.h"
 	"Fecha.h"
@@ -722,7 +722,7 @@
 	"Establecimientos.h"
 	"Archivos.h"
 
-1763584239 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\facturas.cpp
+1763663026 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\facturas.cpp
 	<iostream>
 	<string>
 	<cstring>
@@ -778,7 +778,7 @@
 	"Consumos.h"
 	"Menues.h"
 
-1763656438 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menucomensal.cpp
+1763661837 source:c:\users\ivan_\onedrive\documentos\facultad\2do cuatrimestre\programación 2\tp integrador\devs\tp\menucomensal.cpp
 	<iostream>
 	<string>
 	<cstring>
