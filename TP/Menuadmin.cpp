@@ -241,14 +241,15 @@ void Menuadmin::listarfacturas()
             fc_muestra=arch.Leer(i);
             if (fc_muestra.getIDcomensal()==seleccion_id)
             {
-                j++;
-                line('-');
-                std::cout << "Factura del comensal " << std::string(fc_muestra.getnombrecomensal()) << " Nø " << j << std::endl;
-                std::cout << "Bajo el Nø de factura " << fc_muestra.getNumeracion() << std::endl;
+               j++;
+                line('+');
+                std::cout << "Factura del comensal " << std::string(fc_muestra.getnombrecomensal()) << " Núm. #" << j << std::endl;
+                std::cout << "Bajo el Núm. de factura " << fc_muestra.getnumfc() << std::endl;
                 line('-');
                 std::cout << "Consumo en la fecha de " << fc_muestra.getFecha().toString() << std::endl;
                 std::cout << "Por un total de $" << fc_muestra.getImporte() << std::endl;
-                line('-');
+                line('+');
+
             }
             else
             {
@@ -284,12 +285,12 @@ void Menuadmin::cargarfactura()
             comensal_muestra=arch2.Leer(i);
             if (id_comensal==comensal_muestra.getIDcomensal())
             {
-                std::cout << "Comenzal " << std::string(comensal_muestra.getNombre()) << " encontrado" << std::endl;
+                std::cout << "Comensal " << std::string(comensal_muestra.getNombre()) << " encontrado" << std::endl;
                 fc_muestra.setIDcomensal(comensal_muestra);
             }
             else if (id_comensal!=comensal_muestra.getIDcomensal()&&registros==i-1)
             {
-                std::cout << "Comenzal NO encontrado o no existe, intente nuevamente" << std::endl;
+                std::cout << "Comensal NO encontrado o no existe, intente nuevamente" << std::endl;
                 loop=false;
                 break;
             }
@@ -322,6 +323,7 @@ void Menuadmin::cargarfactura()
             if (fecha_hoy.hoy()==plato_muestra.getfecha()&&id_menu==plato_muestra.getidmenu())
             {
                 fc_muestra.setIDmenu(plato_muestra);
+                std::cout << "Factura generada exitosamente" << std::endl;
                 loop=true;
             }
             else if (registros==i-1&&id_menu!=plato_muestra.getidmenu())

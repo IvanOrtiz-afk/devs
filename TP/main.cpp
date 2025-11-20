@@ -14,6 +14,7 @@ using namespace std;
 
 int main()
 {
+    /*
     Archivos <Comensal> arch ("Comensales.dat");
     Archivos <Menues> arch2 ("Menues.dat");
     Archivos <TipoAlmuerzo> arch3 ("TipoAlmuerzo.dat");
@@ -34,7 +35,7 @@ int main()
     arch2.Guardar(menutest);
     arch2.Guardar(menutest2);
     arch2.Guardar(menutest3);
-
+    */
 
     App app;
     app.run();

@@ -104,78 +104,92 @@ void MenuSistema::mostrarOpciones()
 void MenuSistema::gestionarPlatos()
 {
     int opcion;
-
-    cout << "--- GESTIONAR PLATOS ---" << endl;
-    cout << "---------------------------" << endl;
-    cout << "1- VER MENU DEL DIA" << endl;
-    cout << "2- VALORAR UN PLATO "<<endl;
-    cout << "3- LISTAR VALORACIONES" << endl; /// chequear punto del parcial
-
-    if (_rolActual == 1) // admin
+    do
     {
-        cout << "4- CARGAR UN NUEVO PLATO "<<endl; /// admin
-        cout << "5- ELIMINAR UN PLATO" <<endl;  /// admin
-    };
+        cout << "--- GESTIONAR PLATOS ---" << endl;
+        cout << "---------------------------" << endl;
+        cout << "1- VER MENU DEL DIA" << endl;
+        cout << "2- VALORAR UN PLATO "<<endl;
+        cout << "3- LISTAR VALORACIONES" << endl; /// chequear punto del parcial
 
-    cout << "0- Volver al menu principal" << endl;
-    cin >> opcion;
-
-    switch(opcion)
-    {
-    case 1: ///listarmenu
-        system("pause");
-        system("cls");
-        _ejecutarmenu.listarplatos();
-        break;
-    case 2: ///valorar
-        system("pause");
-        system("cls");
-        _ejecutarmenu.cargarvaloracion();
-        break;
-    case 3: /// ver favoritos
-        system("pause");
-        system("cls");
-        _ejecutarmenu.valoraciones();
-        break;
-    case 4:
-        if (_rolActual == 1)
+        if (_rolActual == 1) // admin
         {
-            /// cargar();
+            cout << "4- CARGAR UN NUEVO PLATO "<<endl; /// admin
+            cout << "5- ELIMINAR UN PLATO" <<endl;  /// admin
+        };
+
+        cout << "0- Volver al menu principal" << endl;
+        cin >> opcion;
+
+        switch(opcion)
+        {
+        case 1: ///listarmenu
             system("pause");
             system("cls");
-            _ejecutarmenu.cargarplato();
-        }
-        else
-        {
-            cout << "Acceso denegado." << endl;
-        }
-        break;
-    case 5:
-        if (_rolActual == 1)
-        {
-            /// elminar();
+            _ejecutarmenu.listarplatos();
             system("pause");
             system("cls");
-            _ejecutarmenu.eliminarplato(); ///aun no esta hecha porque implementa algo no visto
+            break;
+        case 2: ///valorar
+            system("pause");
+            system("cls");
+            _ejecutarmenu.cargarvaloracion();
+            system("pause");
+            system("cls");
+            break;
+        case 3: /// ver favoritos
+            system("pause");
+            system("cls");
+            _ejecutarmenu.valoraciones();
+            system("pause");
+            system("cls");
+            break;
+        case 4:
+            if (_rolActual == 1)
+            {
+                /// cargar();
+                system("pause");
+                system("cls");
+                _ejecutarmenu.cargarplato();
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+        case 5:
+            if (_rolActual == 1)
+            {
+                /// elminar();
+                system("pause");
+                system("cls");
+                _ejecutarmenu.eliminarplato();
+                system("pause");
+                system("cls"); ///aun no esta hecha porque implementa algo no visto
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+        case 0:
+            cout << "Volviendo al menu principal... " << endl;
+            break;
         }
-        else
-        {
-            cout << "Acceso denegado." << endl;
-        }
-        break;
-    case 0:
-        cout << "Volviendo al menu principal... " << endl;
-        break;
     }
+    while(opcion != 0);
 
 }
 
 void MenuSistema::gestionarFacturas()
 {
 
-    {
-        int opcion;
 
+    int opcion;
+    do
+    {
         cout << "--- FACTURACION ---" << endl;
         cout << "----------------------" << endl;
         cout << "1- LISTAR FACTURAS" << endl;
@@ -195,6 +209,8 @@ void MenuSistema::gestionarFacturas()
             system("pause");
             system("cls");
             _ejecutarmenu.listarfacturas();
+            system("pause");
+            system("cls");
             break;
         case 2:
             if (_rolActual == 1)
@@ -203,6 +219,8 @@ void MenuSistema::gestionarFacturas()
                 system("pause");
                 system("cls");
                 _ejecutarmenu.cargarfactura();
+                system("pause");
+                system("cls");
             }
             else
             {
@@ -215,17 +233,19 @@ void MenuSistema::gestionarFacturas()
             cout << "Volviendo al menu principal... " << endl;
             break;
         }
-
     }
+    while(opcion != 0);
+
 }
 
 
 void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros para que el ADMIN pueda ver todos los pagos
 {
 
-    {
-        int opcion;
 
+    int opcion;
+    do
+    {
         cout << "--- CUENTA CORRIENTE ---" << endl;
         cout << "---------------------------" << endl;
         cout << "1- VER ESTADO DE CUENTA CORRIENTE (DEUDA)" << endl;
@@ -239,7 +259,9 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
         case 1: ///deuda
             system("pause");
             system("cls");
-            _ejecutarmenu.verCC(); //de momento solo hice que se pueda ver la CC (sea deuda o no)
+            _ejecutarmenu.verCC();
+            system("pause");
+            system("cls"); //de momento solo hice que se pueda ver la CC (sea deuda o no)
             break;
         case 2: ///cargarpago (al cargar un pago, se debe emitir FC o recibo y actualizar la CC)
 
@@ -251,38 +273,39 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
             break;
         }
     }
+    while(opcion != 0);
 }
 
 void MenuSistema::gestionarConsumos()
 {
+
+    int opcion;
+
+    do
     {
-        int opcion;
+        cout << "--- CONSUMOS ---" << endl;
+        cout << "-------------------" << endl;
+        cout << "1- LISTAR CONSUMOS" << endl;
+        cout << "0- Volver al menu principal" << endl;
+        cin >> opcion;
 
-        do
+        switch(opcion)
         {
-            cout << "--- CONSUMOS ---" << endl;
-            cout << "-------------------" << endl;
-            cout << "1- LISTAR CONSUMOS" << endl;
-            cout << "0- Volver al menu principal" << endl;
-            cin >> opcion;
-
-            switch(opcion)
-            {
-            case 1:
-                system("pause");
-                system("cls");
-                _ejecutarmenu.listarconsumos(); /// REPARADO!!!
-                system("pause");
-                system("cls");
-                break;
-            case 0:
-                cout << "Volviendo al menu principal... " << endl;
-                break;
-            }
+        case 1:
+            system("pause");
+            system("cls");
+            _ejecutarmenu.listarconsumos(); /// REPARADO!!!
+            system("pause");
+            system("cls");
+            break;
+        case 0:
+            cout << "Volviendo al menu principal... " << endl;
+            break;
         }
-        while(opcion =! 0);
-
     }
+    while(opcion != 0);
+
+
 }
 
 
@@ -422,11 +445,10 @@ void MenuSistema::gestionarEstablecimientos()
 
         case 0:
             cout << "Volviendo al menu principal... " << endl;
-
             break;
         }
     }
-    while(opcion =! 0);
+    while(opcion != 0);
 }
 
 void MenuSistema::gestionarUsuarios()
