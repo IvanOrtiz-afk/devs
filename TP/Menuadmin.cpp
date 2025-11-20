@@ -525,13 +525,66 @@ void Menuadmin::cargarpago()
 {
     Archivos <Pagos> arch ("Pagos.dat");
     Archivos <Comensal> arch2 ("Comensales.dat");
+    Archivos <CuentaCorriente> arch3 ("CC.dat");
+    Archivos <Factura> arch4 ("Facturas.dat");
     Fecha fecha_actual;
     fecha_actual.hoy();
     Pagos pago_cargar;
+    CuentaCorriente CC_buscado;
+    Factura fc_generar;
+    Comensal comensal_buscado;
     int id_buscado;
-    std::cout << "Seleccione el ID del comensal" << std::endl;
-    std::cin >> id_buscado;
-    int registros=arch2.CantidadRegistros();
+    float importe_cargar;
+    bool loop=false;
+    do
+    {
+        std::cout << "Seleccione el ID del comensal" << std::endl;
+        std::cin >> id_buscado;
+        int registros=arch2.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            comensal_buscado=arch2.Leer(i);
+            if (id_buscado==comensal_buscado.getIDcomensal())
+            {
+                std::cout << "Comensal encontrado bajo el ID Nø " << comensal_buscado.getIDcomensal() << std::endl;
+                loop=true;
+                break;
+            }
+            else if (id_buscado!=comensal_buscado.getIDcomensal()&&registros==i-1)
+            {
+                std::cout << "Comensal NO encontrado, intente nuevamente" << std::endl;
+            }
+        }
+    }
+    while(loop==false);
+    do
+    {
+        std::cout << "Indique el importe para cargar el pago" << std::endl;
+        line('-');
+        std::cout << "Importe: $";
+        std::cin >> importe_cargar;
+        int registros=arch3.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            if (CC_buscado.getcomensal()==comensal_buscado.getIDcomensal())
+            {
+            }
+
+        }
+        pago_cargar(comensal_buscado, importe_cargar, fecha_actual.hoy());
+        if (arch.Guardar(pago_cargar)==true)
+        {
+            loop=true;
+            std::cout << "Pago generado exitosamente!" << std::endl;
+            std::cout << "Desea"
+
+        }
+        else if (arch.Guardar(pago_cargar)==false)
+        {
+            std::cout << "Error al guardar el pago, intente nuevamente" << std::endl;
+        }
+    }
+    while(loop==false);
 }
 
 void Menuadmin::listarpago()
