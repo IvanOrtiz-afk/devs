@@ -18,11 +18,11 @@ class Establecimientos
 
     protected:
         int _idestablecimiento;
-        char _nombreestablecimiento[30];
+        char _nombreestablecimiento[50];
 
     private:
-        char _direccionesta[30];
-        char _tipoesta[20];
+        char _direccionesta[50];
+        char _tipoesta[50];
 };
 
 

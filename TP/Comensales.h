@@ -8,11 +8,14 @@ class Comensal
 
 public:
 
-    Comensal(int idcomensal, const char *nombre, const char *direccion, Fecha fechanacimiento, Establecimientos idestablecimiento);
+    Comensal(int idcomensal, const char *nombre, const char * apellido, const char *direccion, Fecha fechanacimiento, Establecimientos idestablecimiento);
     Comensal();
 
     void setNombre (const char *nombre);
     const char* getNombre();
+    
+    void setApellido (const char *apellido);
+    const char* getApellido();
 
     void setIDcomensal (int IDcomensal);
     int getIDcomensal();
@@ -25,16 +28,20 @@ public:
 
     void setIDEstablecimiento (Establecimientos IDestablecimiento);
     int getIDestablecimiento();
+   
+
 
     std::string toString();
 
 
 private:
 
-    char _nombre[15];
+    char _nombre[50];
+    char _apellido[50];
     int _IDcomensal;
-    char _direccion[30];
+    char _direccion[50];
     Fecha _fechaNacimiento;
     int _IDestablecimiento;
+
 
 };

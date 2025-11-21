@@ -6,15 +6,18 @@
 #include "Establecimientos.h"
 #include "Archivos.h"
 
-Comensal::Comensal(int idcomensal, const char *nombre, const char *direccion, Fecha fechanacimiento, Establecimientos idestablecimiento)
+Comensal::Comensal(int idcomensal, const char *nombre, const char* apellido, const char *direccion, Fecha fechanacimiento, Establecimientos idestablecimiento)
 {
     _IDcomensal=idcomensal;
     strncpy(_nombre, nombre, sizeof(_nombre) - 1);
     _nombre[sizeof(_nombre) - 1] = '\0';
+    strncpy(_apellido,apellido, sizeof(_apellido) - 1);
+    _apellido[sizeof(_apellido) - 1] = '\0';
     strncpy(_direccion, direccion, sizeof(_direccion) - 1);
     _direccion[sizeof(_direccion) - 1] = '\0';
     _fechaNacimiento=fechanacimiento;
     _IDestablecimiento=idestablecimiento.getidestablecimiento();
+  
 }
 
 Comensal::Comensal() {}
@@ -30,6 +33,18 @@ void Comensal::setNombre (const char* nombre)
 const char* Comensal::getNombre()
 {
     return _nombre;
+}
+
+void Comensal::setApellido (const char* apellido)
+{
+    strncpy(_apellido, apellido, sizeof(_apellido) - 1);
+    _apellido[sizeof(_apellido) - 1] = '\0';
+}
+
+
+const char* Comensal::getApellido()
+{
+    return _apellido;
 }
 
 

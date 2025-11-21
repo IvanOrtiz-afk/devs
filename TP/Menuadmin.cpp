@@ -165,6 +165,10 @@ void Menuadmin::cargarplato()
         while(loop==false);
         std::cout << "Ingrese el valor del plato" << std::endl;
         std::cin >> importe;
+        if (importe < 0)
+        {
+            std::cout << "No se puede establecer un precio negativo" << std::endl;
+        }
         loop=true;
         do
         {
@@ -383,7 +387,7 @@ void Menuadmin::verCC()
     while(loop==false);
 }
 
-void Menuadmin::cargarestablecimiento()
+void Menuadmin::cargarestablecimiento() /// se agrego getline y cin.ignore para que nos deje ingresar cadenas con espacios. 
 {
     Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
 
@@ -398,15 +402,17 @@ void Menuadmin::cargarestablecimiento()
     std::cout << "-----------------------------" << std::endl;
     std::cout << "Nuevo establecimiento bajo el ID #:" << idestablecimiento << std::endl;
     std::cout << std::endl;
-
+    std::cin.ignore();
     std::cout << "ingrese el nombre:" << std::endl;
-    std::cin >> nombreestablecimiento;
+    std::getline(std::cin,nombreestablecimiento);
 
+    std::cin.ignore();
     std::cout << "ingrese la direccion:" << std::endl;
-    std::cin >> direccionesta;
+    std::getline(std::cin,direccionesta);
 
+    std::cin.ignore();
     std::cout << "Ingrese el tipo de establecimiento:" << std::endl;
-    std::cin >> tipoesta;
+    std::getline(std::cin,tipoesta);
 
     Establecimientos esta_muestra(idestablecimiento, nombreestablecimiento.c_str(), direccionesta.c_str(), tipoesta.c_str());
 
@@ -443,19 +449,22 @@ void Menuadmin::listarestablecimientos()
 void Menuadmin::mostrarestablecimientos(Establecimientos establecimientos_muestra)
 {
 
-    std::cout << "ID: " << establecimientos_muestra.getidestablecimiento() << std::endl;
+    std::cout << "ID #: " << establecimientos_muestra.getidestablecimiento() << std::endl;
     std::cout << "Nombre: " << establecimientos_muestra.getnombreestablecimiento() << std::endl;
     std::cout << "Direccion: " << establecimientos_muestra.getdireccionesta() << std::endl;
     std::cout << "Tipo de establecimiento: " << establecimientos_muestra.gettipoesta() << std::endl;
 
 }
 
-void Menuadmin::cargarcomensales()
+void Menuadmin::cargarcomensales()   /// se agrego getline y cin.ignore para que nos deje ingresar cadenas con espacios. 
+                                     ////Se agrego validacion para uqe no deje cargar un establecimiento que no existe
 {
     Archivos <Comensal> arch_comensales ("Comensales.dat");
+    Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
     int  idestablecimiento;
-    std::string nombre, direccion;
+    std::string nombre, apellido, direccion;
     int dia, mes, anio;
+
 
     int idcomensal = arch_comensales.CantidadRegistros()+1;
     if (idcomensal == 0)
@@ -470,13 +479,17 @@ void Menuadmin::cargarcomensales()
     std::cout << "-----------------------------" << std::endl;
     std::cout << "Nuevo comensal bajo el ID #:" << idcomensal << std::endl;
     std::cout << std::endl;
-
-    std::cout << "ingrese el nombre:" << std::endl;
-    std::cin >> nombre;
-
+    
+    std::cin.ignore();
+    std::cout << "ingrese nombre/s:" << std::endl;
+    std::getline(std::cin,nombre);
+    std::cin.ignore();
+    std::cout << "ingrese apellido/s:" << std::endl;
+    std::getline(std::cin,apellido);
+    std::cin.ignore();
     std::cout << "ingrese direccion" << std::endl;
-    std::cin >> direccion;
-
+    std::getline(std::cin,direccion);
+    std::cin.ignore();
     std::cout << "ingrese dia de nacimiento: ";
     std::cin >> dia;
     std::cout << "ingrese mes de nacimiento: ";
@@ -484,12 +497,38 @@ void Menuadmin::cargarcomensales()
     std::cout << "ingrese anio de nacimiento: ";
     std::cin >> anio;
 
-    std::cout << "Ingrese el ID del establecimiento:" << std::endl;
-    std::cin >> idestablecimiento;
+    bool encontrado = false;
+    do
+    {   
+        std::cout << std::endl;
+        std::cout << "Ingrese el ID del establecimiento:" << std::endl;
+        std::cin >> idestablecimiento;
+
+        ///Establecimientos nombreesta;
+        int cantidad = arch_establecimientos.CantidadRegistros();
+        for (int i=0; i<cantidad; i++)
+        {
+            if(arch_establecimientos.Leer(i).getidestablecimiento() == idestablecimiento)
+            {
+                encontrado = true;
+                ///nombreesta = arch_establecimientos.Leer(i).getnombreestablecimiento();
+                break;
+            }
+            
+        }
+       if(!encontrado)
+            {
+                std::cout << "No se encontro un establecimiento con ese ID. Reintente nuevamente." << std::endl;
+                
+            }
+
+    }
+    while(encontrado != true);
 
     guardar_id.setidestablecimiento(idestablecimiento);
+    
     Fecha fechanacimiento (dia, mes, anio);
-    Comensal comensal_muestra(idcomensal, nombre.c_str(), direccion.c_str(), fechanacimiento, guardar_id);
+    Comensal comensal_muestra(idcomensal, nombre.c_str(), apellido.c_str(), direccion.c_str(), fechanacimiento, guardar_id);
 
     if (arch_comensales.Guardar(comensal_muestra)== true)
     {
@@ -512,6 +551,7 @@ void Menuadmin::cargarcomensales()
 void Menuadmin::listarcomensales()
 {
     Archivos <Comensal> arch_comensales ("Comensales.dat");
+    std::string nombreesta;
     int cantidad = arch_comensales.CantidadRegistros();
     std::cout << "LISTADO DE COMENSALES"  << std::endl;
     std::cout << "---------------------------------------"  << std::endl;
@@ -526,8 +566,9 @@ void Menuadmin::listarcomensales()
 
 void Menuadmin::mostrarcomensales(Comensal comensal_muestra)
 {
-    std::cout << "ID: " << comensal_muestra.getIDcomensal() << std::endl;
-    std::cout << "Nombre: " << comensal_muestra.getNombre() << std::endl;
+    std::cout << "ID #: " << comensal_muestra.getIDcomensal() << std::endl;
+    std::cout << "Nombre/s: " << comensal_muestra.getNombre() << std::endl;
+    std::cout << "Apellido/s: " << comensal_muestra.getApellido() << std::endl;
     std::cout << "Direccion: " << comensal_muestra.getDireccion() << std::endl;
     std::cout << "Fecha de nacimiento: " << comensal_muestra.getFechaNacimiento().toString()<< std::endl;
     std::cout << "ID Establecimiento : " << comensal_muestra.getIDestablecimiento() << std::endl;
@@ -597,6 +638,10 @@ void Menuadmin::cargarpago()
         line('-');
         std::cout << "Importe: $";
         std::cin >> importe_cargar;
+        if (importe_cargar < 0)
+        {
+            std::cout << "Error: no puede cargar un pago negativo" << std::endl;
+        }
         int registros=arch3.CantidadRegistros();
         for (int i=0; i<registros; i++)
         {
