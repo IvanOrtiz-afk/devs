@@ -231,7 +231,7 @@ bool Menucomensal::tipodeconsumo()
 
 void Menucomensal::mostrar(int tipo, int num)
 {
-    _menubuscado=buscarplatos(tipo);
+    _menubuscado=buscarplatos(tipo); ///falta validar por si falta de los otros tipos
     std::cout << "Opci¢n # " << num << std::endl;
     std::cout << _menubuscado.toString() << std::endl;
 }
