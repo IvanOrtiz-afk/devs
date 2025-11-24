@@ -3,6 +3,7 @@
 #include <sstream>
 #include <cstring>
 #include <iomanip>
+#include "TipoAlmuerzo.h"
 #include "Comensales.h"
 #include "Fecha.h"
 #include "Establecimientos.h"
@@ -17,10 +18,11 @@ Menues::Menues(int idmenu, const char* nombremenu, Establecimientos esta, float 
     _valorplato=valorplato;
     _idtipo=idtipo.getidtipo();
     _fecha=fecha;
-    strncpy(_desctipo, idtipo.getnombretipo(), sizeof(_desctipo) - 1);
+    strncpy(_desctipo, idtipo.getdesctipo(), sizeof(_desctipo) - 1);
     _desctipo[sizeof(_desctipo) - 1]='\0';
 }
-Menues::Menues() {}
+Menues::Menues()
+{}
 int Menues::getidmenu()
 {
     return _idmenu;
@@ -59,7 +61,7 @@ void Menues::setvaloracion(int valoracion)
 }
 void Menues::setdesctipo(TipoAlmuerzo desctipo)
 {
-    strncpy(_desctipo, desctipo.getnombretipo(), sizeof(_desctipo) - 1);
+    strncpy(_desctipo, desctipo.getdesctipo(), sizeof(_desctipo) - 1);
     _desctipo[sizeof(_desctipo) - 1]='\0';
 }
 void Menues::setesta(Establecimientos esta)
@@ -95,7 +97,7 @@ std::string Menues::toString()
     ss << std::fixed << std::setprecision(2) << _valorplato;
     //El ss pasado a string
     std::string valor_plato_formateado = ss.str();
-    return std::string(_desctipo) + "/" + std::string(_nombremenu) + "/" + valor_plato_formateado;
+    return std::to_string(_idtipo) + "/" + std::string(_desctipo) + "/" + std::string(_nombremenu) + "/" + valor_plato_formateado;
 }
 
 

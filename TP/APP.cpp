@@ -35,7 +35,7 @@ void App::run()
             _ejecutar_programa=false;
         }
     }
-    while(_ejecutar_programa=true);
+    while(_ejecutar_programa==true);
 }
 
 

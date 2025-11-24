@@ -9,9 +9,9 @@ public:
     const char* getnombretipo();
     const char* getdesctipo();
     void setidtipo(int);
-    void setnombretipo(const char*);
-    void setdesctipo(const char*);
-    std::string toString();
+    void setnombretipo(int);
+    void setdesctipo(int);
+    std::string toString_tipo();
 
 protected:
     char _nombretipo[20];

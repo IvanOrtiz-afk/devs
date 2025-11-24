@@ -54,7 +54,7 @@ public:
         int i = 0, j=1;
         while(fread(&registro, sizeof(Tipos), 1, pArchivo))
         {
-            if(j == idbuscado)  ///ARREGLAR ACA
+            if(j == idbuscado)  ///NO SE USA DE MOMENTO
             {
                 fclose(pArchivo);
                 return i;
