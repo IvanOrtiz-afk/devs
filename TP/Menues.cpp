@@ -9,7 +9,7 @@
 #include "Establecimientos.h"
 #include "Archivos.h"
 
-Menues::Menues(int idmenu, const char* nombremenu, Establecimientos esta, float valorplato, TipoAlmuerzo idtipo, Fecha fecha)
+Menues::Menues(int idmenu, const char* nombremenu, Establecimientos esta, float valorplato, TipoAlmuerzo idtipo, Fecha fecha, int valoracion, int cant_valoracion)
 {
     _idmenu=idmenu;
     strncpy(_nombremenu, nombremenu, sizeof(_nombremenu) - 1);
@@ -17,6 +17,8 @@ Menues::Menues(int idmenu, const char* nombremenu, Establecimientos esta, float 
     _esta=esta.getidestablecimiento();
     _valorplato=valorplato;
     _idtipo=idtipo.getidtipo();
+    _valoracion=valoracion;
+    _cant_valoracion=cant_valoracion;
     _fecha=fecha;
     strncpy(_desctipo, idtipo.getdesctipo(), sizeof(_desctipo) - 1);
     _desctipo[sizeof(_desctipo) - 1]='\0';
@@ -57,7 +59,15 @@ int Menues::getvaloracion()
 }
 void Menues::setvaloracion(int valoracion)
 {
-    valoracion=_valoracion;
+    _valoracion=valoracion;
+}
+int Menues::getcant_valoracion()
+{
+    return _cant_valoracion;
+}
+void Menues::setcant_valoracion(int cant_valoracion)
+{
+    _cant_valoracion=cant_valoracion;
 }
 void Menues::setdesctipo(TipoAlmuerzo desctipo)
 {
@@ -97,7 +107,7 @@ std::string Menues::toString()
     ss << std::fixed << std::setprecision(2) << _valorplato;
     //El ss pasado a string
     std::string valor_plato_formateado = ss.str();
-    return std::to_string(_idtipo) + "/" + std::string(_desctipo) + "/" + std::string(_nombremenu) + "/" + valor_plato_formateado;
+    return std::string(_desctipo) + "/" + std::string(_nombremenu) + "/" + valor_plato_formateado;
 }
 
 

@@ -6,7 +6,7 @@
 class Menues
 {
 public:
-    Menues(int idmenu, const char* nombremenu, Establecimientos esta, float valorplato, TipoAlmuerzo idtipo, Fecha fecha);
+    Menues(int idmenu, const char* nombremenu, Establecimientos esta, float valorplato, TipoAlmuerzo idtipo, Fecha fecha, int valoracion, int cant_valoracion);
     Menues();
     int getidmenu();
     const char* getnombremenu();
@@ -16,6 +16,8 @@ public:
     int getesta();
     const char *getdesctipo();
     int getvaloracion();
+    int getcant_valoracion();
+    void setcant_valoracion(int cant_valoracion);
     void setvaloracion(int);
     void setdesctipo(TipoAlmuerzo);
     void setesta(Establecimientos);
@@ -31,6 +33,7 @@ protected:
     char _nombremenu[60];
     int _idtipo;
     int _valoracion;
+    int _cant_valoracion;
     char _desctipo[30];
     float _valorplato;
     Fecha _fecha;

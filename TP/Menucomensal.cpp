@@ -193,7 +193,7 @@ void Menucomensal::generarconsumo()
 
 bool Menucomensal::tipodeconsumo()
 {
-    bool loop=false;
+    bool loop=false, result;
     int opcion;
     do
     {
@@ -210,14 +210,14 @@ bool Menucomensal::tipodeconsumo()
             system("pause");
             system("cls");
             loop=true;
-            return true;
+            result=true;
             break;
         case 2:
             std::cout << "Se genero una deuda en su cuenta corriente, puede abonarla mas tarde" << std::endl;
             system("pause");
             system("cls");
             loop=true;
-            return false;
+            result=false;
             break;
         default:
             std::cout << "Opci¢n incorrecta, intente nuevamente" << std::endl;
@@ -227,6 +227,7 @@ bool Menucomensal::tipodeconsumo()
         }
     }
     while(loop==false);
+    return result;
 }
 
 void Menucomensal::mostrar(int tipo, int num)
