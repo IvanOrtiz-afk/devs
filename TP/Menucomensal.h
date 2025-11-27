@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "MenuPadreABML.h"
 #include "Comensales.h"
 #include "Menues.h"
@@ -14,9 +15,9 @@ public:
     Menucomensal(Comensal clientebuscado, Menues menubuscado);
     Menucomensal();
     void ejecutarmenu();
-    Menues buscarplatos(int tipo);
+    std::vector<Menues> buscarplatos();
     Comensal buscarcliente(int id, bool &loop);
-    void mostrar(int tipo, int num);
+    ///void mostrar(int tipo, int num);
     void generarconsumo();
     bool tipodeconsumo();
 

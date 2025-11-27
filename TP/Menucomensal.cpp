@@ -2,6 +2,7 @@
 #include <string>
 #include <cstring>
 #include <cstdlib>
+#include <vector>
 #include "Menucomensal.h"
 #include "MenuPadreABML.h"
 #include "Comensales.h"
@@ -11,6 +12,7 @@
 #include "Consumos.h"
 #include "CC.h"
 #include "Fecha.h"
+
 
 Menucomensal::Menucomensal(Comensal clientebuscado, Menues menubuscado)
     :MenuPadreABML()
@@ -25,29 +27,62 @@ Menucomensal::Menucomensal()
 
 }
 
-void Menucomensal::ejecutarmenu()
-{
-    int id;
-    int opcion;
+void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRES MENUES POR ESTABLECIMIENTO AUNQUE HAYAN MAS CARGADOS. (ESTO LO COMENTO ANGEL)
+    int id;                       /// ARREGLADO! SE GENERO SWICHT DINAMICO PARA QUE MUESTRE TODOS LOS MENUS DEL ESTABLECIMIENTO.
+    int opcion;                   /// SI UN ESTABLECIMIENTO NO TIENE NADA CARGADO NO LO MUESTRA. ANTES MOSTRABA UN MENU RANDOM (NO SE XQ PERO PUDE CORREGIRLO)
     bool loop=true;
     const int tipocom = 1; ///Com£n
     const int tipoveg = 2; ///Vegetariano
-    const int tipocel = 3; ///Cel¡aco
+    const int tipocel = 3; ///Cel¡aco 
     MenuPadreABML::line('*');
     std::cout << "BIENVENIDO AL COMEDOR" << std::endl;
     MenuPadreABML::line('*');
     do
     {
-        std::cout << "Por favor ingrese su ID de cliente:";
+        std::cout << "Por favor, ingrese su ID de cliente:";
         std::cin >> id;
         _clientebuscado=buscarcliente(id, loop);
     }
     while(loop==false);
     system("cls");
+    
+    int idEstablecimiento = _clientebuscado.getIDestablecimiento();
+    
     std::cout << "Bienvenido " << _clientebuscado.getNombre() << std::endl;
     system("pause");
     system("cls");
-    std::cout << "Estos son los men£s del d¡a:" << std::endl;
+    
+    std::vector<Menues> menuesDisponibles = buscarplatos();
+    
+    if (menuesDisponibles.empty()) 
+    {
+        std::cout << "Su establecimiento no tiene menus disponibles para el dia de hoy." << std::endl;
+        system("pause");
+        return; 
+    }
+    
+    std::cout << "MENUS DEL DIA (" << menuesDisponibles.size() << "):" << std::endl;   
+    line('-');
+   
+    for (size_t i = 0; i< menuesDisponibles.size(); i++)
+    {   
+        std::cout << std::endl;
+        std::cout << "OPCION # " << (i + 1) << std::endl;
+        std::cout << std::endl;
+        std::cout << menuesDisponibles[i].getdesctipo() << std::endl;
+        std::cout << menuesDisponibles[i].getnombremenu() << std::endl;
+        std::cout << "IMPORTE $" << menuesDisponibles[i].getvalorplato() << std::endl;
+        line('-');
+    }
+    
+    do 
+    {
+        std::cout << "Seleccione la opcion deseada (1 -" << menuesDisponibles.size() << "):" << std::endl;
+        std::cin >> opcion;
+    }while (opcion < 1 || opcion > menuesDisponibles.size());
+    _menubuscado = menuesDisponibles[static_cast<size_t>(opcion) - 1];
+    generarconsumo();
+    /*
     mostrar(tipocom, 1);
     mostrar(tipoveg, 2);
     mostrar(tipocel, 3);
@@ -76,26 +111,27 @@ void Menucomensal::ejecutarmenu()
         }
     }
     while(loop==false);
+        */
     std::cout << "Consumo cargado!" << std::endl;
 }
 
-Menues Menucomensal::buscarplatos(int tipo)
+std::vector<Menues> Menucomensal::buscarplatos()
 {
     Archivos <Menues> arch ("Menues.dat");
-    Menues menu;
+    std::vector<Menues> menuesDisponibles;
     Fecha fecha_actual;
     fecha_actual.hoy();
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
-    {
+    {   
+        Menues menu;
         menu=arch.Leer(i);
-        if (fecha_actual.hoy()==menu.getfecha()&&_clientebuscado.getIDestablecimiento()==menu.getesta()&&tipo==menu.getidtipo())
+        if (fecha_actual.hoy()==menu.getfecha()&&_clientebuscado.getIDestablecimiento()==menu.getesta())
         {
-            return menu;
-            break;
+            menuesDisponibles.push_back(menu);
         }
     }
-    return menu;
+    return menuesDisponibles;
 }
 
 Comensal Menucomensal::buscarcliente(int id, bool &loop)
@@ -230,11 +266,18 @@ bool Menucomensal::tipodeconsumo()
     return result;
 }
 
+/*
 void Menucomensal::mostrar(int tipo, int num)
 {
-    _menubuscado=buscarplatos(tipo); ///falta validar por si falta de los otros tipos
+    std::vector<Menues> _menubuscado = buscarplatos(tipo); ///falta validar por si falta de los otros tipos
+    line('-');
+    if (_menubuscado.empty())
+    {
+        std::cout << "Opción # " << num << " (No disponible)" << std::endl;
+        return; 
+    }
     std::cout << "Opci¢n # " << num << std::endl;
     std::cout << _menubuscado.toString() << std::endl;
 }
-
+*/
 
