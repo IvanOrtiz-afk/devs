@@ -24,6 +24,26 @@ Menuadmin::~Menuadmin()
 
 }
 
+/* FALTA HACER:
+TERMINAR CON LOS BUGS Y LOS IGNORE/GETLINE (menucomensal, facturas, CC, consumos)
+VER MENU POR FECHA
+CARGAR MENU DE TODA LA SEMANA
+VER FACTURA POR FECHA
+VER CONSUMO POR FECHA
+VER FACTURA POR ESTABLECIMIENTO
+CREAR ELIMINACIONES DE REGISTROS
+EDITAR REGISTROS
+PONER TODO MAS LINDO
+REPORTES:
+CANT. DE PLATOS CONSUMIDOS POR FECHA
+PLATOS MAS VENDIDOS
+PLATOS MEJOR VALORADOS
+CONFIGURACIONES:
+REALIZAR COPIAS DE SEGURIDAD
+RESTAURAR COPIA DE SEGURIDAD
+EXPORTAR DATOS
+CAMBIAR TEMA */
+
 std::string Menuadmin::entrada_cruda(const std::string& mensaje)
 {
     std::string entrada;
@@ -38,7 +58,8 @@ std::string Menuadmin::entrada_cruda(const std::string& mensaje)
 }
 
 std::string Menuadmin::entrada_valida(const std::string& mensaje, TipoEntrada tipo) ///Ahora usamos esto en ves de solo ignore y getline
-{                                                                                  ///En discord te explico como funciona
+{
+    ///En discord te explico como funciona
     std::string entrada_str;
     // El bucle se repite hasta que se encuentra una entrada válida.
     while (true)
@@ -60,11 +81,11 @@ std::string Menuadmin::entrada_valida(const std::string& mensaje, TipoEntrada ti
             }
             catch (const std::invalid_argument& e)
             {
-                std::cout << "[ERROR] Entrada inválida. Por favor, ingrese un NÚMERO ENTERO válido" << std::endl;
+                std::cout << "[ERROR] Entrada invalida. Por favor, ingrese un NUMERO ENTERO valido" << std::endl;
             }
             catch (const std::out_of_range& e)
             {
-                std::cout << "[ERROR] El número ingresado es demasiado grande o pequeño. Intente con un valor razonable" << std::endl;
+                std::cout << "[ERROR] El numero ingresado es demasiado grande o pequenio. Intente con un valor razonable" << std::endl;
             }
             // Si hubo un error, el ciclo continúa.
             break;
@@ -185,11 +206,16 @@ void Menuadmin::valoraciones()
         valoracion=plato_muestra.getvaloracion(); /// Funcion que hace un promedio
         ///de las valoraciones en base a la cantidad de gente que la valoro
         int cant_val=plato_muestra.getcant_valoracion();
-        line('-');
-        std::cout << "El plato: " << std::endl;
-        std::cout << plato_muestra.toString() << std::endl;
-        std::cout << "Con una valoracion promedio de: " << valoracion/cant_val << std::endl;
-        line('-');
+        if (valoracion!=0&&cant_val!=0)
+        {
+            line('-');
+            std::cout << "Listado de platos valorados por los comensales" << std::endl;
+            line('-');
+            std::cout << "El plato: " << std::endl;
+            std::cout << plato_muestra.toString() << std::endl;
+            std::cout << "Con una valoracion promedio de: " << valoracion/cant_val << std::endl;
+            line('-');
+        }
     }
 }
 
@@ -252,13 +278,17 @@ void Menuadmin::cargarvaloracion()
                         }
                         else if (valoracion>0||valoracion<11)
                         {
-                            valoracion=plato_muestra.getvaloracion()+valoracion; /// Suma con la valoracion que ya tenia el plato
-                            plato_muestra.setvaloracion(valoracion);
-                            int cant;
-                            cant=plato_muestra.getcant_valoracion()+1;
-                            plato_muestra.setcant_valoracion(cant);
-                            ejecutar_ok=arch.Guardar(plato_muestra, x); /// Sobreescritura
-                            if (ejecutar_ok==false)
+                            int valor_anterior;
+                            valor_anterior=plato_muestra.getvaloracion();
+                            int valor_nuevo;
+                            valor_nuevo=valor_anterior+valoracion; /// Suma con la valoracion que ya tenia el plato
+                            plato_muestra.setvaloracion(valor_nuevo); ///seteo de valoracion
+                            int cant_anterior;
+                            cant_anterior=plato_muestra.getcant_valoracion();
+                            int cant_actual=cant_anterior+1;
+                            plato_muestra.setcant_valoracion(cant_actual); ///seteo de cant de valoraciones
+                            ejecutar_ok=arch.Guardar(plato_muestra, x); /// Sobreescritura, JAMAS una sobreescritura
+                            if (ejecutar_ok==false)                     /// va a ir en un x+1
                             {
                                 std::cout << "[ERROR] guardado fallido, intente nuevamente" << std::endl;
                                 break;
@@ -387,6 +417,8 @@ void Menuadmin::cargarplato() ///IVAN; ahora busca establecmiento OK y lo muestr
         int registros=arch.CantidadRegistros()+1;
         plato_muestra.setidmenu(registros);
         plato_muestra.setfecha(fecha_hoy.hoy());
+        plato_muestra.setcant_valoracion(0);
+        plato_muestra.setvaloracion(0);
         guardar_ok=arch.Guardar(plato_muestra);
         if (guardar_ok==true)
         {
