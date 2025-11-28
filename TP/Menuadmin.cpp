@@ -319,6 +319,44 @@ void Menuadmin::cargarvaloracion()
     while(ejecutar_ok==false);
 }
 
+void Menuadmin::mostrarmenucargar() /// EVELYN-> SE AGREGO SUBMENUS EN PLATOS PARA QUE NOS DEJE CARGAR MENU DEL DIA O MENU DE LA SEMANA
+{
+    int opcion;
+    do
+    {
+        std::cout << "CARGAR MENUES" << std::endl;
+        line('-');
+        std::cout << "1- Cargar menu del dia" << std::endl;
+        std::cout << "2- Cargar menu de toda la semana" << std::endl;
+        std::cout << "0- Volver al menu de platos" << std::endl;
+        std::cin >> opcion;
+
+        switch(opcion)
+        {
+        case 1:
+            system("pause");
+            system("cls");
+            cargarplato();
+            system("pause");
+            system("cls");
+            break;
+        case 2:
+            system("pause");
+            system("cls");
+            cargarmenutodalasemana();
+            system("pause");
+            system("cls");
+            break;
+        case 0:
+
+            std::cout << "Volviendo al menu principal" << std::endl;
+        }
+    }
+    while(opcion !=0);
+
+
+}
+
 void Menuadmin::cargarplato() ///IVAN; ahora busca establecmiento OK y lo muestra
 {
     Archivos <Menues> arch ("Menues.dat");
@@ -443,6 +481,175 @@ void Menuadmin::cargarplato() ///IVAN; ahora busca establecmiento OK y lo muestr
         }
     }
     while(guardar_ok==false);
+}
+
+void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION CON LO MISMO DE CARGARPLATOS, PERO CON UN CICLO CONVINADO PARA CARGAR LOS 7 DIAS DE LA SEMANA
+{
+    Archivos <Menues> arch ("Menues.dat");
+    Archivos <Establecimientos> arch2 ("Establecimientos.dat");
+    Archivos <TipoAlmuerzo> arch3 ("TipoAlmuerzo.dat");
+    int idesta;
+    float importe;
+    const char *nombre_aux;
+    int tipomenu;
+    bool guardar_ok=false, loop=true;
+    Establecimientos esta_muestra;
+    Menues plato_muestra;
+    Fecha fecha_hoy;
+
+    do
+    {
+        std::cout << "Ingrese el ID del establecimiento";
+        std::string entrada=entrada_valida(" o pulse cero para volver", NUMERO_ENTERO);
+        line('-');
+        idesta=std::stoi(entrada);
+        if (entrada=="0")
+        {
+            break;
+        }
+        int registro=arch2.CantidadRegistros();
+        for (int i=0; i<registro; i++)
+        {
+            esta_muestra=arch2.Leer(i);
+            if (idesta==esta_muestra.getidestablecimiento())
+            {
+                plato_muestra.setesta(esta_muestra);
+                std::cout << "Establecimiento encontrado: " << esta_muestra.getnombreestablecimiento() << std::endl;
+                loop=true;
+                break;
+            }
+            else if (idesta!=esta_muestra.getidestablecimiento()&&i+1==registro)
+            {
+                std::cout << "[ERROR] ID ingresado no valido o no existe, intente nuevamente" << std::endl;
+                loop=false;
+                break;
+            }
+        }
+    }
+    while(loop==false);
+
+    for(int dia = 0; dia <7; dia ++)
+    {
+        Fecha fechadelmenu = fecha_hoy.hoy();
+        fechadelmenu.sumarDias(dia);
+
+        std::cout << std::endl;
+        std::cout << "CARGANDO MENU PARA EL DIA " << fechadelmenu.toString() << std::endl;
+
+        int opcion;
+    
+        do
+        {
+            std::cout << "Ingrese el nombre del menu nuevo" << std::endl;
+            std::string nombremenu=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+            line('-');
+            if (nombremenu=="0")
+            {
+                break;
+            }
+            nombre_aux=nombremenu.c_str();
+            plato_muestra.setnombremenu(nombre_aux);
+
+            std::cout << "Ingrese el valor del plato" << std::endl;
+            std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_FLOTANTE);
+            line('-');
+            importe=std::stof(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
+            if (importe < 0)
+            {
+                std::cout << "[ERROR] No se puede establecer un precio negativo!" << std::endl;
+                loop=false;
+                break;
+            }
+            else
+            {
+                plato_muestra.setvalorplato(importe);
+            }
+            loop=true;
+            do
+            {
+                std::cout << "Ingrese el tipo de plato" << std::endl;
+                std::cout << "1. Menu estandar" << std::endl;
+                std::cout << "2. Menu vegetariano" << std::endl;
+                std::cout << "3. Menu celiaco" << std::endl;
+                std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+                line('-');
+                if (entrada=="0")
+                {
+                    break;
+                }
+                tipomenu=std::stoi(entrada);
+                if (tipomenu<1||tipomenu>3)
+                {
+                    std::cout << "[ERROR] Opcion no valida, intente nuevamente" << std::endl;
+                    system("pause");
+                    system("cls");
+                    loop=false;
+                    break;
+                }
+                else
+                {
+                    TipoAlmuerzo tipo_muestra(tipomenu);
+                    plato_muestra.setidtipo(tipo_muestra);
+                    plato_muestra.setdesctipo(tipo_muestra);
+                    loop=true;
+                }
+            }
+            while(loop==false);
+            int registros=arch.CantidadRegistros()+1;
+            plato_muestra.setidmenu(registros);
+            plato_muestra.setfecha(fecha_hoy.hoy());
+            plato_muestra.setcant_valoracion(0);
+            plato_muestra.setvaloracion(0);
+            guardar_ok=arch.Guardar(plato_muestra);
+            if (guardar_ok==true)
+            {
+                system("pause");
+                system("cls");
+                std::cout << "Menu cargado satisfactoriamente bajo el ID Num. " << registros << std::endl;
+            }
+            else
+            {
+                system("pause");
+                system("cls");
+                std::cout << "[ERROR] Falla de carga del registro, intente nuevamente" << std::endl;
+                break;
+            }
+            loop=true;
+            do
+            {
+                std::string entrada=entrada_valida("Desea agregar otro plato para esta misma fecha? (1- SI/0-NO): ", NUMERO_ENTERO);
+
+                if (entrada == "1")
+                {
+                    opcion = 1;
+                    loop = false;
+                }
+                else if (entrada == "0")
+                {
+                    opcion = 0;
+                    loop = false;
+                }
+                else
+                {
+
+                    std::cout << "[ERROR] Opcion no valida. Ingrese unicamente 1 o 0." << std::endl;
+                    loop = true;
+                }
+
+            }
+            while (loop == true);
+            
+            } while (opcion == 1);
+            std::cout << "Fin de la carga para el dia " << fechadelmenu.toString() << std::endl;
+            system("pause");
+        
+    }
+    std::cout << "Carga semanal completa!" << std::endl;
+        system("pause");
 }
 
 void Menuadmin::eliminarplato()

@@ -47,6 +47,18 @@ Fecha Fecha::hoy()
 
     return Fecha(dia, mes, anio);
 }
+
+void Fecha::sumarDias(int diasASumar) {
+    _dia += diasASumar;
+    while (_dia > 30) { 
+        _dia -= 30;
+        _mes++;
+        if (_mes > 12) {
+            _mes = 1;
+            _anio++;
+        }
+    }
+}
 int Fecha::getDia()
 {
     return _dia;

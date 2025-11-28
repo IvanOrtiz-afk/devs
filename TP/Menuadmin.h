@@ -29,6 +29,8 @@ public:
     void cargarcomensales();
     void listarcomensales();
     void listarconsumos();
+    void mostrarmenucargar();
+    void cargarmenutodalasemana();
     std::string entrada_valida(const std::string&, TipoEntrada);
     std::string entrada_cruda(const std::string&);
 

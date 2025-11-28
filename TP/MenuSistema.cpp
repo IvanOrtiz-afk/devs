@@ -150,7 +150,7 @@ void MenuSistema::gestionarPlatos()
                 /// cargar();
                 system("pause");
                 system("cls");
-                _ejecutarmenu.cargarplato();
+                _ejecutarmenu.mostrarmenucargar();
                 system("pause");
                 system("cls");
             }
