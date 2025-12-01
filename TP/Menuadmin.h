@@ -18,7 +18,8 @@ public:
     void listarplatos(Fecha fechafiltrar);
     void cargarplato();
     void valoraciones();
-    void eliminarplato();
+    void eliminarplato(Fecha fechafiltrar);
+    void eliminarplatomenu();
     void cargarvaloracion();
     void listarfacturas();
     void cargarfactura();

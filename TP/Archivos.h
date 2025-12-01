@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <cstdio>
 #include "Establecimientos.h"
 #include "Menues.h"
 #include "Comensales.h"
@@ -91,6 +92,60 @@ public:
         int cantidadRegistros = ftell(pArchivo) / sizeof(Tipos);
         fclose(pArchivo);
         return cantidadRegistros;
+    }
+
+    bool Eliminar(int registro_eliminar)
+    {
+        std::string nombre_temporal="temp.dat";
+        FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb");
+        FILE *pArchivo2 = fopen(nombre_temporal.c_str(), "rb+");
+        Tipos registro;
+        bool ok=true;
+        if(pArchivo == NULL)
+        {
+            return false;
+        }
+        fseek(pArchivo, 0, SEEK_END);
+        int cantidadRegistros = ftell(pArchivo) / sizeof(Tipos);
+        for (int i=0; i<cantidadRegistros; i++)
+        {
+            if (registro_eliminar!=i&&ok==true)
+            {
+                fseek(pArchivo, sizeof(Tipos) * i, SEEK_SET);
+                fread(&registro, sizeof(Tipos), 1, pArchivo);
+                ok = fwrite(&registro, sizeof(Tipos), 1, pArchivo2);
+            }
+            else if (registro_eliminar==i&&ok==true)
+            {
+                fseek(pArchivo, sizeof(Tipos) * i, SEEK_SET);
+                fread(&registro, sizeof(Tipos), 1, pArchivo);
+            }
+            else if (ok==false)
+            {
+                return ok;
+                break;
+            }
+        }
+        if (ok==true)
+        {
+            if (std::remove(_nombreArchivo.c_str())==0)
+            {
+                if (std::rename(nombre_temporal.c_str(), _nombreArchivo.c_str())==0)
+                {
+                    ok=true;
+                }
+                else
+                {
+                    ok=false;
+                }
+            }
+            else
+            {
+                ok=false;
+            }
+        }
+        fclose(pArchivo2);
+        return ok;
     }
 
     void Leer(int cantidadRegistros, Tipos *vector)

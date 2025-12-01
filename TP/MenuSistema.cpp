@@ -165,7 +165,7 @@ void MenuSistema::gestionarPlatos()
                 /// elminar();
                 system("pause");
                 system("cls");
-                _ejecutarmenu.eliminarplato();
+                _ejecutarmenu.eliminarplatomenu();
                 system("pause");
                 system("cls"); ///aun no esta hecha porque implementa algo no visto
             }
@@ -263,7 +263,7 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
             system("pause");
             system("cls"); //de momento solo hice que se pueda ver la CC (sea deuda o no)
             break;
-        case 2: 
+        case 2:
             system("pause");
             system("cls");
             _ejecutarmenu.cargarpago();

@@ -214,6 +214,118 @@ void Menuadmin::menuplatos()
     while(opcion != 0);
 }
 
+void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar platos pero con el agregado que separa el plato seleccionado y elimina
+{
+    Archivos <Menues> arch ("Menues.dat");
+    Archivos <Establecimientos> arch2 ("Establecimientos.dat");
+    Establecimientos esta_muestra;
+    bool loop=false;
+    std::vector <int> id_platos; ///vector dinamico, crece a medida que le asigno nuevos valores (no es un vector de tamanio fijo)
+    std::vector <int> posicion;
+    Menues plato_muestra;
+    do
+    {
+        std::cout << "Ingrese ID de establecimiento" << std::endl;
+        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO); /// Aca es el ingreso del usuario
+        if (entrada=="0")
+        {
+            break;   /// Si el ingreso es CERO vuelve al menu anterior
+        }
+        int id_esta=std::stoi(entrada);
+        int registros=arch2.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            esta_muestra=arch2.Leer(i);
+            if (id_esta==esta_muestra.getidestablecimiento())
+            {
+                int registros2=arch.CantidadRegistros();
+
+
+                bool hayPlatos = false;
+
+                for (int j=0; j<registros2; j++)
+                {
+                    plato_muestra=arch.Leer(j);
+                    Fecha fArchivo = plato_muestra.getfecha();
+
+                    if (esta_muestra.getidestablecimiento()==plato_muestra.getesta())
+                    {
+
+
+                        if (fechafiltrar.getDia() == plato_muestra.getfecha().getDia() && fechafiltrar.getMes() == plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() == plato_muestra.getfecha().getAnio())
+                        {
+                            system("cls");
+                            std::cout << "LISTADO DE MENUS" << std::endl;
+                            line('-');
+                            std::cout << "ID #" << plato_muestra.getidmenu() << std::endl;
+                            std::cout << plato_muestra.getdesctipo() << std::endl;
+                            std::cout << plato_muestra.getnombremenu() << std::endl;
+                            std::cout << "IMPORTE $" << plato_muestra.getvalorplato() << std::endl;
+                            id_platos.push_back(plato_muestra.getidmenu()); ///asigno un nuevo valor a mi vector dinamico
+                            posicion.push_back(j);
+                            hayPlatos = true;
+                            loop=true;
+                        }
+                        else if (fechafiltrar.getDia() != plato_muestra.getfecha().getDia() && fechafiltrar.getMes() != plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() != plato_muestra.getfecha().getAnio()&&registros2==j+1)
+                        {
+                            std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " el dia de hoy" << std::endl;
+                            break;
+                        }
+                    }
+                    else if (esta_muestra.getidestablecimiento()!=plato_muestra.getesta()&&j+1==registros2)
+                    {
+                        std::cout << "[AVISO] No se encontro ningun plato cargado para ese establecimiento" << std::endl;
+                        break;
+                    }
+                }
+                break;
+            }
+            else if (id_esta!=esta_muestra.getidestablecimiento()&&i+1==registros)
+            {
+                std::cout << "[ERROR] El establecimiento no existe o es incorrecto, intente nuevamente" << std::endl;
+                break;
+            }
+        }
+        if (loop==true)
+        {
+            int tamanio=id_platos.size(); ///tamanio ahora toma la cantidad de elementos guardados en el vector
+            line('=');
+            std::cout << "Seleccione el ID del plato que desea eliminar" << std::endl;
+            line('=');
+            std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+            if (entrada=="0")
+            {
+                break;
+            }
+            int id_buscado=std::stoi(entrada);
+            for (int i=0; i<tamanio; i++)
+            {
+                if (id_buscado==id_platos[i])
+                {
+                    int pos=posicion[i];
+                    loop=arch.Eliminar(pos);
+                }
+                else if (id_buscado!=id_platos[i]&&i+1==tamanio)
+                {
+                    std::cout << "[ERROR] Fallo con el ID ingresado, intente nuevamente" << std::endl;
+                    loop=false;
+                    break;
+                }
+            }
+            if (loop==false)
+            {
+                std::cout << "[ERROR] Fallo al eliminar el plato, intente nuevamente" << std::endl;
+                break;
+            }
+            else if (loop==true)
+            {
+                std::cout << "[AVISO] Plato eliminado correctamente" << std::endl;
+                break;
+            }
+        }
+    }
+    while(loop==false);
+}
 
 void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; reparado de mostrar platos
 {
@@ -253,7 +365,7 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; reparado de mostrar pl
 
                     if (esta_muestra.getidestablecimiento()==plato_muestra.getesta())
                     {
-                       
+
 
                         if (fechafiltrar.getDia() == plato_muestra.getfecha().getDia() && fechafiltrar.getMes() == plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() == plato_muestra.getfecha().getAnio())
                         {
@@ -264,7 +376,7 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; reparado de mostrar pl
                             std::cout << plato_muestra.getdesctipo() << std::endl;
                             std::cout << plato_muestra.getnombremenu() << std::endl;
                             std::cout << "IMPORTE $" << plato_muestra.getvalorplato() << std::endl;
-                           
+
                             hayPlatos = true;
                             loop=true;
                         }
@@ -573,7 +685,7 @@ void Menuadmin::cargarplato() ///IVAN; ahora busca establecmiento OK y lo muestr
     while(guardar_ok==false);
 }
 
-void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION CON LO MISMO DE CARGARPLATOS, PERO CON UN CICLO CONVINADO PARA CARGAR LOS 7 DIAS DE LA SEMANA
+void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION CON LO MISMO DE CARGARPLATOS, PERO CON UN CICLO COMBINADO PARA CARGAR LOS 7 DIAS DE LA SEMANA
 {
     Archivos <Menues> arch ("Menues.dat");
     Archivos <Establecimientos> arch2 ("Establecimientos.dat");
@@ -743,23 +855,75 @@ void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION C
     system("pause");
 }
 
-void Menuadmin::eliminarplato()
+void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero con el agregado que separa el plato seleccionado y elimina
 {
-///aca vamos a usar un funcion que vamos a hacer en Archivos.h
-    /**
-    Aclaración sobre el Flujo de Nombres
-    El flujo siempre es:
+    int opcion;
+    do
+    {
+        std::cout << "ELIMINAR UN PLATO" << std::endl;
+        line('-');
+        std::cout << "1- ELIMINAR PLATO DE HOY" << std::endl;
+        std::cout << "2- ELIMINAR PLATO POR DIA ESPECIFICO" << std::endl;
+        std::string entrada=entrada_valida("0- Atras", NUMERO_ENTERO);
 
-    El archivo que todas las funciones usan se llama menues.dat.
+        int opcion= std::stoi(entrada);
 
-    Para borrar, el programa crea temp.dat.
+        switch(opcion)
+        {
+        case 1:
+        {
+            system("pause");
+            system("cls");
+            Fecha fecha_hoy;
+            fecha_hoy = fecha_hoy.hoy();
+            eliminarplato(fecha_hoy);
+            system("pause");
+            system("cls");
+            break;
+        }
+        case 2:
+        {
+            system("pause");
+            system("cls");
+            int dia, mes, anio;
 
-    Una vez finalizada la copia filtrada, el programa borra menues.dat.
+            std::cout << "Ingrese DIA:";
+            std::string entrada=entrada_valida("", NUMERO_ENTERO);
+            dia=std::stoi(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
 
-    Finalmente, el programa renombra temp.dat a menues.dat.
+            std::cout << "Ingrese MES:";
+            entrada=entrada_valida("", NUMERO_ENTERO);
+            mes=std::stoi(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
 
-    De esta manera, las demás funciones siempre operan sobre menues.dat.
-    */
+            std::cout << "Ingrese ANIO";
+            entrada=entrada_valida("", NUMERO_ENTERO);
+            anio=std::stoi(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
+
+
+            Fecha fechabusqueda(dia, mes, anio);
+            eliminarplato(fechabusqueda);
+
+            system("pause");
+            system("cls");
+        }
+        break;
+        case 0:
+            break;
+        }
+    }
+    while(opcion != 0);
 }
 
 void Menuadmin::listarfacturas()
