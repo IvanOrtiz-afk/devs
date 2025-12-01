@@ -28,8 +28,8 @@ Menuadmin::~Menuadmin()
 
 #PRIORIDAD 1:
 -TERMINAR CON LOS BUGS Y LOS IGNORE/GETLINE (menucomensal, facturas, CC, consumos)
--VER MENU POR FECHA
--CARGAR MENU DE TODA LA SEMANA
+-VER MENU POR FECHA -> OK
+-CARGAR MENU DE TODA LA SEMANA  -> OK
 -CREAR ELIMINACIONES DE REGISTROS
 -EDITAR REGISTROS
 -REPORTES:
@@ -143,15 +143,89 @@ std::string Menuadmin::entrada_valida(const std::string& mensaje, TipoEntrada ti
     }
 }
 
-void Menuadmin::listarplatos() ///IVAN; reparado de mostrar platos
+void Menuadmin::menuplatos()
+{
+    int opcion;
+    do
+    {
+        std::cout << "MENUES" << std::endl;
+        line('-');
+        std::cout << "1- VER MENU DE HOY" << std::endl;
+        std::cout << "2- VER MENU POR DIA" << std::endl;
+        std::string entrada=entrada_valida("0- Atras", NUMERO_ENTERO);
+
+        int opcion= std::stoi(entrada);
+
+        switch(opcion)
+        {
+        case 1:
+        {
+            system("pause");
+            system("cls");
+            Fecha fecha_hoy;
+            fecha_hoy = fecha_hoy.hoy();
+            listarplatos(fecha_hoy);
+            system("pause");
+            system("cls");
+            break;
+        }
+        case 2:
+        {
+            system("pause");
+            system("cls");
+            int dia, mes, anio;
+
+            std::cout << "Ingrese DIA:";
+            std::string entrada=entrada_valida("", NUMERO_ENTERO);
+            dia=std::stoi(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
+
+            std::cout << "Ingrese MES:";
+            entrada=entrada_valida("", NUMERO_ENTERO);
+            mes=std::stoi(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
+
+            std::cout << "Ingrese ANIO";
+            entrada=entrada_valida("", NUMERO_ENTERO);
+            anio=std::stoi(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
+
+
+            Fecha fechabusqueda(dia, mes, anio);
+            listarplatos(fechabusqueda);
+
+            system("pause");
+            system("cls");
+        }
+        break;
+        case 0:
+            break;
+        }
+    }
+    while(opcion != 0);
+}
+
+
+void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; reparado de mostrar platos
 {
     Archivos <Menues> arch ("Menues.dat");
     Archivos <Establecimientos> arch2 ("Establecimientos.dat");
     Establecimientos esta_muestra;
     bool loop=false;
     Menues plato_muestra;
-    Fecha fecha_hoy;
-    fecha_hoy.hoy();
+    ///Fecha fecha_hoy;
+    ///fecha_hoy.hoy();
+
+
     do
     {
         std::cout << "Ingrese ID de establecimiento" << std::endl;
@@ -168,17 +242,33 @@ void Menuadmin::listarplatos() ///IVAN; reparado de mostrar platos
             if (id_esta==esta_muestra.getidestablecimiento())
             {
                 int registros2=arch.CantidadRegistros();
+
+
+                bool hayPlatos = false;
+
                 for (int j=0; j<registros2; j++)
                 {
                     plato_muestra=arch.Leer(j);
+                    Fecha fArchivo = plato_muestra.getfecha();
+
                     if (esta_muestra.getidestablecimiento()==plato_muestra.getesta())
                     {
-                        if (fecha_hoy.hoy()==plato_muestra.getfecha())
+                       
+
+                        if (fechafiltrar.getDia() == plato_muestra.getfecha().getDia() && fechafiltrar.getMes() == plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() == plato_muestra.getfecha().getAnio())
                         {
-                            std::cout << plato_muestra.toString() << std::endl;
+                            system("cls");
+                            std::cout << "LISTADO DE MENUS" << std::endl;
+                            line('-');
+                            std::cout << "ID #" << plato_muestra.getidmenu() << std::endl;
+                            std::cout << plato_muestra.getdesctipo() << std::endl;
+                            std::cout << plato_muestra.getnombremenu() << std::endl;
+                            std::cout << "IMPORTE $" << plato_muestra.getvalorplato() << std::endl;
+                           
+                            hayPlatos = true;
                             loop=true;
                         }
-                        else if (fecha_hoy.hoy()!=plato_muestra.getfecha()&&registros2==j+1)
+                        else if (fechafiltrar.getDia() != plato_muestra.getfecha().getDia() && fechafiltrar.getMes() != plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() != plato_muestra.getfecha().getAnio()&&registros2==j+1)
                         {
                             std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " el dia de hoy" << std::endl;
                             break;
@@ -537,7 +627,7 @@ void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION C
         std::cout << "CARGANDO MENU PARA EL DIA " << fechadelmenu.toString() << std::endl;
 
         int opcion;
-    
+
         do
         {
             std::cout << "Ingrese el nombre del menu nuevo" << std::endl;
@@ -601,7 +691,7 @@ void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION C
             while(loop==false);
             int registros=arch.CantidadRegistros()+1;
             plato_muestra.setidmenu(registros);
-            plato_muestra.setfecha(fecha_hoy.hoy());
+            plato_muestra.setfecha(fechadelmenu);
             plato_muestra.setcant_valoracion(0);
             plato_muestra.setvaloracion(0);
             guardar_ok=arch.Guardar(plato_muestra);
@@ -642,14 +732,15 @@ void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION C
 
             }
             while (loop == true);
-            
-            } while (opcion == 1);
-            std::cout << "Fin de la carga para el dia " << fechadelmenu.toString() << std::endl;
-            system("pause");
-        
+
+        }
+        while (opcion == 1);
+        std::cout << "Fin de la carga para el dia " << fechadelmenu.toString() << std::endl;
+        system("pause");
+
     }
     std::cout << "Carga semanal completa!" << std::endl;
-        system("pause");
+    system("pause");
 }
 
 void Menuadmin::eliminarplato()

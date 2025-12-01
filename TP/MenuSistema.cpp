@@ -126,7 +126,7 @@ void MenuSistema::gestionarPlatos()
         case 1: ///listarmenu
             system("pause");
             system("cls");
-            _ejecutarmenu.listarplatos();
+            _ejecutarmenu.menuplatos();
             system("pause");
             system("cls");
             break;

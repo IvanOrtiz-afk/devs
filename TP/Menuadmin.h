@@ -4,6 +4,7 @@
 #include "Comensales.h"
 #include "Consumos.h"
 #include "Menues.h"
+#include "Fecha.h"
 
 
 class Menuadmin : public MenuPadreABML
@@ -14,7 +15,7 @@ public:
     ~Menuadmin();
     enum TipoEntrada {NUMERO_ENTERO, TEXTO_NO_VACIO, NUMERO_FLOTANTE};
     std::string volver();
-    void listarplatos();
+    void listarplatos(Fecha fechafiltrar);
     void cargarplato();
     void valoraciones();
     void eliminarplato();
@@ -31,6 +32,7 @@ public:
     void listarconsumos();
     void mostrarmenucargar();
     void cargarmenutodalasemana();
+    void menuplatos();
     std::string entrada_valida(const std::string&, TipoEntrada);
     std::string entrada_cruda(const std::string&);
 
