@@ -167,7 +167,7 @@ void MenuSistema::gestionarPlatos()
                 system("cls");
                 _ejecutarmenu.eliminarplatomenu();
                 system("pause");
-                system("cls"); ///aun no esta hecha porque implementa algo no visto
+                system("cls"); ///HECHO
             }
             else
             {
@@ -373,7 +373,11 @@ void MenuSistema::gestionarComensales()
         case 3:
             if (_rolActual == 1)
             {
-                /// elminar();
+                system("pause");
+                system("cls");
+                _ejecutarmenu.eliminarusuario();
+                system("pause");
+                system("cls");
             }
             else
             {

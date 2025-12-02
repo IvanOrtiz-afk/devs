@@ -27,10 +27,10 @@ Menuadmin::~Menuadmin()
 /* FALTA HACER:
 
 #PRIORIDAD 1:
--TERMINAR CON LOS BUGS Y LOS IGNORE/GETLINE (menucomensal, facturas, CC, consumos)
+-TERMINAR CON LOS BUGS Y LOS IGNORE/GETLINE (menucomensal, facturas, CC, consumos) -> FALTA EN MENU SISTEMA PERO NOSE SI VALE LA PENA
 -VER MENU POR FECHA -> OK
 -CARGAR MENU DE TODA LA SEMANA  -> OK
--CREAR ELIMINACIONES DE REGISTROS
+-CREAR ELIMINACIONES DE REGISTROS -> EN DESARROLLO
 -EDITAR REGISTROS
 -REPORTES:
 CANT. DE PLATOS CONSUMIDOS POR FECHA
@@ -215,8 +215,8 @@ void Menuadmin::menuplatos()
 }
 
 void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar platos pero con el agregado que separa el plato seleccionado y elimina
-                                                  ///EVELYN: BUG ENCONTRADO AL MOMENTO DE LISTAR LOS PLATOS, SI HAY MAS DE UN MENU CARGADO NO LOS MUESTRA A TODOS
-                                                  ///ELIMINAR FUNCIONA OK, PERO CHEQUEAR LO QUE LISTA Y LAS VALIDACIONES DE ESTABLECIMIENTO YA QUE MUESTRA UN AVISO INCORRECTO
+///EVELYN: BUG ENCONTRADO AL MOMENTO DE LISTAR LOS PLATOS, SI HAY MAS DE UN MENU CARGADO NO LOS MUESTRA A TODOS
+///ELIMINAR FUNCIONA OK, PERO CHEQUEAR LO QUE LISTA Y LAS VALIDACIONES DE ESTABLECIMIENTO YA QUE MUESTRA UN AVISO INCORRECTO
 {
     Archivos <Menues> arch ("Menues.dat");
     Archivos <Establecimientos> arch2 ("Establecimientos.dat");
@@ -330,10 +330,10 @@ void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar
 }
 
 void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE EMPROLIJAR TODA LA FUNCION DADO QUE NO ENCUENTRO EL ERROR
-                                                 /// EVELYN: SE INTENTO EMPROLIJAR, SE CARGARON REGISTROS NUEVOS PARA EL DIA DE HOY 1/12/2025 Y PARA TODA LA SEMANA DEL ESTABLECIMIENTO ID 1
-                                                 ///SE HICIERON PRUEBAS DE LISTADO EN GESTIONAR PLATOS TANTO DE HOY COMO FILTRANDO POR FECHA QUE SE VISUALIZARON OK, TAMBIEN SE PROBARON LAS VALIDACIONES
-                                                 ///PARECIERA HABER QUEDADO BIEN, SEGUIR PROBANDO POR SI HAY ALGUN BUG QUE NO VI
-                                                 ///SE PROBO ELIMINAR UN PLATO Y SIGUE LISTANDOLOS OK
+/// EVELYN: SE INTENTO EMPROLIJAR, SE CARGARON REGISTROS NUEVOS PARA EL DIA DE HOY 1/12/2025 Y PARA TODA LA SEMANA DEL ESTABLECIMIENTO ID 1
+///SE HICIERON PRUEBAS DE LISTADO EN GESTIONAR PLATOS TANTO DE HOY COMO FILTRANDO POR FECHA QUE SE VISUALIZARON OK, TAMBIEN SE PROBARON LAS VALIDACIONES
+///PARECIERA HABER QUEDADO BIEN, SEGUIR PROBANDO POR SI HAY ALGUN BUG QUE NO VI
+///SE PROBO ELIMINAR UN PLATO Y SIGUE LISTANDOLOS OK
 {
     Archivos <Menues> arch ("Menues.dat");
     Archivos <Establecimientos> arch2 ("Establecimientos.dat");
@@ -390,7 +390,7 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
                             std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " el dia de hoy" << std::endl;
                             loop=false;
                             break;
-                        } 
+                        }
                     }
                 }
                 if (hayPlatos == false)/// esta_muestra.getidestablecimiento()!=plato_muestra.getesta()&&j+1==registros2) ///ARREGLAR
@@ -935,6 +935,49 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
         }
     }
     while(opcion != 0);
+}
+
+void Menuadmin::eliminarusuario()
+{
+    Archivos <usuario> arch ("Usuario.dat");
+    usuario user_buscado;
+    bool loop=false;
+    const char* nombre_aux;
+    do
+    {
+        std::cout << "Ingrese el nombre de usuario que desea eliminar" << std::endl;
+        std::string entrada=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+        line('-');
+        if (entrada=="0")
+        {
+            break;
+        }
+        nombre_aux=entrada.c_str();
+        int registros=arch.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            user_buscado=arch.Leer(i);
+            if (nombre_aux==user_buscado.getNombreUsuario()) ///VER
+            {
+                if (arch.Eliminar(i)==true)
+                {
+                    std::cout << "[AVISO] El usuario se elimino exitosamente" << std::endl;
+                    loop=true;
+                    system("pause");
+                    system("cls");
+                    break;
+                }
+            }
+            else if (nombre_aux!=user_buscado.getNombreUsuario()&&i+1==registros)
+            {
+                std::cout << "[ERROR] Usuario no encontrado, intente nuevamente" << std::endl;
+                system("pause");
+                system("cls");
+                break;
+            }
+        }
+    }
+    while(loop==false);
 }
 
 void Menuadmin::listarfacturas()

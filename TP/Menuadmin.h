@@ -20,6 +20,7 @@ public:
     void valoraciones();
     void eliminarplato(Fecha fechafiltrar);
     void eliminarplatomenu();
+    void eliminarusuario();
     void cargarvaloracion();
     void listarfacturas();
     void cargarfactura();
