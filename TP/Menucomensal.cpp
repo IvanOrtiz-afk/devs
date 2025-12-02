@@ -12,6 +12,7 @@
 #include "Consumos.h"
 #include "CC.h"
 #include "Fecha.h"
+#include "Menuadmin.h"
 
 
 Menucomensal::Menucomensal(Comensal clientebuscado, Menues menubuscado)
@@ -38,7 +39,7 @@ void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     std::cout << "BIENVENIDO AL COMEDOR" << std::endl;
     MenuPadreABML::line('*');
     do
-    {
+    {   
         std::cout << "Por favor, ingrese su ID de cliente:";
         std::cin >> id;
         _clientebuscado=buscarcliente(id, loop);

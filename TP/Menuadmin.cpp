@@ -148,7 +148,7 @@ void Menuadmin::menuplatos()
     int opcion;
     do
     {
-        std::cout << "MENUES" << std::endl;
+        std::cout << "----MENUES----" << std::endl;
         line('-');
         std::cout << "1- VER MENU DE HOY" << std::endl;
         std::cout << "2- VER MENU POR DIA" << std::endl;
@@ -215,6 +215,8 @@ void Menuadmin::menuplatos()
 }
 
 void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar platos pero con el agregado que separa el plato seleccionado y elimina
+                                                  ///EVELYN: BUG ENCONTRADO AL MOMENTO DE LISTAR LOS PLATOS, SI HAY MAS DE UN MENU CARGADO NO LOS MUESTRA A TODOS
+                                                  ///ELIMINAR FUNCIONA OK, PERO CHEQUEAR LO QUE LISTA Y LAS VALIDACIONES DE ESTABLECIMIENTO YA QUE MUESTRA UN AVISO INCORRECTO
 {
     Archivos <Menues> arch ("Menues.dat");
     Archivos <Establecimientos> arch2 ("Establecimientos.dat");
@@ -328,6 +330,10 @@ void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar
 }
 
 void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE EMPROLIJAR TODA LA FUNCION DADO QUE NO ENCUENTRO EL ERROR
+                                                 /// EVELYN: SE INTENTO EMPROLIJAR, SE CARGARON REGISTROS NUEVOS PARA EL DIA DE HOY 1/12/2025 Y PARA TODA LA SEMANA DEL ESTABLECIMIENTO ID 1
+                                                 ///SE HICIERON PRUEBAS DE LISTADO EN GESTIONAR PLATOS TANTO DE HOY COMO FILTRANDO POR FECHA QUE SE VISUALIZARON OK, TAMBIEN SE PROBARON LAS VALIDACIONES
+                                                 ///PARECIERA HABER QUEDADO BIEN, SEGUIR PROBANDO POR SI HAY ALGUN BUG QUE NO VI
+                                                 ///SE PROBO ELIMINAR UN PLATO Y SIGUE LISTANDOLOS OK
 {
     Archivos <Menues> arch ("Menues.dat");
     Archivos <Establecimientos> arch2 ("Establecimientos.dat");
@@ -344,11 +350,17 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
         }
         int id_esta=std::stoi(entrada);
         int registros=arch2.CantidadRegistros();
+        bool establecimientoEncontrado = false;
+        system("pause");
+        system("cls");
+        std::cout << "---LISTADO DE PLATOS---" << std::endl;
+        line('-');
         for (int i=0; i<registros; i++)
         {
             esta_muestra=arch2.Leer(i);
             if (id_esta==esta_muestra.getidestablecimiento())
             {
+                establecimientoEncontrado = true;
                 int registros2=arch.CantidadRegistros();
 
                 bool hayPlatos = false;
@@ -363,12 +375,13 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
 
                         if (fechafiltrar.getDia() == plato_muestra.getfecha().getDia() && fechafiltrar.getMes() == plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() == plato_muestra.getfecha().getAnio())
                         {
-                            std::cout << "LISTADO DE MENUS" << std::endl;
-                            line('-');
+
+
                             std::cout << "ID #" << plato_muestra.getidmenu() << std::endl;
                             std::cout << plato_muestra.getdesctipo() << std::endl;
                             std::cout << plato_muestra.getnombremenu() << std::endl;
                             std::cout << "IMPORTE $" << plato_muestra.getvalorplato() << std::endl;
+                            line('-');
 
                             hayPlatos=true; ///PONER QUE LOOP ES TRUE ACA, PERO SIN QUE ESE VALOR CAMBIE EN CADA ITERACION
                         }
@@ -377,24 +390,28 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
                             std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " el dia de hoy" << std::endl;
                             loop=false;
                             break;
-                        }
-                    }
-                    else if (esta_muestra.getidestablecimiento()!=plato_muestra.getesta()&&j+1==registros2) ///ARREGLAR
-                    {
-                        std::cout << "[AVISO] No se encontro ningun plato cargado para ese establecimiento" << std::endl;
-                        loop=false;
-                        break;
+                        } 
                     }
                 }
-            }
-            else if (id_esta!=esta_muestra.getidestablecimiento()&&i+1==registros) ///ARREGLAR
-            {
-                std::cout << "[ERROR] El establecimiento no existe o es incorrecto, intente nuevamente" << std::endl;
-                loop=false;
+                if (hayPlatos == false)/// esta_muestra.getidestablecimiento()!=plato_muestra.getesta()&&j+1==registros2) ///ARREGLAR
+                {
+                    std::cout << "[AVISO] No se encontro ningun plato cargado para ese establecimiento" << std::endl;
+                    loop=false;
+
+                }
+                loop = true;
                 break;
             }
         }
+        if (establecimientoEncontrado == false) ///id_esta!=esta_muestra.getidestablecimiento()&&i+1==registros) ///ARREGLAR
+        {
+            std::cout << "[ERROR] El establecimiento no existe o es incorrecto, intente nuevamente" << std::endl;
+            std::cout << std::endl;
+            loop=false;
+            ///break;
+        }
     }
+
     while(loop==false);
 }
 

@@ -108,7 +108,7 @@ void MenuSistema::gestionarPlatos()
     {
         cout << "--- GESTIONAR PLATOS ---" << endl;
         cout << "---------------------------" << endl;
-        cout << "1- VER MENU DEL DIA" << endl;
+        cout << "1- LISTADOS DE MENUES" << endl;
         cout << "2- VALORAR UN PLATO "<<endl;
         cout << "3- LISTAR VALORACIONES" << endl; /// chequear punto del parcial
 
