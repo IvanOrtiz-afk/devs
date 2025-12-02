@@ -980,6 +980,92 @@ void Menuadmin::eliminarusuario()
     while(loop==false);
 }
 
+void Menuadmin::eliminarcomensal()
+{
+    Archivos <Comensal> arch ("Comensales.dat");
+    Comensal comensal_buscado;
+    bool loop=false;
+    int id_buscado;
+    do
+    {
+        std::cout << "Ingrese el ID del comensal que desea eliminar" << std::endl;
+        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        line('-');
+        if (entrada=="0")
+        {
+            break;
+        }
+        id_buscado=std::stoi(entrada);
+        int registros=arch.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            comensal_buscado=arch.Leer(i);
+            if (id_buscado==comensal_buscado.getIDcomensal()) ///VER
+            {
+                if (arch.Eliminar(i)==true)
+                {
+                    std::cout << "[AVISO] El comensal se elimino exitosamente" << std::endl;
+                    loop=true;
+                    system("pause");
+                    system("cls");
+                    break;
+                }
+            }
+            else if (id_buscado!=comensal_buscado.getIDcomensal()&&i+1==registros)
+            {
+                std::cout << "[ERROR] Comensal no encontrado, intente nuevamente" << std::endl;
+                system("pause");
+                system("cls");
+                break;
+            }
+        }
+    }
+    while(loop==false);
+}
+
+void Menuadmin::eliminar_esta()
+{
+    Archivos <Establecimientos> arch ("Establecimientos.dat");
+    Establecimientos esta_aux;
+    bool loop=false;
+    int id_buscado;
+    do
+    {
+        std::cout << "Ingrese el ID del establecimiento que desea eliminar" << std::endl;
+        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        line('-');
+        if (entrada=="0")
+        {
+            break;
+        }
+        id_buscado=std::stoi(entrada);
+        int registros=arch.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            esta_aux=arch.Leer(i);
+            if (id_buscado==esta_aux.getidestablecimiento()) ///VER
+            {
+                if (arch.Eliminar(i)==true)
+                {
+                    std::cout << "[AVISO] El establecimiento se elimino exitosamente" << std::endl;
+                    loop=true;
+                    system("pause");
+                    system("cls");
+                    break;
+                }
+            }
+            else if (id_buscado!=esta_aux.getidestablecimiento()&&i+1==registros)
+            {
+                std::cout << "[ERROR] Establecimiento no encontrado, intente nuevamente" << std::endl;
+                system("pause");
+                system("cls");
+                break;
+            }
+        }
+    }
+    while(loop==false);
+}
+
 void Menuadmin::listarfacturas()
 {
     Archivos <Factura> arch ("Facturas.dat");

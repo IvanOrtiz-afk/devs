@@ -375,7 +375,7 @@ void MenuSistema::gestionarComensales()
             {
                 system("pause");
                 system("cls");
-                _ejecutarmenu.eliminarusuario();
+                _ejecutarmenu.eliminarcomensal();
                 system("pause");
                 system("cls");
             }
@@ -434,7 +434,11 @@ void MenuSistema::gestionarEstablecimientos()
         case 2:
             if (_rolActual == 1)
             {
-                /// elminar();
+                system("pause");
+                system("cls");
+                _ejecutarmenu.eliminar_esta();
+                system("pause");
+                system("cls");
             }
             else
             {
@@ -477,6 +481,7 @@ void MenuSistema::gestionarUsuarios()
         if (_rolActual == 1)
         {
             cout << "1- CREAR UN NUEVO USUARIO "<<endl; /// admin
+            cout << "2- ELIMINAR USUARIO" << endl;
             cout << "0- Volver al menu principal" << endl;
         }
         else
@@ -496,7 +501,16 @@ void MenuSistema::gestionarUsuarios()
                 system("cls");
 
             }
+        case 2:
+            if (_rolActual == 1)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.eliminarusuario();
+                system("pause");
+                system("cls");
 
+            }
             else
             {
                 cout << "Acceso denegado." << endl;
