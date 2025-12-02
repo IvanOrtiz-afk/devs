@@ -327,17 +327,13 @@ void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar
     while(loop==false);
 }
 
-void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; reparado de mostrar platos
+void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE EMPROLIJAR TODA LA FUNCION DADO QUE NO ENCUENTRO EL ERROR
 {
     Archivos <Menues> arch ("Menues.dat");
     Archivos <Establecimientos> arch2 ("Establecimientos.dat");
     Establecimientos esta_muestra;
-    bool loop=false;
     Menues plato_muestra;
-    ///Fecha fecha_hoy;
-    ///fecha_hoy.hoy();
-
-
+    bool loop=true;
     do
     {
         std::cout << "Ingrese ID de establecimiento" << std::endl;
@@ -355,7 +351,6 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; reparado de mostrar pl
             {
                 int registros2=arch.CantidadRegistros();
 
-
                 bool hayPlatos = false;
 
                 for (int j=0; j<registros2; j++)
@@ -366,10 +361,8 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; reparado de mostrar pl
                     if (esta_muestra.getidestablecimiento()==plato_muestra.getesta())
                     {
 
-
                         if (fechafiltrar.getDia() == plato_muestra.getfecha().getDia() && fechafiltrar.getMes() == plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() == plato_muestra.getfecha().getAnio())
                         {
-                            system("cls");
                             std::cout << "LISTADO DE MENUS" << std::endl;
                             line('-');
                             std::cout << "ID #" << plato_muestra.getidmenu() << std::endl;
@@ -377,26 +370,27 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; reparado de mostrar pl
                             std::cout << plato_muestra.getnombremenu() << std::endl;
                             std::cout << "IMPORTE $" << plato_muestra.getvalorplato() << std::endl;
 
-                            hayPlatos = true;
-                            loop=true;
+                            hayPlatos=true; ///PONER QUE LOOP ES TRUE ACA, PERO SIN QUE ESE VALOR CAMBIE EN CADA ITERACION
                         }
                         else if (fechafiltrar.getDia() != plato_muestra.getfecha().getDia() && fechafiltrar.getMes() != plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() != plato_muestra.getfecha().getAnio()&&registros2==j+1)
                         {
                             std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " el dia de hoy" << std::endl;
+                            loop=false;
                             break;
                         }
                     }
-                    else if (esta_muestra.getidestablecimiento()!=plato_muestra.getesta()&&j+1==registros2)
+                    else if (esta_muestra.getidestablecimiento()!=plato_muestra.getesta()&&j+1==registros2) ///ARREGLAR
                     {
                         std::cout << "[AVISO] No se encontro ningun plato cargado para ese establecimiento" << std::endl;
+                        loop=false;
                         break;
                     }
                 }
-                break;
             }
-            else if (id_esta!=esta_muestra.getidestablecimiento()&&i+1==registros)
+            else if (id_esta!=esta_muestra.getidestablecimiento()&&i+1==registros) ///ARREGLAR
             {
                 std::cout << "[ERROR] El establecimiento no existe o es incorrecto, intente nuevamente" << std::endl;
+                loop=false;
                 break;
             }
         }

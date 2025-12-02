@@ -98,34 +98,39 @@ public:
     {
         std::string nombre_temporal="temp.dat";
         FILE *pArchivo = fopen(_nombreArchivo.c_str(), "rb");
-        FILE *pArchivo2 = fopen(nombre_temporal.c_str(), "rb+");
+        FILE *pArchivo2 = fopen(nombre_temporal.c_str(), "wb");
         Tipos registro;
         bool ok=true;
         if(pArchivo == NULL)
         {
             return false;
         }
+        if(pArchivo2 == NULL)
+        {
+            fclose(pArchivo);
+            return false;
+        }
         fseek(pArchivo, 0, SEEK_END);
         int cantidadRegistros = ftell(pArchivo) / sizeof(Tipos);
+        fseek(pArchivo, 0, SEEK_SET);
         for (int i=0; i<cantidadRegistros; i++)
         {
-            if (registro_eliminar!=i&&ok==true)
+            if (fread(&registro, sizeof(Tipos), 1, pArchivo)!=1) ///lee un registro y avanza el puntero una posicion
             {
-                fseek(pArchivo, sizeof(Tipos) * i, SEEK_SET);
-                fread(&registro, sizeof(Tipos), 1, pArchivo);
-                ok = fwrite(&registro, sizeof(Tipos), 1, pArchivo2);
-            }
-            else if (registro_eliminar==i&&ok==true)
-            {
-                fseek(pArchivo, sizeof(Tipos) * i, SEEK_SET);
-                fread(&registro, sizeof(Tipos), 1, pArchivo);
-            }
-            else if (ok==false)
-            {
-                return ok;
+                ok=false;
                 break;
             }
+            if (registro_eliminar!=i) ///si NO es el registro a eliminar, lo guarda en el temporal
+            {
+                if (fwrite(&registro, sizeof(Tipos), 1, pArchivo2)!=1)
+                {
+                    ok=false;
+                    break;
+                }
+            }
         }
+        fclose(pArchivo);
+        fclose(pArchivo2);
         if (ok==true)
         {
             if (std::remove(_nombreArchivo.c_str())==0)
@@ -144,7 +149,6 @@ public:
                 ok=false;
             }
         }
-        fclose(pArchivo2);
         return ok;
     }
 
