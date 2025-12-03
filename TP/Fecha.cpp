@@ -48,9 +48,25 @@ Fecha Fecha::hoy()
     return Fecha(dia, mes, anio);
 }
 
+int Fecha::dia_desemana()
+{
+    std::time_t tiempoAhora = std::time(nullptr);
+    std::tm* tmLocal = std::localtime(&tiempoAhora);
+    int indice_dia = tmLocal->tm_wday; /// tm_info->tm_wday contiene un valor entero de 0 (Domingo) a 6 (Sabado)
+    if (indice_dia==0)
+    {
+        int domingo=indice_dia+7;
+        return domingo;
+    }
+    else
+    {
+        return indice_dia;
+    }
+}
+
 void Fecha::sumarDias(int diasASumar) {
     _dia += diasASumar;
-    while (_dia > 30) { 
+    while (_dia > 30) {
         _dia -= 30;
         _mes++;
         if (_mes > 12) {

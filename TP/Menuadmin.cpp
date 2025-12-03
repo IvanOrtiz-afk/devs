@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <cctype>
+#include <cstdlib>
 #include "MenuPadreABML.h"
 #include "MenuSistema.h"
 #include "Menuadmin.h"
@@ -27,10 +28,10 @@ Menuadmin::~Menuadmin()
 /* FALTA HACER:
 
 #PRIORIDAD 1:
--TERMINAR CON LOS BUGS Y LOS IGNORE/GETLINE (menucomensal, facturas, CC, consumos) -> FALTA EN MENU SISTEMA PERO NOSE SI VALE LA PENA
+-TERMINAR CON LOS BUGS Y LOS IGNORE/GETLINE (menucomensal, facturas, CC, consumos) -> OK
 -VER MENU POR FECHA -> OK
 -CARGAR MENU DE TODA LA SEMANA  -> OK
--CREAR ELIMINACIONES DE REGISTROS -> EN DESARROLLO
+-CREAR ELIMINACIONES DE REGISTROS -> OK
 -EDITAR REGISTROS
 -REPORTES:
 CANT. DE PLATOS CONSUMIDOS POR FECHA
@@ -141,6 +142,98 @@ std::string Menuadmin::entrada_valida(const std::string& mensaje, TipoEntrada ti
             return ""; // Retornar vacío en caso de error interno
         }
     }
+}
+
+void Menuadmin::platosmejor_valor() ///Muestra siempre el top 3 de los platos mejor valorados de la semana
+{
+    Archivos <Menues> arch_menus ("Menues.dat");
+    Archivos <Establecimientos> arch_esta ("Establecimientos.dat");
+    Menues menu_muestra;
+    Establecimientos esta_muestra;
+    Fecha fecha_muestra;
+    std::vector <std::string> nombres_esta;
+    std::vector <int> valoraciones;
+    int valor_prom;
+    int semana[7]=          ///semana[0]=Lunes !!!
+    {
+        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-1), ///LUNES
+        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-2), ///MARTES
+        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-3), ///MIERCOLES
+        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-4), ///JUEVES
+        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-5), ///VIERNES
+        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-6), ///SABADO
+        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-7)  ///DOMINGO
+    };
+    for (int d=0; d<7; d++) ///AGREGAR VERIFICACION POR 30 DIAS Y POR ANIOS BISIESTOS
+    {
+        if (semana[d]>31)
+        {
+            semana[d]=semana[d]-31;
+        }
+    }
+    int registros=arch_esta.CantidadRegistros();
+    int registros2=arch_menus.CantidadRegistros();
+    for (int i=0; i<registros2; i++)
+    {
+        menu_muestra=arch_menus.Leer(i);
+        for (int d=0; d<7; d++)
+        {
+            if (menu_muestra.getfecha().getDia()==semana[d])
+            {
+                for (int j=0; j<registros; j++)
+                {
+                    esta_muestra=arch_esta.Leer(j);
+                    if (esta_muestra.getidestablecimiento()==menu_muestra.getesta())
+                    {
+                        nombres_esta.push_back(esta_muestra.getnombreestablecimiento());
+                        valor_prom=menu_muestra.getvaloracion()/menu_muestra.getcant_valoracion(); ///VERIFICAR QUE TENGA VALORACIONES
+                        valoraciones.push_back(valor_prom);                                        ///SINO VA A DIVIDIR POR 0
+                    }
+                }
+            }
+        }
+    }
+    int valor_aux1=0;
+    int valor_aux2=0;
+    int valor_aux3=0;
+    std::string nombre1;
+    std::string nombre2;
+    std::string nombre3;
+    std::cout << "Top 3 de mejores valoraciones de esta semana" << std::endl;
+    for (int x=0; x<valoraciones.size(); x++)
+    {
+        if (valoraciones[x]>valor_aux1)
+        {
+            valor_aux3=valor_aux2;
+            valor_aux2=valor_aux1;
+            valor_aux1=valoraciones[x];
+            nombre3=nombre2;
+            nombre2=nombre1;
+            nombre1=nombres_esta[x];
+        }
+        else if (valoraciones[x]>valor_aux2)
+        {
+            valor_aux3=valor_aux2;
+            valor_aux2=valoraciones[x];
+            nombre3=nombre2;
+            nombre2=nombres_esta[x];
+        }
+        else if (valoraciones[x]>valor_aux3)
+        {
+            valor_aux3=valoraciones[x];
+            nombre3=nombres_esta[x];
+        }
+    }
+}
+
+void Menuadmin::platosmas_vendidos()
+{
+
+}
+
+void Menuadmin::cant_platosXfecha()
+{
+
 }
 
 void Menuadmin::menuplatos()

@@ -15,6 +15,9 @@ public:
     ~Menuadmin();
     enum TipoEntrada {NUMERO_ENTERO, TEXTO_NO_VACIO, NUMERO_FLOTANTE};
     std::string volver();
+    void platosmejor_valor();
+    void platosmas_vendidos();
+    void cant_platosXfecha();
     void listarplatos(Fecha fechafiltrar);
     void cargarplato();
     void valoraciones();

@@ -11,6 +11,7 @@ public:
     int getDia();
     int getMes();
     int getAnio();
+    int dia_desemana();
     bool operator==(const Fecha& otra) const;
     bool operator!=(const Fecha& otra) const;
     Fecha hoy();
