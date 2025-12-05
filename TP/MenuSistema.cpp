@@ -327,7 +327,7 @@ void MenuSistema::gestionarComensales()
     do
     {
         cout << "--- GESTIONAR COMENSALES ---" << endl;
-        cout << "------------------------------" << endl;
+        line('-');
         cout << "1- LISTAR COMENSALES" << endl;
 
 
@@ -335,6 +335,7 @@ void MenuSistema::gestionarComensales()
         {
             cout << "2- CARGAR UN NUEVO COMENSAL "<<endl; /// admin
             cout << "3- ELIMINAR UN COMENSAL" <<endl;  /// admin
+            cout << "4- MODIFICAR UN COMENSAL" <<endl;  /// admin
         };
 
         cout << "0- Volver al menu principal" << endl;
@@ -384,6 +385,20 @@ void MenuSistema::gestionarComensales()
                 cout << "Acceso denegado." << endl;
             }
             break;
+        case 4:
+            if (_rolActual == 1)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.modificarcomensales();
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;
@@ -399,13 +414,14 @@ void MenuSistema::gestionarEstablecimientos()
     do
     {
         cout << "--- GESTIONAR ESTABLECIMIENTOS ---" << endl;
-        cout << "-------------------------------------" << endl;
+        line('-');
 
         if (_rolActual == 1) // admin
         {
             cout << "1- CARGAR UN NUEVO ESTABLICIMIENTO "<<endl; /// admin
             cout << "2- ELIMINAR UN ESTABLECIMIENTO" <<endl;  /// admin
             cout << "3- LISTAR ESTABLECIMIENTOS" << endl;/// admin
+            cout << "4- MODIFICAR ESTABLECIMIENTOS"<< endl;
             cout << "0- Volver al menu principal" << endl;
         }
         else
@@ -460,7 +476,20 @@ void MenuSistema::gestionarEstablecimientos()
                 cout << "Acceso denegado." << endl;
             }
             break;
-
+        case 4:
+            if (_rolActual == 1)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.modificarestablecimientos();
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;

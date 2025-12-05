@@ -244,7 +244,7 @@ void Menuadmin::menuplatos()
         std::cout << "----MENUES----" << std::endl;
         line('-');
         std::cout << "1- VER MENU DE HOY" << std::endl;
-        std::cout << "2- VER MENU POR DIA" << std::endl;
+        std::cout << "2- VER MENU FILTRANDO POR DIA" << std::endl;
         std::string entrada=entrada_valida("0- Atras", NUMERO_ENTERO);
 
         int opcion= std::stoi(entrada);
@@ -630,7 +630,7 @@ void Menuadmin::mostrarmenucargar() /// EVELYN-> SE AGREGO SUBMENUS EN PLATOS PA
     int opcion;
     do
     {
-        std::cout << "CARGAR MENUES" << std::endl;
+        std::cout << "---CARGAR MENUES---" << std::endl;
         line('-');
         std::cout << "1- Cargar menu del dia" << std::endl;
         std::cout << "2- Cargar menu de toda la semana" << std::endl;
@@ -964,7 +964,7 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
     int opcion;
     do
     {
-        std::cout << "ELIMINAR UN PLATO" << std::endl;
+        std::cout << "---ELIMINAR UN PLATO---" << std::endl;
         line('-');
         std::cout << "1- ELIMINAR PLATO DE HOY" << std::endl;
         std::cout << "2- ELIMINAR PLATO POR DIA ESPECIFICO" << std::endl;
@@ -1422,6 +1422,139 @@ void Menuadmin::mostrarestablecimientos(Establecimientos establecimientos_muestr
     std::cout << "Tipo de establecimiento: " << establecimientos_muestra.gettipoesta() << std::endl;
 }
 
+
+void Menuadmin::modificarestablecimientos()
+{
+    Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
+    std::cout << "---MODIFICAR ESTABLECIMIENTOS---" << std::endl;
+    line('-');
+    std::cout << "Ingrese el ID del establecimiento que desee modificar ";
+    std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
+    int IDesta=std::stoi(entrada);
+    if (entrada=="0")
+    {
+        return;
+    }
+    Establecimientos estamodificado;
+
+    int cantidad = arch_establecimientos.CantidadRegistros();
+    int pos = -1;
+
+    for (int i=0; i< cantidad; i++)
+    {
+        Establecimientos auxesta = arch_establecimientos.Leer(i);
+        if (auxesta.getidestablecimiento() == IDesta)
+        {
+            pos = i;
+            estamodificado = auxesta;
+        }
+    }
+
+    if(pos == -1)
+    {
+        std::cout << "[AVISO] ID incorrecto o el establecimiento no existe. Intente nuevamente." << std::endl;
+        system("pause");
+        return;
+    }
+
+    int opcion;
+    bool hubocambios = false;
+    do
+    {
+        system("cls");
+        std::cout << "MODIFICANDO ESTABLECIMIENTO ID: #" << estamodificado.getidestablecimiento() << std::endl;
+        line('-');
+        std::cout << "1. Cambiar NOMBRE    (Actual: " << estamodificado.getnombreestablecimiento() << ")" << std::endl;
+        std::cout << "2. Cambiar TIPO ESTABLECIMIENTO  (Actual: " << estamodificado.gettipoesta() << ")" << std::endl;
+        std::cout << "3. Cambiar DIRECCION (Actual: " << estamodificado.getdireccionesta() << ")" << std::endl;
+        std::cout << "0. Guardar y Salir" << std::endl;
+        line('-');
+        std::cout << "Elija que desea modificar: ";
+        std::string entrada=entrada_valida("", NUMERO_ENTERO);
+        opcion=stoi(entrada);
+
+        switch(opcion)
+        {
+        case 1:
+        {
+            std::string nuevoNombre;
+            std::cout << "Ingrese nuevo NOMBRE, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", TEXTO_NO_VACIO);
+            nuevoNombre = entrada;
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            estamodificado.setnombreestablecimiento(nuevoNombre.c_str());
+            hubocambios = true;
+            break;
+        }
+        case 2:
+        {
+            std::string nuevotipoesta;
+            std::cout << "Ingrese nuevo TIPO DE ESTABLECIMIENTO, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", TEXTO_NO_VACIO);
+            nuevotipoesta = entrada;
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            estamodificado.settipoesta(nuevotipoesta.c_str());
+            hubocambios = true;
+            break;
+        }
+        case 3:
+        {
+            std::string nuevaDireccion;
+            std::cout << "Ingrese nueva DIRECCION, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", TEXTO_NO_VACIO);
+            nuevaDireccion = entrada;
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            estamodificado.setdireccionesta(nuevaDireccion.c_str());
+            hubocambios = true;
+            break;
+        }
+        case 0:
+
+            break;
+        default:
+            std::cout << "Opcion invalida" << std::endl;
+            system("pause");
+            break;
+        }
+
+    }
+    while (opcion != 0);
+
+
+    if (hubocambios == true)
+    {
+
+        if (arch_establecimientos.Guardar(estamodificado, pos))
+        {
+            std::cout << "Cambios guardados correctamente" << std::endl;
+        }
+        else
+        {
+            std::cout << "[ERROR] No se pudo guardar la modificación." << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "No se realizaron cambios." << std::endl;
+    }
+
+    system("pause");
+}
+
+
+
 void Menuadmin::cargarcomensales()   /// se agrego getline y cin.ignore para que nos deje ingresar cadenas con espacios.
 ////Se agrego validacion para uqe no deje cargar un establecimiento que no existe
 {
@@ -1583,6 +1716,212 @@ void Menuadmin::mostrarcomensales(Comensal comensal_muestra)
     std::cout << "Fecha de nacimiento: " << comensal_muestra.getFechaNacimiento().toString()<< std::endl;
     std::cout << "ID Establecimiento : " << comensal_muestra.getIDestablecimiento() << std::endl;
 }
+
+void Menuadmin::modificarcomensales()
+{
+    Archivos <Comensal> arch_comensales ("Comensales.dat");
+    std::cout << "---MODIFICAR COMENSALES---" << std::endl;
+    line('-');
+    std::cout << "Ingrese el ID del comensal que desee modificar ";
+    std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
+    int IDcomensal=std::stoi(entrada);
+    if (entrada=="0")
+    {
+        return;
+    }
+    Comensal comensalmodificado;
+
+    int cantidad = arch_comensales.CantidadRegistros();
+    int pos = -1;
+
+    for (int i=0; i< cantidad; i++)
+    {
+        Comensal auxcomensal = arch_comensales.Leer(i);
+        if (auxcomensal.getIDcomensal() == IDcomensal)
+        {
+            pos = i;
+            comensalmodificado = auxcomensal;
+        }
+    }
+
+    if(pos == -1)
+    {
+        std::cout << "[AVISO] ID incorrecto o el comensal no existe. Intente nuevamente." << std::endl;
+        system("pause");
+        return;
+    }
+
+    int opcion;
+    bool hubocambios = false;
+    do
+    {
+        system("cls");
+        std::cout << "MODIFICANDO COMENSAL ID: #" << comensalmodificado.getIDcomensal() << std::endl;
+        line('-');
+        std::cout << "1. Cambiar NOMBRE    (Actual: " << comensalmodificado.getNombre() << ")" << std::endl;
+        std::cout << "2. Cambiar APELLIDO  (Actual: " << comensalmodificado.getApellido() << ")" << std::endl;
+        std::cout << "3. Cambiar DIRECCION (Actual: " << comensalmodificado.getDireccion() << ")" << std::endl;
+        std::cout << "4. Cambiar FECHA DE NACIMIENTO (Actual: " << comensalmodificado.getFechaNacimiento().toString() << ")" << std::endl;
+        std::cout << "5. Cambiar ID ESTABLECIMIENTO (Actual: " << comensalmodificado.getIDestablecimiento() << ")" << std::endl;
+        std::cout << "0. Guardar y Salir" << std::endl;
+        line('-');
+        std::cout << "Elija que desea modificar: ";
+        std::string entrada=entrada_valida("", NUMERO_ENTERO);
+        opcion=stoi(entrada);
+
+        switch(opcion)
+        {
+        case 1:
+        {
+            std::string nuevoNombre;
+            std::cout << "Ingrese nuevo NOMBRE, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", TEXTO_NO_VACIO);
+            nuevoNombre = entrada;
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            comensalmodificado.setNombre(nuevoNombre.c_str());
+            hubocambios = true;
+            break;
+        }
+        case 2:
+        {
+            std::string nuevoApellido;
+            std::cout << "Ingrese nuevo APELLIDO, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", TEXTO_NO_VACIO);
+            nuevoApellido = entrada;
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            comensalmodificado.setApellido(nuevoApellido.c_str());
+            hubocambios = true;
+            break;
+        }
+        case 3:
+        {
+            std::string nuevaDireccion;
+            std::cout << "Ingrese nueva DIRECCION, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", TEXTO_NO_VACIO);
+            nuevaDireccion = entrada;
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            comensalmodificado.setDireccion(nuevaDireccion.c_str());
+            hubocambios = true;
+            break;
+        }
+        case 4:
+        {
+            int dia, mes, anio;
+            std::cout << "Ingrese DIA DE NACIMIENTO, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+            dia = std::stoi(entrada);
+            if (entrada=="0")
+            {
+                return;
+            }
+            std::cout << "Ingrese MES DE NACIMIENTO, ";
+            entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+            mes = std::stoi(entrada);
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            std::cout << "Ingrese ANIO DE NACIMIENTO, ";
+            entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+            anio = std::stoi(entrada);
+            if (entrada=="0")
+            {
+                return;
+            }
+            Fecha nuevafecha(dia, mes, anio);
+            comensalmodificado.setFechaNacimiento(nuevafecha);
+
+            hubocambios = true;
+            break;
+        }
+        case 5:
+        {
+            Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
+            bool loop = false;
+            Establecimientos guardar_id;
+            int nuevoIDestablecimiento;
+            do
+            {
+            std::cout << "Ingrese nuevo ID de establecimiento, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+            nuevoIDestablecimiento = std::stoi(entrada);
+            if (entrada=="0")
+            {
+                return;
+            }
+            
+                int cantidad = arch_establecimientos.CantidadRegistros();
+                for (int i=0; i<cantidad; i++)
+                {
+                    if(arch_establecimientos.Leer(i).getidestablecimiento() == nuevoIDestablecimiento)
+                    {
+                        loop = true;
+
+                    }
+                }
+                if(loop == false)
+                {
+                    
+                    std::cout << "[ERROR] No se encontro un establecimiento con ese ID. Reintente nuevamente." << std::endl;
+                    
+                }
+            }
+            while(loop == false);
+
+            guardar_id.setidestablecimiento(nuevoIDestablecimiento);
+
+            comensalmodificado.setIDEstablecimiento(guardar_id);
+            hubocambios = true;
+            break;
+            
+        }
+        case 0:
+
+            break;
+        default:
+            std::cout << "Opcion invalida" << std::endl;
+            system("pause");
+            break;
+        }
+
+    }
+    while (opcion != 0);
+
+
+    if (hubocambios == true)
+    {
+
+        if (arch_comensales.Guardar(comensalmodificado, pos))
+        {
+            
+            std::cout << "Cambios guardados correctamente" << std::endl;
+        }
+        else
+        {  
+            std::cout << "[ERROR] No se pudo guardar la modificación." << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "No se realizaron cambios." << std::endl;
+    }
+
+    system("pause");
+}
+
 
 void Menuadmin::listarconsumos()
 {
