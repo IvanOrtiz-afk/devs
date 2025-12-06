@@ -32,41 +32,41 @@ void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     int id;                       /// ARREGLADO! SE GENERO SWICHT DINAMICO PARA QUE MUESTRE TODOS LOS MENUS DEL ESTABLECIMIENTO.
     int opcion;                   /// SI UN ESTABLECIMIENTO NO TIENE NADA CARGADO NO LO MUESTRA. ANTES MOSTRABA UN MENU RANDOM (NO SE XQ PERO PUDE CORREGIRLO)
     bool loop=true;
-    const int tipocom = 1; ///Com£n
-    const int tipoveg = 2; ///Vegetariano
-    const int tipocel = 3; ///Cel¡aco 
+    ///const int tipocom = 1; ///Com£n
+    ///const int tipoveg = 2; ///Vegetariano
+    ///const int tipocel = 3; ///Cel¡aco
     MenuPadreABML::line('*');
     std::cout << "BIENVENIDO AL COMEDOR" << std::endl;
     MenuPadreABML::line('*');
     do
-    {   
+    {
         std::cout << "Por favor, ingrese su ID de cliente:";
         std::cin >> id;
         _clientebuscado=buscarcliente(id, loop);
     }
     while(loop==false);
     system("cls");
-    
+
     int idEstablecimiento = _clientebuscado.getIDestablecimiento();
-    
+
     std::cout << "Bienvenido " << _clientebuscado.getNombre() << std::endl;
     system("pause");
     system("cls");
-    
+
     std::vector<Menues> menuesDisponibles = buscarplatos();
-    
-    if (menuesDisponibles.empty()) 
+
+    if (menuesDisponibles.empty())
     {
         std::cout << "Su establecimiento no tiene menus disponibles para el dia de hoy." << std::endl;
         system("pause");
-        return; 
+        return;
     }
-    
-    std::cout << "MENUS DEL DIA (" << menuesDisponibles.size() << "):" << std::endl;   
+
+    std::cout << "MENUS DEL DIA (" << menuesDisponibles.size() << "):" << std::endl;
     line('-');
-   
+
     for (size_t i = 0; i< menuesDisponibles.size(); i++)
-    {   
+    {
         std::cout << std::endl;
         std::cout << "OPCION # " << (i + 1) << std::endl;
         std::cout << std::endl;
@@ -75,8 +75,8 @@ void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
         std::cout << "IMPORTE $" << menuesDisponibles[i].getvalorplato() << std::endl;
         line('-');
     }
-    
-    do 
+
+    do
     {
         std::cout << "Seleccione la opcion deseada (1 -" << menuesDisponibles.size() << "):" << std::endl;
         std::cin >> opcion;
@@ -124,7 +124,7 @@ std::vector<Menues> Menucomensal::buscarplatos()
     fecha_actual.hoy();
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
-    {   
+    {
         Menues menu;
         menu=arch.Leer(i);
         if (fecha_actual.hoy()==menu.getfecha()&&_clientebuscado.getIDestablecimiento()==menu.getesta())
@@ -275,7 +275,7 @@ void Menucomensal::mostrar(int tipo, int num)
     if (_menubuscado.empty())
     {
         std::cout << "Opción # " << num << " (No disponible)" << std::endl;
-        return; 
+        return;
     }
     std::cout << "Opci¢n # " << num << std::endl;
     std::cout << _menubuscado.toString() << std::endl;

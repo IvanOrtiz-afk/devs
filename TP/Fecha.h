@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 class Fecha
 {
@@ -11,7 +12,7 @@ public:
     int getDia();
     int getMes();
     int getAnio();
-    int dia_desemana();
+    std::vector<int> obtenerDiasDeLaSemanaActual();
     bool operator==(const Fecha& otra) const;
     bool operator!=(const Fecha& otra) const;
     Fecha hoy();

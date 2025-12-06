@@ -18,6 +18,11 @@ public:
     void platosmejor_valor();
     void platosmas_vendidos();
     void cant_platosXfecha();
+    struct PlatoVendido
+    {
+        std::string nombre;
+        int cantidadVendida = 0;
+    };
     void listarplatos(Fecha fechafiltrar);
     void cargarplato();
     void valoraciones();

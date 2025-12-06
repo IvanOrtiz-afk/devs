@@ -1,5 +1,5 @@
 #pragma once
-#include "Menues.h" 
+#include "Menues.h"
 #include "Fecha.h"
 
 
@@ -22,7 +22,7 @@ class Consumos
     private:
         Fecha _fecha;
         int _idcliente;
-        char _plato[30];
+        char _plato[60];
         float _importe;
 };
 

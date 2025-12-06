@@ -48,28 +48,35 @@ Fecha Fecha::hoy()
     return Fecha(dia, mes, anio);
 }
 
-int Fecha::dia_desemana()
+std::vector<int> Fecha::obtenerDiasDeLaSemanaActual()
 {
-    std::time_t tiempoAhora = std::time(nullptr);
-    std::tm* tmLocal = std::localtime(&tiempoAhora);
-    int indice_dia = tmLocal->tm_wday; /// tm_info->tm_wday contiene un valor entero de 0 (Domingo) a 6 (Sabado)
-    if (indice_dia==0)
+    std::time_t tiempo_actual = std::time(nullptr);
+    std::tm* tm_info = std::localtime(&tiempo_actual);
+
+    int dias_a_restar = (tm_info->tm_wday == 0) ? 6 : tm_info->tm_wday - 1;
+    tm_info->tm_mday -= dias_a_restar;
+    std::mktime(tm_info);
+
+    std::vector<int> dias_del_mes;
+    for (int i = 0; i < 7; ++i)
     {
-        int domingo=indice_dia+7;
-        return domingo;
+        dias_del_mes.push_back(tm_info->tm_mday);
+        tm_info->tm_mday += 1;
+        std::mktime(tm_info);
     }
-    else
-    {
-        return indice_dia;
-    }
+
+    return dias_del_mes;
 }
 
-void Fecha::sumarDias(int diasASumar) {
+void Fecha::sumarDias(int diasASumar)
+{
     _dia += diasASumar;
-    while (_dia > 30) {
+    while (_dia > 30)
+    {
         _dia -= 30;
         _mes++;
-        if (_mes > 12) {
+        if (_mes > 12)
+        {
             _mes = 1;
             _anio++;
         }

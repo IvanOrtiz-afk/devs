@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdlib>
+#include <iomanip>
 #include "MenuPadreABML.h"
 #include "MenuSistema.h"
 #include "Menuadmin.h"
@@ -36,7 +37,7 @@ Menuadmin::~Menuadmin()
 -REPORTES:
 CANT. DE PLATOS CONSUMIDOS POR FECHA
 PLATOS MAS VENDIDOS
-PLATOS MEJOR VALORADOS
+PLATOS MEJOR VALORADOS -> OK
 
 #PRIORIDAD 2:
 -CONFIGURACIONES:
@@ -150,45 +151,34 @@ void Menuadmin::platosmejor_valor() ///Muestra siempre el top 3 de los platos me
     Archivos <Establecimientos> arch_esta ("Establecimientos.dat");
     Menues menu_muestra;
     Establecimientos esta_muestra;
+
+    std::vector<int> dias_semana_mes;
     Fecha fecha_muestra;
+
+    dias_semana_mes=fecha_muestra.obtenerDiasDeLaSemanaActual();
     std::vector <std::string> nombres_esta;
     std::vector <int> valoraciones;
     int valor_prom;
-    int semana[7]=          ///semana[0]=Lunes !!!
-    {
-        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-1), ///LUNES
-        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-2), ///MARTES
-        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-3), ///MIERCOLES
-        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-4), ///JUEVES
-        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-5), ///VIERNES
-        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-6), ///SABADO
-        fecha_muestra.hoy().getDia()-(fecha_muestra.dia_desemana()-7)  ///DOMINGO
-    };
-    for (int d=0; d<7; d++) ///AGREGAR VERIFICACION POR 30 DIAS Y POR ANIOS BISIESTOS
-    {
-        if (semana[d]>31)
-        {
-            semana[d]=semana[d]-31;
-        }
-    }
-    int registros=arch_esta.CantidadRegistros();
-    int registros2=arch_menus.CantidadRegistros();
-    for (int i=0; i<registros2; i++)
+
+    int registros_esta=arch_esta.CantidadRegistros();
+    int registros_menus=arch_menus.CantidadRegistros();
+    for (int i=0; i<registros_menus; i++)
     {
         menu_muestra=arch_menus.Leer(i);
-        for (int d=0; d<7; d++)
+        if (std::find(dias_semana_mes.begin(), dias_semana_mes.end(), menu_muestra.getfecha().getDia()) != dias_semana_mes.end())
         {
-            if (menu_muestra.getfecha().getDia()==semana[d])
+            int cant_valoracion = menu_muestra.getcant_valoracion();
+            if (cant_valoracion <= 0) continue;
+            valor_prom = menu_muestra.getvaloracion() / cant_valoracion;
+
+            for (int j=0; j<registros_esta; j++)
             {
-                for (int j=0; j<registros; j++)
+                esta_muestra=arch_esta.Leer(j);
+                if (esta_muestra.getidestablecimiento()==menu_muestra.getesta())
                 {
-                    esta_muestra=arch_esta.Leer(j);
-                    if (esta_muestra.getidestablecimiento()==menu_muestra.getesta())
-                    {
-                        nombres_esta.push_back(esta_muestra.getnombreestablecimiento());
-                        valor_prom=menu_muestra.getvaloracion()/menu_muestra.getcant_valoracion(); ///VERIFICAR QUE TENGA VALORACIONES
-                        valoraciones.push_back(valor_prom);                                        ///SINO VA A DIVIDIR POR 0
-                    }
+                    nombres_esta.push_back(esta_muestra.getnombreestablecimiento());
+                    valoraciones.push_back(valor_prom);
+                    break; // Ya encontramos el nombre ÿ ÿ ÿ ÿ ÿ ÿ ÿ ÿ
                 }
             }
         }
@@ -196,26 +186,32 @@ void Menuadmin::platosmejor_valor() ///Muestra siempre el top 3 de los platos me
     int valor_aux1=0;
     int valor_aux2=0;
     int valor_aux3=0;
-    std::string nombre1;
-    std::string nombre2;
-    std::string nombre3;
-    std::cout << "Top 3 de mejores valoraciones de esta semana" << std::endl;
+    std::string nombre1 = "N/A";
+    std::string nombre2 = "N/A";
+    std::string nombre3 = "N/A";
+    if (valoraciones.empty())
+    {
+        line('=');
+        std::cout << "[AVISO] No se encontraron menus valorados esta semana." << std::endl;
+        line('=');
+        return;
+    }
     for (int x=0; x<valoraciones.size(); x++)
     {
         if (valoraciones[x]>valor_aux1)
         {
             valor_aux3=valor_aux2;
-            valor_aux2=valor_aux1;
-            valor_aux1=valoraciones[x];
             nombre3=nombre2;
+            valor_aux2=valor_aux1;
             nombre2=nombre1;
+            valor_aux1=valoraciones[x];
             nombre1=nombres_esta[x];
         }
         else if (valoraciones[x]>valor_aux2)
         {
             valor_aux3=valor_aux2;
-            valor_aux2=valoraciones[x];
             nombre3=nombre2;
+            valor_aux2=valoraciones[x];
             nombre2=nombres_esta[x];
         }
         else if (valoraciones[x]>valor_aux3)
@@ -224,11 +220,62 @@ void Menuadmin::platosmejor_valor() ///Muestra siempre el top 3 de los platos me
             nombre3=nombres_esta[x];
         }
     }
+    line('=');
+    std::cout << "TOP 3 DE MEJORES VALORACIONES DE ESTA SEMANA" << std::endl;
+    line('=');
+    if (valor_aux1 > 0)
+    {
+        std::cout << "1. " << std::setw(3) << valor_aux1 << " puntos - " << nombre1 << std::endl;
+    }
+    if (valor_aux2 > 0)
+    {
+        std::cout << "2. " << std::setw(3) << valor_aux2 << " puntos - " << nombre2 << std::endl;
+    }
+    if (valor_aux3 > 0)
+    {
+        std::cout << "3. " << std::setw(3) << valor_aux3 << " puntos - " << nombre3 << std::endl;
+    }
 }
 
 void Menuadmin::platosmas_vendidos()
 {
+    Archivos <Menues> arch_menus ("Menues.dat");
+    Archivos <Consumos> arch_consu ("Consumos.dat");
+    Menues menu_muestra;
+    Consumos consumo_muestra;
 
+    std::vector<int> dias_semana_mes={};
+    Fecha fecha_muestra;
+    bool plato_encontrado=false;
+
+    dias_semana_mes=fecha_muestra.obtenerDiasDeLaSemanaActual(); ///Esta funcion siempre va a contener los dias de la semana actual
+
+    std::vector<PlatoVendido> platos;
+
+    int registros_consu=arch_consu.CantidadRegistros();
+    int registros_menus=arch_menus.CantidadRegistros();
+    for (int i=0; i<registros_consu; i++)
+    {
+        consumo_muestra=arch_consu.Leer(i); ///Verifica si el dia del mes esta en la semana actual, si el dia ESTA en la semana entra este if
+        if (std::find(dias_semana_mes.begin(), dias_semana_mes.end(), consumo_muestra.getfecha().getDia()) != dias_semana_mes.end())
+        {
+            for (auto& plato_actual : platos)
+            {
+                if (plato_actual.nombre==consumo_muestra.getplato())
+                {
+                    plato_actual.cantidadVendida++;
+                    plato_encontrado=true;
+                    break;
+                }
+            }
+            if (!plato_encontrado)
+            {
+                platos.push_back(PlatoVendido(consumo_muestra.getplato(), 1)); ///Comparar el string del struct con el const char*
+            }
+        }
+    }
+
+    ///Aca seguir la funcion para mostrar los resultados
 }
 
 void Menuadmin::cant_platosXfecha()
@@ -1855,14 +1902,14 @@ void Menuadmin::modificarcomensales()
             int nuevoIDestablecimiento;
             do
             {
-            std::cout << "Ingrese nuevo ID de establecimiento, ";
-            std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
-            nuevoIDestablecimiento = std::stoi(entrada);
-            if (entrada=="0")
-            {
-                return;
-            }
-            
+                std::cout << "Ingrese nuevo ID de establecimiento, ";
+                std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+                nuevoIDestablecimiento = std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    return;
+                }
+
                 int cantidad = arch_establecimientos.CantidadRegistros();
                 for (int i=0; i<cantidad; i++)
                 {
@@ -1874,9 +1921,9 @@ void Menuadmin::modificarcomensales()
                 }
                 if(loop == false)
                 {
-                    
+
                     std::cout << "[ERROR] No se encontro un establecimiento con ese ID. Reintente nuevamente." << std::endl;
-                    
+
                 }
             }
             while(loop == false);
@@ -1886,7 +1933,7 @@ void Menuadmin::modificarcomensales()
             comensalmodificado.setIDEstablecimiento(guardar_id);
             hubocambios = true;
             break;
-            
+
         }
         case 0:
 
@@ -1906,11 +1953,11 @@ void Menuadmin::modificarcomensales()
 
         if (arch_comensales.Guardar(comensalmodificado, pos))
         {
-            
+
             std::cout << "Cambios guardados correctamente" << std::endl;
         }
         else
-        {  
+        {
             std::cout << "[ERROR] No se pudo guardar la modificaciÃ³n." << std::endl;
         }
     }
