@@ -71,12 +71,12 @@ std::string Menuadmin::entrada_valida(const std::string& mensaje, TipoEntrada ti
 {
     ///En discord te explico como funciona
     std::string entrada_str;
-    // El bucle se repite hasta que se encuentra una entrada válida.
+    // El bucle se repite hasta que se encuentra una entrada valida.
     while (true)
     {
         // Obtenemos la entrada como string
         entrada_str = entrada_cruda(mensaje);
-        // Bloque switch para manejar la lógica de validación específica.
+        // Bloque switch para manejar la logica de validacion especifica.
         switch (tipo)
         {
         case NUMERO_ENTERO:
@@ -86,7 +86,7 @@ std::string Menuadmin::entrada_valida(const std::string& mensaje, TipoEntrada ti
                 // Intenta convertir el string a entero.
                 // Si falla (por ejemplo, si el usuario ingresa "abc"), salta al 'catch'.
                 std::stoi(entrada_str);
-                // Si la conversión fue exitosa, la entrada es válida.
+                // Si la conversion fue exitosa, la entrada es valida.
                 return entrada_str;
             }
             catch (const std::invalid_argument& e)
@@ -97,27 +97,27 @@ std::string Menuadmin::entrada_valida(const std::string& mensaje, TipoEntrada ti
             {
                 std::cout << "[ERROR] El numero ingresado es demasiado grande o pequenio. Intente con un valor razonable" << std::endl;
             }
-            // Si hubo un error, el ciclo continúa.
+            // Si hubo un error, el ciclo continua.
             break;
         }
         case TEXTO_NO_VACIO:
         {
-            // 1. Verificamos si la cadena está vacía
+            // 1. Verificamos si la cadena esta vacia
             if (entrada_str.empty())
             {
                 std::cout << "[ERROR] La entrada no puede estar vacia. Intente de nuevo" << std::endl;
-                break; // Continúa el ciclo
+                break; // Continua el ciclo
             }
             // 2. Verificamos si la cadena contiene solo espacios en blanco
-            // Utilizamos una copia temporal para eliminar espacios y verificar si queda algo más.
+            // Utilizamos una copia temporal para eliminar espacios y verificar si queda algo mas.
             std::string temp = entrada_str;
             temp.erase(std::remove_if(temp.begin(), temp.end(), ::isspace), temp.end());
             if (temp.empty())
             {
-                std::cout << "[ERROR] La entrada no puede contener solo espacios en blanco. Ingrese texto válido" << std::endl;
-                break; // Continúa el ciclo
+                std::cout << "[ERROR] La entrada no puede contener solo espacios en blanco. Ingrese texto valido" << std::endl;
+                break; // Continua el ciclo
             }
-            // Si pasó ambas validaciones, la entrada es un texto válido.
+            // Si paso ambas validaciones, la entrada es un texto valido.
             return entrada_str;
         }
         case NUMERO_FLOTANTE:
@@ -130,17 +130,17 @@ std::string Menuadmin::entrada_valida(const std::string& mensaje, TipoEntrada ti
             }
             catch (const std::invalid_argument& e)
             {
-                std::cout << "[ERROR] Entrada inválida. Por favor, ingrese un NÚMERO válido" << std::endl;
+                std::cout << "[ERROR] Entrada invalida. Por favor, ingrese un NÚMERO valido" << std::endl;
             }
             catch (const std::out_of_range& e)
             {
-                std::cout << "[ERROR] El número ingresado es demasiado grande o pequeño. Intente con un valor razonable" << std::endl;
+                std::cout << "[ERROR] El numero ingresado es demasiado grande o pequenio. Intente con un valor razonable" << std::endl;
             }
             break;
         }
         default:
             std::cout << "[ERROR INTERNO] Tipo de entrada no reconocido" << std::endl;
-            return ""; // Retornar vacío en caso de error interno
+            return ""; // Retornar vacio en caso de error interno
         }
     }
 }
@@ -239,29 +239,29 @@ void Menuadmin::platosmejor_valor() ///Muestra siempre el top 3 de los platos me
 
 void Menuadmin::platosmas_vendidos()
 {
-    Archivos <Menues> arch_menus ("Menues.dat");
     Archivos <Consumos> arch_consu ("Consumos.dat");
-    Menues menu_muestra;
     Consumos consumo_muestra;
 
-    std::vector<int> dias_semana_mes={};
+    std::vector<int> dias_semana_mes= {};
     Fecha fecha_muestra;
-    bool plato_encontrado=false;
+    bool plato_encontrado, hubo_consumos=false;
 
     dias_semana_mes=fecha_muestra.obtenerDiasDeLaSemanaActual(); ///Esta funcion siempre va a contener los dias de la semana actual
 
     std::vector<PlatoVendido> platos;
 
     int registros_consu=arch_consu.CantidadRegistros();
-    int registros_menus=arch_menus.CantidadRegistros();
     for (int i=0; i<registros_consu; i++)
     {
         consumo_muestra=arch_consu.Leer(i); ///Verifica si el dia del mes esta en la semana actual, si el dia ESTA en la semana entra este if
-        if (std::find(dias_semana_mes.begin(), dias_semana_mes.end(), consumo_muestra.getfecha().getDia()) != dias_semana_mes.end())
+        if (std::find(dias_semana_mes.begin(), dias_semana_mes.end(), consumo_muestra.getfecha().getDia())!=dias_semana_mes.end())
         {
-            for (auto& plato_actual : platos)
+            plato_encontrado=false;
+            hubo_consumos=true;
+            for (auto& plato_actual : platos) ///auto declara una variable por referencia "plato_actual" que automaticamente es del mismo tipo
             {
-                if (plato_actual.nombre==consumo_muestra.getplato())
+                ///de dato que platos (un vector del struct "PlatoVendido") y va copiando los datos de platos para compararlos
+                if (plato_actual.nombre==consumo_muestra.getplato()) ///a su vez con los de consumos, y si dan OK los almacena en el vector de struct
                 {
                     plato_actual.cantidadVendida++;
                     plato_encontrado=true;
@@ -270,17 +270,175 @@ void Menuadmin::platosmas_vendidos()
             }
             if (!plato_encontrado)
             {
-                platos.push_back(PlatoVendido(consumo_muestra.getplato(), 1)); ///Comparar el string del struct con el const char*
+                std::string nombre_aux=consumo_muestra.getplato();
+                platos.push_back(PlatoVendido(nombre_aux, 1)); ///Comparar el string del struct con el const char*
             }
         }
     }
-
-    ///Aca seguir la funcion para mostrar los resultados
+    if (!hubo_consumos)
+    {
+        std::cout << "[AVISO] No existen platos consumidos esta semana" << std::endl;
+    }
+    else if (hubo_consumos)
+    {
+        line('=');
+        std::cout << "Se mostrara el top 3 de los platos mas vendidos" << std::endl;
+        line('=');
+        int cant1=0, cant2=0, cant3=0;
+        std::string nombre1, nombre2, nombre3;
+        for (int j=0; j<platos.size(); j++)
+        {
+            if (platos[j].cantidadVendida>cant1)
+            {
+                cant3=cant2;
+                nombre3=nombre2;
+                cant2=cant1;
+                nombre2=nombre1;
+                cant1=platos[j].cantidadVendida;
+                nombre1=platos[j].nombre;
+            }
+            else if(platos[j].cantidadVendida>cant2)
+            {
+                cant3=cant2;
+                nombre3=nombre2;
+                cant2=platos[j].cantidadVendida;
+                nombre2=platos[j].nombre;
+            }
+            else if(platos[j].cantidadVendida>cant3)
+            {
+                cant3=platos[j].cantidadVendida;
+                nombre3=platos[j].nombre;
+            }
+        }
+        if (cant1>0)
+        {
+            std::cout << "1er puesto" << std::endl;
+            std::cout << nombre1 << " con una cantidad vendida de " << cant1 << " unidades" << std::endl;
+            line('-');
+        }
+        if (cant2>0)
+        {
+            std::cout << "2do puesto" << std::endl;
+            std::cout << nombre2 << " con una cantidad vendida de " << cant2 << " unidades" << std::endl;
+            line('-');
+        }
+        if (cant3>0)
+        {
+            std::cout << "3er puesto" << std::endl;
+            std::cout << nombre3 << " con una cantidad vendida de " << cant3 << " unidades" << std::endl;
+            line('-');
+        }
+    }
 }
 
-void Menuadmin::cant_platosXfecha()
+void Menuadmin::cant_platosXfecha() ///CONTINUAR ACA
 {
+    Archivos <Consumos> arch_consu ("Consumos.dat");
+    Consumos consumo_muestra;
 
+    std::vector<int> dias_semana_mes= {};
+    Fecha fecha_muestra;
+    bool plato_encontrado, hubo_consumos=false, loop=false;
+
+    std::vector<PlatoVendido> platos;
+    do
+    {
+        line('*');
+        std::cout << "Ingreso de fecha" << std::endl;
+        line('*');
+        std::cout << "Ingrese un dia del mes" << std::endl;
+        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        line('-');
+        int dia_muestra=std::stoi(entrada);
+        if (entrada=="0")
+        {
+            break;
+        }
+        std::cout << "Ingrese un mes" << std::endl;
+        entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        line('-');
+        int mes_muestra=std::stoi(entrada);
+        if (entrada=="0")
+        {
+            break;
+        }
+        std::cout << "Ingrese un anio" << std::endl;
+        entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        line('-');
+        int anio_muestra=std::stoi(entrada);
+        if (entrada=="0")
+        {
+            break;
+        }
+        ///Aca asigno los valores de entrada con fecha_muestra para luego comparar con el archivo .dat de consumos
+        fecha_muestra.setDia(dia_muestra);
+        fecha_muestra.setMes(mes_muestra);
+        fecha_muestra.setAnio(anio_muestra);
+        int registros_consu=arch_consu.CantidadRegistros();
+        for (int i=0; i<registros_consu; i++)
+        {
+            consumo_muestra=arch_consu.Leer(i); ///Verifica si el dia del mes esta en la semana actual, si el dia ESTA en la semana entra este if
+            if (fecha_muestra==consumo_muestra.getfecha())
+            {
+                plato_encontrado=false;
+                hubo_consumos=true;
+                for (auto& plato_actual : platos) ///auto declara una variable por referencia "plato_actual" que automaticamente es del mismo tipo
+                {
+                    ///de dato que platos (un vector del struct "PlatoVendido") y va copiando los datos de platos para compararlos
+                    if (plato_actual.nombre==consumo_muestra.getplato()) ///a su vez con los de consumos, y si dan OK los almacena en el vector de struct
+                    {
+                        plato_actual.cantidadVendida++;
+                        plato_encontrado=true;
+                        break;
+                    }
+                }
+                if (!plato_encontrado)
+                {
+                    std::string nombre_aux=consumo_muestra.getplato();
+                    platos.push_back(PlatoVendido(nombre_aux, 1)); ///Comparar el string del struct con el const char*
+                }
+            }
+        }
+        if (!hubo_consumos)
+        {
+            int opcion;
+            do
+            {
+                system("cls");
+                std::cout << "[AVISO] No existen platos consumidos esta semana" << std::endl;
+                std::string entrada=entrada_valida("Pulse 0 para salir o 1 para volver a ingresar fecha", NUMERO_ENTERO);
+                line('-');
+                opcion=std::stoi(entrada);
+                if (opcion==0)
+                {
+                    loop=true;
+                    break;
+                }
+                else if (opcion==1)
+                {
+                    break;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Ingrese una entrada valida" << std::endl;
+                }
+            }
+            while(opcion!=0||opcion!=1);
+        }
+        else if (hubo_consumos)
+        {
+            loop=true;
+            line('=');
+            std::cout << "Se mostraran los platos mas vendidos de la fecha " << fecha_muestra.toString() << std::endl;
+            line('=');
+            for (int j=0; j<platos.size(); j++)
+            {
+                std::cout << platos[j].nombre << " con una cantidad de " << platos[j].cantidadVendida << std::endl;
+            }
+        }
+        system("pause");
+    }
+    while(loop==false);
 }
 
 void Menuadmin::menuplatos()

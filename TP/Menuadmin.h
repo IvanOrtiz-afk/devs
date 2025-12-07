@@ -18,10 +18,11 @@ public:
     void platosmejor_valor();
     void platosmas_vendidos();
     void cant_platosXfecha();
-    struct PlatoVendido
+    struct PlatoVendido ///Un struct necesita su propio constructor
     {
         std::string nombre;
-        int cantidadVendida = 0;
+        int cantidadVendida=0;
+        PlatoVendido(std::string nombre, int cantidadVendida){}
     };
     void listarplatos(Fecha fechafiltrar);
     void cargarplato();
