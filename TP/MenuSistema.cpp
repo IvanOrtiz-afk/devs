@@ -107,7 +107,7 @@ void MenuSistema::gestionarPlatos()
     do
     {
         cout << "--- GESTIONAR PLATOS ---" << endl;
-        cout << "---------------------------" << endl;
+        line('-');
         cout << "1- LISTADOS DE MENUES" << endl;
         cout << "2- VALORAR UN PLATO "<<endl;
         cout << "3- LISTAR VALORACIONES" << endl; /// chequear punto del parcial
@@ -116,6 +116,7 @@ void MenuSistema::gestionarPlatos()
         {
             cout << "4- CARGAR UN NUEVO PLATO "<<endl; /// admin
             cout << "5- ELIMINAR UN PLATO" <<endl;  /// admin
+            cout << "6- MODIFICAR UN PLATO" <<endl;
         };
 
         cout << "0- Volver al menu principal" << endl;
@@ -168,6 +169,21 @@ void MenuSistema::gestionarPlatos()
                 _ejecutarmenu.eliminarplatomenu();
                 system("pause");
                 system("cls"); ///HECHO
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+        case 6:
+            if (_rolActual == 1)
+            {
+
+                system("pause");
+                system("cls");
+                _ejecutarmenu.modificarplatos();
+                system("pause");
+                system("cls");
             }
             else
             {
@@ -511,6 +527,7 @@ void MenuSistema::gestionarUsuarios()
         {
             cout << "1- CREAR UN NUEVO USUARIO "<<endl; /// admin
             cout << "2- ELIMINAR USUARIO" << endl;
+            cout << "3- MODIFICAR USUARIO" << endl;
             cout << "0- Volver al menu principal" << endl;
         }
         else
@@ -545,6 +562,22 @@ void MenuSistema::gestionarUsuarios()
                 cout << "Acceso denegado." << endl;
             }
             break;
+        case 3:
+   
+            if (_rolActual == 1)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.modificarusuarios();
+                system("pause");
+                system("cls");
+
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;        
 
         case 0:
             cout << "Volviendo al menu principal... " << endl;

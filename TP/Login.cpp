@@ -13,7 +13,7 @@ login::login()
 
 }
 
-void login::crearNuevoUsuario()
+void login::crearNuevoUsuario() ///EVELYN -> BUG ENCONTRADO, deja crear usuarios que ya existen, sobreescribiendolos
 {
     Archivos <usuario> archUsuario ("Usuario.dat");
 
@@ -21,12 +21,12 @@ void login::crearNuevoUsuario()
     int rol;
 
     std::cout << "---NUEVO USUARIO---"  << std::endl;
-    std::cout << "----------------------" << std::endl;
+    std::cout << "------------------------" << std::endl;
     std::cout << "Ingrese nombre de usuario:" << std::endl;
     std::cin >> nombreUsuario;
     std::cout << "Ingrese contraseña: " << std::endl;
     std::cin >> password;
-    std::cout << "El usuario es 1-Administrador, 2-Encargado o 0-Comensal?" << std::endl;
+    std::cout << "El usuario es 1-Administrador, 2-Encargado o 3-Comensal?" << std::endl;
     std::cin >> rol;
 
     usuario nuevoUsuario(nombreUsuario, password, rol);
@@ -85,7 +85,7 @@ void login::iniciarSesion()
                     std::cout << "Sesion iniciada como Encargado" << std::endl;
                     system("pause");
                 }
-                else
+                else if (rol == 3)
                 {
                     system("cls");
                     std::cout << "Sesion iniciada como Comensal" << std::endl;

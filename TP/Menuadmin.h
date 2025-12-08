@@ -48,6 +48,9 @@ public:
     void menuplatos();
     void modificarestablecimientos();
     void modificarcomensales();
+    void modificarplatos();
+    void modificarusuarios();
+
     std::string entrada_valida(const std::string&, TipoEntrada);
     std::string entrada_cruda(const std::string&);
 

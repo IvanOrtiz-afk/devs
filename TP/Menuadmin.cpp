@@ -14,6 +14,7 @@
 #include "Pagos.h"
 #include "Menues.h"
 #include "Establecimientos.h"
+#include "usuario.h"
 
 Menuadmin::Menuadmin()
     :MenuPadreABML()
@@ -33,7 +34,7 @@ Menuadmin::~Menuadmin()
 -VER MENU POR FECHA -> OK
 -CARGAR MENU DE TODA LA SEMANA  -> OK
 -CREAR ELIMINACIONES DE REGISTROS -> OK
--EDITAR REGISTROS
+-EDITAR REGISTROS -> OK
 -REPORTES:
 CANT. DE PLATOS CONSUMIDOS POR FECHA
 PLATOS MAS VENDIDOS
@@ -713,6 +714,241 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
     while(loop==false);
 }
 
+
+void Menuadmin::modificarplatos()
+{
+    Archivos <Menues> arch ("Menues.dat");
+    std::cout << "---MODIFICAR PLATOS---" << std::endl;
+    line('-');
+    Menues platomodificado;
+    int pos = -1;
+    bool loop = false;
+    do
+    {
+        std::cout << "Ingrese el ID del plato que desee modificar ";
+        std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
+        int IDplato=std::stoi(entrada);
+        if (entrada=="0")
+        {
+            return;
+        }
+       
+
+        int cantidad = arch.CantidadRegistros();
+
+        for (int i=0; i< cantidad; i++)
+        {
+            Menues auxplato = arch.Leer(i);
+            if (auxplato.getidmenu() == IDplato)
+            {
+                pos = i;
+                platomodificado = auxplato;
+                loop = true;
+                break;
+            }
+        }
+
+        if(loop == false)
+        {
+            std::cout << "[AVISO] ID incorrecto o el plato no existe. Intente nuevamente." << std::endl;
+            system("pause");
+
+        }
+    }
+    while(loop == false);
+    
+    int opcion;
+    bool hubocambios = false;
+    do
+    {
+        system("cls");
+        std::cout << "MODIFICANDO PLATO ID: #" << platomodificado.getidmenu() << std::endl;
+        line('-');
+        std::cout << "1. Cambiar NOMBRE    (Actual: " << platomodificado.getnombremenu() << ")" << std::endl;
+        std::cout << "2. Cambiar ID TIPO DE MENU  (Actual: " << platomodificado.getidtipo() << " - " << platomodificado.getdesctipo() << ")" << std::endl;
+        std::cout << "3. Cambiar FECHA DEL MENU (Actual: " << platomodificado.getfecha().toString() << ")" << std::endl;
+        std::cout << "4. Cambiar ID ESTABLECIMIENTO (Actual: " << platomodificado.getesta() << ")" << std::endl;
+        std::cout << "5. Cambiar VALOR DEL PLATO (Actual: $" << platomodificado.getvalorplato() << ")" << std::endl;
+        std::cout << "0. Guardar y Salir" << std::endl;
+        line('-');
+        std::cout << "Elija que desea modificar: ";
+        std::string entrada=entrada_valida("", NUMERO_ENTERO);
+        opcion=stoi(entrada);
+
+        switch(opcion)
+        {
+        case 1:
+        {
+            std::string nuevoNombre;
+            std::cout << "Ingrese nuevo NOMBRE, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", TEXTO_NO_VACIO);
+            nuevoNombre = entrada;
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            platomodificado.setnombremenu(nuevoNombre.c_str());
+            hubocambios = true;
+            break;
+        }
+        case 2:
+        {
+            int nuevoIDtipomenu;
+            bool loop = false;
+
+            do
+            {
+                std::cout << "Ingrese nuevo ID TIPO DE MENU, ";
+                std::string entrada=entrada_valida("o pulse 0 para salir", TEXTO_NO_VACIO);
+                nuevoIDtipomenu=stoi(entrada);
+
+                if (entrada=="0")
+                {
+                    return;
+                }
+
+                int cantidad = arch.CantidadRegistros();
+                for (int i = 0; i < cantidad; i++)
+                {
+                    if(arch.Leer(i).getidtipo() == nuevoIDtipomenu)
+                    loop = true;
+                }
+                if(loop == false)
+                {
+
+                    std::cout << "[ERROR] No se encontro un tipo de menu con ese ID. Reintente nuevamente." << std::endl;
+
+                }
+            }
+            while (loop = false);
+
+            platomodificado.setidtipo(nuevoIDtipomenu);
+            hubocambios = true;
+            break;
+        }
+        case 3:
+        {
+            int dia, mes, anio;
+            std::cout << "Ingrese DIA DE PUBLICACION DEL MENU, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+            dia = std::stoi(entrada);
+            if (entrada=="0")
+            {
+                return;
+            }
+            std::cout << "Ingrese MES DE PUBLICACION DEL MENU, ";
+            entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+            mes = std::stoi(entrada);
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            std::cout << "Ingrese ANIO DE PUBLICACION DEL MENU, ";
+            entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+            anio = std::stoi(entrada);
+            if (entrada=="0")
+            {
+                return;
+            }
+            Fecha nuevafecha(dia, mes, anio);
+            platomodificado.setfecha(nuevafecha);
+
+            hubocambios = true;
+            break;
+        }
+        case 4:
+        {
+            Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
+            bool loop = false;
+            Establecimientos guardar_id;
+            int nuevoIDestablecimiento;
+            do
+            {
+                std::cout << "Ingrese nuevo ID de establecimiento, ";
+                std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+                nuevoIDestablecimiento = std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    return;
+                }
+
+                int cantidad = arch_establecimientos.CantidadRegistros();
+                for (int i=0; i<cantidad; i++)
+                {
+                    if(arch_establecimientos.Leer(i).getidestablecimiento() == nuevoIDestablecimiento)
+                    {
+                        loop = true;
+
+                    }
+                }
+                if(loop == false)
+                {
+
+                    std::cout << "[ERROR] No se encontro un establecimiento con ese ID. Reintente nuevamente." << std::endl;
+
+                }
+            }
+            while(loop == false);
+
+            guardar_id.setidestablecimiento(nuevoIDestablecimiento);
+
+            platomodificado.setesta(guardar_id);
+            hubocambios = true;
+            break;
+
+        }
+        case 5:
+        {
+            float nuevoImporte;
+            std::cout << "Ingrese nuevo IMPORTE, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_FLOTANTE);
+            nuevoImporte=stof(entrada);
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            platomodificado.setvalorplato(nuevoImporte);
+            hubocambios = true;
+            break;
+        }
+        case 0:
+
+            break;
+        default:
+            std::cout << "Opcion invalida" << std::endl;
+            system("pause");
+            break;
+        }
+
+    }
+    while (opcion != 0);
+
+
+    if (hubocambios == true)
+    {
+
+        if (arch.Guardar(platomodificado, pos))
+        {
+
+            std::cout << "Cambios guardados correctamente" << std::endl;
+        }
+        else
+        {
+            std::cout << "[ERROR] No se pudo guardar la modificaciÃ³n." << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "No se realizaron cambios." << std::endl;
+    }
+
+    system("pause");
+}
+
+
 void Menuadmin::valoraciones()
 {
     Archivos <Menues> arch ("Menues.dat");
@@ -1235,7 +1471,7 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
     while(opcion != 0);
 }
 
-void Menuadmin::eliminarusuario()
+void Menuadmin::eliminarusuario() 
 {
     Archivos <usuario> arch ("Usuario.dat");
     usuario user_buscado;
@@ -1760,8 +1996,8 @@ void Menuadmin::modificarestablecimientos()
 
 
 
-void Menuadmin::cargarcomensales()   /// se agrego getline y cin.ignore para que nos deje ingresar cadenas con espacios.
-////Se agrego validacion para uqe no deje cargar un establecimiento que no existe
+void Menuadmin::cargarcomensales()
+
 {
     Archivos <Comensal> arch_comensales ("Comensales.dat");
     Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
@@ -2290,3 +2526,147 @@ void Menuadmin::listarpago()
         line('-', 50);
     }
 }
+
+
+
+void Menuadmin::modificarusuarios()
+{
+    Archivos <usuario> arch_usuarios ("Usuario.dat");
+    std::cout << "---MODIFICAR USUARIOS---" << std::endl;
+    line('-');
+    bool loop = false;
+    usuario usuariomodificado;
+    int pos = -1;
+    
+    
+    do {
+    std::string nombreUsuario;
+    std::cout << "Ingrese el USUARIO que desee modificar ";
+    std::string entrada=entrada_valida("o pulse cero para volver", TEXTO_NO_VACIO);
+    nombreUsuario=entrada;
+    
+    if (entrada=="0")
+    {
+        return;
+    }
+
+    int cantidad = arch_usuarios.CantidadRegistros();
+
+
+    for (int i=0; i< cantidad; i++)
+    {
+        usuario auxusuario = arch_usuarios.Leer(i);
+        if (auxusuario.getNombreUsuario() == nombreUsuario)
+        {
+            pos = i;
+            usuariomodificado = auxusuario;
+            loop = true;
+        }
+    }
+
+    if(pos == -1)
+    {
+        std::cout << "[AVISO] USUARIO incorrecto o inexistente. Intente nuevamente." << std::endl;
+        system("pause");
+        loop = false;
+    }
+    }while(loop== false);
+
+    int opcion;
+    bool hubocambios = false;
+    do
+    {
+        system("cls");
+        std::cout << "EDITAR USUARIO: #" << usuariomodificado.getNombreUsuario() << std::endl;
+        line('-');
+        std::cout << "1. Cambiar CONTRASEÑA" << std::endl;
+        std::cout << "2. Cambiar ROL  (Actual: " << usuariomodificado.getRol() << ")" << std::endl;
+        std::cout << "0. Guardar y Salir" << std::endl;
+        line('-');
+        std::cout << "Elija que desea modificar: ";
+        std::string entrada=entrada_valida("", NUMERO_ENTERO);
+        opcion=stoi(entrada);
+
+        switch(opcion)
+        {
+        case 1:
+        {
+            std::string nuevaContrasenia;
+            std::cout << "Ingrese nueva CONTRASEÑA, ";
+            std::string entrada=entrada_valida("o pulse 0 para salir", TEXTO_NO_VACIO);
+            nuevaContrasenia = entrada;
+            if (entrada=="0")
+            {
+                return;
+            }
+
+            usuariomodificado.setPassword(nuevaContrasenia.c_str());
+            hubocambios = true;
+            break;
+        }
+        case 2:
+        {
+            int nuevoRol;
+            bool loop = false;
+            do{
+            std::cout << "Ingrese nuevo ROL, 1 = ADMIN, 2 = ENCARGADO, 3 = COMENSALES" << std:: endl;
+            std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+            nuevoRol = stoi(entrada);
+            if (entrada=="0")
+            {
+                return;
+            }
+            
+        
+            int cantidad = arch_usuarios.CantidadRegistros();
+            for (int i=0; i < cantidad; i++)
+            {
+                if (arch_usuarios.Leer(i).getRol() == nuevoRol )
+                {
+                    loop = true;
+                }
+            }
+            if (loop == false)
+            {
+                std::cout << "[ERROR] Rol inexistente, intente de nuevo" << std::endl;
+            }
+            }while(loop == false);
+            
+            usuariomodificado.setRol(nuevoRol);
+            hubocambios = true;
+            break;
+        }
+        case 0:
+
+            break;
+        default:
+            std::cout << "Opcion invalida" << std::endl;
+            system("pause");
+            break;
+        }
+
+    }
+    while (opcion != 0);
+
+
+    if (hubocambios == true)
+    {
+
+        if (arch_usuarios.Guardar(usuariomodificado, pos))
+        {
+            std::cout << "Cambios guardados correctamente" << std::endl;
+        }
+        else
+        {
+            std::cout << "[ERROR] No se pudo guardar la modificaciÃ³n." << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "No se realizaron cambios." << std::endl;
+    }
+
+    system("pause");
+}
+
+
