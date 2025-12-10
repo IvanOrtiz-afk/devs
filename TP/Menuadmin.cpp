@@ -36,8 +36,8 @@ Menuadmin::~Menuadmin()
 -CREAR ELIMINACIONES DE REGISTROS -> OK
 -EDITAR REGISTROS -> OK
 -REPORTES:
-CANT. DE PLATOS CONSUMIDOS POR FECHA
-PLATOS MAS VENDIDOS
+CANT. DE PLATOS CONSUMIDOS POR FECHA -> OK
+PLATOS MAS VENDIDOS -> OK
 PLATOS MEJOR VALORADOS -> OK
 
 #PRIORIDAD 2:
@@ -732,7 +732,7 @@ void Menuadmin::modificarplatos()
         {
             return;
         }
-       
+
 
         int cantidad = arch.CantidadRegistros();
 
@@ -756,7 +756,7 @@ void Menuadmin::modificarplatos()
         }
     }
     while(loop == false);
-    
+
     int opcion;
     bool hubocambios = false;
     do
@@ -1471,7 +1471,7 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
     while(opcion != 0);
 }
 
-void Menuadmin::eliminarusuario() 
+void Menuadmin::eliminarusuario()
 {
     Archivos <usuario> arch ("Usuario.dat");
     usuario user_buscado;
@@ -2537,14 +2537,14 @@ void Menuadmin::modificarusuarios()
     bool loop = false;
     usuario usuariomodificado;
     int pos = -1;
-    
-    
+
+
     do {
     std::string nombreUsuario;
     std::cout << "Ingrese el USUARIO que desee modificar ";
     std::string entrada=entrada_valida("o pulse cero para volver", TEXTO_NO_VACIO);
     nombreUsuario=entrada;
-    
+
     if (entrada=="0")
     {
         return;
@@ -2616,8 +2616,8 @@ void Menuadmin::modificarusuarios()
             {
                 return;
             }
-            
-        
+
+
             int cantidad = arch_usuarios.CantidadRegistros();
             for (int i=0; i < cantidad; i++)
             {
@@ -2631,7 +2631,7 @@ void Menuadmin::modificarusuarios()
                 std::cout << "[ERROR] Rol inexistente, intente de nuevo" << std::endl;
             }
             }while(loop == false);
-            
+
             usuariomodificado.setRol(nuevoRol);
             hubocambios = true;
             break;

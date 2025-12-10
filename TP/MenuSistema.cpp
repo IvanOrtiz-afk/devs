@@ -99,8 +99,6 @@ void MenuSistema::mostrarOpciones()
 
 }
 
-
-
 void MenuSistema::gestionarPlatos()
 {
     int opcion;
@@ -111,12 +109,13 @@ void MenuSistema::gestionarPlatos()
         cout << "1- LISTADOS DE MENUES" << endl;
         cout << "2- VALORAR UN PLATO "<<endl;
         cout << "3- LISTAR VALORACIONES" << endl; /// chequear punto del parcial
+        cout << "4- PLATOS MEJOR VALORADOS" << endl;
 
         if (_rolActual == 1) // admin
         {
-            cout << "4- CARGAR UN NUEVO PLATO "<<endl; /// admin
-            cout << "5- ELIMINAR UN PLATO" <<endl;  /// admin
-            cout << "6- MODIFICAR UN PLATO" <<endl;
+            cout << "5- CARGAR UN NUEVO PLATO "<<endl; /// admin
+            cout << "6- ELIMINAR UN PLATO" <<endl;  /// admin
+            cout << "7- MODIFICAR UN PLATO" <<endl;
         };
 
         cout << "0- Volver al menu principal" << endl;
@@ -146,6 +145,13 @@ void MenuSistema::gestionarPlatos()
             system("cls");
             break;
         case 4:
+            system("pause");
+            system("cls");
+            _ejecutarmenu.platosmejor_valor();
+            system("pause");
+            system("cls");
+            break;
+        case 5:
             if (_rolActual == 1)
             {
                 /// cargar();
@@ -160,7 +166,7 @@ void MenuSistema::gestionarPlatos()
                 cout << "Acceso denegado." << endl;
             }
             break;
-        case 5:
+        case 6:
             if (_rolActual == 1)
             {
                 /// elminar();
@@ -175,7 +181,7 @@ void MenuSistema::gestionarPlatos()
                 cout << "Acceso denegado." << endl;
             }
             break;
-        case 6:
+        case 7:
             if (_rolActual == 1)
             {
 
@@ -312,6 +318,8 @@ void MenuSistema::gestionarConsumos()
         cout << "--- CONSUMOS ---" << endl;
         cout << "-------------------" << endl;
         cout << "1- LISTAR CONSUMOS" << endl;
+        cout << "2- VER CONSUMOS POR FECHA" << endl;
+        cout << "3- PLATOS MAS VENDIDOS" << endl;
         cout << "0- Volver al menu principal" << endl;
         cin >> opcion;
 
@@ -321,6 +329,20 @@ void MenuSistema::gestionarConsumos()
             system("pause");
             system("cls");
             _ejecutarmenu.listarconsumos(); /// REPARADO!!!
+            system("pause");
+            system("cls");
+            break;
+        case 2:
+            system("pause");
+            system("cls");
+            _ejecutarmenu.cant_platosXfecha();
+            system("pause");
+            system("cls");
+            break;
+        case 3:
+            system("pause");
+            system("cls");
+            _ejecutarmenu.platosmas_vendidos();
             system("pause");
             system("cls");
             break;
@@ -563,7 +585,7 @@ void MenuSistema::gestionarUsuarios()
             }
             break;
         case 3:
-   
+
             if (_rolActual == 1)
             {
                 system("pause");
@@ -577,7 +599,7 @@ void MenuSistema::gestionarUsuarios()
             {
                 cout << "Acceso denegado." << endl;
             }
-            break;        
+            break;
 
         case 0:
             cout << "Volviendo al menu principal... " << endl;
