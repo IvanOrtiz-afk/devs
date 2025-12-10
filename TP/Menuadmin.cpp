@@ -490,7 +490,7 @@ void Menuadmin::menuplatos()
                 break;
             }
 
-            std::cout << "Ingrese ANIO";
+            std::cout << "Ingrese ANIO:";
             entrada=entrada_valida("", NUMERO_ENTERO);
             anio=std::stoi(entrada);
             if (entrada=="0")
@@ -541,7 +541,6 @@ void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar
             {
                 int registros2=arch.CantidadRegistros();
 
-
                 bool hayPlatos = false;
 
                 for (int j=0; j<registros2; j++)
@@ -551,17 +550,19 @@ void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar
 
                     if (esta_muestra.getidestablecimiento()==plato_muestra.getesta())
                     {
-
-
-                        if (fechafiltrar.getDia() == plato_muestra.getfecha().getDia() && fechafiltrar.getMes() == plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() == plato_muestra.getfecha().getAnio())
+                        if (fechafiltrar==plato_muestra.getfecha()&&hayPlatos==false)
                         {
                             system("cls");
                             std::cout << "LISTADO DE MENUS" << std::endl;
-                            line('-');
+                            line('*', 50);
+                        }
+                        if (fechafiltrar==plato_muestra.getfecha()) //IVAN; la sobrecarga del operador == para objetos tipo fecha ya la habia codeado
+                        {
                             std::cout << "ID #" << plato_muestra.getidmenu() << std::endl;
                             std::cout << plato_muestra.getdesctipo() << std::endl;
                             std::cout << plato_muestra.getnombremenu() << std::endl;
                             std::cout << "IMPORTE $" << plato_muestra.getvalorplato() << std::endl;
+                            line('-');
                             id_platos.push_back(plato_muestra.getidmenu()); ///asigno un nuevo valor a mi vector dinamico
                             posicion.push_back(j);
                             hayPlatos = true;
@@ -650,10 +651,7 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
         int id_esta=std::stoi(entrada);
         int registros=arch2.CantidadRegistros();
         bool establecimientoEncontrado = false;
-        system("pause");
-        system("cls");
-        std::cout << "---LISTADO DE PLATOS---" << std::endl;
-        line('-');
+        bool hayPlatos = false;
         for (int i=0; i<registros; i++)
         {
             esta_muestra=arch2.Leer(i);
@@ -662,44 +660,38 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
                 establecimientoEncontrado = true;
                 int registros2=arch.CantidadRegistros();
 
-                bool hayPlatos = false;
-
                 for (int j=0; j<registros2; j++)
                 {
                     plato_muestra=arch.Leer(j);
                     Fecha fArchivo = plato_muestra.getfecha();
 
-                    if (esta_muestra.getidestablecimiento()==plato_muestra.getesta())
+                    if (esta_muestra.getidestablecimiento()==plato_muestra.getesta()) //IVAN; modificaciones varias para resumir codigo y arreglar bug de iteraciones
                     {
-
-                        if (fechafiltrar.getDia() == plato_muestra.getfecha().getDia() && fechafiltrar.getMes() == plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() == plato_muestra.getfecha().getAnio())
+                        if(fechafiltrar==plato_muestra.getfecha()&&hayPlatos==false)
                         {
+                            system("pause");
+                            system("cls");
+                            std::cout << "---LISTADO DE PLATOS---" << std::endl;
+                            line('*', 60);
+                        }
 
-
+                        if (fechafiltrar==plato_muestra.getfecha())
+                        {
                             std::cout << "ID #" << plato_muestra.getidmenu() << std::endl;
                             std::cout << plato_muestra.getdesctipo() << std::endl;
                             std::cout << plato_muestra.getnombremenu() << std::endl;
                             std::cout << "IMPORTE $" << plato_muestra.getvalorplato() << std::endl;
                             line('-');
-
-                            hayPlatos=true; ///PONER QUE LOOP ES TRUE ACA, PERO SIN QUE ESE VALOR CAMBIE EN CADA ITERACION
-                        }
-                        else if (fechafiltrar.getDia() != plato_muestra.getfecha().getDia() && fechafiltrar.getMes() != plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() != plato_muestra.getfecha().getAnio()&&registros2==j+1)
-                        {
-                            std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " el dia de hoy" << std::endl;
-                            loop=false;
-                            break;
+                            hayPlatos=true;
                         }
                     }
                 }
-                if (hayPlatos == false)/// esta_muestra.getidestablecimiento()!=plato_muestra.getesta()&&j+1==registros2) ///ARREGLAR
+                if (hayPlatos==false)
                 {
-                    std::cout << "[AVISO] No se encontro ningun plato cargado para ese establecimiento" << std::endl;
-                    loop=false;
-
+                    std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " el dia de hoy" << std::endl;
+                    loop=true;
+                    break;
                 }
-                loop = true;
-                break;
             }
         }
         if (establecimientoEncontrado == false) ///id_esta!=esta_muestra.getidestablecimiento()&&i+1==registros) ///ARREGLAR
@@ -707,10 +699,8 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
             std::cout << "[ERROR] El establecimiento no existe o es incorrecto, intente nuevamente" << std::endl;
             std::cout << std::endl;
             loop=false;
-            ///break;
         }
     }
-
     while(loop==false);
 }
 
@@ -812,7 +802,7 @@ void Menuadmin::modificarplatos()
                 for (int i = 0; i < cantidad; i++)
                 {
                     if(arch.Leer(i).getidtipo() == nuevoIDtipomenu)
-                    loop = true;
+                        loop = true;
                 }
                 if(loop == false)
                 {
@@ -1396,8 +1386,7 @@ void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION C
         system("pause");
 
     }
-    std::cout << "Carga semanal completa!" << std::endl;
-    system("pause");
+    std::cout << "Carga semanal completa!" << std::endl; //IVAN; saque un pause porque lo hacia dos veces
 }
 
 void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero con el agregado que separa el plato seleccionado y elimina
@@ -1994,8 +1983,6 @@ void Menuadmin::modificarestablecimientos()
     system("pause");
 }
 
-
-
 void Menuadmin::cargarcomensales()
 
 {
@@ -2527,8 +2514,6 @@ void Menuadmin::listarpago()
     }
 }
 
-
-
 void Menuadmin::modificarusuarios()
 {
     Archivos <usuario> arch_usuarios ("Usuario.dat");
@@ -2539,38 +2524,40 @@ void Menuadmin::modificarusuarios()
     int pos = -1;
 
 
-    do {
-    std::string nombreUsuario;
-    std::cout << "Ingrese el USUARIO que desee modificar ";
-    std::string entrada=entrada_valida("o pulse cero para volver", TEXTO_NO_VACIO);
-    nombreUsuario=entrada;
-
-    if (entrada=="0")
+    do
     {
-        return;
-    }
+        std::string nombreUsuario;
+        std::cout << "Ingrese el USUARIO que desee modificar ";
+        std::string entrada=entrada_valida("o pulse cero para volver", TEXTO_NO_VACIO);
+        nombreUsuario=entrada;
 
-    int cantidad = arch_usuarios.CantidadRegistros();
-
-
-    for (int i=0; i< cantidad; i++)
-    {
-        usuario auxusuario = arch_usuarios.Leer(i);
-        if (auxusuario.getNombreUsuario() == nombreUsuario)
+        if (entrada=="0")
         {
-            pos = i;
-            usuariomodificado = auxusuario;
-            loop = true;
+            return;
+        }
+
+        int cantidad = arch_usuarios.CantidadRegistros();
+
+
+        for (int i=0; i< cantidad; i++)
+        {
+            usuario auxusuario = arch_usuarios.Leer(i);
+            if (auxusuario.getNombreUsuario() == nombreUsuario)
+            {
+                pos = i;
+                usuariomodificado = auxusuario;
+                loop = true;
+            }
+        }
+
+        if(pos == -1)
+        {
+            std::cout << "[AVISO] USUARIO incorrecto o inexistente. Intente nuevamente." << std::endl;
+            system("pause");
+            loop = false;
         }
     }
-
-    if(pos == -1)
-    {
-        std::cout << "[AVISO] USUARIO incorrecto o inexistente. Intente nuevamente." << std::endl;
-        system("pause");
-        loop = false;
-    }
-    }while(loop== false);
+    while(loop== false);
 
     int opcion;
     bool hubocambios = false;
@@ -2608,29 +2595,31 @@ void Menuadmin::modificarusuarios()
         {
             int nuevoRol;
             bool loop = false;
-            do{
-            std::cout << "Ingrese nuevo ROL, 1 = ADMIN, 2 = ENCARGADO, 3 = COMENSALES" << std:: endl;
-            std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
-            nuevoRol = stoi(entrada);
-            if (entrada=="0")
+            do
             {
-                return;
-            }
-
-
-            int cantidad = arch_usuarios.CantidadRegistros();
-            for (int i=0; i < cantidad; i++)
-            {
-                if (arch_usuarios.Leer(i).getRol() == nuevoRol )
+                std::cout << "Ingrese nuevo ROL, 1 = ADMIN, 2 = ENCARGADO, 3 = COMENSALES" << std:: endl;
+                std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+                nuevoRol = stoi(entrada);
+                if (entrada=="0")
                 {
-                    loop = true;
+                    return;
+                }
+
+
+                int cantidad = arch_usuarios.CantidadRegistros();
+                for (int i=0; i < cantidad; i++)
+                {
+                    if (arch_usuarios.Leer(i).getRol() == nuevoRol )
+                    {
+                        loop = true;
+                    }
+                }
+                if (loop == false)
+                {
+                    std::cout << "[ERROR] Rol inexistente, intente de nuevo" << std::endl;
                 }
             }
-            if (loop == false)
-            {
-                std::cout << "[ERROR] Rol inexistente, intente de nuevo" << std::endl;
-            }
-            }while(loop == false);
+            while(loop == false);
 
             usuariomodificado.setRol(nuevoRol);
             hubocambios = true;
