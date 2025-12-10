@@ -6,6 +6,7 @@
 #include <cctype>
 #include <cstdlib>
 #include <iomanip>
+#include <fstream>
 #include "MenuPadreABML.h"
 #include "MenuSistema.h"
 #include "Menuadmin.h"
@@ -2658,4 +2659,282 @@ void Menuadmin::modificarusuarios()
     system("pause");
 }
 
+bool Menuadmin::copiarArchivo(std::string origen, std::string destino)
+{
+    std::ifstream fuente(origen, std::ios::binary); /// Abrimos el archivo ORIGINAL para LEER
+    std::ofstream dest(destino, std::ios::binary); /// Abrimos o creamos el archivo COPIA para ESCRIBIR
+    if (!fuente.is_open() || !dest.is_open())      /// Verificamos si ambos se pudieron abrir
+    {
+        return false;
+    }
 
+    dest << fuente.rdbuf();   /// Copia todo el contenido
+
+    fuente.close();
+    dest.close();
+    return true;
+
+    ///NOTA: ifstream (Input File Stream): Es una herramienta de C++ diseñada solo para leer archivos.
+
+
+}
+
+
+void Menuadmin::realizarBackup()
+{
+    std::cout << "--- REALIZANDO COPIA DE SEGURIDAD ---" << std::endl;
+    line('-');
+
+    if (copiarArchivo("Menues.dat", "Menues.bkp") &&
+            copiarArchivo("Usuario.dat", "Usuario.bkp") &&
+            copiarArchivo("Establecimientos.dat", "Establecimientos.bkp") &&
+            copiarArchivo("Comensales.dat", "Comensales.bkp")&&
+            copiarArchivo("Consumos.dat", "Consumos.bkp")&&
+            copiarArchivo("CC.dat", "CC.bkp")&&
+            copiarArchivo("Facturas.dat", "Facturas.bkp")
+
+       )
+    {
+        std::cout << "Copia de seguridad creada correctamente (.bkp)" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ERROR] No se pudieron copiar algunos archivos." << std::endl;
+    }
+    system("pause");
+}
+
+
+void Menuadmin::restaurarBackup()
+{
+    std::cout << "--- RESTAURAR COPIA DE SEGURIDAD ---" << std::endl;
+    line('-');
+    std::cout << "[ADVERTENCIA] Esto sobrescribira los datos actuales con la copia guardada." << std::endl;
+    std::cout << "Esta seguro? (S/N): ";
+    char confirmacion;
+    std::cin >> confirmacion;
+
+    if (confirmacion == 's' || confirmacion == 'S')
+    {
+        if (copiarArchivo("Menues.bkp", "Menues.dat") &&
+                copiarArchivo("Usuario.bkp", "Usuario.dat") &&
+                copiarArchivo("Establecimientos.bkp", "Establecimientos.dat") &&
+                copiarArchivo("Comensales.bkpbkp", "Comensales.dat")&&
+                copiarArchivo("Consumos.bkp", "Consumos.dat")&&
+                copiarArchivo("CC.bkp", "CC.dat")&&
+                copiarArchivo("Facturas.bkp", "Facturas.dat"))
+        {
+            std::cout << "Sistema restaurado correctamente." << std::endl;
+        }
+        else
+        {
+            std::cout << "[ERROR] No se encontro el archivo de backup (.bkp) o hubo un error." << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "Operacion cancelada." << std::endl;
+    }
+    system("pause");
+}
+
+
+
+void Menuadmin::exportarDatosCSV()
+{
+    int opcion;
+    do
+    {
+        system("cls");
+        std::cout << "--- EXPORTAR A EXCEL (CSV) ---" << std::endl;
+        line('-');
+        std::cout << "1- Exportar MENUES" << std::endl;
+        std::cout << "2- Exportar ESTABLECIMIENTOS" << std::endl;
+        std::cout << "3- Exportar USUARIOS" << std::endl;
+        std::cout << "4- Exportar COMENSALES" << std::endl;
+        std::cout << "5- Exportar FACTURAS" << std::endl;
+        std::cout << "6- Exportar CONSUMOS" << std::endl;
+        std::cout << "7- Exportar CUENTAS CORRIENTES" << std::endl;
+        std::cout << "0- Volver" << std::endl;
+        line('-');
+
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
+
+        switch(opcion)
+        {
+        case 1:
+        {
+            Archivos<Menues> arch("Menues.dat");
+            std::string nombreArchivo = "Menues_Exportados.csv";
+            std::ofstream salida(nombreArchivo);
+
+            if (!salida.is_open())
+            {
+                std::cout << "[ERROR] No se pudo crear el archivo." << std::endl;
+                break;
+            }
+
+
+            salida << "ID;Nombre;Tipo;DesTipo;Precio;Fecha;ID_Establecimiento\n";
+
+            int cant = arch.CantidadRegistros();
+            for (int i = 0; i < cant; i++)
+            {
+                Menues aux = arch.Leer(i);
+                salida << aux.getidmenu() << ";"
+                       << aux.getnombremenu() << ";"
+                       << aux.getidtipo() << ";"
+                       << aux.getdesctipo() << ";"
+                       << aux.getvalorplato() << ";"
+                       << aux.getfecha().toString() << ";"
+                       << aux.getesta() << "\n";  /// Para escribir en archivos dentro de un for, hay que usar siempre \n
+
+
+            }
+            salida.close();
+            std::cout << "[EXITO] Se exportaron " << cant << " menues a '" << nombreArchivo << "'" << std::endl;
+            system("pause");
+            break;
+        }
+
+        case 2:
+        {
+            Archivos<Establecimientos> arch("Establecimientos.dat");
+            std::string nombreArchivo = "Establecimientos_Exportados.csv";
+            std::ofstream salida(nombreArchivo);
+
+            if (!salida.is_open())
+            {
+                std::cout << "[ERROR] No se pudo crear el archivo." << std::endl;
+                break;
+            }
+
+
+            salida << "ID;Nombre;Direccion;Localidad\n";
+
+            int cant = arch.CantidadRegistros();
+            for (int i = 0; i < cant; i++)
+            {
+                Establecimientos aux = arch.Leer(i);
+                salida << aux.getidestablecimiento() << ";"
+                       << aux.getnombreestablecimiento() << ";"
+                       << aux.gettipoesta() << ";"
+                       << aux.getdireccionesta() << "\n";
+            }
+            salida.close();
+            std::cout << "[EXITO] Se exportaron " << cant << " establecimientos." << std::endl;
+            system("pause");
+            break;
+        }
+
+        case 3:
+        {
+            Archivos<usuario> arch("Usuario.dat");
+            std::string nombreArchivo = "Usuarios_Exportados.csv";
+            std::ofstream salida(nombreArchivo);
+
+            if (!salida.is_open()) break;
+
+            salida << "Usuario;Rol\n";
+
+            int cant = arch.CantidadRegistros();
+            for (int i = 0; i < cant; i++)
+            {
+                usuario aux = arch.Leer(i);
+
+                std::string nombreRol;
+                if(aux.getRol() == 1) nombreRol = "ADMIN";
+                else if(aux.getRol() == 2) nombreRol = "ENCARGADO";
+                else if(aux.getRol() == 3) nombreRol = "COMENSAL";
+
+                salida << aux.getNombreUsuario() << ";"
+                       << nombreRol << "\n";
+            }
+            salida.close();
+            std::cout << "[EXITO] Usuarios exportados." << std::endl;
+            system("pause");
+            break;
+        }
+
+        case 4:
+        {
+            Archivos<Comensal> arch("Comensales.dat");
+            std::string nombreArchivo = "Comensales_Exportados.csv";
+            std::ofstream salida(nombreArchivo);
+
+            if (!salida.is_open())
+            {
+                std::cout << "[ERROR] No se pudo crear el archivo." << std::endl;
+                break;
+            }
+
+
+            salida << "ID;Nombre;Apellido;Direccion;FechaNacimiento;IDestablecimiento\n";
+
+            int cant = arch.CantidadRegistros();
+            for (int i = 0; i < cant; i++)
+            {
+                Comensal aux = arch.Leer(i);
+                salida << aux.getIDcomensal() << ";"
+                       << aux.getNombre() << ";"
+                       << aux.getApellido() << ";"
+                       << aux.getDireccion() << ";"
+                       << aux.getFechaNacimiento().toString() << ";"
+                       << aux.getIDestablecimiento() << "\n";
+
+            }
+            salida.close();
+            std::cout << "[EXITO] Se exportaron " << cant << " establecimientos." << std::endl;
+            system("pause");
+            break;
+
+        } /*
+        case 5:
+        {
+            Archivos<Factura> arch("Facturas.dat");
+            std::string nombreArchivo = "Facturas_Exportados.csv";
+            std::ofstream salida(nombreArchivo);
+
+            if (!salida.is_open())
+            {
+                std::cout << "[ERROR] No se pudo crear el archivo." << std::endl;
+                break;
+            }
+
+
+            salida << "ID;Nombre;Apellido;Direccion;FechaNacimiento;IDestablecimiento\n";
+
+            int cant = arch.CantidadRegistros();
+            for (int i = 0; i < cant; i++)
+            {
+                Factura aux = arch.Leer(i);
+                salida << aux.getIDcomensal() << ";"
+                       << aux.getNombre() << ";"
+                       << aux.getApellido() << ";"
+                       << aux.getDireccion() << ";"
+                       << aux.getFechaNacimiento().toString << ";"
+                       << aux.getIDestablecimiento() << "\n"
+                       aux.get
+
+            }
+            salida.close();
+            std::cout << "[EXITO] Se exportaron " << cant << " establecimientos." << std::endl;
+            system("pause");
+            break;
+
+        } */
+        case 0:
+            break;
+
+        default:
+            std::cout << "Opcion invalida." << std::endl;
+            system("pause");
+            break;
+        }
+           
+    }
+    while (opcion != 0);
+
+    ///NOTA: ofstream (Output File Stream): Es la herramienta para crear y escribir archivos de texto.
+}

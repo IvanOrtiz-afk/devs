@@ -9,9 +9,7 @@
 using namespace std;
 
 
-/// rol 1 = ADMIN
-/// rol 2 = ENCARGADO
-/// rol 0 = COMENSALES
+
 
 MenuSistema::MenuSistema()
     :MenuPadreABML()
@@ -22,7 +20,7 @@ MenuSistema::MenuSistema(int rol)
     :MenuPadreABML()
 {
     _rolActual=rol;
-    _cantidadOpciones=8;
+    _cantidadOpciones=9;
 }
 
 void MenuSistema::run()
@@ -66,6 +64,9 @@ void MenuSistema::run()
             system("cls");
             gestionarUsuarios();
             break;
+        case 8:
+            system("cls");
+            menuConfiguracion();
         case 0:
             cout << "Saliendo del sistema... " << endl;
             break;
@@ -92,6 +93,7 @@ void MenuSistema::mostrarOpciones()
     {
         cout << "6- GESTIONAR ESTABLECIMIENTOS" << endl;
         cout << "7- GESTIONAR USUARIOS" << endl;
+        cout << "8- CONFIGURACION" << endl;
 
     }
 
@@ -609,3 +611,66 @@ void MenuSistema::gestionarUsuarios()
     while (opcion != 0);
 }
 
+void MenuSistema::menuConfiguracion()
+{
+    int opcion;
+    do
+    {
+        system("cls");
+        std::cout << "--- CONFIGURACION ---" << std::endl;
+        line('-');
+        std::cout << "1- Realizar Copia de Seguridad" << std::endl;
+        std::cout << "2- Restaurar Copia de Seguridad" << std::endl;
+        std::cout << "3- Exportar Datos a Excel (.csv)" << std::endl;
+        std::cout << "0- Salir" << std::endl;
+        line('-');
+        std:: cin >> opcion;
+       /// std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+       /// opcion = std::stoi(entrada);
+
+        switch(opcion)
+        {
+        case 1:
+
+            _ejecutarmenu.realizarBackup();
+
+
+            break;
+        case 2:
+            if (_rolActual == 1)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.restaurarBackup();
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+        case 3:
+            if (_rolActual == 1)
+            {
+                system("pause");
+                system("cls");
+                _ejecutarmenu.exportarDatosCSV();
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
+            }
+            break;
+        case 0:
+            break;
+        default:
+            std::cout << "Opcion incorrecta" << std::endl;
+            system("pause");
+            break;
+        }
+    }
+    while(opcion != 0);
+}

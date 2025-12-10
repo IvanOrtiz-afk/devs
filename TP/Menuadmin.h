@@ -50,6 +50,9 @@ public:
     void modificarcomensales();
     void modificarplatos();
     void modificarusuarios();
+    void realizarBackup();
+    void restaurarBackup();
+    void exportarDatosCSV();
 
     std::string entrada_valida(const std::string&, TipoEntrada);
     std::string entrada_cruda(const std::string&);
@@ -60,6 +63,7 @@ protected:
     void mostrarconsumos(Consumos consumos_muestra);
 
 private:
+    bool copiarArchivo(std::string origen, std::string destino);
 
 };
 

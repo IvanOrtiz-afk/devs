@@ -20,6 +20,7 @@ class MenuSistema : public MenuPadreABML
     void gestionarCC();
     void gestionarConsumos();
     void gestionarUsuarios();
+    void menuConfiguracion();
 
 
   private:
