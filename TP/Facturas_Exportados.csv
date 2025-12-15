@@ -1,0 +1,4 @@
+IDcomensal;Nombre;IDmenu;MedioDePago;Importe;Fecha;Numeracion;NumFac
+2;Evelyn ;6;Efectivo;5000;28/11/2025;0001-00001;1
+0;;6;Pago a Cuenta Corriente;3000;28/11/2025;0001-00003;0
+0;€;6;Pago a Cuenta Corriente;6000;28/11/2025;0001-00004;0

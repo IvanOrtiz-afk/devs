@@ -43,7 +43,7 @@ PLATOS MEJOR VALORADOS -> OK
 
 #PRIORIDAD 2:
 -CONFIGURACIONES:
-REALIZAR COPIAS DE SEGURIDAD
+REALIZAR COPIAS DE SEGURIDAD -> OK
 RESTAURAR COPIA DE SEGURIDAD
 EXPORTAR DATOS
 CAMBIAR TEMA
@@ -2719,7 +2719,7 @@ void Menuadmin::restaurarBackup()
         if (copiarArchivo("Menues.bkp", "Menues.dat") &&
                 copiarArchivo("Usuario.bkp", "Usuario.dat") &&
                 copiarArchivo("Establecimientos.bkp", "Establecimientos.dat") &&
-                copiarArchivo("Comensales.bkpbkp", "Comensales.dat")&&
+                copiarArchivo("Comensales.bkp", "Comensales.dat")&&
                 copiarArchivo("Consumos.bkp", "Consumos.dat")&&
                 copiarArchivo("CC.bkp", "CC.dat")&&
                 copiarArchivo("Facturas.bkp", "Facturas.dat"))
@@ -2889,7 +2889,7 @@ void Menuadmin::exportarDatosCSV()
             system("pause");
             break;
 
-        } /*
+        }
         case 5:
         {
             Archivos<Factura> arch("Facturas.dat");
@@ -2903,27 +2903,90 @@ void Menuadmin::exportarDatosCSV()
             }
 
 
-            salida << "ID;Nombre;Apellido;Direccion;FechaNacimiento;IDestablecimiento\n";
+            salida << "IDcomensal;Nombre;IDmenu;MedioDePago;Importe;Fecha;Numeracion;NumFac\n";
 
             int cant = arch.CantidadRegistros();
             for (int i = 0; i < cant; i++)
             {
                 Factura aux = arch.Leer(i);
                 salida << aux.getIDcomensal() << ";"
-                       << aux.getNombre() << ";"
-                       << aux.getApellido() << ";"
-                       << aux.getDireccion() << ";"
-                       << aux.getFechaNacimiento().toString << ";"
-                       << aux.getIDestablecimiento() << "\n"
-                       aux.get
+                       << aux.getnombrecomensal() << ";"
+                       << aux.getIDmenu() << ";"
+                       << aux.getMedioDePago() << ";"
+                       << aux.getImporte() << ";"
+                       << aux.getFecha().toString() << ";"
+                       << aux.getnumfc() << ";"
+                       << aux.getNumeracion() << "\n";
 
             }
             salida.close();
-            std::cout << "[EXITO] Se exportaron " << cant << " establecimientos." << std::endl;
+            std::cout << "[EXITO] Se exportaron " << cant << " facturas." << std::endl;
             system("pause");
             break;
 
-        } */
+        }
+        case 6:
+        {
+            Archivos<Consumos> arch("Consumos.dat");
+            std::string nombreArchivo = "Consumos_Exportados.csv";
+            std::ofstream salida(nombreArchivo);
+
+            if (!salida.is_open())
+            {
+                std::cout << "[ERROR] No se pudo crear el archivo." << std::endl;
+                break;
+            }
+
+
+            salida << "Cliente;Plato;Importe;Fecha\n";
+
+            int cant = arch.CantidadRegistros();
+            for (int i = 0; i < cant; i++)
+            {
+                Consumos aux = arch.Leer(i);
+                salida << aux.getcliente() << ";"
+                       << aux.getplato() << ";"
+                       << aux.getimporte() << ";"
+                       << aux.getfecha().toString() << "\n";
+            }
+            salida.close();
+            std::cout << "[EXITO] Se exportaron " << cant << " consumos." << std::endl;
+            system("pause");
+            break;
+
+        }
+        case 7:
+        {
+            Archivos<CuentaCorriente> arch("CC.dat");
+            std::string nombreArchivo = "CC_Exportados.csv";
+            std::ofstream salida(nombreArchivo);
+
+            if (!salida.is_open())
+            {
+                std::cout << "[ERROR] No se pudo crear el archivo." << std::endl;
+                break;
+            }
+
+
+            salida << "Numeracion;Comensal;EstadoDeuda;SaldoActual\n";
+
+            int cant = arch.CantidadRegistros();
+            for (int i = 0; i < cant; i++)
+            {
+                CuentaCorriente aux = arch.Leer(i);
+                salida << aux.getnumeracion() << ";"
+                       << aux.getcomensal() << ";"
+                       << aux.getnombrecomensal() << ";"
+                       << aux.getestadodeuda() << ";"
+                       << aux.getSaldoActual() << "\n";
+
+            }
+            salida.close();
+            std::cout << "[EXITO] Se exportaron " << cant << " Cuentas Corrientes." << std::endl;
+            system("pause");
+            break;
+
+        }
         case 0:
             break;
 
@@ -2932,7 +2995,7 @@ void Menuadmin::exportarDatosCSV()
             system("pause");
             break;
         }
-           
+
     }
     while (opcion != 0);
 
