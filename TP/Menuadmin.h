@@ -13,7 +13,7 @@ class Menuadmin : public MenuPadreABML
 public:
     Menuadmin();
     ~Menuadmin();
-    enum TipoEntrada {NUMERO_ENTERO, TEXTO_NO_VACIO, NUMERO_FLOTANTE};
+    ///enum TipoEntrada {NUMERO_ENTERO, TEXTO_NO_VACIO, NUMERO_FLOTANTE};
     std::string volver();
     void platosmejor_valor();
     void platosmas_vendidos();
@@ -54,8 +54,8 @@ public:
     void restaurarBackup();
     void exportarDatosCSV();
 
-    std::string entrada_valida(const std::string&, TipoEntrada);
-    std::string entrada_cruda(const std::string&);
+   /* std::string entrada_valida(const std::string&, TipoEntrada);
+    std::string entrada_cruda(const std::string&);*/
 
 protected:
     void mostrarestablecimientos(Establecimientos establecimientos_muestra);

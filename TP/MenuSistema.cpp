@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include "Utilidades.h"
 #include "MenuPadreABML.h"
 #include "MenuSistema.h"
 #include "Menuadmin.h"
@@ -30,8 +31,8 @@ void MenuSistema::run()
     {
         system("cls");
         mostrarOpciones();
-        std::cout << "Ingrese su opcion: " << std::endl;
-        std::cin >> opcion;
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
         system("pause");
 
         switch(opcion)
@@ -70,6 +71,10 @@ void MenuSistema::run()
         case 0:
             cout << "Saliendo del sistema... " << endl;
             break;
+        default:
+
+            cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            break;
         }
         system("pause");
     }
@@ -79,7 +84,7 @@ void MenuSistema::run()
 void MenuSistema::mostrarOpciones()
 {
     cout << "--- MENU PRINCIPAL ---" << endl;
-    cout << "-------------------------" << endl;
+    line('-');
     cout << "1- PLATOS "<<endl;
     cout << "2- FACTURACION" <<endl;
     cout << "3- ESTADO CUENTA CORRIENTE "<<endl;
@@ -96,8 +101,9 @@ void MenuSistema::mostrarOpciones()
         cout << "8- CONFIGURACION" << endl;
 
     }
-
+    line('-');
     cout << "0- Salir" << endl;
+    line('-');
 
 }
 
@@ -118,10 +124,13 @@ void MenuSistema::gestionarPlatos()
             cout << "5- CARGAR UN NUEVO PLATO "<<endl; /// admin
             cout << "6- ELIMINAR UN PLATO" <<endl;  /// admin
             cout << "7- MODIFICAR UN PLATO" <<endl;
-        };
 
+        };
+        line('-');
         cout << "0- Volver al menu principal" << endl;
-        cin >> opcion;
+        line('-');
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
 
         switch(opcion)
         {
@@ -156,7 +165,7 @@ void MenuSistema::gestionarPlatos()
         case 5:
             if (_rolActual == 1)
             {
-                /// cargar();
+
                 system("pause");
                 system("cls");
                 _ejecutarmenu.mostrarmenucargar();
@@ -171,7 +180,7 @@ void MenuSistema::gestionarPlatos()
         case 6:
             if (_rolActual == 1)
             {
-                /// elminar();
+
                 system("pause");
                 system("cls");
                 _ejecutarmenu.eliminarplatomenu();
@@ -201,7 +210,15 @@ void MenuSistema::gestionarPlatos()
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;
+
+        default:
+            cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            break;
+
+            break;
         }
+        system("pause");
+
     }
     while(opcion != 0);
 
@@ -215,7 +232,7 @@ void MenuSistema::gestionarFacturas()
     do
     {
         cout << "--- FACTURACION ---" << endl;
-        cout << "----------------------" << endl;
+        line('-');
         cout << "1- LISTAR FACTURAS" << endl;
 
 
@@ -223,9 +240,11 @@ void MenuSistema::gestionarFacturas()
         {
             cout << "2- NUEVA FACTURA "<<endl;
         };
-
+        line('-');
         cout << "0- Volver al menu principal" << endl;
-        cin >> opcion;
+        line('-');
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
 
         switch(opcion)
         {
@@ -256,7 +275,14 @@ void MenuSistema::gestionarFacturas()
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;
+
+        default:
+
+            cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            break;
         }
+        system("pause");
+
     }
     while(opcion != 0);
 
@@ -271,12 +297,15 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
     do
     {
         cout << "--- CUENTA CORRIENTE ---" << endl;
-        cout << "---------------------------" << endl;
+        line('-');
         cout << "1- VER ESTADO DE CUENTA CORRIENTE (DEUDA)" << endl;
         cout << "2- REALIZAR UN PAGO "<<endl;
         cout << "3- LISTAR PAGOS REALIZADOS" << endl;
+        line('-');
         cout << "0- Volver al menu principal" << endl;
-        cin >> opcion;
+        line('-');
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
 
         switch(opcion)
         {
@@ -305,7 +334,12 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;
+        default:
+
+            cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            break;
         }
+        system("pause");
     }
     while(opcion != 0);
 }
@@ -318,12 +352,15 @@ void MenuSistema::gestionarConsumos()
     do
     {
         cout << "--- CONSUMOS ---" << endl;
-        cout << "-------------------" << endl;
+        line('-');
         cout << "1- LISTAR CONSUMOS" << endl;
         cout << "2- VER CONSUMOS POR FECHA" << endl;
         cout << "3- PLATOS MAS VENDIDOS" << endl;
+        line('-');
         cout << "0- Volver al menu principal" << endl;
-        cin >> opcion;
+        line('-');
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
 
         switch(opcion)
         {
@@ -351,7 +388,12 @@ void MenuSistema::gestionarConsumos()
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;
+        default:
+
+            cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            break;
         }
+        system("pause");
     }
     while(opcion != 0);
 
@@ -377,9 +419,11 @@ void MenuSistema::gestionarComensales()
             cout << "3- ELIMINAR UN COMENSAL" <<endl;  /// admin
             cout << "4- MODIFICAR UN COMENSAL" <<endl;  /// admin
         };
-
+        line('-');
         cout << "0- Volver al menu principal" << endl;
-        cin >> opcion;
+        line('-');
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
         switch(opcion)
         {
         case 1:
@@ -442,7 +486,16 @@ void MenuSistema::gestionarComensales()
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;
+
+        default:
+
+            cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+
+            break;
         }
+        system("pause");
+
+
     }
     while (opcion != 0);
 }
@@ -462,14 +515,17 @@ void MenuSistema::gestionarEstablecimientos()
             cout << "2- ELIMINAR UN ESTABLECIMIENTO" <<endl;  /// admin
             cout << "3- LISTAR ESTABLECIMIENTOS" << endl;/// admin
             cout << "4- MODIFICAR ESTABLECIMIENTOS"<< endl;
+            line('-');
             cout << "0- Volver al menu principal" << endl;
+            line('-');
         }
         else
         {
             cout << "Acceso denegado.." << endl;
         }
 
-        cin >> opcion;
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
         switch(opcion)
         {
         case 1:
@@ -533,7 +589,12 @@ void MenuSistema::gestionarEstablecimientos()
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;
+        default:
+
+            cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            break;
         }
+        system("pause");
     }
     while(opcion != 0);
 }
@@ -545,21 +606,24 @@ void MenuSistema::gestionarUsuarios()
     do
     {
         cout << "--- GESTIONAR USUARIOS ---" << endl;
-        cout << "-------------------------------------" << endl;
+        line('-');
 
         if (_rolActual == 1)
         {
             cout << "1- CREAR UN NUEVO USUARIO "<<endl; /// admin
             cout << "2- ELIMINAR USUARIO" << endl;
             cout << "3- MODIFICAR USUARIO" << endl;
+            line('-');
             cout << "0- Volver al menu principal" << endl;
+            line('-');
         }
         else
         {
             cout << "Acceso denegado.." << endl;
         }
 
-        cin >> opcion;
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
         switch(opcion)
         {
         case 1:
@@ -606,7 +670,13 @@ void MenuSistema::gestionarUsuarios()
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             break;
+
+        default:
+
+            cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            break;
         }
+        system("pause");
     }
     while (opcion != 0);
 }
@@ -622,11 +692,13 @@ void MenuSistema::menuConfiguracion()
         std::cout << "1- Realizar Copia de Seguridad" << std::endl;
         std::cout << "2- Restaurar Copia de Seguridad" << std::endl;
         std::cout << "3- Exportar Datos a Excel (.csv)" << std::endl;
+        line('-');
         std::cout << "0- Salir" << std::endl;
         line('-');
-        std:: cin >> opcion;
-       /// std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
-       /// opcion = std::stoi(entrada);
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
+        /// std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        /// opcion = std::stoi(entrada);
 
         switch(opcion)
         {
@@ -667,10 +739,13 @@ void MenuSistema::menuConfiguracion()
         case 0:
             break;
         default:
-            std::cout << "Opcion incorrecta" << std::endl;
-            system("pause");
+
+            cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+
             break;
+
         }
+        system("pause");
     }
     while(opcion != 0);
 }

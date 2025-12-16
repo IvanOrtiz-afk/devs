@@ -2,8 +2,6 @@
 #include <string>
 #include <cstring>
 #include <vector>
-#include <algorithm>
-#include <cctype>
 #include <cstdlib>
 #include <iomanip>
 #include <fstream>
@@ -16,6 +14,7 @@
 #include "Menues.h"
 #include "Establecimientos.h"
 #include "usuario.h"
+#include "Utilidades.h"
 
 Menuadmin::Menuadmin()
     :MenuPadreABML()
@@ -44,8 +43,8 @@ PLATOS MEJOR VALORADOS -> OK
 #PRIORIDAD 2:
 -CONFIGURACIONES:
 REALIZAR COPIAS DE SEGURIDAD -> OK
-RESTAURAR COPIA DE SEGURIDAD
-EXPORTAR DATOS
+RESTAURAR COPIA DE SEGURIDAD -> OK
+EXPORTAR DATOS -> OK
 CAMBIAR TEMA
 -PONER TODO MAS LINDO
 
@@ -56,96 +55,6 @@ CAMBIAR TEMA
 
  */
 
-std::string Menuadmin::entrada_cruda(const std::string& mensaje)
-{
-    std::string entrada;
-    std::cout << mensaje << std::endl;
-    if (std::cin.fail() || std::cin.peek() == '\n')
-    {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    }
-    std::getline(std::cin, entrada);
-    return entrada;
-}
-
-std::string Menuadmin::entrada_valida(const std::string& mensaje, TipoEntrada tipo) ///Ahora usamos esto en ves de solo ignore y getline
-{
-    ///En discord te explico como funciona
-    std::string entrada_str;
-    // El bucle se repite hasta que se encuentra una entrada valida.
-    while (true)
-    {
-        // Obtenemos la entrada como string
-        entrada_str = entrada_cruda(mensaje);
-        // Bloque switch para manejar la logica de validacion especifica.
-        switch (tipo)
-        {
-        case NUMERO_ENTERO:
-        {
-            try // Se usa por si el programa tiene un error, y en ves de finalizar primero intenta esta solucion
-            {
-                // Intenta convertir el string a entero.
-                // Si falla (por ejemplo, si el usuario ingresa "abc"), salta al 'catch'.
-                std::stoi(entrada_str);
-                // Si la conversion fue exitosa, la entrada es valida.
-                return entrada_str;
-            }
-            catch (const std::invalid_argument& e)
-            {
-                std::cout << "[ERROR] Entrada invalida. Por favor, ingrese un NUMERO ENTERO valido" << std::endl;
-            }
-            catch (const std::out_of_range& e)
-            {
-                std::cout << "[ERROR] El numero ingresado es demasiado grande o pequenio. Intente con un valor razonable" << std::endl;
-            }
-            // Si hubo un error, el ciclo continua.
-            break;
-        }
-        case TEXTO_NO_VACIO:
-        {
-            // 1. Verificamos si la cadena esta vacia
-            if (entrada_str.empty())
-            {
-                std::cout << "[ERROR] La entrada no puede estar vacia. Intente de nuevo" << std::endl;
-                break; // Continua el ciclo
-            }
-            // 2. Verificamos si la cadena contiene solo espacios en blanco
-            // Utilizamos una copia temporal para eliminar espacios y verificar si queda algo mas.
-            std::string temp = entrada_str;
-            temp.erase(std::remove_if(temp.begin(), temp.end(), ::isspace), temp.end());
-            if (temp.empty())
-            {
-                std::cout << "[ERROR] La entrada no puede contener solo espacios en blanco. Ingrese texto valido" << std::endl;
-                break; // Continua el ciclo
-            }
-            // Si paso ambas validaciones, la entrada es un texto valido.
-            return entrada_str;
-        }
-        case NUMERO_FLOTANTE:
-        {
-            try
-            {
-                // Lo mismo que hicimos con NUMERO_ENTERO
-                std::stof(entrada_str);
-                return entrada_str;
-            }
-            catch (const std::invalid_argument& e)
-            {
-                std::cout << "[ERROR] Entrada invalida. Por favor, ingrese un NÚMERO valido" << std::endl;
-            }
-            catch (const std::out_of_range& e)
-            {
-                std::cout << "[ERROR] El numero ingresado es demasiado grande o pequenio. Intente con un valor razonable" << std::endl;
-            }
-            break;
-        }
-        default:
-            std::cout << "[ERROR INTERNO] Tipo de entrada no reconocido" << std::endl;
-            return ""; // Retornar vacio en caso de error interno
-        }
-    }
-}
 
 void Menuadmin::platosmejor_valor() ///Muestra siempre el top 3 de los platos mejor valorados de la semana
 {
@@ -509,7 +418,10 @@ void Menuadmin::menuplatos()
         break;
         case 0:
             break;
+        default:
+         std::cout << "Opcion invalida. Intente nuevamente." << std::endl;
         }
+        system("pause");
     }
     while(opcion != 0);
 }
@@ -554,7 +466,7 @@ void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar
                         if (fechafiltrar==plato_muestra.getfecha()&&hayPlatos==false)
                         {
                             system("cls");
-                            std::cout << "LISTADO DE MENUS" << std::endl;
+                            std::cout << "---LISTADO DE MENUS---" << std::endl;
                             line('*', 50);
                         }
                         if (fechafiltrar==plato_muestra.getfecha()) //IVAN; la sobrecarga del operador == para objetos tipo fecha ya la habia codeado
@@ -1064,9 +976,10 @@ void Menuadmin::mostrarmenucargar() /// EVELYN-> SE AGREGO SUBMENUS EN PLATOS PA
     {
         std::cout << "---CARGAR MENUES---" << std::endl;
         line('-');
-        std::cout << "1- Cargar menu del dia" << std::endl;
-        std::cout << "2- Cargar menu de toda la semana" << std::endl;
+        std::cout << "1- CARGAR MENU DEL DIA" << std::endl;
+        std::cout << "2- CARGAR MENU DE TODA LA SEMANA" << std::endl;
         std::cout << "0- Volver al menu de platos" << std::endl;
+        line('-');
         std::cin >> opcion;
 
         switch(opcion)
@@ -1088,6 +1001,8 @@ void Menuadmin::mostrarmenucargar() /// EVELYN-> SE AGREGO SUBMENUS EN PLATOS PA
         case 0:
 
             std::cout << "Volviendo al menu principal" << std::endl;
+        default:
+           std::cout << "Opcion invalida. Intente nuevamente" << std::endl;
         }
     }
     while(opcion !=0);
@@ -1456,6 +1371,8 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
         break;
         case 0:
             break;
+        default:
+        std::cout << "Opcion invalida. Intente nuevamente" << std::endl;      
         }
     }
     while(opcion != 0);
@@ -1786,8 +1703,8 @@ void Menuadmin::cargarestablecimiento() /// se agrego getline y cin.ignore para 
         {
             idestablecimiento=1;
         }
-        std::cout << "NUEVO ESTABLECIMIENTO" << std::endl;
-        std::cout << "-----------------------------" << std::endl;
+        std::cout << "--- NUEVO ESTABLECIMIENTO ---" << std::endl;
+       line('-');
         std::cout << "Nuevo establecimiento bajo el ID #:" << idestablecimiento << std::endl;
         std::cout << std::endl;
         std::cout << "ingrese el nombre:" << std::endl;
@@ -1834,13 +1751,13 @@ void Menuadmin::listarestablecimientos()
 {
     Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
     int cantidad = arch_establecimientos.CantidadRegistros();
-    std::cout << "LISTADO DE ESTABLECIMIENTOS"  << std::endl;
-    std::cout << "---------------------------------------"  << std::endl;
+    std::cout << "--- LISTADO DE ESTABLECIMIENTOS ---"  << std::endl;
+    line('-');
     for (int i= 0; i < cantidad; i++)
     {
         Establecimientos establecimientos_muestra = arch_establecimientos.Leer(i);
         mostrarestablecimientos(establecimientos_muestra);
-        std::cout << "---------------------------------------" << std::endl;
+        line('-');
     }
 }
 
@@ -2000,8 +1917,8 @@ void Menuadmin::cargarcomensales()
         {
             idcomensal=1;
         }
-        std::cout << "NUEVO COMENSAL" << std::endl;
-        std::cout << "-----------------------------" << std::endl;
+        std::cout << "--- NUEVO COMENSAL --- " << std::endl;
+       line('-');
         std::cout << "Nuevo comensal bajo el ID #:" << idcomensal << std::endl;
         std::cout << std::endl;
         std::cout << "ingrese nombre/s:" << std::endl;
@@ -2126,13 +2043,13 @@ void Menuadmin::listarcomensales()
     Archivos <Comensal> arch_comensales ("Comensales.dat");
     std::string nombreesta;
     int cantidad = arch_comensales.CantidadRegistros();
-    std::cout << "LISTADO DE COMENSALES"  << std::endl;
-    std::cout << "---------------------------------------"  << std::endl;
+    std::cout << "---LISTADO DE COMENSALES---"  << std::endl;
+   line('-');
     for (int i= 0; i < cantidad; i++)
     {
         Comensal comensal_muestra = arch_comensales.Leer(i);
         mostrarcomensales(comensal_muestra);
-        std::cout << "---------------------------------------" << std::endl;
+        line('-');
     }
 }
 
@@ -2356,13 +2273,13 @@ void Menuadmin::listarconsumos()
 {
     Archivos <Consumos> arch_consumos ("Consumos.dat");
     int cantidad = arch_consumos.CantidadRegistros();
-    std::cout << "LISTADO DE CONSUMOS"  << std::endl;
-    std::cout << "---------------------------------------"  << std::endl;
+    std::cout << "--- LISTADO DE CONSUMOS ---"  << std::endl;
+   line('-');
     for (int i= 0; i < cantidad; i++) ///IVAN; saque el <=, no nos olvidemos que i arranca en 0, i al arrancar en 0 debe llegar a cantidad-1
     {
         Consumos consumos_muestra = arch_consumos.Leer(i);
         mostrarconsumos(consumos_muestra);
-        std::cout << "---------------------------------------" << std::endl;
+       line('-');
     }
 }
 

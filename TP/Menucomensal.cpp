@@ -13,7 +13,7 @@
 #include "CC.h"
 #include "Fecha.h"
 #include "Menuadmin.h"
-
+#include "Utilidades.h"
 
 Menucomensal::Menucomensal(Comensal clientebuscado, Menues menubuscado)
     :MenuPadreABML()
@@ -36,12 +36,12 @@ void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     ///const int tipoveg = 2; ///Vegetariano
     ///const int tipocel = 3; ///Cel¡aco
     MenuPadreABML::line('*');
-    std::cout << "BIENVENIDO AL COMEDOR" << std::endl;
+    std::cout << "  BIENVENIDO AL COMEDOR" << std::endl;
     MenuPadreABML::line('*');
     do
     {
-        std::cout << "Por favor, ingrese su ID de cliente:";
-        std::cin >> id;
+        std::string entrada = entrada_valida("Por favor, ingrese su ID de cliente:", NUMERO_ENTERO);
+        id = std::stoi(entrada);
         _clientebuscado=buscarcliente(id, loop);
     }
     while(loop==false);
@@ -62,14 +62,14 @@ void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
         return;
     }
 
-    std::cout << "MENUS DEL DIA (" << menuesDisponibles.size() << "):" << std::endl;
+    std::cout << "--- MENUS DEL DIA (" << menuesDisponibles.size() << ") ---" << std::endl;
     line('-');
 
     for (size_t i = 0; i< menuesDisponibles.size(); i++)
     {
+
         std::cout << std::endl;
         std::cout << "OPCION # " << (i + 1) << std::endl;
-        std::cout << std::endl;
         std::cout << menuesDisponibles[i].getdesctipo() << std::endl;
         std::cout << menuesDisponibles[i].getnombremenu() << std::endl;
         std::cout << "IMPORTE $" << menuesDisponibles[i].getvalorplato() << std::endl;
@@ -79,7 +79,8 @@ void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     do
     {
         std::cout << "Seleccione la opcion deseada (1 -" << menuesDisponibles.size() << "):" << std::endl;
-        std::cin >> opcion;
+        std::string entrada = entrada_valida("", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
     }while (opcion < 1 || opcion > menuesDisponibles.size());
     _menubuscado = menuesDisponibles[static_cast<size_t>(opcion) - 1];
     generarconsumo();
@@ -239,7 +240,8 @@ bool Menucomensal::tipodeconsumo()
         std::cout << "Desea abonar ahora o generar deuda en cuenta corriente?" << std::endl;
         line('-');
         std::cout << "Pulse 1 para abonar ahora o 2 para cargar deuda en cuenta corriente" << std::endl;
-        std::cin >> opcion;
+        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        opcion = std::stoi(entrada);
         switch(opcion)
         {
         case 1:
