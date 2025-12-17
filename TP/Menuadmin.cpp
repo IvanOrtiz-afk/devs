@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <fstream>
+#include <cctype>
 #include "MenuPadreABML.h"
 #include "MenuSistema.h"
 #include "Menuadmin.h"
@@ -250,36 +251,85 @@ void Menuadmin::cant_platosXfecha() ///CONTINUAR ACA
     Fecha fecha_muestra;
     bool plato_encontrado, hubo_consumos=false, loop=false;
 
+    time_t t = time(0);
+    tm* now = localtime(&t);
+    int anioActual = now->tm_year + 1900;
+
     std::vector<PlatoVendido> platos;
     do
     {
+        int dia_muestra, mes_muestra, anio_muestra;
+        bool fechaValida = false;
         line('*');
         std::cout << "Ingreso de fecha" << std::endl;
         line('*');
-        std::cout << "Ingrese un dia del mes" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
-        line('-');
-        int dia_muestra=std::stoi(entrada);
-        if (entrada=="0")
+
+
+        do
         {
-            break;
+            std::string entrada=entrada_valida("Ingrese un dia del mes, pulse cero para volver", NUMERO_ENTERO);
+            line('-');
+            dia_muestra=std::stoi(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
+            if (dia_muestra >= 1 && dia_muestra <= 31)
+            {
+                fechaValida = true;
+            }
+            else
+            {
+                std::cout << "[ERROR] Dia invalido. Por favor ingrese un numero entre 1 y 31." << std::endl;
+
+            }
         }
-        std::cout << "Ingrese un mes" << std::endl;
-        entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
-        line('-');
-        int mes_muestra=std::stoi(entrada);
-        if (entrada=="0")
+        while(!fechaValida);
+        fechaValida = false;
+        do
         {
-            break;
+            std::string entrada=entrada_valida("Ingrese mes, pulse cero para volver", NUMERO_ENTERO);
+            line('-');
+            mes_muestra=std::stoi(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
+            if (mes_muestra >= 1 && mes_muestra <= 12)
+            {
+                fechaValida = true;
+            }
+            else
+            {
+                std::cout << "[ERROR] Mes invalido. Por favor ingrese un numero entre 1 y 12." << std::endl;
+
+            }
+
+
         }
-        std::cout << "Ingrese un anio" << std::endl;
-        entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
-        line('-');
-        int anio_muestra=std::stoi(entrada);
-        if (entrada=="0")
+        while(!fechaValida);
+        fechaValida = false;
+        do
         {
-            break;
+            std::string entrada=entrada_valida("Ingrese un anio, pulse cero para volver", NUMERO_ENTERO);
+            line('-');
+            anio_muestra=std::stoi(entrada);
+            if (entrada=="0")
+            {
+                break;
+            }
+            if (anio_muestra >= 1900 && anio_muestra <= anioActual)
+            {
+                fechaValida = true;
+            }
+            else
+            {
+                std::cout << "[ERROR] Anio invalido." << std::endl;
+
+            }
+
         }
+        while(!fechaValida);
         ///Aca asigno los valores de entrada con fecha_muestra para luego comparar con el archivo .dat de consumos
         fecha_muestra.setDia(dia_muestra);
         fecha_muestra.setMes(mes_muestra);
@@ -382,30 +432,78 @@ void Menuadmin::menuplatos()
             system("pause");
             system("cls");
             int dia, mes, anio;
+            bool fechaValida = false;
+            time_t t = time(0);
+            tm* now = localtime(&t);
+            int anioActual = now->tm_year + 1900;
 
-            std::cout << "Ingrese DIA:";
-            std::string entrada=entrada_valida("", NUMERO_ENTERO);
-            dia=std::stoi(entrada);
-            if (entrada=="0")
+            do
             {
-                break;
-            }
+                std::string entrada=entrada_valida("Ingrese DIA, pulse cero para volver", NUMERO_ENTERO);
+                dia=std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    break;
+                }
 
-            std::cout << "Ingrese MES:";
-            entrada=entrada_valida("", NUMERO_ENTERO);
-            mes=std::stoi(entrada);
-            if (entrada=="0")
-            {
-                break;
-            }
+                if (dia >= 1 && dia <= 31)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Dia invalido. Por favor ingrese un numero entre 1 y 31." << std::endl;
 
-            std::cout << "Ingrese ANIO:";
-            entrada=entrada_valida("", NUMERO_ENTERO);
-            anio=std::stoi(entrada);
-            if (entrada=="0")
-            {
-                break;
+                }
             }
+            while(!fechaValida);
+
+
+            fechaValida = false;
+            do
+            {
+
+                std::string entrada=entrada_valida("Ingrese MES, pulse cero para volver", NUMERO_ENTERO);
+                mes=std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    break;
+                }
+
+                if (mes >= 1 && mes <= 12)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Mes invalido. Por favor ingrese un numero entre 1 y 12." << std::endl;
+
+                }
+            }
+            while(!fechaValida);
+
+            fechaValida = false;
+            do
+            {
+                std::string entrada=entrada_valida("Ingrese un anio, pulse cero para volver", NUMERO_ENTERO);
+                line('-');
+                anio=std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    break;
+                }
+                if (anio >= 1900 && anio <= anioActual)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Anio invalido." << std::endl;
+
+                }
+
+            }
+            while(!fechaValida);
 
 
             Fecha fechabusqueda(dia, mes, anio);
@@ -435,8 +533,8 @@ void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar
     Menues plato_muestra;
     do
     {
-        std::cout << "Ingrese ID de establecimiento" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO); /// Aca es el ingreso del usuario
+
+        std::string entrada=entrada_valida("Ingrese ID de establecimiento, pulse cero para volver", NUMERO_ENTERO); /// Aca es el ingreso del usuario
         if (entrada=="0")
         {
             break;   /// Si el ingreso es CERO vuelve al menu anterior
@@ -463,7 +561,7 @@ void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar
                         {
                             system("cls");
                             std::cout << "---LISTADO DE MENUS---" << std::endl;
-                            line('*', 50);
+                            line('-');
                         }
                         if (fechafiltrar==plato_muestra.getfecha()) //IVAN; la sobrecarga del operador == para objetos tipo fecha ya la habia codeado
                         {
@@ -551,8 +649,7 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
     bool loop=true;
     do
     {
-        std::cout << "Ingrese ID de establecimiento" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO); /// Aca es el ingreso del usuario
+        std::string entrada=entrada_valida("Ingrese ID de establecimiento, pulse cero para volver", NUMERO_ENTERO); /// Aca es el ingreso del usuario
         if (entrada=="0")
         {
             break;   /// Si el ingreso es CERO vuelve al menu anterior
@@ -581,7 +678,7 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
                             system("pause");
                             system("cls");
                             std::cout << "---LISTADO DE PLATOS---" << std::endl;
-                            line('*', 60);
+                            line('-');
                         }
 
                         if (fechafiltrar==plato_muestra.getfecha())
@@ -624,12 +721,12 @@ void Menuadmin::modificarplatos()
     bool loop = false;
     do
     {
-        std::cout << "Ingrese el ID del plato que desee modificar ";
-        std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
+        std::string entrada=entrada_valida("Ingrese el ID del plato que desee modificar, o pulse cero para volver", NUMERO_ENTERO);
         int IDplato=std::stoi(entrada);
         if (entrada=="0")
         {
             return;
+
         }
 
 
@@ -663,12 +760,12 @@ void Menuadmin::modificarplatos()
         system("cls");
         std::cout << "MODIFICANDO PLATO ID: #" << platomodificado.getidmenu() << std::endl;
         line('-');
-        std::cout << "1. Cambiar NOMBRE    (Actual: " << platomodificado.getnombremenu() << ")" << std::endl;
-        std::cout << "2. Cambiar ID TIPO DE MENU  (Actual: " << platomodificado.getidtipo() << " - " << platomodificado.getdesctipo() << ")" << std::endl;
-        std::cout << "3. Cambiar FECHA DEL MENU (Actual: " << platomodificado.getfecha().toString() << ")" << std::endl;
-        std::cout << "4. Cambiar ID ESTABLECIMIENTO (Actual: " << platomodificado.getesta() << ")" << std::endl;
-        std::cout << "5. Cambiar VALOR DEL PLATO (Actual: $" << platomodificado.getvalorplato() << ")" << std::endl;
-        std::cout << "0. Guardar y Salir" << std::endl;
+        std::cout << "1- Cambiar NOMBRE    (Actual: " << platomodificado.getnombremenu() << ")" << std::endl;
+        std::cout << "2- Cambiar ID TIPO DE MENU  (Actual: " << platomodificado.getidtipo() << " - " << platomodificado.getdesctipo() << ")" << std::endl;
+        std::cout << "3- Cambiar FECHA DEL MENU (Actual: " << platomodificado.getfecha().toString() << ")" << std::endl;
+        std::cout << "4- Cambiar ID ESTABLECIMIENTO (Actual: " << platomodificado.getesta() << ")" << std::endl;
+        std::cout << "5- Cambiar VALOR DEL PLATO (Actual: $" << platomodificado.getvalorplato() << ")" << std::endl;
+        std::cout << "0- Guardar y Salir" << std::endl;
         line('-');
         std::cout << "Elija que desea modificar: ";
         std::string entrada=entrada_valida("", NUMERO_ENTERO);
@@ -729,28 +826,84 @@ void Menuadmin::modificarplatos()
         case 3:
         {
             int dia, mes, anio;
-            std::cout << "Ingrese DIA DE PUBLICACION DEL MENU, ";
-            std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
-            dia = std::stoi(entrada);
-            if (entrada=="0")
-            {
-                return;
-            }
-            std::cout << "Ingrese MES DE PUBLICACION DEL MENU, ";
-            entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
-            mes = std::stoi(entrada);
-            if (entrada=="0")
-            {
-                return;
-            }
+            bool fechaValida = false;
+            time_t t = time(0);
+            tm* now = localtime(&t);
+            int anioActual = now->tm_year + 1900;
 
-            std::cout << "Ingrese ANIO DE PUBLICACION DEL MENU, ";
-            entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
-            anio = std::stoi(entrada);
-            if (entrada=="0")
+            do
             {
-                return;
+                std::cout << "Ingrese DIA DE PUBLICACION DEL MENU, ";
+                std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+                dia = std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    return;
+                }
+
+                if (dia >= 1 && dia <= 31)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Dia invalido. Por favor ingrese un numero entre 1 y 31." << std::endl;
+
+                }
+
             }
+            while(!fechaValida);
+
+            fechaValida = false;
+
+            do
+            {
+                std::cout << "Ingrese MES DE PUBLICACION DEL MENU, ";
+                entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+                mes = std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    return;
+                }
+
+                if (mes >= 1 && mes <= 12)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Mes invalido. Por favor ingrese un numero entre 1 y 12." << std::endl;
+
+                }
+
+            }
+            while(!fechaValida);
+
+            fechaValida = false;
+
+            do
+            {
+                std::cout << "Ingrese ANIO DE PUBLICACION DEL MENU, ";
+                entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+                anio = std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    return;
+                }
+
+
+                if (anio >= 1900 && anio <= anioActual)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Anio invalido." << std::endl;
+
+                }
+            }
+            while(!fechaValida);
+
             Fecha nuevafecha(dia, mes, anio);
             platomodificado.setfecha(nuevafecha);
 
@@ -900,8 +1053,8 @@ void Menuadmin::cargarvaloracion()
                 line('=');
             }
         }
-        std::cout << "Seleccione el ID del plato que desea agregar una valoracion" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        std::cout << "Seleccione el ID del plato que desea agregar una valoracion, ";
+        std::string entrada=entrada_valida("pulse cero para volver", NUMERO_ENTERO);
         line('-');
         int numero=std::stoi(entrada);
         if (entrada=="0")
@@ -918,8 +1071,8 @@ void Menuadmin::cargarvaloracion()
                     plato_muestra=arch.Leer(x);
                     if (numero==plato_muestra.getidmenu())
                     {
-                        std::cout << "Agregar una valoracion (del 1 al 10): ";
-                        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+                        std::cout << "Agregar una valoracion (del 1 al 10), ";
+                        std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
                         int valoracion=std::stoi(entrada);
                         if (entrada=="0")
                         {
@@ -976,8 +1129,8 @@ void Menuadmin::mostrarmenucargar() /// EVELYN-> SE AGREGO SUBMENUS EN PLATOS PA
         std::cout << "2- CARGAR MENU DE TODA LA SEMANA" << std::endl;
         std::cout << "0- Volver al menu de platos" << std::endl;
         line('-');
-        std::cin >> opcion;
-
+        std::string entrada = entrada_valida("", NUMERO_ENTERO);
+        opcion= std::stoi(entrada);
         switch(opcion)
         {
         case 1:
@@ -1022,8 +1175,8 @@ void Menuadmin::cargarplato() ///IVAN; ahora busca establecmiento OK y lo muestr
     Fecha fecha_hoy;
     do
     {
-        std::cout << "Ingrese el nombre del menu nuevo" << std::endl;
-        std::string nombremenu=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+        std::cout << "Ingrese el nombre del menu nuevo";
+        std::string nombremenu=entrada_valida(", o pulse cero para volver", TEXTO_NO_VACIO);
         line('-');
         if (nombremenu=="0")
         {
@@ -1033,8 +1186,8 @@ void Menuadmin::cargarplato() ///IVAN; ahora busca establecmiento OK y lo muestr
         plato_muestra.setnombremenu(nombre_aux);
         do
         {
-            std::cout << "Ingrese el ID del establecimiento" << std::endl;
-            std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+            std::cout << "Ingrese el ID del establecimiento";
+            std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
             line('-');
             idesta=std::stoi(entrada);
             if (entrada=="0")
@@ -1061,25 +1214,36 @@ void Menuadmin::cargarplato() ///IVAN; ahora busca establecmiento OK y lo muestr
             }
         }
         while(loop==false);
-        std::cout << "Ingrese el valor del plato" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_FLOTANTE);
+        
+        bool precioValido = false;
+        std::string entrada;
+        do{
+        std::cout << "Ingrese el valor del plato";
+        entrada=entrada_valida(", o pulse cero para volver", NUMERO_FLOTANTE);
         line('-');
-        importe=std::stof(entrada);
+        
         if (entrada=="0")
         {
             break;
         }
+        importe=std::stof(entrada);
+        
         if (importe < 0)
         {
             std::cout << "[ERROR] No se puede establecer un precio negativo!" << std::endl;
-            loop=false;
-            break;
+            
         }
         else
         {
             plato_muestra.setvalorplato(importe);
+            precioValido = true;
         }
-        loop=true;
+    
+        }while(!precioValido);
+        
+        if (entrada == "0") {
+            break; 
+        }
         do
         {
             std::cout << "Ingrese el tipo de plato" << std::endl;
@@ -1187,11 +1351,11 @@ void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION C
         std::cout << "CARGANDO MENU PARA EL DIA " << fechadelmenu.toString() << std::endl;
 
         int opcion;
-
+        std::string entrada;
         do
         {
-            std::cout << "Ingrese el nombre del menu nuevo" << std::endl;
-            std::string nombremenu=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+            std::cout << "Ingrese el nombre del menu nuevo";
+            std::string nombremenu=entrada_valida(", o pulse cero para volver", TEXTO_NO_VACIO);
             line('-');
             if (nombremenu=="0")
             {
@@ -1200,25 +1364,35 @@ void Menuadmin::cargarmenutodalasemana()  /// EVELYN -> SE AGREGO ESTA FUNCION C
             nombre_aux=nombremenu.c_str();
             plato_muestra.setnombremenu(nombre_aux);
 
-            std::cout << "Ingrese el valor del plato" << std::endl;
-            std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_FLOTANTE);
+            bool precioValido = false;
+            do{
+            std::cout << "Ingrese el valor del plato, ";
+            entrada=entrada_valida("o pulse cero para volver", NUMERO_FLOTANTE);
             line('-');
-            importe=std::stof(entrada);
+            
             if (entrada=="0")
             {
                 break;
             }
+            importe=std::stof(entrada);
+            
             if (importe < 0)
             {
-                std::cout << "[ERROR] No se puede establecer un precio negativo!" << std::endl;
-                loop=false;
-                break;
+                std::cout << "[ERROR] No se puede establecer un precio negativo." << std::endl;
+    
             }
             else
             {
                 plato_muestra.setvalorplato(importe);
+                loop=true;
+                precioValido=true;
             }
-            loop=true;
+            }while (!precioValido);
+            if (entrada=="0")
+            {
+                break;
+            }
+            
             do
             {
                 std::cout << "Ingrese el tipo de plato" << std::endl;
@@ -1333,31 +1507,77 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
             system("pause");
             system("cls");
             int dia, mes, anio;
+            bool fechaValida = false;
+            time_t t = time(0);
+            tm* now = localtime(&t);
+            int anioActual = now->tm_year + 1900;
 
-            std::cout << "Ingrese DIA:";
-            std::string entrada=entrada_valida("", NUMERO_ENTERO);
-            dia=std::stoi(entrada);
-            if (entrada=="0")
+            do
             {
-                break;
-            }
+                std::cout << "Ingrese DIA";
+                std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
+                dia=std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    break;
+                }
+                if (dia >= 1 && dia <= 31)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Dia invalido. Por favor ingrese un numero entre 1 y 31." << std::endl;
 
-            std::cout << "Ingrese MES:";
-            entrada=entrada_valida("", NUMERO_ENTERO);
-            mes=std::stoi(entrada);
-            if (entrada=="0")
+                }
+            }
+            while(!fechaValida);
+
+            fechaValida = false;
+
+            do
             {
-                break;
-            }
+                std::cout << "Ingrese MES";
+                entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
+                mes=std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    break;
+                }
+                if (mes >= 1 && mes <= 12)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Mes invalido. Por favor ingrese un numero entre 1 y 12." << std::endl;
 
-            std::cout << "Ingrese ANIO";
-            entrada=entrada_valida("", NUMERO_ENTERO);
-            anio=std::stoi(entrada);
-            if (entrada=="0")
+                }
+            }
+            while(!fechaValida);
+
+
+            fechaValida = false;
+            do
             {
-                break;
-            }
+                std::cout << "Ingrese ANIO";
+                entrada=entrada_valida("", NUMERO_ENTERO);
+                anio=std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    break;
+                }
+                if (anio >= 1900 && anio <= anioActual)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Anio invalido" << std::endl;
 
+                }
+            }
+            while(!fechaValida);
 
             Fecha fechabusqueda(dia, mes, anio);
             eliminarplato(fechabusqueda);
@@ -1383,8 +1603,8 @@ void Menuadmin::eliminarusuario()
     const char* nombre_aux;
     do
     {
-        std::cout << "Ingrese el nombre de usuario que desea eliminar" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+        std::cout << "Ingrese el nombre de usuario que desea eliminar";
+        std::string entrada=entrada_valida(", o pulse cero para volver", TEXTO_NO_VACIO);
         line('-');
         if (entrada=="0")
         {
@@ -1426,8 +1646,8 @@ void Menuadmin::eliminarcomensal()
     int id_buscado;
     do
     {
-        std::cout << "Ingrese el ID del comensal que desea eliminar" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        std::cout << "Ingrese el ID del comensal que desea eliminar";
+        std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
         line('-');
         if (entrada=="0")
         {
@@ -1469,8 +1689,8 @@ void Menuadmin::eliminar_esta()
     int id_buscado;
     do
     {
-        std::cout << "Ingrese el ID del establecimiento que desea eliminar" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        std::cout << "Ingrese el ID del establecimiento que desea eliminar";
+        std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
         line('-');
         if (entrada=="0")
         {
@@ -1512,8 +1732,8 @@ void Menuadmin::listarfacturas()
     int seleccion_id, j=0;
     do
     {
-        std::cout << "Seleccione su/el ID de usuario" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        std::cout << "Seleccione su/el ID de usuario";
+        std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
         line('-');
         if (entrada=="0")
         {
@@ -1562,8 +1782,8 @@ void Menuadmin::cargarfactura()
     bool loop=false;
     do
     {
-        std::cout << "Seleccione su/el ID de usuario para generar factura" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        std::cout << "Seleccione su/el ID de usuario para generar factura";
+        std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
         line('-');
         if (entrada=="0")
         {
@@ -1589,8 +1809,8 @@ void Menuadmin::cargarfactura()
                 break;
             }
         }
-        std::cout << "Ingrese el importe a facturar: "; ///verificar valores negativos
-        entrada=entrada_valida("Pulse cero para volver", NUMERO_FLOTANTE);
+        std::cout << "Ingrese el importe a facturar"; ///verificar valores negativos
+        entrada=entrada_valida(", o pulse cero para volver", NUMERO_FLOTANTE);
         line('-');
         if (entrada=="0")
         {
@@ -1659,8 +1879,8 @@ void Menuadmin::verCC()
     int id_buscado;
     do
     {
-        std::cout << "Ingrese el ID de usuario para ver cuenta corriente" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        std::cout << "Ingrese el ID de usuario para ver cuenta corriente";
+        std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
         line('-');
         if (entrada=="0")
         {
@@ -1704,22 +1924,22 @@ void Menuadmin::cargarestablecimiento() /// se agrego getline y cin.ignore para 
         line('-');
         std::cout << "Nuevo establecimiento bajo el ID #:" << idestablecimiento << std::endl;
         std::cout << std::endl;
-        std::cout << "ingrese el nombre:" << std::endl;
-        std::string nombreestablecimiento=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+        std::cout << "ingrese el nombre,";
+        std::string nombreestablecimiento=entrada_valida(" o pulse cero para volver", TEXTO_NO_VACIO);
         line('-');
         if (nombreestablecimiento=="0")
         {
             break;
         }
-        std::cout << "ingrese la direccion:" << std::endl;
-        std::string direccionesta=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+        std::cout << "ingrese la direccion, ";
+        std::string direccionesta=entrada_valida("o pulse cero para volver", TEXTO_NO_VACIO);
         line('-');
         if (direccionesta=="0")
         {
             break;
         }
-        std::cout << "Ingrese el tipo de establecimiento:" << std::endl;
-        std::string tipoesta=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+        std::cout << "Ingrese el tipo de establecimiento, ";
+        std::string tipoesta=entrada_valida("o pulse cero para volver", TEXTO_NO_VACIO);
         line('-');
         if (tipoesta=="0")
         {
@@ -1773,7 +1993,7 @@ void Menuadmin::modificarestablecimientos()
     Archivos <Establecimientos> arch_establecimientos ("Establecimientos.dat");
     std::cout << "---MODIFICAR ESTABLECIMIENTOS---" << std::endl;
     line('-');
-    std::cout << "Ingrese el ID del establecimiento que desee modificar ";
+    std::cout << "Ingrese el ID del establecimiento que desee modificar, ";
     std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
     int IDesta=std::stoi(entrada);
     if (entrada=="0")
@@ -1809,10 +2029,10 @@ void Menuadmin::modificarestablecimientos()
         system("cls");
         std::cout << "MODIFICANDO ESTABLECIMIENTO ID: #" << estamodificado.getidestablecimiento() << std::endl;
         line('-');
-        std::cout << "1. Cambiar NOMBRE    (Actual: " << estamodificado.getnombreestablecimiento() << ")" << std::endl;
-        std::cout << "2. Cambiar TIPO ESTABLECIMIENTO  (Actual: " << estamodificado.gettipoesta() << ")" << std::endl;
-        std::cout << "3. Cambiar DIRECCION (Actual: " << estamodificado.getdireccionesta() << ")" << std::endl;
-        std::cout << "0. Guardar y Salir" << std::endl;
+        std::cout << "1- Cambiar NOMBRE    (Actual: " << estamodificado.getnombreestablecimiento() << ")" << std::endl;
+        std::cout << "2- Cambiar TIPO ESTABLECIMIENTO  (Actual: " << estamodificado.gettipoesta() << ")" << std::endl;
+        std::cout << "3- Cambiar DIRECCION (Actual: " << estamodificado.getdireccionesta() << ")" << std::endl;
+        std::cout << "0- Guardar y Salir" << std::endl;
         line('-');
         std::cout << "Elija que desea modificar: ";
         std::string entrada=entrada_valida("", NUMERO_ENTERO);
@@ -1887,7 +2107,7 @@ void Menuadmin::modificarestablecimientos()
         }
         else
         {
-            std::cout << "[ERROR] No se pudo guardar la modificaciÃ³n." << std::endl;
+            std::cout << "[ERROR] No se pudo guardar la modificacion." << std::endl;
         }
     }
     else
@@ -1906,6 +2126,9 @@ void Menuadmin::cargarcomensales()
     int  idestablecimiento;
     Establecimientos guardar_id;
     int dia, mes, anio;
+    time_t t = time(0);
+    tm* now = localtime(&t);
+    int anioActual = now->tm_year + 1900;
     bool loop=false;
     do
     {
@@ -1925,65 +2148,97 @@ void Menuadmin::cargarcomensales()
         {
             break;
         }
-        std::cout << "ingrese apellido/s:" << std::endl;
-        std::string apellido=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+        std::cout << "Ingrese apellido/s, " << std::endl;
+        std::string apellido=entrada_valida("o pulse cero para volver", TEXTO_NO_VACIO);
         line('-');
         if (apellido=="0")
         {
             break;
         }
-        std::cout << "ingrese direccion" << std::endl;
-        std::string direccion=entrada_valida("Pulse cero para volver", TEXTO_NO_VACIO);
+        std::cout << "Ingrese direccion," << std::endl;
+        std::string direccion=entrada_valida(" o pulse cero para volver", TEXTO_NO_VACIO);
         line('-');
         if (direccion=="0")
         {
             break;
         }
-        std::cout << "ingrese dia de nacimiento: ";
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
-        line('-');
-        if (entrada=="0")
+
+        bool fechaValida = false;
+        do
         {
-            break;
+            std::cout << "Ingrese dia de nacimiento, ";
+            std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
+            line('-');
+            if (entrada=="0")
+            {
+                break;
+            }
+            dia=std::stoi(entrada);
+            if (dia >= 1 && dia <= 31)
+            {
+                fechaValida = true;
+            }
+            else
+            {
+                std::cout << "[ERROR] Dia invalido. Por favor ingrese un numero entre 1 y 31." << std::endl;
+
+            }
         }
-        dia=std::stoi(entrada);
-        if (dia<=0)
+        while(!fechaValida);
+
+        fechaValida = false;
+
+        do
         {
-            std::cout << "[ERROR] Numero invalido!" << std::endl;
-            loop=false;
-            break;
+            std::cout << "ingrese mes de nacimiento, ";
+            std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
+            line('-');
+            if (entrada=="0")
+            {
+                break;
+            }
+            mes=std::stoi(entrada);
+
+
+            if (mes >= 1 && mes <= 12)
+            {
+                fechaValida = true;
+            }
+            else
+            {
+                std::cout << "[ERROR] Dia invalido. Por favor ingrese un numero entre 1 y 12." << std::endl;
+
+            }
         }
-        std::cout << "ingrese mes de nacimiento: ";
-        entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
-        line('-');
-        if (entrada=="0")
+        while(!fechaValida);
+
+        fechaValida = false;
+
+        do
         {
-            break;
+            std::cout << "Ingrese anio de nacimiento, ";
+            std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
+            line('-');
+            if (entrada=="0")
+            {
+                break;
+            }
+            anio=std::stoi(entrada);
+            if (anio >= 1900 && anio <= anioActual)
+            {
+                fechaValida = true;
+            }
+            else
+            {
+                std::cout << "[ERROR] Anio invalido." << std::endl;
+
+            }
         }
-        mes=std::stoi(entrada);
-        if (mes<=0)
-        {
-            std::cout << "[ERROR] Numero invalido!" << std::endl;
-            loop=false;
-            break;
-        }
-        std::cout << "ingrese anio de nacimiento: ";
-        entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
-        line('-');
-        if (entrada=="0")
-        {
-            break;
-        }
-        anio=std::stoi(entrada);
-        if (anio<=0)
-        {
-            std::cout << "[ERROR] Numero invalido!" << std::endl;
-            loop=false;
-            break;
-        }
+        while(!fechaValida);
+
         std::cout << std::endl;
-        std::cout << "Ingrese el ID del establecimiento:" << std::endl;
-        entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        std::cout << "Ingrese el ID del establecimiento," << std::endl;
+        std::string entrada=entrada_valida(" o pulse cero para volver", NUMERO_ENTERO);
         line('-');
         if (entrada=="0")
         {
@@ -2065,7 +2320,7 @@ void Menuadmin::modificarcomensales()
     Archivos <Comensal> arch_comensales ("Comensales.dat");
     std::cout << "---MODIFICAR COMENSALES---" << std::endl;
     line('-');
-    std::cout << "Ingrese el ID del comensal que desee modificar ";
+    std::cout << "Ingrese el ID del comensal que desee modificar, ";
     std::string entrada=entrada_valida("o pulse cero para volver", NUMERO_ENTERO);
     int IDcomensal=std::stoi(entrada);
     if (entrada=="0")
@@ -2101,12 +2356,12 @@ void Menuadmin::modificarcomensales()
         system("cls");
         std::cout << "MODIFICANDO COMENSAL ID: #" << comensalmodificado.getIDcomensal() << std::endl;
         line('-');
-        std::cout << "1. Cambiar NOMBRE    (Actual: " << comensalmodificado.getNombre() << ")" << std::endl;
-        std::cout << "2. Cambiar APELLIDO  (Actual: " << comensalmodificado.getApellido() << ")" << std::endl;
-        std::cout << "3. Cambiar DIRECCION (Actual: " << comensalmodificado.getDireccion() << ")" << std::endl;
-        std::cout << "4. Cambiar FECHA DE NACIMIENTO (Actual: " << comensalmodificado.getFechaNacimiento().toString() << ")" << std::endl;
-        std::cout << "5. Cambiar ID ESTABLECIMIENTO (Actual: " << comensalmodificado.getIDestablecimiento() << ")" << std::endl;
-        std::cout << "0. Guardar y Salir" << std::endl;
+        std::cout << "1- Cambiar NOMBRE    (Actual: " << comensalmodificado.getNombre() << ")" << std::endl;
+        std::cout << "2- Cambiar APELLIDO  (Actual: " << comensalmodificado.getApellido() << ")" << std::endl;
+        std::cout << "3- Cambiar DIRECCION (Actual: " << comensalmodificado.getDireccion() << ")" << std::endl;
+        std::cout << "4- Cambiar FECHA DE NACIMIENTO (Actual: " << comensalmodificado.getFechaNacimiento().toString() << ")" << std::endl;
+        std::cout << "5- Cambiar ID ESTABLECIMIENTO (Actual: " << comensalmodificado.getIDestablecimiento() << ")" << std::endl;
+        std::cout << "0- Guardar y Salir" << std::endl;
         line('-');
         std::cout << "Elija que desea modificar: ";
         std::string entrada=entrada_valida("", NUMERO_ENTERO);
@@ -2162,28 +2417,76 @@ void Menuadmin::modificarcomensales()
         case 4:
         {
             int dia, mes, anio;
-            std::cout << "Ingrese DIA DE NACIMIENTO, ";
-            std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
-            dia = std::stoi(entrada);
-            if (entrada=="0")
-            {
-                return;
-            }
-            std::cout << "Ingrese MES DE NACIMIENTO, ";
-            entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
-            mes = std::stoi(entrada);
-            if (entrada=="0")
-            {
-                return;
-            }
+            bool fechaValida = false;
 
-            std::cout << "Ingrese ANIO DE NACIMIENTO, ";
-            entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
-            anio = std::stoi(entrada);
-            if (entrada=="0")
+            time_t t = time(0);
+            tm* now = localtime(&t);
+            int anioActual = now->tm_year + 1900;
+
+            do
             {
-                return;
+                std::cout << "Ingrese DIA DE NACIMIENTO, ";
+                std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+                dia = std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    return;
+                }
+                if (dia >= 1 && dia <= 31)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Dia invalido. Por favor ingrese un numero entre 1 y 31." << std::endl;
+
+                }
             }
+            while(!fechaValida);
+            fechaValida = false;
+
+            do
+            {
+                std::cout << "Ingrese MES DE NACIMIENTO, ";
+                entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+                mes = std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    return;
+                }
+                if (mes >= 1 && mes  <= 12)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Mes invalido. Por favor ingrese un numero entre 1 y 12." << std::endl;
+
+                }
+            }
+            while(!fechaValida);
+            fechaValida = false;
+            do
+            {
+                std::cout << "Ingrese ANIO DE NACIMIENTO, ";
+                entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+                anio = std::stoi(entrada);
+                if (entrada=="0")
+                {
+                    return;
+                }
+                if (anio >= 1900 && anio <= anioActual)
+                {
+                    fechaValida = true;
+                }
+                else
+                {
+                    std::cout << "[ERROR] Anio invalido." << std::endl;
+
+                }
+            }
+            while(!fechaValida);
+
             Fecha nuevafecha(dia, mes, anio);
             comensalmodificado.setFechaNacimiento(nuevafecha);
 
@@ -2305,8 +2608,8 @@ void Menuadmin::cargarpago()
     bool loop=false;
     do
     {
-        std::cout << "Seleccione el ID del comensal" << std::endl;
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_ENTERO);
+        std::cout << "Seleccione el ID del comensal";
+        std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
         line('-');
         if (entrada=="0")
         {
@@ -2319,7 +2622,7 @@ void Menuadmin::cargarpago()
             comensal_buscado=arch2.Leer(i);
             if (id_buscado==comensal_buscado.getIDcomensal())
             {
-                std::cout << "Comensal encontrado bajo el ID NÂ° " << comensal_buscado.getIDcomensal() << std::endl;
+                std::cout << "Comensal encontrado bajo el ID N#° " << comensal_buscado.getIDcomensal() << std::endl;
                 loop=true;
                 break;
             }
@@ -2408,6 +2711,10 @@ void Menuadmin::cargarpago()
     case '2':
         std::cout << "[AVISO] Recuerde que debe generarla la factura mas tarde" << std::endl;
         break;
+    case 0:
+        break;
+    default:
+        std::cout << "[ERROR] Opcion invalida" << std::endl;
     }
 }
 
@@ -2481,9 +2788,9 @@ void Menuadmin::modificarusuarios()
         system("cls");
         std::cout << "EDITAR USUARIO: #" << usuariomodificado.getNombreUsuario() << std::endl;
         line('-');
-        std::cout << "1. Cambiar CONTRASEÑA" << std::endl;
-        std::cout << "2. Cambiar ROL  (Actual: " << usuariomodificado.getRol() << ")" << std::endl;
-        std::cout << "0. Guardar y Salir" << std::endl;
+        std::cout << "1- Cambiar CONTRASEÑA" << std::endl;
+        std::cout << "2- Cambiar ROL  (Actual: " << usuariomodificado.getRol() << ")" << std::endl;
+        std::cout << "0- Guardar y Salir" << std::endl;
         line('-');
         std::cout << "Elija que desea modificar: ";
         std::string entrada=entrada_valida("", NUMERO_ENTERO);
@@ -2707,7 +3014,7 @@ void Menuadmin::exportarDatosCSV()
 
             }
             salida.close();
-            std::cout << "[EXITO] Se exportaron " << cant << " menues a '" << nombreArchivo << "'" << std::endl;
+            std::cout << "Se exportaron " << cant << " menues a '" << nombreArchivo << "'" << std::endl;
             system("pause");
             break;
         }
@@ -2737,7 +3044,7 @@ void Menuadmin::exportarDatosCSV()
                        << aux.getdireccionesta() << "\n";
             }
             salida.close();
-            std::cout << "[EXITO] Se exportaron " << cant << " establecimientos." << std::endl;
+            std::cout << "Se exportaron " << cant << " establecimientos." << std::endl;
             system("pause");
             break;
         }
@@ -2766,7 +3073,7 @@ void Menuadmin::exportarDatosCSV()
                        << nombreRol << "\n";
             }
             salida.close();
-            std::cout << "[EXITO] Usuarios exportados." << std::endl;
+            std::cout << "Usuarios exportados." << std::endl;
             system("pause");
             break;
         }
@@ -2799,7 +3106,7 @@ void Menuadmin::exportarDatosCSV()
 
             }
             salida.close();
-            std::cout << "[EXITO] Se exportaron " << cant << " establecimientos." << std::endl;
+            std::cout << "Se exportaron " << cant << " establecimientos." << std::endl;
             system("pause");
             break;
 
@@ -2834,7 +3141,7 @@ void Menuadmin::exportarDatosCSV()
 
             }
             salida.close();
-            std::cout << "[EXITO] Se exportaron " << cant << " facturas." << std::endl;
+            std::cout << "Se exportaron " << cant << " facturas." << std::endl;
             system("pause");
             break;
 
@@ -2864,7 +3171,7 @@ void Menuadmin::exportarDatosCSV()
                        << aux.getfecha().toString() << "\n";
             }
             salida.close();
-            std::cout << "[EXITO] Se exportaron " << cant << " consumos." << std::endl;
+            std::cout << "Se exportaron " << cant << " consumos." << std::endl;
             system("pause");
             break;
 
@@ -2896,7 +3203,7 @@ void Menuadmin::exportarDatosCSV()
 
             }
             salida.close();
-            std::cout << "[EXITO] Se exportaron " << cant << " Cuentas Corrientes." << std::endl;
+            std::cout << "Se exportaron " << cant << " Cuentas Corrientes." << std::endl;
             system("pause");
             break;
 

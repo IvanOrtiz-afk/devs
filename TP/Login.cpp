@@ -5,6 +5,7 @@
 #include "usuario.h"
 #include "Archivos.h"
 #include "MenuSistema.h"
+#include "Utilidades.h"
 
 
 
@@ -20,27 +21,45 @@ void login::crearNuevoUsuario() ///EVELYN -> BUG ENCONTRADO, deja crear usuarios
     char nombreUsuario[20], password[20];
     int rol;
 
-    std::cout << "---NUEVO USUARIO---"  << std::endl;
-    std::cout << "------------------------" << std::endl;
-    std::cout << "Ingrese nombre de usuario:" << std::endl;
-    std::cin >> nombreUsuario;
+    std::cout << "--- NUEVO USUARIO ---"  << std::endl;
+    std::cout <<"---------------------------" << std::endl;
+    std::cout << "Ingrese nombre de usuario, ";
+    std::string entrada = entrada_valida("o pulse cero para volver", TEXTO_NO_VACIO);
+    if (entrada == "0") return;
+    strncpy(nombreUsuario, entrada.c_str(), 19);
+    nombreUsuario[19] = '\0';
     std::cout << "Ingrese contraseña: " << std::endl;
     std::cin >> password;
-    std::cout << "El usuario es 1-Administrador, 2-Encargado o 3-Comensal?" << std::endl;
-    std::cin >> rol;
+    bool rolValido = false;
+    do
+    {
+        std::cout << "El usuario es 1-Administrador, 2-Encargado o 3-Comensal?";
+        entrada = entrada_valida(" pulse cero para volver", NUMERO_ENTERO);
+        if (entrada == "0") return;
+        rol= std::stoi(entrada);
+        if (rol >= 1 && rol <= 3)
+        {
+            rolValido = true;
+        }
+        else
+        {
+            std::cout << "[ERROR] Opcion incorrecta. Debe ser 1, 2 o 3." << std::endl;
+        }
+    }
+    while (!rolValido);
 
     usuario nuevoUsuario(nombreUsuario, password, rol);
     if (archUsuario.Guardar(nuevoUsuario) == true)
     {
         std::cout << "Usuario guardado exitosamente" << std::endl;
-         system("pause");
-          system("cls");
+        system("pause");
+        system("cls");
     }
     else
     {
         std::cout << "Algo salio mal, vuelva a intentar" << std::endl;
-         system("pause");
-          system("cls");
+        system("pause");
+        system("cls");
     }
 
 
@@ -74,7 +93,7 @@ void login::iniciarSesion()
                 encontrado = true;
                 int rol = usuario_buscado.getRol();
                 if (rol == 1)
-                {   
+                {
                     system("cls");
                     std::cout << "Sesion iniciada como Administrador" << std::endl;
                     system("pause");

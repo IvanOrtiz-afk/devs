@@ -37,11 +37,11 @@ void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     ///const int tipoveg = 2; ///Vegetariano
     ///const int tipocel = 3; ///Cel¡aco
     MenuPadreABML::line('*');
-    std::cout << "  BIENVENIDO AL COMEDOR" << std::endl;
+    std::cout << "  BIENVENIDO/A AL COMEDOR" << std::endl;
     MenuPadreABML::line('*');
     do
     {
-        std::string entrada = entrada_valida("Por favor, ingrese su ID de cliente o 0 para volver:", NUMERO_ENTERO);
+        std::string entrada = entrada_valida("Por favor, ingrese su ID de cliente, o pulse cero para volver:", NUMERO_ENTERO);
         id = std::stoi(entrada);
         if (entrada=="0")
         {
@@ -54,7 +54,7 @@ void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
 
     int idEstablecimiento = _clientebuscado.getIDestablecimiento();
 
-    std::cout << "Bienvenido " << _clientebuscado.getNombre() << std::endl;
+    std::cout << "Bienvenido/a " << _clientebuscado.getNombre() << std::endl;
     system("pause");
     system("cls");
 
@@ -221,7 +221,7 @@ bool Menucomensal::tipodeconsumo()
         line('-');
         std::cout << "Desea abonar ahora o generar deuda en cuenta corriente?" << std::endl;
         line('-');
-        std::cout << "Pulse 1 para abonar ahora o 2 para cargar deuda en cuenta corriente" << std::endl;
+        std::cout << "Pulse 1 para abonar ahora, 2 para cargar deuda en cuenta corriente, 0 para volver" << std::endl;
         std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
         opcion = std::stoi(entrada);
         switch(opcion)
@@ -239,6 +239,8 @@ bool Menucomensal::tipodeconsumo()
             system("cls");
             loop=true;
             result=false;
+            break;
+        case 0:
             break;
         default:
             std::cout << "Opci¢n incorrecta, intente nuevamente" << std::endl;
