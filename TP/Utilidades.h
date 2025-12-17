@@ -87,7 +87,7 @@ inline std::string entrada_valida(const std::string& mensaje, TipoEntrada tipo) 
             }
             catch (const std::invalid_argument& e)
             {
-                std::cout << "[ERROR] Entrada invalida. Por favor, ingrese un NÚMERO valido" << std::endl;
+                std::cout << "[ERROR] Entrada invalida. Por favor, ingrese un NUMERO valido" << std::endl;
             }
             catch (const std::out_of_range& e)
             {

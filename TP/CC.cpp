@@ -13,6 +13,8 @@ CuentaCorriente::CuentaCorriente(int numeracion, Comensal comensal, float saldoa
 {
     _numeracion=numeracion;
     _idcomensal=comensal.getIDcomensal();
+    strncpy(_nombre, comensal.getNombre(), sizeof(_nombre) - 1);
+    _nombre[sizeof(_nombre) - 1] = '\0';
     _saldoActual=saldoactual;
     _estadodeuda=estadodeuda;
 }
@@ -70,5 +72,5 @@ std::string CuentaCorriente::toString()
     {
         strComprobante="PAGO";
     }
-    return std::to_string(_numeracion) + "/" + std::to_string(_idcomensal) + "/" + std::string (_nombre) + "/$ " + std::to_string(_saldoActual) + "/" + std::string(strComprobante);
+    return std::to_string(_numeracion) + "/" + std::to_string(_idcomensal) + "/" + std::string(_nombre) + "/$ " + std::to_string(_saldoActual) + "/" + std::string(strComprobante);
 }

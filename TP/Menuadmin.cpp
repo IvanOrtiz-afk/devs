@@ -52,8 +52,7 @@ CAMBIAR TEMA
 -VER FACTURA POR FECHA
 -VER CONSUMO POR FECHA
 -VER FACTURA POR ESTABLECIMIENTO
-
- */
+*/
 
 
 void Menuadmin::platosmejor_valor() ///Muestra siempre el top 3 de los platos mejor valorados de la semana
@@ -165,7 +164,7 @@ void Menuadmin::platosmas_vendidos()
     for (int i=0; i<registros_consu; i++)
     {
         consumo_muestra=arch_consu.Leer(i); ///Verifica si el dia del mes esta en la semana actual, si el dia ESTA en la semana entra este if
-        if (std::find(dias_semana_mes.begin(), dias_semana_mes.end(), consumo_muestra.getfecha().getDia())!=dias_semana_mes.end())
+        if (std::find(dias_semana_mes.begin(), dias_semana_mes.end(), consumo_muestra.getfecha().getDia()) != dias_semana_mes.end())
         {
             plato_encontrado=false;
             hubo_consumos=true;
@@ -412,16 +411,13 @@ void Menuadmin::menuplatos()
             Fecha fechabusqueda(dia, mes, anio);
             listarplatos(fechabusqueda);
 
-            system("pause");
-            system("cls");
         }
         break;
         case 0:
             break;
         default:
-         std::cout << "Opcion invalida. Intente nuevamente." << std::endl;
+            std::cout << "Opcion invalida. Intente nuevamente." << std::endl;
         }
-        system("pause");
     }
     while(opcion != 0);
 }
@@ -483,7 +479,7 @@ void Menuadmin::eliminarplato(Fecha fechafiltrar) ///IVAN; parecido al de listar
                         }
                         else if (fechafiltrar.getDia() != plato_muestra.getfecha().getDia() && fechafiltrar.getMes() != plato_muestra.getfecha().getMes() && fechafiltrar.getAnio() != plato_muestra.getfecha().getAnio()&&registros2==j+1)
                         {
-                            std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " el dia de hoy" << std::endl;
+                            std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " en el dia de la fecha" << std::endl;
                             break;
                         }
                     }
@@ -601,7 +597,7 @@ void Menuadmin::listarplatos(Fecha fechafiltrar) ///IVAN; LLENO DE BUGS HAY QUE 
                 }
                 if (hayPlatos==false)
                 {
-                    std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " el dia de hoy" << std::endl;
+                    std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " en el dia de la fecha" << std::endl;
                     loop=true;
                     break;
                 }
@@ -999,10 +995,11 @@ void Menuadmin::mostrarmenucargar() /// EVELYN-> SE AGREGO SUBMENUS EN PLATOS PA
             system("cls");
             break;
         case 0:
-
             std::cout << "Volviendo al menu principal" << std::endl;
+            break;
         default:
-           std::cout << "Opcion invalida. Intente nuevamente" << std::endl;
+            std::cout << "Opcion invalida. Intente nuevamente" << std::endl;
+            break;
         }
     }
     while(opcion !=0);
@@ -1372,7 +1369,7 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
         case 0:
             break;
         default:
-        std::cout << "Opcion invalida. Intente nuevamente" << std::endl;      
+            std::cout << "Opcion invalida. Intente nuevamente" << std::endl;
         }
     }
     while(opcion != 0);
@@ -1511,7 +1508,7 @@ void Menuadmin::listarfacturas()
 {
     Archivos <Factura> arch ("Facturas.dat");
     Factura fc_muestra;
-    bool loop=true;
+    bool loop=true, comensal_encontrado=false;
     int seleccion_id, j=0;
     do
     {
@@ -1537,14 +1534,14 @@ void Menuadmin::listarfacturas()
                 std::cout << "Consumo en la fecha de " << fc_muestra.getFecha().toString() << std::endl;
                 std::cout << "Por un total de $" << fc_muestra.getImporte() << std::endl;
                 line('+');
+                comensal_encontrado=true;
 
             }
-            else
-            {
-                std::cout << "[ERROR] ID no encontrado o no valido, intente nuevamente" << std::endl;
-                loop=false;
-                break;
-            }
+        }
+        if (!comensal_encontrado)
+        {
+            std::cout << "[ERROR] ID no encontrado o no valido, intente nuevamente" << std::endl;
+            loop=false;
         }
     }
     while(loop==false);
@@ -1704,7 +1701,7 @@ void Menuadmin::cargarestablecimiento() /// se agrego getline y cin.ignore para 
             idestablecimiento=1;
         }
         std::cout << "--- NUEVO ESTABLECIMIENTO ---" << std::endl;
-       line('-');
+        line('-');
         std::cout << "Nuevo establecimiento bajo el ID #:" << idestablecimiento << std::endl;
         std::cout << std::endl;
         std::cout << "ingrese el nombre:" << std::endl;
@@ -1918,7 +1915,7 @@ void Menuadmin::cargarcomensales()
             idcomensal=1;
         }
         std::cout << "--- NUEVO COMENSAL --- " << std::endl;
-       line('-');
+        line('-');
         std::cout << "Nuevo comensal bajo el ID #:" << idcomensal << std::endl;
         std::cout << std::endl;
         std::cout << "ingrese nombre/s:" << std::endl;
@@ -1950,7 +1947,7 @@ void Menuadmin::cargarcomensales()
             break;
         }
         dia=std::stoi(entrada);
-        if (mes<=0)
+        if (dia<=0)
         {
             std::cout << "[ERROR] Numero invalido!" << std::endl;
             loop=false;
@@ -2044,7 +2041,7 @@ void Menuadmin::listarcomensales()
     std::string nombreesta;
     int cantidad = arch_comensales.CantidadRegistros();
     std::cout << "---LISTADO DE COMENSALES---"  << std::endl;
-   line('-');
+    line('-');
     for (int i= 0; i < cantidad; i++)
     {
         Comensal comensal_muestra = arch_comensales.Leer(i);
@@ -2274,12 +2271,12 @@ void Menuadmin::listarconsumos()
     Archivos <Consumos> arch_consumos ("Consumos.dat");
     int cantidad = arch_consumos.CantidadRegistros();
     std::cout << "--- LISTADO DE CONSUMOS ---"  << std::endl;
-   line('-');
+    line('-');
     for (int i= 0; i < cantidad; i++) ///IVAN; saque el <=, no nos olvidemos que i arranca en 0, i al arrancar en 0 debe llegar a cantidad-1
     {
         Consumos consumos_muestra = arch_consumos.Leer(i);
         mostrarconsumos(consumos_muestra);
-       line('-');
+        line('-');
     }
 }
 

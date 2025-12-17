@@ -35,6 +35,8 @@ const char* Menues::getnombremenu()
 }
 float Menues::getvalorplato()
 {
+    std::cout << std::fixed;
+    std::cout << std::setprecision(2);
     return _valorplato;
 }
 int Menues::getidtipo()

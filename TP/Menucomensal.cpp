@@ -28,7 +28,8 @@ Menucomensal::Menucomensal()
 
 }
 
-void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRES MENUES POR ESTABLECIMIENTO AUNQUE HAYAN MAS CARGADOS. (ESTO LO COMENTO ANGEL)
+void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRES MENUES POR ESTABLECIMIENTO AUNQUE HAYAN MAS CARGADOS. (ESTO LO COMENTO ANGEL)
+{
     int id;                       /// ARREGLADO! SE GENERO SWICHT DINAMICO PARA QUE MUESTRE TODOS LOS MENUS DEL ESTABLECIMIENTO.
     int opcion;                   /// SI UN ESTABLECIMIENTO NO TIENE NADA CARGADO NO LO MUESTRA. ANTES MOSTRABA UN MENU RANDOM (NO SE XQ PERO PUDE CORREGIRLO)
     bool loop=true;
@@ -40,8 +41,12 @@ void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     MenuPadreABML::line('*');
     do
     {
-        std::string entrada = entrada_valida("Por favor, ingrese su ID de cliente:", NUMERO_ENTERO);
+        std::string entrada = entrada_valida("Por favor, ingrese su ID de cliente o 0 para volver:", NUMERO_ENTERO);
         id = std::stoi(entrada);
+        if (entrada=="0")
+        {
+            return;
+        }
         _clientebuscado=buscarcliente(id, loop);
     }
     while(loop==false);
@@ -78,42 +83,18 @@ void Menucomensal::ejecutarmenu() {///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
 
     do
     {
-        std::cout << "Seleccione la opcion deseada (1 -" << menuesDisponibles.size() << "):" << std::endl;
-        std::string entrada = entrada_valida("", NUMERO_ENTERO);
+        std::cout << "Seleccione la opcion deseada (1 - " << menuesDisponibles.size() << "):" << std::endl;
+        std::string entrada = entrada_valida("Pulse 0 para volver", NUMERO_ENTERO);
         opcion = std::stoi(entrada);
-    }while (opcion < 1 || opcion > menuesDisponibles.size());
-    _menubuscado = menuesDisponibles[static_cast<size_t>(opcion) - 1];
-    generarconsumo();
-    /*
-    mostrar(tipocom, 1);
-    mostrar(tipoveg, 2);
-    mostrar(tipocel, 3);
-    std::cout << "Seleccione la opcion deseada:";
-    std::cin >> opcion;
-    do
-    {
-        switch (opcion)
+        if (entrada=="0")
         {
-        case 1:
-            _menubuscado=buscarplatos(tipocom); ///aca se carga el consumo
-            generarconsumo();
-            break;
-        case 2:
-            _menubuscado=buscarplatos(tipoveg); ///aca se carga el consumo
-            generarconsumo();
-            break;
-        case 3:
-            _menubuscado=buscarplatos(tipocel); ///aca se carga el consumo
-            generarconsumo();
-            break;
-        default:
-            std::cout << "Opci¢n incorrecta, intente nuevamente" << std::endl;
-            loop=false;
-            break;
+            return;
         }
     }
-    while(loop==false);
-        */
+    while (opcion < 1 || opcion > menuesDisponibles.size());
+    _menubuscado = menuesDisponibles[static_cast<size_t>(opcion) - 1];
+    generarconsumo();
+
     std::cout << "Consumo cargado!" << std::endl;
 }
 
@@ -170,7 +151,8 @@ void Menucomensal::generarconsumo()
     Fecha fecha_generar;
     fecha_generar.hoy();
     Consumos consumodelcomensal(fecha_generar.hoy(), _clientebuscado, _menubuscado);
-    arch.Guardar(consumodelcomensal);
+    ///que la funcion tipo_consumo pueda avisar al resto si el cliente desea cancelar toda la operacion
+    arch.Guardar(consumodelcomensal); //podria pasar esta linea abajo de todo para validar antes si quiero cancelar
     CuentaCorriente actualizar_cuenta;
     int cantregistros=arch2.CantidadRegistros();
     for (int i=0; i<cantregistros; i++)

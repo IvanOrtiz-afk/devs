@@ -214,10 +214,7 @@ void MenuSistema::gestionarPlatos()
         default:
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
             break;
-
-            break;
         }
-        system("pause");
 
     }
     while(opcion != 0);
@@ -399,8 +396,6 @@ void MenuSistema::gestionarConsumos()
 
 
 }
-
-
 
 void MenuSistema::gestionarComensales()
 {

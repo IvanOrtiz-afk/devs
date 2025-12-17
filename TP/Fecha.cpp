@@ -58,11 +58,15 @@ std::vector<int> Fecha::obtenerDiasDeLaSemanaActual()
     std::mktime(tm_info);
 
     std::vector<int> dias_del_mes;
-    for (int i = 0; i < 7; ++i)
+    for (int i = 0; i <= 7; ++i)
     {
         dias_del_mes.push_back(tm_info->tm_mday);
         tm_info->tm_mday += 1;
         std::mktime(tm_info);
+        if (i==7)
+        {
+            dias_del_mes.push_back(0);
+        }
     }
 
     return dias_del_mes;
