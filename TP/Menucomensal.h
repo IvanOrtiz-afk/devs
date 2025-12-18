@@ -19,7 +19,7 @@ public:
     Comensal buscarcliente(int id, bool &loop);
     ///void mostrar(int tipo, int num);
     void generarconsumo();
-    bool tipodeconsumo();
+    bool tipodeconsumo(bool &cancel);
 
 private:
 

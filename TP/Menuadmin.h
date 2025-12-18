@@ -25,6 +25,7 @@ public:
         PlatoVendido(std::string nombre, int cantidadVendida){}
     };
     void listarplatos(Fecha fechafiltrar);
+    void listarplatos_semana();
     void cargarplato();
     void valoraciones();
     void eliminarplato(Fecha fechafiltrar);

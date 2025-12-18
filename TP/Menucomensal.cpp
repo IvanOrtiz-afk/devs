@@ -30,12 +30,9 @@ Menucomensal::Menucomensal()
 
 void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRES MENUES POR ESTABLECIMIENTO AUNQUE HAYAN MAS CARGADOS. (ESTO LO COMENTO ANGEL)
 {
-    int id;                       /// ARREGLADO! SE GENERO SWICHT DINAMICO PARA QUE MUESTRE TODOS LOS MENUS DEL ESTABLECIMIENTO.
-    int opcion;                   /// SI UN ESTABLECIMIENTO NO TIENE NADA CARGADO NO LO MUESTRA. ANTES MOSTRABA UN MENU RANDOM (NO SE XQ PERO PUDE CORREGIRLO)
-    bool loop=true;
-    ///const int tipocom = 1; ///Com£n
-    ///const int tipoveg = 2; ///Vegetariano
-    ///const int tipocel = 3; ///Cel¡aco
+    int id;               /// ARREGLADO! SE GENERO SWICHT DINAMICO PARA QUE MUESTRE TODOS LOS MENUS DEL ESTABLECIMIENTO.
+    unsigned int opcion;  /// SI UN ESTABLECIMIENTO NO TIENE NADA CARGADO NO LO MUESTRA. ANTES MOSTRABA UN MENU RANDOM (NO SE XQ PERO PUDE CORREGIRLO)
+    bool loop=true;        //"unsigned" variable sin signos
     MenuPadreABML::line('*');
     std::cout << "  BIENVENIDO/A AL COMEDOR" << std::endl;
     MenuPadreABML::line('*');
@@ -52,7 +49,7 @@ void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     while(loop==false);
     system("cls");
 
-    int idEstablecimiento = _clientebuscado.getIDestablecimiento();
+    //int idEstablecimiento = _clientebuscado.getIDestablecimiento();
 
     std::cout << "Bienvenido/a " << _clientebuscado.getNombre() << std::endl;
     system("pause");
@@ -91,7 +88,7 @@ void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
             return;
         }
     }
-    while (opcion < 1 || opcion > menuesDisponibles.size());
+    while ((opcion < 1) || (opcion > menuesDisponibles.size()));
     _menubuscado = menuesDisponibles[static_cast<size_t>(opcion) - 1];
     generarconsumo();
 
@@ -146,72 +143,74 @@ void Menucomensal::generarconsumo()
     Archivos <Consumos> arch ("Consumos.dat");
     Archivos <CuentaCorriente> arch2 ("CC.dat");
     Archivos <Pagos> arch4 ("Pagos.dat");
-    bool cliente_encontrado=false, tiene_deuda=false;
-    bool tipo_consumo=tipodeconsumo();
-    Fecha fecha_generar;
-    fecha_generar.hoy();
-    Consumos consumodelcomensal(fecha_generar.hoy(), _clientebuscado, _menubuscado);
-    ///que la funcion tipo_consumo pueda avisar al resto si el cliente desea cancelar toda la operacion
-    arch.Guardar(consumodelcomensal); //podria pasar esta linea abajo de todo para validar antes si quiero cancelar
-    CuentaCorriente actualizar_cuenta;
-    int cantregistros=arch2.CantidadRegistros();
-    for (int i=0; i<cantregistros; i++)
+    bool cliente_encontrado=false, tiene_deuda=false, cancel=false;
+    bool tipo_consumo=tipodeconsumo(cancel);
+    if (cancel==true)
     {
-        actualizar_cuenta=arch2.Leer(i);
-        if (_clientebuscado.getIDcomensal()==actualizar_cuenta.getcomensal())
+        Fecha fecha_generar;
+        fecha_generar.hoy();
+        Consumos consumodelcomensal(fecha_generar.hoy(), _clientebuscado, _menubuscado);
+        arch.Guardar(consumodelcomensal);
+        CuentaCorriente actualizar_cuenta;
+        int cantregistros=arch2.CantidadRegistros();
+        for (int i=0; i<cantregistros; i++)
         {
-            if (tipo_consumo==true)
+            actualizar_cuenta=arch2.Leer(i);
+            if (_clientebuscado.getIDcomensal()==actualizar_cuenta.getcomensal())
             {
-                float saldoauxiliar=actualizar_cuenta.getSaldoActual();
-                saldoauxiliar=actualizar_cuenta.getSaldoActual()+(consumodelcomensal.getimporte()-consumodelcomensal.getimporte()/10);
-                if (saldoauxiliar<0)
+                if (tipo_consumo==true)
                 {
-                    tiene_deuda=true;
-                }
-                CuentaCorriente actualizar_cuenta(i, _clientebuscado, saldoauxiliar, tiene_deuda);
+                    float saldoauxiliar=actualizar_cuenta.getSaldoActual();
+                    saldoauxiliar=actualizar_cuenta.getSaldoActual()+(consumodelcomensal.getimporte()-consumodelcomensal.getimporte()/10);
+                    if (saldoauxiliar<0)
+                    {
+                        tiene_deuda=true;
+                    }
+                    CuentaCorriente actualizar_cuenta(i, _clientebuscado, saldoauxiliar, tiene_deuda);
 
-                arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
-                Pagos pago_guardar (_clientebuscado, _menubuscado.getvalorplato(), fecha_generar.hoy());
-                arch4.Guardar(pago_guardar); ///aca guardo un pago
-                int cantregistros2=arch3.CantidadRegistros();
-                Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
-                arch3.Guardar(fc_consumo); ///0002-00001
-                cliente_encontrado=true;
-                break;
-            }
-            else ///esto es si paga por cuenta corriente
-            {
-                float saldoauxiliar=actualizar_cuenta.getSaldoActual();
-                saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
-                if (saldoauxiliar<0)
-                {
-                    tiene_deuda=true;
+                    arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
+                    Pagos pago_guardar (_clientebuscado, _menubuscado.getvalorplato(), fecha_generar.hoy());
+                    arch4.Guardar(pago_guardar); ///aca guardo un pago
+                    int cantregistros2=arch3.CantidadRegistros();
+                    Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+                    arch3.Guardar(fc_consumo); ///0002-00001
+                    cliente_encontrado=true;
+                    break;
                 }
-                CuentaCorriente actualizar_cuenta(i, _clientebuscado, saldoauxiliar, tiene_deuda);
-                arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
-                int cantregistros2=arch3.CantidadRegistros();
-                Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
-                arch3.Guardar(fc_consumo);
-                cliente_encontrado=true;
-                break;
+                else ///esto es si paga por cuenta corriente
+                {
+                    float saldoauxiliar=actualizar_cuenta.getSaldoActual();
+                    saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
+                    if (saldoauxiliar<0)
+                    {
+                        tiene_deuda=true;
+                    }
+                    CuentaCorriente actualizar_cuenta(i, _clientebuscado, saldoauxiliar, tiene_deuda);
+                    arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
+                    int cantregistros2=arch3.CantidadRegistros();
+                    Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+                    arch3.Guardar(fc_consumo);
+                    cliente_encontrado=true;
+                    break;
+                }
             }
         }
-    }
-    if (cliente_encontrado==false)
-    {
-        cantregistros=arch2.CantidadRegistros()+1;
-        float saldoauxiliar=actualizar_cuenta.getSaldoActual();
-        saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
-        tiene_deuda=true;
-        CuentaCorriente actualizar_cuenta(cantregistros+1, _clientebuscado, 0-saldoauxiliar, tiene_deuda);
-        arch2.Guardar(actualizar_cuenta);
-        int cantregistros2=arch3.CantidadRegistros();
-        Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
-        arch3.Guardar(fc_consumo);
+        if (cliente_encontrado==false)
+        {
+            cantregistros=arch2.CantidadRegistros()+1;
+            float saldoauxiliar=actualizar_cuenta.getSaldoActual();
+            saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
+            tiene_deuda=true;
+            CuentaCorriente actualizar_cuenta(cantregistros+1, _clientebuscado, 0-saldoauxiliar, tiene_deuda);
+            arch2.Guardar(actualizar_cuenta);
+            int cantregistros2=arch3.CantidadRegistros();
+            Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+            arch3.Guardar(fc_consumo);
+        }
     }
 }
 
-bool Menucomensal::tipodeconsumo()
+bool Menucomensal::tipodeconsumo(bool &cancel)
 {
     bool loop=false, result;
     int opcion;
@@ -221,8 +220,8 @@ bool Menucomensal::tipodeconsumo()
         line('-');
         std::cout << "Desea abonar ahora o generar deuda en cuenta corriente?" << std::endl;
         line('-');
-        std::cout << "Pulse 1 para abonar ahora, 2 para cargar deuda en cuenta corriente, 0 para volver" << std::endl;
-        std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
+        std::cout << "Pulse 1 para abonar ahora, 2 para cargar deuda en cuenta corriente, 0 para cancelar" << std::endl;
+        std::string entrada = entrada_valida("Opcion: ", NUMERO_ENTERO);
         opcion = std::stoi(entrada);
         switch(opcion)
         {
@@ -241,6 +240,8 @@ bool Menucomensal::tipodeconsumo()
             result=false;
             break;
         case 0:
+            cancel=true;
+            loop=true;
             break;
         default:
             std::cout << "Opci¢n incorrecta, intente nuevamente" << std::endl;
