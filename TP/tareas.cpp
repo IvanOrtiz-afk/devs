@@ -7,23 +7,24 @@ IVAN  -----> OK
 antes de pagar TODO EN EL MOMENTO.
 Que la funcion tipo_consumo pueda avisar al resto si el cliente desea cancelar toda la operaci¢n
 
-EVE  -----> OK
+EVE   -----> OK
 NOTA: se valido TODOS los ingresos de fechas, en todo el sistema.
 * Quise ver menues filtrados por fecha, puse por error a¤o 1015 y el programa no lo noto (lo mismo con el dis y el mes)
 VALIDAR TODO
 
-EVE
+EVE -----> OK
 * Al cargar men£ de toda la semana si pulso cero sigue con la siguiente fecha en vez de volver al men£ principal.
 Esta opci¢n usarla por si el cliente quiere cargar menues saltando d¡as, pero agregar algo para que el
 cliente pueda cancelar todo el proceso y volver al men£ principal
 
-EVE
+EVE -----> OK
+NOTA: se agrego entrada valida TEXTO_SIN_NUMEROS y se aplico en la carga de nombres en TODO el sistema
 * Al cargar un men£ nuevo puedo darle como nombre NUMEROS, esta mal
 
 EVE  -----> OK
 * Al darle valor a un plato, si le agrego un precio negativo termina la carga
 
-EVE
+EVE -----> OK
 * Al darle tipo de men£ (est ndar, caliaco, veg) si le doy letras termina la carga sin ninguna
 validaci¢n, posiblemente pase lo mismo con valores negativos o fuera del rango (solamente funciona si son letras)
 
@@ -58,19 +59,19 @@ IVAN
 EVE
 * Ver todos los system pause y cls que se repiten mucho
 
-EVE
+EVE ----> OK
 * Las facturas manuales deber¡an cargar el importe autom ticamente basado en los menues existentes
 
-EVE
+EVE ----> OK
 * Cargar factura manual con algunos bugs
 
-EVE
+EVE ----> OK
 * Al cargar una factura manual se debe tener en cuenta el medio de pago
 
 IVAN
 * Clase cuenta corriente chequear y emprolijar dado que no se entiende, tambi‚n crear un tostring
 que sirva para visualizar movimientos
 
-EVE
+EVE -----> OK
 * Funcion para que un admin pueda ver listado todos los usuarios (nombres y rol solamente)
 */

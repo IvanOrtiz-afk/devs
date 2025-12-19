@@ -6,6 +6,7 @@
 #include <cctype>
 
 
+
 inline std::string entrada_cruda(const std::string& mensaje)
 {
     std::string entrada;
@@ -21,7 +22,7 @@ inline std::string entrada_cruda(const std::string& mensaje)
 
 enum TipoEntrada
 {
-    NUMERO_ENTERO, TEXTO_NO_VACIO, NUMERO_FLOTANTE
+    NUMERO_ENTERO, TEXTO_NO_VACIO, NUMERO_FLOTANTE, TEXTO_SIN_NUMEROS
 };
 
 inline std::string entrada_valida(const std::string& mensaje, TipoEntrada tipo) ///Ahora usamos esto en ves de solo ignore y getline
@@ -95,12 +96,51 @@ inline std::string entrada_valida(const std::string& mensaje, TipoEntrada tipo) 
             }
             break;
         }
+        case TEXTO_SIN_NUMEROS:
+        {
+
+            if (entrada_str.empty())
+            {
+                std::cout << "[ERROR] La entrada no puede estar vacia." << std::endl;
+                break;
+            }
+            
+            if (entrada_str == "0") return entrada_str;
+
+
+            std::string temp = entrada_str;
+            temp.erase(std::remove_if(temp.begin(), temp.end(), ::isspace), temp.end());
+            if (temp.empty())
+            {
+                std::cout << "[ERROR] Ingrese texto valido, no solo espacios." << std::endl;
+                break;
+            }
+
+            bool tieneNumeros = false;
+            for (char c : entrada_str)
+            {
+                if (std::isdigit(c))
+                {
+                    tieneNumeros = true;
+                    break;
+                }
+            }
+
+            if (tieneNumeros)
+            {
+                std::cout << "[ERROR] El texto NO puede contener numeros." << std::endl;
+                break;
+            }
+            return entrada_str;
+        }
         default:
+        {
+
             std::cout << "[ERROR INTERNO] Tipo de entrada no reconocido" << std::endl;
-            return ""; // Retornar vacio en caso de error interno
+            return "";
+        }
         }
     }
 }
-
-std::string entrada_valida(const std::string&, TipoEntrada);
-std::string entrada_cruda(const std::string&);
+    std::string entrada_valida(const std::string&, TipoEntrada);
+    std::string entrada_cruda(const std::string&);

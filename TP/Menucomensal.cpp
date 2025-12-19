@@ -38,7 +38,7 @@ void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     MenuPadreABML::line('*');
     do
     {
-        std::string entrada = entrada_valida("Por favor, ingrese su ID de cliente, o pulse cero para volver:", NUMERO_ENTERO);
+        std::string entrada = entrada_valida("Por favor, ingrese su ID de CLIENTE, o pulse cero para volver:", NUMERO_ENTERO);
         id = std::stoi(entrada);
         if (entrada=="0")
         {
@@ -92,7 +92,7 @@ void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     _menubuscado = menuesDisponibles[static_cast<size_t>(opcion) - 1];
     generarconsumo();
 
-    std::cout << "Consumo cargado!" << std::endl;
+    std::cout << "Consumo cargado EXITOSAMENTE!" << std::endl;
 }
 
 std::vector<Menues> Menucomensal::buscarplatos()

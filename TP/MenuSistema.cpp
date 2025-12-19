@@ -33,50 +33,52 @@ void MenuSistema::run()
         mostrarOpciones();
         std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
         opcion = std::stoi(entrada);
-        system("pause");
+       
 
         switch(opcion)
         {
         case 1:
-            system("cls");
+            
             gestionarPlatos();
             break;
         case 2:
-            system("cls");
+            
             gestionarFacturas();
             break;
         case 3:
-            system("cls");
+           
             gestionarCC();
             break;
         case 4:
-            system("cls");
+            
             gestionarConsumos();
             break;
         case 5:
-            system("cls");
+           
             gestionarComensales();
             break;
         case 6:
-            system("cls");
+            
             gestionarEstablecimientos();
             break;
         case 7:
-            system("cls");
+            
             gestionarUsuarios();
             break;
         case 8:
-            system("cls");
+            
             menuConfiguracion();
         case 0:
             cout << "Saliendo del sistema... " << endl;
+            system("pause");
             break;
         default:
 
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            system("pause");
             break;
         }
-        system("pause");
+        
     }
     while(opcion != 0);
 }
@@ -112,6 +114,7 @@ void MenuSistema::gestionarPlatos()
     int opcion;
     do
     {
+        system("cls");
         cout << "--- GESTIONAR PLATOS ---" << endl;
         line('-');
         cout << "1- LISTADOS DE MENUES" << endl;
@@ -135,86 +138,78 @@ void MenuSistema::gestionarPlatos()
         switch(opcion)
         {
         case 1: ///listarmenu
-            system("pause");
-            system("cls");
+        
+            
             _ejecutarmenu.menuplatos();
-            system("pause");
-            system("cls");
+            
             break;
         case 2: ///valorar
-            system("pause");
-            system("cls");
+            
             _ejecutarmenu.cargarvaloracion();
-            system("pause");
-            system("cls");
+            
             break;
         case 3: /// ver favoritos
-            system("pause");
-            system("cls");
+            
             _ejecutarmenu.valoraciones();
-            system("pause");
-            system("cls");
             break;
         case 4:
-            system("pause");
-            system("cls");
+           
             _ejecutarmenu.platosmejor_valor();
-            system("pause");
-            system("cls");
+            
             break;
         case 5:
             if (_rolActual == 1)
             {
 
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.mostrarmenucargar();
-                system("pause");
-                system("cls");
+                
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 6:
             if (_rolActual == 1)
             {
 
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.eliminarplatomenu();
-                system("pause");
-                system("cls"); ///HECHO
+                
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 7:
             if (_rolActual == 1)
             {
 
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.modificarplatos();
-                system("pause");
-                system("cls");
+               
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
+            system("pause");
             break;
 
         default:
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            system("pause");
             break;
         }
+        
 
     }
     while(opcion != 0);
@@ -228,6 +223,7 @@ void MenuSistema::gestionarFacturas()
     int opcion;
     do
     {
+        system("cls");
         cout << "--- FACTURACION ---" << endl;
         line('-');
         cout << "1- LISTAR FACTURAS" << endl;
@@ -245,41 +241,38 @@ void MenuSistema::gestionarFacturas()
 
         switch(opcion)
         {
-        case 1: ///listar
-            system("pause");
-            system("cls");
+        case 1: 
+           
             _ejecutarmenu.listarfacturas();
-            system("pause");
-            system("cls");
+            
             break;
         case 2:
             if (_rolActual == 1)
             {
-                /// cargar();
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.cargarfactura();
-                system("pause");
-                system("cls");
+               
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
 
 
         case 0:
             cout << "Volviendo al menu principal... " << endl;
+            system("pause");
             break;
 
         default:
 
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            system("pause");
             break;
         }
-        system("pause");
-
+       
     }
     while(opcion != 0);
 
@@ -293,6 +286,7 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
     int opcion;
     do
     {
+        system("cls");
         cout << "--- CUENTA CORRIENTE ---" << endl;
         line('-');
         cout << "1- VER ESTADO DE CUENTA CORRIENTE (DEUDA)" << endl;
@@ -307,36 +301,32 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
         switch(opcion)
         {
         case 1: ///deuda
-            system("pause");
-            system("cls");
+            
             _ejecutarmenu.verCC();
-            system("pause");
-            system("cls"); //de momento solo hice que se pueda ver la CC (sea deuda o no)
+            
             break;
         case 2:
-            system("pause");
-            system("cls");
+           
             _ejecutarmenu.cargarpago();
-            system("pause");
-            system("cls");
+            
 
             break;
         case 3:
-            system("pause");
-            system("cls");
+           
             _ejecutarmenu.listarpago();
-            system("pause");
-            system("cls");
+            
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
+            system("pause");
             break;
         default:
 
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            system("pause");
             break;
         }
-        system("pause");
+       
     }
     while(opcion != 0);
 }
@@ -348,6 +338,7 @@ void MenuSistema::gestionarConsumos()
 
     do
     {
+        system("cls");
         cout << "--- CONSUMOS ---" << endl;
         line('-');
         cout << "1- LISTAR CONSUMOS" << endl;
@@ -362,35 +353,31 @@ void MenuSistema::gestionarConsumos()
         switch(opcion)
         {
         case 1:
-            system("pause");
-            system("cls");
+            
             _ejecutarmenu.listarconsumos(); /// REPARADO!!!
-            system("pause");
-            system("cls");
+           
             break;
         case 2:
-            system("pause");
-            system("cls");
+            
             _ejecutarmenu.cant_platosXfecha();
-            system("pause");
-            system("cls");
+            
             break;
         case 3:
-            system("pause");
-            system("cls");
+            
             _ejecutarmenu.platosmas_vendidos();
-            system("pause");
-            system("cls");
+            
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
+            system("pause");
             break;
         default:
 
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            system("pause");
             break;
         }
-        system("pause");
+      
     }
     while(opcion != 0);
 
@@ -403,6 +390,7 @@ void MenuSistema::gestionarComensales()
 
     do
     {
+        system("cls");
         cout << "--- GESTIONAR COMENSALES ---" << endl;
         line('-');
         cout << "1- LISTAR COMENSALES" << endl;
@@ -424,71 +412,68 @@ void MenuSistema::gestionarComensales()
         case 1:
             if (_rolActual == 1 or _rolActual == 2)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.listarcomensales();
-                system("pause");
-                system("cls");
+                
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
 
         case 2:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+               
                 _ejecutarmenu.cargarcomensales();
-                system("pause");
-                system("cls");
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 3:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.eliminarcomensal();
-                system("pause");
-                system("cls");
+                
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 4:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.modificarcomensales();
-                system("pause");
-                system("cls");
+                
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
+            system("pause");
             break;
 
         default:
 
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            system("pause");
 
             break;
         }
-        system("pause");
+      
 
 
     }
@@ -501,6 +486,7 @@ void MenuSistema::gestionarEstablecimientos()
 
     do
     {
+        system("cls");
         cout << "--- GESTIONAR ESTABLECIMIENTOS ---" << endl;
         line('-');
 
@@ -517,6 +503,7 @@ void MenuSistema::gestionarEstablecimientos()
         else
         {
             cout << "Acceso denegado.." << endl;
+            system("pause");
         }
 
         std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
@@ -526,70 +513,68 @@ void MenuSistema::gestionarEstablecimientos()
         case 1:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.cargarestablecimiento();
-                system("pause");
-                system("cls");
+               
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
 
         case 2:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+               
                 _ejecutarmenu.eliminar_esta();
-                system("pause");
-                system("cls");
+               
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
 
             break;
         case 3:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.listarestablecimientos();
-                system("pause");
-                system("cls");
+                
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 4:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.modificarestablecimientos();
-                system("pause");
-                system("cls");
+               
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
+            system("pause");
             break;
         default:
 
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            system("pause");
             break;
         }
-        system("pause");
+      
     }
     while(opcion != 0);
 }
@@ -600,6 +585,7 @@ void MenuSistema::gestionarUsuarios()
 
     do
     {
+        system("cls");
         cout << "--- GESTIONAR USUARIOS ---" << endl;
         line('-');
 
@@ -608,6 +594,7 @@ void MenuSistema::gestionarUsuarios()
             cout << "1- CREAR UN NUEVO USUARIO "<<endl; /// admin
             cout << "2- ELIMINAR USUARIO" << endl;
             cout << "3- MODIFICAR USUARIO" << endl;
+            cout << "4- LISTAR USUARIOS" << endl;
             line('-');
             cout << "0- Volver al menu principal" << endl;
             line('-');
@@ -615,6 +602,7 @@ void MenuSistema::gestionarUsuarios()
         else
         {
             cout << "Acceso denegado.." << endl;
+            system("pause");
         }
 
         std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
@@ -624,54 +612,66 @@ void MenuSistema::gestionarUsuarios()
         case 1:
             if (_rolActual == 1)
             {
-                system("cls");
+                
                 login nuevo_usuario;
                 nuevo_usuario.crearNuevoUsuario();
-                system("cls");
+                
 
             }
         case 2:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.eliminarusuario();
-                system("pause");
-                system("cls");
-
+               
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 3:
 
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.modificarusuarios();
+                
+            }
+            else
+            {
+                cout << "Acceso denegado." << endl;
                 system("pause");
-                system("cls");
+            }
+            break;
+        case 4:
+            if (_rolActual == 1)
+            {
+               
+                _ejecutarmenu.listarUsuarios();
+               
 
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
 
         case 0:
             cout << "Volviendo al menu principal... " << endl;
+            system("pause");
             break;
 
         default:
 
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            system("pause");
             break;
         }
-        system("pause");
+        
     }
     while (opcion != 0);
 }
@@ -706,29 +706,26 @@ void MenuSistema::menuConfiguracion()
         case 2:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.restaurarBackup();
-                system("pause");
-                system("cls");
+               
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 3:
             if (_rolActual == 1)
             {
-                system("pause");
-                system("cls");
+                
                 _ejecutarmenu.exportarDatosCSV();
-                system("pause");
-                system("cls");
             }
             else
             {
                 cout << "Acceso denegado." << endl;
+                system("pause");
             }
             break;
         case 0:
@@ -736,11 +733,12 @@ void MenuSistema::menuConfiguracion()
         default:
 
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
+            system("pause");
 
             break;
 
         }
-        system("pause");
+       
     }
     while(opcion != 0);
 }
