@@ -31,7 +31,7 @@ validaci¢n, posiblemente pase lo mismo con valores negativos o fuera del rango (
 IVAN  -----> OK
 * Agregar opci¢n de listar menues de toda la semana
 
-IVAN
+IVAN  -----> OK
 * Valorar platos POR FECHA y no solo los del dia de hoy
 
 IVAN  -----> OK
