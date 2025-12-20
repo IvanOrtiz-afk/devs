@@ -11,7 +11,17 @@ CuentaCorriente::CuentaCorriente()
 }
 CuentaCorriente::CuentaCorriente(int numeracion, Comensal comensal, float saldoactual, bool estadodeuda)
 {
-    _numeracion=numeracion;
+    const int LIMITE_CORRELATIVO = 9999;
+    const size_t TAMANO_ID = 6;
+    if (numeracion < 1)
+    {
+        numeracion = 1;
+    }
+    int indice_letra = (numeracion - 1) / LIMITE_CORRELATIVO;
+    int correlativo = ((numeracion - 1) % LIMITE_CORRELATIVO) + 1;
+    char letra = 'A' + (indice_letra % 26);
+    std::snprintf(_numeracion, TAMANO_ID, "%c%04d", letra, correlativo);
+
     _idcomensal=comensal.getIDcomensal();
     strncpy(_nombre, comensal.getNombre(), sizeof(_nombre) - 1);
     _nombre[sizeof(_nombre) - 1] = '\0';
@@ -29,9 +39,18 @@ float CuentaCorriente::getSaldoActual ()
 }
 void CuentaCorriente::setnumeracion (int numeracion)
 {
-    _numeracion=numeracion;
+    const int LIMITE_CORRELATIVO = 9999;
+    const size_t TAMANO_ID = 6;
+    if (numeracion < 1)
+    {
+        numeracion = 1;
+    }
+    int indice_letra = (numeracion - 1) / LIMITE_CORRELATIVO;
+    int correlativo = ((numeracion - 1) % LIMITE_CORRELATIVO) + 1;
+    char letra = 'A' + (indice_letra % 26);
+    std::snprintf(_numeracion, TAMANO_ID, "%c%04d", letra, correlativo);
 }
-int CuentaCorriente::getnumeracion ()
+const char * CuentaCorriente::getnumeracion ()
 {
     return _numeracion;
 }
@@ -56,7 +75,7 @@ void CuentaCorriente::setestadodeuda (bool estadodeuda)
 {
     _estadodeuda=estadodeuda;
 }
-bool CuentaCorriente::getestadodeuda ()
+bool CuentaCorriente::getestadodeuda()
 {
     return _estadodeuda;
 }
@@ -66,11 +85,15 @@ std::string CuentaCorriente::toString()
     std::string strComprobante;
     if (_estadodeuda==false)
     {
-        strComprobante="CARGO";
+        strComprobante="AL DIA";
     }
     else if (_estadodeuda==true)
     {
-        strComprobante="PAGO";
+        strComprobante="DEUDA";
     }
-    return std::to_string(_numeracion) + "/" + std::to_string(_idcomensal) + "/" + std::string(_nombre) + "/$ " + std::to_string(_saldoActual) + "/" + std::string(strComprobante);
+    return "Numero de cuenta corriente: \n" + std::string(_numeracion) +
+    "ID cliente: \n" + std::to_string(_idcomensal) +
+    "Nombre del cliente: \n" + std::string(_nombre) +
+    "Saldo actual: \n$" + std::to_string(_saldoActual) +
+    "Estado de la cuenta: \n" + std::string(strComprobante);
 }

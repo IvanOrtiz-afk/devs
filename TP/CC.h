@@ -12,7 +12,7 @@ public:
     float getSaldoActual ();
 
     void setnumeracion (int numeracion);
-    int getnumeracion ();
+    const char * getnumeracion ();
 
     void setnombrecomensal (Comensal comensal);
     const char *getnombrecomensal ();
@@ -27,7 +27,7 @@ public:
 
 private:
     char _nombre[30];
-    int _numeracion;
+    char _numeracion[6];
     int _idcomensal;
     float _saldoActual;
     bool _estadodeuda; /// si es true tiene deuda, si es false no tiene deuda

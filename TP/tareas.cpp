@@ -53,7 +53,7 @@ EVE ----> OK
 IVAN/EVE AL FINAL
 * VER SI SALE, una funci¢n que muestre los platos mas consumidos pero de todos los tiempos (usar memoria din mica)
 
-IVAN
+IVAN ----> OK
 * Arreglar el listado de platos mas vendidos BUG (BUG EN LA LINEA 200 DE menuadmin.cpp)
 
 EVE

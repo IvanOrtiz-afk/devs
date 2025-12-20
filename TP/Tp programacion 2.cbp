@@ -80,6 +80,7 @@
 		<Unit filename="Utilidades.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="tabulate.hpp" />
+		<Unit filename="tareas.cpp" />
 		<Unit filename="usuario.cpp" />
 		<Unit filename="usuario.h" />
 		<Extensions />

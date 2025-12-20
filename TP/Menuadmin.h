@@ -20,9 +20,13 @@ public:
     void cant_platosXfecha();
     struct PlatoVendido ///Un struct necesita su propio constructor
     {
-        std::string nombre;
-        int cantidadVendida=0;
-        PlatoVendido(std::string nombre, int cantidadVendida){}
+        std::string _nombre;
+        int _cantidadVendida;
+        PlatoVendido(std::string nombre, int cantidadVendida)
+        {
+            _nombre=nombre;
+            _cantidadVendida=cantidadVendida;
+        }
     };
     void listarplatos(Fecha fechafiltrar);
     void listarplatos_semana();
@@ -56,8 +60,8 @@ public:
     void exportarDatosCSV();
     void listarUsuarios();
 
-   /* std::string entrada_valida(const std::string&, TipoEntrada);
-    std::string entrada_cruda(const std::string&);*/
+    /* std::string entrada_valida(const std::string&, TipoEntrada);
+     std::string entrada_cruda(const std::string&);*/
 
 protected:
     void mostrarestablecimientos(Establecimientos establecimientos_muestra);

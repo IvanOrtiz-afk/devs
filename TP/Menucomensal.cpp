@@ -67,9 +67,8 @@ void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
     std::cout << "--- MENUS DEL DIA (" << menuesDisponibles.size() << ") ---" << std::endl;
     line('-');
 
-    for (size_t i = 0; i< menuesDisponibles.size(); i++)
+    for (int unsigned i=0; i< menuesDisponibles.size(); i++)
     {
-
         std::cout << std::endl;
         std::cout << "OPCION # " << (i + 1) << std::endl;
         std::cout << menuesDisponibles[i].getdesctipo() << std::endl;
@@ -89,10 +88,18 @@ void Menucomensal::ejecutarmenu()  ///EVELYN -> BUG ENCONTRADO, SOLO MUESTRA TRE
         }
     }
     while ((opcion < 1) || (opcion > menuesDisponibles.size()));
-    _menubuscado = menuesDisponibles[static_cast<size_t>(opcion) - 1];
+
+    for (int unsigned i=0; i< menuesDisponibles.size(); i++)
+    {
+        if(opcion==i+1)
+        {
+            _menubuscado=menuesDisponibles[i];
+        }
+    }
+
     generarconsumo();
 
-    std::cout << "Consumo cargado EXITOSAMENTE!" << std::endl;
+    std::cout << "Consumo cargado EXITOSAMENTE!" << std::endl; ///arreglar! no puede estar aca este mensaje!
 }
 
 std::vector<Menues> Menucomensal::buscarplatos()
@@ -145,7 +152,7 @@ void Menucomensal::generarconsumo()
     Archivos <Pagos> arch4 ("Pagos.dat");
     bool cliente_encontrado=false, tiene_deuda=false, cancel=false;
     bool tipo_consumo=tipodeconsumo(cancel);
-    if (cancel==true)
+    if (cancel==false)
     {
         Fecha fecha_generar;
         fecha_generar.hoy();
@@ -166,7 +173,8 @@ void Menucomensal::generarconsumo()
                     {
                         tiene_deuda=true;
                     }
-                    CuentaCorriente actualizar_cuenta(i, _clientebuscado, saldoauxiliar, tiene_deuda);
+                    cantregistros=arch2.CantidadRegistros()+1;
+                    CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, saldoauxiliar, tiene_deuda);
 
                     arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
                     Pagos pago_guardar (_clientebuscado, _menubuscado.getvalorplato(), fecha_generar.hoy());
@@ -185,7 +193,8 @@ void Menucomensal::generarconsumo()
                     {
                         tiene_deuda=true;
                     }
-                    CuentaCorriente actualizar_cuenta(i, _clientebuscado, saldoauxiliar, tiene_deuda);
+                    cantregistros=arch2.CantidadRegistros()+1;
+                    CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, saldoauxiliar, tiene_deuda);
                     arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
                     int cantregistros2=arch3.CantidadRegistros();
                     Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
@@ -201,7 +210,7 @@ void Menucomensal::generarconsumo()
             float saldoauxiliar=actualizar_cuenta.getSaldoActual();
             saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
             tiene_deuda=true;
-            CuentaCorriente actualizar_cuenta(cantregistros+1, _clientebuscado, 0-saldoauxiliar, tiene_deuda);
+            CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, 0-saldoauxiliar, tiene_deuda);
             arch2.Guardar(actualizar_cuenta);
             int cantregistros2=arch3.CantidadRegistros();
             Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
@@ -212,7 +221,7 @@ void Menucomensal::generarconsumo()
 
 bool Menucomensal::tipodeconsumo(bool &cancel)
 {
-    bool loop=false, result;
+    bool loop=false, result=false;
     int opcion;
     do
     {
@@ -230,14 +239,14 @@ bool Menucomensal::tipodeconsumo(bool &cancel)
             system("pause");
             system("cls");
             loop=true;
-            result=true;
+            result=true; ///abono en efectivo
             break;
         case 2:
             std::cout << "Se genero una deuda en su cuenta corriente, puede abonarla mas tarde" << std::endl;
             system("pause");
             system("cls");
             loop=true;
-            result=false;
+            result=false; ///deuda en CC
             break;
         case 0:
             cancel=true;
