@@ -33,40 +33,40 @@ void MenuSistema::run()
         mostrarOpciones();
         std::string entrada = entrada_valida("Seleccione una opcion: ", NUMERO_ENTERO);
         opcion = std::stoi(entrada);
-       
+
 
         switch(opcion)
         {
         case 1:
-            
+
             gestionarPlatos();
             break;
         case 2:
-            
+
             gestionarFacturas();
             break;
         case 3:
-           
+
             gestionarCC();
             break;
         case 4:
-            
+
             gestionarConsumos();
             break;
         case 5:
-           
+
             gestionarComensales();
             break;
         case 6:
-            
+
             gestionarEstablecimientos();
             break;
         case 7:
-            
+
             gestionarUsuarios();
             break;
         case 8:
-            
+
             menuConfiguracion();
         case 0:
             cout << "Saliendo del sistema... " << endl;
@@ -78,7 +78,7 @@ void MenuSistema::run()
             system("pause");
             break;
         }
-        
+
     }
     while(opcion != 0);
 }
@@ -138,32 +138,32 @@ void MenuSistema::gestionarPlatos()
         switch(opcion)
         {
         case 1: ///listarmenu
-        
-            
+
             _ejecutarmenu.menuplatos();
-            
+
             break;
         case 2: ///valorar
-            
-            _ejecutarmenu.cargarvaloracion();
-            
+
+            _ejecutarmenu.menuValoraciones();
+
             break;
-        case 3: /// ver favoritos
-            
-            _ejecutarmenu.valoraciones();
+        case 3: /// ver valoraciones
+
+            _ejecutarmenu.listar_valoraciones();
+
             break;
         case 4:
-           
+
             _ejecutarmenu.platosmejor_valor();
-            
+
             break;
         case 5:
             if (_rolActual == 1)
             {
 
-                
+
                 _ejecutarmenu.mostrarmenucargar();
-                
+
             }
             else
             {
@@ -175,9 +175,9 @@ void MenuSistema::gestionarPlatos()
             if (_rolActual == 1)
             {
 
-                
+
                 _ejecutarmenu.eliminarplatomenu();
-                
+
             }
             else
             {
@@ -189,9 +189,9 @@ void MenuSistema::gestionarPlatos()
             if (_rolActual == 1)
             {
 
-                
+
                 _ejecutarmenu.modificarplatos();
-               
+
             }
             else
             {
@@ -209,7 +209,7 @@ void MenuSistema::gestionarPlatos()
             system("pause");
             break;
         }
-        
+
 
     }
     while(opcion != 0);
@@ -241,17 +241,17 @@ void MenuSistema::gestionarFacturas()
 
         switch(opcion)
         {
-        case 1: 
-           
+        case 1:
+
             _ejecutarmenu.listarfacturas();
-            
+
             break;
         case 2:
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.cargarfactura();
-               
+
             }
             else
             {
@@ -272,7 +272,7 @@ void MenuSistema::gestionarFacturas()
             system("pause");
             break;
         }
-       
+
     }
     while(opcion != 0);
 
@@ -301,32 +301,31 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
         switch(opcion)
         {
         case 1: ///deuda
-            
+
             _ejecutarmenu.verCC();
-            
+
             break;
         case 2:
-           
+
             _ejecutarmenu.cargarpago();
-            
+
 
             break;
         case 3:
-           
+
             _ejecutarmenu.listarpago();
-            
+
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             system("pause");
             break;
         default:
-
             cout << "[ERROR] Opcion incorrecta, intente de nuevo." << endl;
             system("pause");
             break;
         }
-       
+
     }
     while(opcion != 0);
 }
@@ -353,19 +352,19 @@ void MenuSistema::gestionarConsumos()
         switch(opcion)
         {
         case 1:
-            
+
             _ejecutarmenu.listarconsumos(); /// REPARADO!!!
-           
+
             break;
         case 2:
-            
+
             _ejecutarmenu.cant_platosXfecha();
-            
+
             break;
         case 3:
-            
+
             _ejecutarmenu.platosmas_vendidos();
-            
+
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
@@ -377,7 +376,7 @@ void MenuSistema::gestionarConsumos()
             system("pause");
             break;
         }
-      
+
     }
     while(opcion != 0);
 
@@ -412,9 +411,9 @@ void MenuSistema::gestionarComensales()
         case 1:
             if (_rolActual == 1 or _rolActual == 2)
             {
-                
+
                 _ejecutarmenu.listarcomensales();
-                
+
             }
             else
             {
@@ -426,7 +425,7 @@ void MenuSistema::gestionarComensales()
         case 2:
             if (_rolActual == 1)
             {
-               
+
                 _ejecutarmenu.cargarcomensales();
             }
             else
@@ -438,9 +437,9 @@ void MenuSistema::gestionarComensales()
         case 3:
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.eliminarcomensal();
-                
+
             }
             else
             {
@@ -451,9 +450,9 @@ void MenuSistema::gestionarComensales()
         case 4:
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.modificarcomensales();
-                
+
             }
             else
             {
@@ -473,7 +472,7 @@ void MenuSistema::gestionarComensales()
 
             break;
         }
-      
+
 
 
     }
@@ -513,9 +512,9 @@ void MenuSistema::gestionarEstablecimientos()
         case 1:
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.cargarestablecimiento();
-               
+
             }
             else
             {
@@ -527,9 +526,9 @@ void MenuSistema::gestionarEstablecimientos()
         case 2:
             if (_rolActual == 1)
             {
-               
+
                 _ejecutarmenu.eliminar_esta();
-               
+
             }
             else
             {
@@ -541,9 +540,9 @@ void MenuSistema::gestionarEstablecimientos()
         case 3:
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.listarestablecimientos();
-                
+
             }
             else
             {
@@ -554,9 +553,9 @@ void MenuSistema::gestionarEstablecimientos()
         case 4:
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.modificarestablecimientos();
-               
+
             }
             else
             {
@@ -574,7 +573,7 @@ void MenuSistema::gestionarEstablecimientos()
             system("pause");
             break;
         }
-      
+
     }
     while(opcion != 0);
 }
@@ -612,18 +611,18 @@ void MenuSistema::gestionarUsuarios()
         case 1:
             if (_rolActual == 1)
             {
-                
+
                 login nuevo_usuario;
                 nuevo_usuario.crearNuevoUsuario();
-                
+
 
             }
         case 2:
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.eliminarusuario();
-               
+
             }
             else
             {
@@ -635,9 +634,9 @@ void MenuSistema::gestionarUsuarios()
 
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.modificarusuarios();
-                
+
             }
             else
             {
@@ -648,9 +647,9 @@ void MenuSistema::gestionarUsuarios()
         case 4:
             if (_rolActual == 1)
             {
-               
+
                 _ejecutarmenu.listarUsuarios();
-               
+
 
             }
             else
@@ -671,7 +670,7 @@ void MenuSistema::gestionarUsuarios()
             system("pause");
             break;
         }
-        
+
     }
     while (opcion != 0);
 }
@@ -706,9 +705,9 @@ void MenuSistema::menuConfiguracion()
         case 2:
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.restaurarBackup();
-               
+
             }
             else
             {
@@ -719,7 +718,7 @@ void MenuSistema::menuConfiguracion()
         case 3:
             if (_rolActual == 1)
             {
-                
+
                 _ejecutarmenu.exportarDatosCSV();
             }
             else
@@ -738,7 +737,7 @@ void MenuSistema::menuConfiguracion()
             break;
 
         }
-       
+
     }
     while(opcion != 0);
 }

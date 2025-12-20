@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <cstring>
+#include <iomanip>
 #include "CC.h"
 #include "Comensales.h"
-
 
 CuentaCorriente::CuentaCorriente()
 {
@@ -91,9 +92,16 @@ std::string CuentaCorriente::toString()
     {
         strComprobante="DEUDA";
     }
-    return "Numero de cuenta corriente: \n" + std::string(_numeracion) +
-    "ID cliente: \n" + std::to_string(_idcomensal) +
-    "Nombre del cliente: \n" + std::string(_nombre) +
-    "Saldo actual: \n$" + std::to_string(_saldoActual) +
-    "Estado de la cuenta: \n" + std::string(strComprobante);
+    //Crea un stringstream (llamado ss)
+    std::stringstream ss;
+    //En ss <== un fixed para que no use notacion cientifica/setprecision para que use dos decimales/el dato _valorplato
+    ss << std::fixed << std::setprecision(2) << _saldoActual;
+    //El ss pasado a string
+    std::string valor_plato_formateado = ss.str();
+
+    return "Numero de cuenta corriente: " + std::string(_numeracion) +
+    "\nID cliente: " + std::to_string(_idcomensal) +
+    "\nNombre del cliente: " + std::string(_nombre) +
+    "\nSaldo actual: $" + valor_plato_formateado +
+    "\nEstado de la cuenta: " + std::string(strComprobante);
 }

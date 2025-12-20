@@ -68,7 +68,7 @@ EVE ----> OK
 EVE ----> OK
 * Al cargar una factura manual se debe tener en cuenta el medio de pago
 
-IVAN
+IVAN ----> OK
 * Clase cuenta corriente chequear y emprolijar dado que no se entiende, tambi‚n crear un tostring
 que sirva para visualizar movimientos
 

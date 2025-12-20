@@ -31,7 +31,10 @@ public:
     void listarplatos(Fecha fechafiltrar);
     void listarplatos_semana();
     void cargarplato();
-    void valoraciones();
+    Fecha setear_fecha();
+    void valorar_x_fecha();
+    void menuValoraciones();
+    void listar_valoraciones();
     void eliminarplato(Fecha fechafiltrar);
     void eliminarplatomenu();
     void eliminarcomensal();

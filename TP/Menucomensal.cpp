@@ -163,29 +163,25 @@ void Menucomensal::generarconsumo()
         for (int i=0; i<cantregistros; i++)
         {
             actualizar_cuenta=arch2.Leer(i);
-            if (_clientebuscado.getIDcomensal()==actualizar_cuenta.getcomensal())
+            if (_clientebuscado.getIDcomensal()==actualizar_cuenta.getcomensal()) ///si el cliente esta en el .dat
             {
-                if (tipo_consumo==true)
+                if (tipo_consumo==true) //pago en efectivo
                 {
-                    float saldoauxiliar=actualizar_cuenta.getSaldoActual();
-                    saldoauxiliar=actualizar_cuenta.getSaldoActual()+(consumodelcomensal.getimporte()-consumodelcomensal.getimporte()/10);
-                    if (saldoauxiliar<0)
-                    {
-                        tiene_deuda=true;
-                    }
+                    float saldo_C_descuento;
+                    saldo_C_descuento=consumodelcomensal.getimporte()-(consumodelcomensal.getimporte()/10);
                     cantregistros=arch2.CantidadRegistros()+1;
-                    CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, saldoauxiliar, tiene_deuda);
-
+                    float saldo_actual=actualizar_cuenta.getSaldoActual();
+                    CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, saldo_actual, tiene_deuda);
                     arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
-                    Pagos pago_guardar (_clientebuscado, _menubuscado.getvalorplato(), fecha_generar.hoy());
+                    Pagos pago_guardar (_clientebuscado, saldo_C_descuento, fecha_generar.hoy());
                     arch4.Guardar(pago_guardar); ///aca guardo un pago
                     int cantregistros2=arch3.CantidadRegistros();
-                    Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+                    Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, saldo_C_descuento, tipo_consumo);
                     arch3.Guardar(fc_consumo); ///0002-00001
                     cliente_encontrado=true;
                     break;
                 }
-                else ///esto es si paga por cuenta corriente
+                else if (tipo_consumo==false) //paga en cuenta corriente
                 {
                     float saldoauxiliar=actualizar_cuenta.getSaldoActual();
                     saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
@@ -204,17 +200,31 @@ void Menucomensal::generarconsumo()
                 }
             }
         }
-        if (cliente_encontrado==false)
+        if (cliente_encontrado==false) ///si el cliente NO esta en el .dat
         {
-            cantregistros=arch2.CantidadRegistros()+1;
-            float saldoauxiliar=actualizar_cuenta.getSaldoActual();
-            saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
-            tiene_deuda=true;
-            CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, 0-saldoauxiliar, tiene_deuda);
-            arch2.Guardar(actualizar_cuenta);
-            int cantregistros2=arch3.CantidadRegistros();
-            Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
-            arch3.Guardar(fc_consumo);
+            if (tipo_consumo==true) //pago en efectivo
+            {
+                cantregistros=arch2.CantidadRegistros()+1;
+                tiene_deuda=false;
+                CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, 0, tiene_deuda);
+                arch2.Guardar(actualizar_cuenta);
+                Pagos pago_guardar (_clientebuscado, _menubuscado.getvalorplato(), fecha_generar.hoy());
+                arch4.Guardar(pago_guardar); ///aca guardo un pago
+                int cantregistros2=arch3.CantidadRegistros();
+                Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+                arch3.Guardar(fc_consumo);
+            }
+            else if (tipo_consumo==false) //paga en cuenta corriente
+            {
+                cantregistros=arch2.CantidadRegistros()+1;
+                float saldoauxiliar=consumodelcomensal.getimporte();
+                tiene_deuda=true;
+                CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, 0-saldoauxiliar, tiene_deuda);
+                arch2.Guardar(actualizar_cuenta);
+                int cantregistros2=arch3.CantidadRegistros();
+                Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
+                arch3.Guardar(fc_consumo);
+            }
         }
     }
 }
@@ -230,6 +240,7 @@ bool Menucomensal::tipodeconsumo(bool &cancel)
         std::cout << "Desea abonar ahora o generar deuda en cuenta corriente?" << std::endl;
         line('-');
         std::cout << "Pulse 1 para abonar ahora, 2 para cargar deuda en cuenta corriente, 0 para cancelar" << std::endl;
+        std::cout << "En caso de abonar en efectivo obtiene un 10% de descuento!" << std::endl;
         std::string entrada = entrada_valida("Opcion: ", NUMERO_ENTERO);
         opcion = std::stoi(entrada);
         switch(opcion)
