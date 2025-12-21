@@ -161,7 +161,6 @@ void MenuSistema::gestionarPlatos()
             if (_rolActual == 1)
             {
 
-
                 _ejecutarmenu.mostrarmenucargar();
 
             }
@@ -175,7 +174,6 @@ void MenuSistema::gestionarPlatos()
             if (_rolActual == 1)
             {
 
-
                 _ejecutarmenu.eliminarplatomenu();
 
             }
@@ -188,7 +186,6 @@ void MenuSistema::gestionarPlatos()
         case 7:
             if (_rolActual == 1)
             {
-
 
                 _ejecutarmenu.modificarplatos();
 
@@ -210,16 +207,12 @@ void MenuSistema::gestionarPlatos()
             break;
         }
 
-
     }
     while(opcion != 0);
-
 }
 
 void MenuSistema::gestionarFacturas()
 {
-
-
     int opcion;
     do
     {
@@ -227,7 +220,6 @@ void MenuSistema::gestionarFacturas()
         cout << "--- FACTURACION ---" << endl;
         line('-');
         cout << "1- LISTAR FACTURAS" << endl;
-
 
         if (_rolActual == 1) // admin
         {
@@ -260,7 +252,6 @@ void MenuSistema::gestionarFacturas()
             }
             break;
 
-
         case 0:
             cout << "Volviendo al menu principal... " << endl;
             system("pause");
@@ -275,9 +266,7 @@ void MenuSistema::gestionarFacturas()
 
     }
     while(opcion != 0);
-
 }
-
 
 void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros para que el ADMIN pueda ver todos los pagos
 {
@@ -308,7 +297,6 @@ void MenuSistema::gestionarCC() /// MIRAR! quizas haya que agregarle parametros 
         case 2:
 
             _ejecutarmenu.cargarpago();
-
 
             break;
         case 3:

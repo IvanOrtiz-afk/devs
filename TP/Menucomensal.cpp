@@ -107,11 +107,11 @@ std::vector<Menues> Menucomensal::buscarplatos()
     Archivos <Menues> arch ("Menues.dat");
     std::vector<Menues> menuesDisponibles;
     Fecha fecha_actual;
+    Menues menu;
     fecha_actual.hoy();
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
     {
-        Menues menu;
         menu=arch.Leer(i);
         if (fecha_actual.hoy()==menu.getfecha()&&_clientebuscado.getIDestablecimiento()==menu.getesta())
         {
@@ -171,6 +171,10 @@ void Menucomensal::generarconsumo()
                     saldo_C_descuento=consumodelcomensal.getimporte()-(consumodelcomensal.getimporte()/10);
                     cantregistros=arch2.CantidadRegistros()+1;
                     float saldo_actual=actualizar_cuenta.getSaldoActual();
+                    if (actualizar_cuenta.getSaldoActual()<0)
+                    {
+                        tiene_deuda=true;
+                    }
                     CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, saldo_actual, tiene_deuda);
                     arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
                     Pagos pago_guardar (_clientebuscado, saldo_C_descuento, fecha_generar.hoy());

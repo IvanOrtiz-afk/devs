@@ -1189,7 +1189,6 @@ Fecha Menuadmin::setear_fecha()
         {
             fechaValida = true;
             return fechabusqueda;
-            break;
         }
         if (dia >= 1 && dia <= 31)
         {
@@ -1212,7 +1211,6 @@ Fecha Menuadmin::setear_fecha()
         {
             fechaValida = true;
             return fechabusqueda;
-            break;
         }
         if (mes >= 1 && mes <= 12)
         {
@@ -1236,7 +1234,6 @@ Fecha Menuadmin::setear_fecha()
         {
             fechaValida = true;
             return fechabusqueda;
-            break;
         }
         if (anio >= 1925 && anio <= anioActual)
         {
@@ -1973,7 +1970,7 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
                 dia=std::stoi(entrada);
                 if (entrada=="0")
                 {
-                   return;
+                    return;
                 }
                 if (dia >= 1 && dia <= 31)
                 {
@@ -2251,7 +2248,6 @@ void Menuadmin::cargarfactura()
     int id_comensal;
     int id_establecimiento_cliente = -1;
 
-
     std::string entrada;
     bool comensalEncontrado = false;
     do
@@ -2350,8 +2346,6 @@ void Menuadmin::cargarfactura()
     }
     while (!menuEncontrado);
 
-
-
     bool pagoValido = false;
 
     do
@@ -2377,7 +2371,6 @@ void Menuadmin::cargarfactura()
         case 3:
         {
 
-
             std::cout << "Procesando Cuenta Corriente..." << std::endl;
             fc_muestra.setMedioDePago(true);
 
@@ -2388,13 +2381,19 @@ void Menuadmin::cargarfactura()
             {
                 CuentaCorriente cc = arch_cc.Leer(i);
 
-
                 if(cc.getcomensal() == comensal_muestra.getIDcomensal())
                 {
 
                     float nuevoSaldo = cc.getSaldoActual() - importe_final;
-                    bool tieneDeuda = (nuevoSaldo < 0);
-
+                    bool tieneDeuda;
+                    if (nuevoSaldo < 0)
+                    {
+                        tieneDeuda=true;
+                    }
+                    else
+                    {
+                        tieneDeuda=false;
+                    }
 
                     CuentaCorriente cc_actualizada(i, comensal_muestra, nuevoSaldo, tieneDeuda);
 
@@ -2423,16 +2422,15 @@ void Menuadmin::cargarfactura()
             std::cout << "FACTURA CANCELADA" << std::endl;
             return;
         default:
-            std::cout << "[ERROR} Opcion Invalida" << std::endl;
+            std::cout << "[ERROR] Opcion Invalida" << std::endl;
         }
-
 
     }
     while (!pagoValido);
 
     int nuevoID = arch.CantidadRegistros() + 1;
     fc_muestra.setnumfc(nuevoID);
-    fc_muestra.setFecha(fecha_hoy.hoy()); // Fecha de facturación = Hoy
+    fc_muestra.setFecha(fecha_hoy.hoy()); // Fecha de facturacion = Hoy
 
     if (arch.Guardar(fc_muestra))
     {
@@ -3190,9 +3188,24 @@ void Menuadmin::listarconsumos()
 
 void Menuadmin::mostrarconsumos(Consumos consumos_muestra)
 {
-    std::cout << "Fecha del consumo: " << consumos_muestra.getfecha().toString() << std::endl;
-    std::cout << "ID del cliente: " << consumos_muestra.getcliente() << std::endl;
-    std::cout << "Plato consumido: " << consumos_muestra.getplato() << std::endl;
+    Archivos <Comensal> arch_comensal ("Comensales.dat");
+    Comensal comensal_muestra;
+    int registros=arch_comensal.CantidadRegistros();
+    for (int i=0; i<registros; i++)
+    {
+        comensal_muestra=arch_comensal.Leer(i);
+        if (consumos_muestra.getcliente()==comensal_muestra.getIDcomensal())
+        {
+            line('-', 50);
+            std::cout << "Fecha del consumo: " << consumos_muestra.getfecha().toString() << std::endl;
+            std::cout << "ID del cliente: " << consumos_muestra.getcliente() << std::endl;
+            std::cout << "Nombre: " << comensal_muestra.getNombre() << " " << comensal_muestra.getApellido() << std::endl;
+            std::cout << "Plato consumido: " << consumos_muestra.getplato() << std::endl;
+            std::cout << "Importe: $" << consumos_muestra.getimporte() << std::endl;
+            line('-', 50);
+            std::cout << std::endl;
+        }
+    }
 }
 
 void Menuadmin::cargarpago()
@@ -3210,7 +3223,7 @@ void Menuadmin::cargarpago()
     int id_buscado;
     float importe_cargar;
     float saldo_final;
-    bool loop=false;
+    bool loop=false, cliente_encontrado=false;
     do
     {
         system("cls");
@@ -3228,11 +3241,20 @@ void Menuadmin::cargarpago()
             comensal_buscado=arch2.Leer(i);
             if (id_buscado==comensal_buscado.getIDcomensal())
             {
-                std::cout << "Comensal encontrado bajo el ID N#: " << comensal_buscado.getIDcomensal() << std::endl;
-                loop=true;
-                break;
+                int registros2=arch3.CantidadRegistros();
+                for (int j=0; j<registros2; j++)
+                {
+                    CC_buscado=arch3.Leer(j);
+                    if (comensal_buscado.getIDcomensal()==CC_buscado.getcomensal())
+                    {
+                        CC_buscado.toString();
+                        cliente_encontrado=true;
+                        loop=true;
+                        break;
+                    }
+                }
             }
-            else if (id_buscado!=comensal_buscado.getIDcomensal()&&registros==i-1)
+            else if (!cliente_encontrado)
             {
                 std::cout << "[ERROR] Comensal NO encontrado, intente nuevamente" << std::endl;
             }
@@ -3266,6 +3288,11 @@ void Menuadmin::cargarpago()
                 pago_cargar.setfecha(fecha_actual.hoy());
                 saldo_final=CC_buscado.getSaldoActual()+importe_cargar;
                 CC_buscado.setSaldoActual(saldo_final);
+                if(saldo_final>0)
+                {
+                    bool deudor=false;
+                    CC_buscado.setestadodeuda(deudor);
+                }
                 if (arch3.Guardar(CC_buscado, i)==true&&arch.Guardar(pago_cargar)==true) ///sobreescritura
                 {
                     loop=true;
@@ -3282,52 +3309,6 @@ void Menuadmin::cargarpago()
         }
     }
     while(loop==false);
-    int seleccion;
-    std::cout << "Desea generar factura para el pago cargado?" << std::endl;
-    std::cout << "1. Si / 2. No" << std::endl;
-    std::cin >> seleccion;
-    switch (seleccion)
-    {
-    case '1':
-        do
-        {
-            int registro=arch4.CantidadRegistros();
-            for (int i=0; i<registro; i++)
-            {
-                fc_generar=arch4.Leer(i);
-                if (fc_generar.getIDcomensal()==comensal_buscado.getIDcomensal())
-                {
-                    fc_generar.setNumeracion(registro+1);
-                    fc_generar.setIDcomensal(comensal_buscado);
-                    fc_generar.setFecha(fecha_actual.hoy());
-                    fc_generar.setImporte(saldo_final);
-                    if (arch4.Guardar(fc_generar)==true)
-                    {
-                        std::cout << "Factura generada correctamente" << std::endl;
-                        system("pause");
-                        break;
-                    }
-                    else if (arch4.Guardar(fc_generar)!=true)
-                    {
-                        std::cout << "[ERROR] Fallo al generar la factura, intente nuevamente" << std::endl;
-                        system("pause");
-                        loop=false;
-                        break;
-                    }
-                }
-            }
-        }
-        while(loop==false);
-    case '2':
-        std::cout << "[AVISO] Recuerde que debe generarla la factura mas tarde" << std::endl;
-        system("pause");
-        break;
-    case 0:
-        break;
-    default:
-        std::cout << "[ERROR] Opcion invalida" << std::endl;
-        system("pause");
-    }
 }
 
 void Menuadmin::listarpago()

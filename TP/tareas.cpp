@@ -70,27 +70,25 @@ que sirva para visualizar movimientos
 EVE -----> OK
 * Funcion para que un admin pueda ver listado todos los usuarios (nombres y rol solamente)
 
-
-
 EVE
 *Que figure el medio de pago en el listado de facturas y emprolijar
 
-IVAN
+IVAN -----> OK
 *En consumos, agregar el nombre de la persona y el importe
 
 EVE
 *Factura manual que descuente el 10% en efectivo
 
-IVAN
+IVAN -----> OK
 *Al realizar un pago debe traer el saldo de la cuenta corriente, y que NO genere factura
 
 EVE
 *Listar PAGOS emprolijar, ver si llegamos a filtrar por id
 
-IVAN
+IVAN -----> OK
 *si una cuenta corriente esta en 0 pesos figura en DEUDA, arreglar (ver cc del comensal 1)
 
-IVAN
+IVAN -----> OK
 *valoracion por fecha
 
 EVE
