@@ -1,6 +1,4 @@
 /**
-IVAN
-* Actualizar el informe!!!!
 
 IVAN  -----> OK
 * Tener la opci¢n de cancelar un consumo despu‚s de haber elegido un men£ para comer pero
@@ -50,13 +48,10 @@ cada men£ del top con SOLAMENTE los menus del establecimiento preguntado
 EVE ----> OK
 * Revisar en todas las entradas validas que este el IF de si pulso 0 volver atr s
 
-IVAN/EVE AL FINAL
-* VER SI SALE, una funci¢n que muestre los platos mas consumidos pero de todos los tiempos (usar memoria din mica)
-
 IVAN ----> OK
 * Arreglar el listado de platos mas vendidos BUG (BUG EN LA LINEA 200 DE menuadmin.cpp)
 
-EVE
+EVE ----> OK
 * Ver todos los system pause y cls que se repiten mucho
 
 EVE ----> OK
@@ -74,4 +69,46 @@ que sirva para visualizar movimientos
 
 EVE -----> OK
 * Funcion para que un admin pueda ver listado todos los usuarios (nombres y rol solamente)
+
+
+
+EVE
+*Que figure el medio de pago en el listado de facturas y emprolijar
+
+IVAN
+*En consumos, agregar el nombre de la persona y el importe
+
+EVE
+*Factura manual que descuente el 10% en efectivo
+
+IVAN
+*Al realizar un pago debe traer el saldo de la cuenta corriente, y que NO genere factura
+
+EVE
+*Listar PAGOS emprolijar, ver si llegamos a filtrar por id
+
+IVAN
+*si una cuenta corriente esta en 0 pesos figura en DEUDA, arreglar (ver cc del comensal 1)
+
+IVAN
+*valoracion por fecha
+
+EVE
+*Que quede bien claro el guardar y salir en las modificaciones
+
+IVAN/EVE AL FINAL
+* VER SI SALE, una funci¢n que muestre los platos mas consumidos pero de todos los tiempos (usar memoria din mica)
+
+EVE
+*BUG ENCONTRADO, deja crear usuarios que ya existen, sobreescribiendolos
+linea 17 en LOGIN
+
+IVAN
+* Actualizar el informe!!!!
+
+
+IR PONIENDO LOS MENUS REVISADOS!!!!
+
+
+
 */

@@ -350,7 +350,7 @@ void Menuadmin::cant_platosXfecha() ///CONTINUAR ACA
             {
                 break;
             }
-            if (anio_muestra >= 1900 && anio_muestra <= anioActual)
+            if (anio_muestra >= 1925 && anio_muestra <= anioActual)
             {
                 fechaValida = true;
             }
@@ -466,7 +466,7 @@ void Menuadmin::menuplatos()
             bool fechaValida = false;
             time_t t = time(0);
             tm* now = localtime(&t);
-            int anioActual = now->tm_year + 1900;
+            int anioActual = now->tm_year + 1925;
 
             do
             {
@@ -525,7 +525,7 @@ void Menuadmin::menuplatos()
                 {
                     return;
                 }
-                if (anio >= 1900 && anio <= anioActual)
+                if (anio >= 1925 && anio <= anioActual)
                 {
                     fechaValida = true;
                 }
@@ -1001,7 +1001,7 @@ void Menuadmin::modificarplatos()
                 }
 
 
-                if (anio >= 1900 && anio <= anioActual)
+                if (anio >= 1925 && anio <= anioActual)
                 {
                     fechaValida = true;
                 }
@@ -1238,7 +1238,7 @@ Fecha Menuadmin::setear_fecha()
             return fechabusqueda;
             break;
         }
-        if (anio >= 1900 && anio <= anioActual)
+        if (anio >= 1925 && anio <= anioActual)
         {
             fechaValida = true;
         }
@@ -1410,6 +1410,10 @@ void Menuadmin::menuValoraciones()
         if (opcion<0||opcion>2)
         {
             std::cout << "[ERROR] Opcion incorrecta, intente nuevamente" << std::endl;
+        }
+        else
+        {
+            loop=true;
         }
     }
     while(loop==false);
@@ -1955,6 +1959,7 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
         case 2:
         {
 
+            system("cls");
             int dia, mes, anio;
             bool fechaValida = false;
             time_t t = time(0);
@@ -1968,7 +1973,7 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
                 dia=std::stoi(entrada);
                 if (entrada=="0")
                 {
-                    break;
+                   return;
                 }
                 if (dia >= 1 && dia <= 31)
                 {
@@ -1992,7 +1997,7 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
                 mes=std::stoi(entrada);
                 if (entrada=="0")
                 {
-                    break;
+                    return;
                 }
                 if (mes >= 1 && mes <= 12)
                 {
@@ -2016,9 +2021,9 @@ void Menuadmin::eliminarplatomenu() ///IVAN; parecido al de listar platos pero c
                 anio=std::stoi(entrada);
                 if (entrada=="0")
                 {
-                    break;
+                    return;
                 }
-                if (anio >= 1900 && anio <= anioActual)
+                if (anio >= 1925 && anio <= anioActual)
                 {
                     fechaValida = true;
                 }
@@ -2348,10 +2353,11 @@ void Menuadmin::cargarfactura()
 
 
     bool pagoValido = false;
+
     do
     {
         std::cout << "Seleccione MEDIO DE PAGO" << std::endl;
-        std::cout << "1- Efectivo" << std::endl;
+        std::cout << "1- Efectivo (10% de DESCUENTO)" << std::endl;
         std::cout << "2- QR / Tarjeta / Transferencia"  << std::endl;
         std::cout << "3- Agregar saldo a Cuenta Corriente" << std::endl;
 
@@ -2438,7 +2444,7 @@ void Menuadmin::cargarfactura()
     }
     else
     {
-        std::cout << "[ERROR] No se pudo guardar la factura, intete mas tarde." << std::endl;
+        std::cout << "[ERROR] No se pudo guardar la factura, intente mas tarde." << std::endl;
     }
 
     system("pause");
@@ -2459,6 +2465,7 @@ void Menuadmin::verCC()
         std::cout << "Ingrese el ID de usuario para ver cuenta corriente";
         std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
         line('-');
+        system("cls");
         if (entrada=="0")
         {
             loop=true;
@@ -2716,7 +2723,7 @@ void Menuadmin::cargarcomensales()
     int dia, mes, anio;
     time_t t = time(0);
     tm* now = localtime(&t);
-    int anioActual = now->tm_year + 1900;
+    int anioActual = now->tm_year + 1925;
     bool loop=false;
     do
     {
@@ -2812,7 +2819,7 @@ void Menuadmin::cargarcomensales()
                 break;
             }
             anio=std::stoi(entrada);
-            if (anio >= 1900 && anio <= anioActual)
+            if (anio >= 1925 && anio <= anioActual)
             {
                 fechaValida = true;
             }
@@ -2953,6 +2960,7 @@ void Menuadmin::modificarcomensales()
         std::cout << "3- Cambiar DIRECCION (Actual: " << comensalmodificado.getDireccion() << ")" << std::endl;
         std::cout << "4- Cambiar FECHA DE NACIMIENTO (Actual: " << comensalmodificado.getFechaNacimiento().toString() << ")" << std::endl;
         std::cout << "5- Cambiar ID ESTABLECIMIENTO (Actual: " << comensalmodificado.getIDestablecimiento() << ")" << std::endl;
+        line('-');
         std::cout << "0- Guardar y Salir" << std::endl;
         line('-');
         std::cout << "Elija que desea modificar: ";
@@ -3013,7 +3021,7 @@ void Menuadmin::modificarcomensales()
 
             time_t t = time(0);
             tm* now = localtime(&t);
-            int anioActual = now->tm_year + 1900;
+            int anioActual = now->tm_year + 1925;
 
             do
             {
@@ -3067,7 +3075,7 @@ void Menuadmin::modificarcomensales()
                 {
                     return;
                 }
-                if (anio >= 1900 && anio <= anioActual)
+                if (anio >= 1925 && anio <= anioActual)
                 {
                     fechaValida = true;
                 }
@@ -3146,18 +3154,21 @@ void Menuadmin::modificarcomensales()
         {
 
             std::cout << "Cambios guardados correctamente" << std::endl;
+            system("pause");
         }
         else
         {
-            std::cout << "[ERROR] No se pudo guardar la modificación." << std::endl;
+            std::cout << "[ERROR] No se pudo guardar la modificacion." << std::endl;
+            system("pause");
         }
     }
     else
     {
         std::cout << "No se realizaron cambios." << std::endl;
+        system("pause");
     }
 
-    system("pause");
+
 }
 
 
@@ -3202,6 +3213,7 @@ void Menuadmin::cargarpago()
     bool loop=false;
     do
     {
+        system("cls");
         std::cout << "Seleccione el ID del comensal";
         std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
         line('-');
@@ -3515,10 +3527,10 @@ void Menuadmin::listarUsuarios()
             std::cout << "Desconocido (" << usuario_muestra.getRol() << ")";
             break;
         }
-        system("pause");
         std::cout << std::endl;
         line('-');
     }
+    system("pause");
 }
 
 
@@ -3834,16 +3846,28 @@ void Menuadmin::exportarDatosCSV()
             }
 
 
-            salida << "Numeracion;Comensal;EstadoDeuda;SaldoActual\n";
+            salida << "Numeracion;IDComensal;NombreComensal;EstadoDeuda;SaldoActual\n";
 
             int cant = arch.CantidadRegistros();
+
             for (int i = 0; i < cant; i++)
             {
+
+
                 CuentaCorriente aux = arch.Leer(i);
+                std::string deuda;
+                if(aux.getestadodeuda() == true)
+                {
+                    deuda = "Deudor";
+                }
+                else
+                {
+                    deuda = "Al dia";
+                }
                 salida << aux.getnumeracion() << ";"
                        << aux.getcomensal() << ";"
                        << aux.getnombrecomensal() << ";"
-                       << aux.getestadodeuda() << ";"
+                       << deuda << ";"
                        << aux.getSaldoActual() << "\n";
 
             }

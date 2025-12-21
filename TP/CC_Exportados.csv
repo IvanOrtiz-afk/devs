@@ -1,2 +1,3 @@
-Numeracion;Comensal;EstadoDeuda;SaldoActual
-A0001;4;ricardito;1;56277
+Numeracion;IDComensal;NombreComensal;EstadoDeuda;SaldoActual
+A0001;4;ricardito;Al dia;-5627.7
+A0001;1;Ivan Maximiliano;Al dia;0
