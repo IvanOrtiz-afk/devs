@@ -70,19 +70,19 @@ que sirva para visualizar movimientos
 EVE -----> OK
 * Funcion para que un admin pueda ver listado todos los usuarios (nombres y rol solamente)
 
-EVE
+EVE -----> OK
 *Que figure el medio de pago en el listado de facturas y emprolijar
 
 IVAN -----> OK
 *En consumos, agregar el nombre de la persona y el importe
 
-EVE
+EVE -----> OK
 *Factura manual que descuente el 10% en efectivo
 
 IVAN -----> OK
 *Al realizar un pago debe traer el saldo de la cuenta corriente, y que NO genere factura
 
-EVE
+EVE -----> OK
 *Listar PAGOS emprolijar, ver si llegamos a filtrar por id
 
 IVAN -----> OK
@@ -91,13 +91,13 @@ IVAN -----> OK
 IVAN -----> OK
 *valoracion por fecha
 
-EVE
+EVE -----> OK
 *Que quede bien claro el guardar y salir en las modificaciones
 
 IVAN/EVE AL FINAL
 * VER SI SALE, una funci¢n que muestre los platos mas consumidos pero de todos los tiempos (usar memoria din mica)
 
-EVE
+EVE -----> OK
 *BUG ENCONTRADO, deja crear usuarios que ya existen, sobreescribiendolos
 linea 17 en LOGIN
 

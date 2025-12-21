@@ -7,16 +7,20 @@
 #include "Archivos.h"
 #include "Menues.h"
 
-Comprobante::Comprobante(int numeracion, Comensal comensal, Fecha fecha, Menues idmenu, float importe, bool medioDePago)
+Comprobante::Comprobante(int numeracion, Comensal comensal, Fecha fecha, Menues idmenu, float importe, int medioDePago)
 {
     _numeracion = numeracion;
     _IDcomensal=comensal.getIDcomensal(); ///_IDcomensal INT = INT
     strncpy(_nombrecomensal, comensal.getNombre(), sizeof(_nombrecomensal) - 1);
     _nombrecomensal[sizeof(_nombrecomensal) - 1] = '\0';
+     strncpy(_apellidocomensal, comensal.getApellido(), sizeof(_apellidocomensal) - 1);
+    _apellidocomensal[sizeof(_apellidocomensal) - 1] = '\0';
     _fecha = fecha;
     _idmenu=idmenu.getidmenu();
     _importe=importe;
-    if (medioDePago==true)
+    _medioDePago= medioDePago;
+   
+   /* if (medioDePago==true)
     {
         strncpy(_medioDePago, "Efectivo", sizeof(_medioDePago) - 1);
         _medioDePago[sizeof(_medioDePago) - 1] = '\0';
@@ -25,7 +29,7 @@ Comprobante::Comprobante(int numeracion, Comensal comensal, Fecha fecha, Menues 
     {
         strncpy(_medioDePago, "Pago a Cuenta Corriente", sizeof(_medioDePago) - 1);
         _medioDePago[sizeof(_medioDePago) - 1] = '\0';
-    }
+    } */
 }
 
 Comprobante::Comprobante() {}
@@ -63,6 +67,17 @@ const char *Comprobante::getnombrecomensal()
     return _nombrecomensal;
 }
 
+void Comprobante::setApellidocomensal (Comensal comensal)
+{
+    
+strncpy(_apellidocomensal, comensal.getApellido(), sizeof(_apellidocomensal) - 1);
+    _apellidocomensal[sizeof(_apellidocomensal) - 1] = '\0';
+}
+
+const char *Comprobante::getApellidocomensal()
+{
+    return _apellidocomensal;
+}
 
 void Comprobante::setFecha(Fecha fecha)
 {
@@ -94,8 +109,11 @@ float Comprobante::getImporte()
     return _importe;
 }
 
-void Comprobante::setMedioDePago(bool medioDePago)
+void Comprobante::setMedioDePago(int medioDePago)
 {
+    
+     _medioDePago= medioDePago;
+    /*
     if (medioDePago==true)
     {
         strncpy(_medioDePago, "Efectivo", sizeof(_medioDePago) - 1);
@@ -105,17 +123,17 @@ void Comprobante::setMedioDePago(bool medioDePago)
     {
         strncpy(_medioDePago, "Pago a Cuenta Corriente", sizeof(_medioDePago) - 1);
         _medioDePago[sizeof(_medioDePago) - 1] = '\0';
-    }
+    } */
 }
 
-const char* Comprobante::getMedioDePago()
+int Comprobante::getMedioDePago()
 {
     return _medioDePago;
 }
 
 std::string Comprobante::toString()
 {
-    return std::to_string(_numeracion) + "/" + std::to_string(_IDcomensal) + "/" + std::string (_nombrecomensal) + "/" + _fecha.toString() + "/" + std::to_string(_idmenu) + "/" + std::to_string(_importe) + "/" + std::string (_medioDePago);
+    return std::to_string(_numeracion) + "/" + std::to_string(_IDcomensal) + "/" + std::string (_nombrecomensal) + "/" + std::string (_apellidocomensal) + "/" + _fecha.toString() + "/" + std::to_string(_idmenu) + "/" + std::to_string(_importe) + "/" + std::to_string (_medioDePago);
 }
 
 

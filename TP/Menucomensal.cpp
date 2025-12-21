@@ -177,8 +177,12 @@ void Menucomensal::generarconsumo()
                     }
                     CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, saldo_actual, tiene_deuda);
                     arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
-                    Pagos pago_guardar (_clientebuscado, saldo_C_descuento, fecha_generar.hoy());
-                    arch4.Guardar(pago_guardar); ///aca guardo un pago
+                    
+                    ///Pagos pago_guardar;
+                    ///int nuevoID = arch4.CantidadRegistros() + 1;
+                     /// pago_guardar.setNumeracion(nuevoID);
+                    ///pago_guardar (nuevoID, _clientebuscado, saldo_C_descuento, fecha_generar.hoy());
+                   /// arch4.Guardar(pago_guardar); ///aca guardo un pago
                     int cantregistros2=arch3.CantidadRegistros();
                     Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, saldo_C_descuento, tipo_consumo);
                     arch3.Guardar(fc_consumo); ///0002-00001
@@ -212,8 +216,8 @@ void Menucomensal::generarconsumo()
                 tiene_deuda=false;
                 CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, 0, tiene_deuda);
                 arch2.Guardar(actualizar_cuenta);
-                Pagos pago_guardar (_clientebuscado, _menubuscado.getvalorplato(), fecha_generar.hoy());
-                arch4.Guardar(pago_guardar); ///aca guardo un pago
+                ///Pagos pago_guardar (_clientebuscado, _menubuscado.getvalorplato(), fecha_generar.hoy());
+                ///arch4.Guardar(pago_guardar); ///aca guardo un pago
                 int cantregistros2=arch3.CantidadRegistros();
                 Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
                 arch3.Guardar(fc_consumo);

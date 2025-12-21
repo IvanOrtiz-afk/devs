@@ -874,10 +874,11 @@ void Menuadmin::modificarplatos()
         std::cout << "3- Cambiar FECHA DEL MENU (Actual: " << platomodificado.getfecha().toString() << ")" << std::endl;
         std::cout << "4- Cambiar ID ESTABLECIMIENTO (Actual: " << platomodificado.getesta() << ")" << std::endl;
         std::cout << "5- Cambiar VALOR DEL PLATO (Actual: $" << platomodificado.getvalorplato() << ")" << std::endl;
+        line('-');
         std::cout << "0- Guardar y Salir" << std::endl;
         line('-');
-        std::cout << "Elija que desea modificar: ";
-        std::string entrada=entrada_valida("", NUMERO_ENTERO);
+        std::cout << "Elija que desea modificar, ";
+        std::string entrada=entrada_valida("recuerde GUARDAR SUS CAMBIOS (0)", NUMERO_ENTERO);
         opcion=stoi(entrada);
 
         switch(opcion)
@@ -2057,7 +2058,7 @@ void Menuadmin::eliminarusuario()
     Archivos <usuario> arch ("Usuario.dat");
     usuario user_buscado;
     bool loop=false;
-    const char* nombre_aux;
+    std::string nombre_aux;
     do
     {
         system("cls");
@@ -2073,15 +2074,26 @@ void Menuadmin::eliminarusuario()
         for (int i=0; i<registros; i++)
         {
             user_buscado=arch.Leer(i);
-            if (nombre_aux==user_buscado.getNombreUsuario()) ///VER
+            if (nombre_aux==user_buscado.getNombreUsuario())
             {
-                if (arch.Eliminar(i)==true)
-                {
-                    std::cout << "[AVISO] El usuario se elimino exitosamente" << std::endl;
-                    loop=true;
-                    system("pause");
+                std::cout << "Esta seguro que desea eliminar el USUARIO?" << std::endl;
+                std::string entrada=entrada_valida(" S/N", TEXTO_NO_VACIO);
 
-                    break;
+                if (entrada == "S" or entrada=="s")
+                {
+                    if (arch.Eliminar(i)==true)
+                    {
+                        std::cout << "[AVISO] El usuario se elimino exitosamente" << std::endl;
+                        loop=true;
+                        system("pause");
+
+                        break;
+                    }
+                }
+                else
+                {
+                    std::cout << "Operacion CANCELADA" << std::endl;
+                    system("pause");
                 }
             }
             else if (nombre_aux!=user_buscado.getNombreUsuario()&&i+1==registros)
@@ -2107,7 +2119,6 @@ void Menuadmin::eliminarcomensal()
         system("cls");
         std::cout << "Ingrese el ID del COMENSAL que desea eliminar";
         std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
-        line('-');
         if (entrada=="0")
         {
             break;
@@ -2119,13 +2130,25 @@ void Menuadmin::eliminarcomensal()
             comensal_buscado=arch.Leer(i);
             if (id_buscado==comensal_buscado.getIDcomensal()) ///VER
             {
-                if (arch.Eliminar(i)==true)
-                {
-                    std::cout << "[AVISO] El comensal se elimino exitosamente" << std::endl;
-                    loop=true;
-                    system("pause");
+                std::cout << "Esta seguro que desea eliminar el comensal? ";
+                std::string entrada=entrada_valida(" S/N", TEXTO_SIN_NUMEROS);
 
-                    break;
+                if (entrada == "s" or entrada == "S")
+                {
+                    if (arch.Eliminar(i)==true)
+                    {
+                        std::cout << "[AVISO] El comensal se elimino exitosamente" << std::endl;
+                        loop=true;
+                        system("pause");
+
+                        break;
+                    }
+                }
+                else
+                {
+                    std::cout << "Operacion CANCELADA" << std::endl;
+                    system("pause");
+                    return;
                 }
             }
             else if (id_buscado!=comensal_buscado.getIDcomensal()&&i+1==registros)
@@ -2163,14 +2186,27 @@ void Menuadmin::eliminar_esta()
             esta_aux=arch.Leer(i);
             if (id_buscado==esta_aux.getidestablecimiento()) ///VER
             {
-                if (arch.Eliminar(i)==true)
-                {
-                    std::cout << "[AVISO] El establecimiento se elimino exitosamente" << std::endl;
-                    loop=true;
-                    system("pause");
+                std::cout << "Esta seguro que desea eliminar el ESTABLECIMIENTO?";
+                std::string entrada=entrada_valida(" S/N", TEXTO_SIN_NUMEROS);
 
-                    break;
+                if (entrada == "S" or entrada== "s")
+                {
+                    if (arch.Eliminar(i)==true)
+                    {
+                        std::cout << "[AVISO] El establecimiento se elimino exitosamente" << std::endl;
+                        loop=true;
+                        system("pause");
+
+                        break;
+                    }
                 }
+                else
+                {
+                    std::cout << "Operacion CANCELADA";
+                    system("pause");
+                    return;
+                }
+
             }
             else if (id_buscado!=esta_aux.getidestablecimiento()&&i+1==registros)
             {
@@ -2193,38 +2229,67 @@ void Menuadmin::listarfacturas()
     int seleccion_id, j=0;
     do
     {
-        std::cout << "Seleccione su/el ID de USUARIO";
+
+        std::cout << "Seleccione su/el ID de COMENSAL";
         std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
-        line('-');
         if (entrada=="0")
         {
             break;
         }
         seleccion_id=std::stoi(entrada);
+        system("cls");
+        line('=');
+        std::cout << "--- HISTORIAL DE FACTURACION ---" << std::endl;
+        line('=');
         int registros=arch.CantidadRegistros();
         for (int i=0; i<registros; i++)
         {
+
+
             fc_muestra=arch.Leer(i);
             if (fc_muestra.getidcomen()==seleccion_id)
             {
+
+                std::string pagoTexto;
+                int medioPago = fc_muestra.getMedioDePago();
+                if (medioPago == 1) pagoTexto = "Efectivo";
+                else if (medioPago == 2)           pagoTexto = "Tarjeta/QR/Transfe.";
+                else if (medioPago == 3)           pagoTexto = "Cuenta Corriente";
                 j++;
+                /*
                 line('+');
                 std::cout << "Factura del comensal " << std::string(fc_muestra.getnombrecomen()) << " Num. #" << j << std::endl;
                 std::cout << "Bajo el Num. de factura " << fc_muestra.getnumfc() << std::endl;
                 line('-');
                 std::cout << "Consumo en la fecha de " << fc_muestra.getFecha().toString() << std::endl;
                 std::cout << "Por un total de $" << fc_muestra.getImporte() << std::endl;
-                line('+');
+                line('+');*/
+
+                std::cout << "--------------------------------------" << std::endl;
+                std::cout << "| FACTURA NRO: " << fc_muestra.getnumfc()<< std::endl;
+                std::cout << "--------------------------------------" << std::endl;
+                std::cout << "| FECHA:  " << fc_muestra.getFecha().toString() << std::endl;
+                std::cout << "| ID CLIENTE:  #"  << fc_muestra.getidcomen()  <<std::endl;
+                std::cout << "| CLIENTE: " << fc_muestra.getnombrecomen() << " " << fc_muestra.getApellidocomensal() <<std::endl;
+                std::cout << "| MEDIO DE PAGO:  " << pagoTexto << std::endl;
+                std::cout << "| MENU ID:  " << fc_muestra.getIDmenu() << std::endl;
+                std::cout << "|                                    " << std::endl;
+                std::cout << "| IMPORTE: $ " << fc_muestra.getImporte() << std::endl;
+                std::cout << "--------------------------------------" << std::endl;
+                std::cout << std::endl;
                 comensal_encontrado=true;
 
             }
-        }
-        if (!comensal_encontrado)
-        {
-            std::cout << "[ERROR] ID no encontrado o no valido, intente nuevamente" << std::endl;
-            loop=false;
+
         }
         system("pause");
+        if (!comensal_encontrado)
+        {
+            std::cout << "[ERROR] No se encontraron FACTURAS para el COMENSAL" << std::endl;
+            system("pause");
+            loop=false;
+        }
+
     }
     while(loop==false);
 }
@@ -2253,14 +2318,17 @@ void Menuadmin::cargarfactura()
     do
     {
         system("cls");
-        std::cout << "--- FACTURA MANUAL ---" << std::endl;
-        line('-');
+        line('=');
+        std::cout << "NUEVA FACTURA MANUAL- PASO 1/3 " << std::endl;
+        std::cout << "SELECCION DE COMENSAL " << std::endl;
+        line('=');
+        std::cout << std::endl;
         std::cout << "Seleccione su/el ID de COMENSAL";
         entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
 
         if (entrada=="0")
         {
-            break;
+            return;
         }
 
         id_comensal=std::stoi(entrada);
@@ -2275,6 +2343,7 @@ void Menuadmin::cargarfactura()
                 std::cout << "Comensal: " << std::string(comensal_muestra.getNombre()) << std::string(comensal_muestra.getApellido()) << std::endl;
                 fc_muestra.setidcomen(comensal_muestra);
                 fc_muestra.setnombrecomen(comensal_muestra);
+                fc_muestra.setApellidocomensal(comensal_muestra);
                 id_establecimiento_cliente = comensal_muestra.getIDestablecimiento();
                 comensalEncontrado = true;
                 break;
@@ -2292,6 +2361,14 @@ void Menuadmin::cargarfactura()
     float importe_final = 0;
     do
     {
+        system("cls");
+        line('=');
+        std::cout << " NUEVA FACTURA MANUAL- PASO 2/3  " << std::endl;
+        std::cout << " SELECCION DE MENU " << std::endl;
+        line('=');
+        std::cout << "CLIENTE: " << comensal_muestra.getNombre() << " " << comensal_muestra.getApellido() << std::endl;
+        line('-');
+        std::cout << std::endl;
         std::cout << "Seleccione el ID de el MENU consumido por el comensal" << std::endl;
         registros=arch3.CantidadRegistros();
         bool hayMenues = false;
@@ -2305,6 +2382,7 @@ void Menuadmin::cargarfactura()
                 std::cout << "ID: " << plato_muestra.getidmenu()
                           << " | " << plato_muestra.getnombremenu()
                           << " | $" << plato_muestra.getvalorplato() << std::endl;
+                fc_muestra.setIDmenu(plato_muestra);
                 hayMenues = true;;
                 line('-');
             }
@@ -2347,9 +2425,22 @@ void Menuadmin::cargarfactura()
     while (!menuEncontrado);
 
     bool pagoValido = false;
+    float totalConDescuento = 0;
+
 
     do
     {
+        system("cls");
+        line('=');
+        std::cout << "NUEVA FACTURA MANUAL- PASO 3/3 " << std::endl;
+        std::cout << "CONFIRMACION Y PAGO " << std::endl;
+        line('=');
+        std::cout << "CLIENTE: " << comensal_muestra.getNombre() << " " << comensal_muestra.getApellido() << std::endl;
+        std::cout << "MENU:    " << plato_muestra.getnombremenu() << std::endl;
+        line('-');
+        std::cout << "IMPORTE BASE A PAGAR:   $ " << importe_final << std::endl;
+        line('-');
+        std::cout << std::endl;
         std::cout << "Seleccione MEDIO DE PAGO" << std::endl;
         std::cout << "1- Efectivo (10% de DESCUENTO)" << std::endl;
         std::cout << "2- QR / Tarjeta / Transferencia"  << std::endl;
@@ -2361,18 +2452,35 @@ void Menuadmin::cargarfactura()
         switch(opcion)
         {
         case 1:
-            fc_muestra.setMedioDePago(false);
-            pagoValido = true;
-            break;
-        case 2:
-            fc_muestra.setMedioDePago(true);
-            pagoValido = true;
-            break;
-        case 3:
         {
 
+            float descuento = importe_final * 0.10;
+            totalConDescuento = importe_final - descuento;
+
+            fc_muestra.setMedioDePago(1);
+            fc_muestra.setImporte(totalConDescuento);
+
+            std::cout << std::endl;
+            std::cout << "Descuento aplicado: -$" << descuento << std::endl;
+            std::cout << "Total a cobrar: $" << totalConDescuento << std::endl;
+
+            pagoValido = true;
+            break;
+        }
+        case 2:
+        {
+
+            fc_muestra.setMedioDePago(2);
+            fc_muestra.setImporte(importe_final);
+            pagoValido = true;
+            break;
+        }
+        case 3:
+        {
+            std::cout << std::endl;
             std::cout << "Procesando Cuenta Corriente..." << std::endl;
-            fc_muestra.setMedioDePago(true);
+            fc_muestra.setMedioDePago(3);
+            fc_muestra.setImporte(importe_final);
 
             bool cc_encontrada = false;
             int cant_cc = arch_cc.CantidadRegistros();
@@ -2419,9 +2527,11 @@ void Menuadmin::cargarfactura()
             break;
         }
         case 0:
+            std::cout << std::endl;
             std::cout << "FACTURA CANCELADA" << std::endl;
             return;
         default:
+            std::cout << std::endl;
             std::cout << "[ERROR] Opcion Invalida" << std::endl;
         }
 
@@ -2430,12 +2540,13 @@ void Menuadmin::cargarfactura()
 
     int nuevoID = arch.CantidadRegistros() + 1;
     fc_muestra.setnumfc(nuevoID);
-    fc_muestra.setFecha(fecha_hoy.hoy()); // Fecha de facturacion = Hoy
+    fc_muestra.setFecha(fecha_hoy.hoy());
 
     if (arch.Guardar(fc_muestra))
     {
         Consumos nuevo_consumo(fecha_hoy.hoy(), comensal_muestra, plato_muestra);
         arch_consumos.Guardar(nuevo_consumo);
+        std::cout << std::endl;
         std::cout << "===================================" << std::endl;
         std::cout << " FACTURA #" << nuevoID << " GENERADA CON EXITO" << std::endl;
         std::cout << "===================================" << std::endl;
@@ -2624,10 +2735,11 @@ void Menuadmin::modificarestablecimientos()
         std::cout << "1- Cambiar NOMBRE    (Actual: " << estamodificado.getnombreestablecimiento() << ")" << std::endl;
         std::cout << "2- Cambiar TIPO ESTABLECIMIENTO  (Actual: " << estamodificado.gettipoesta() << ")" << std::endl;
         std::cout << "3- Cambiar DIRECCION (Actual: " << estamodificado.getdireccionesta() << ")" << std::endl;
+        line('-');
         std::cout << "0- Guardar y Salir" << std::endl;
         line('-');
-        std::cout << "Elija que desea modificar: ";
-        std::string entrada=entrada_valida("", NUMERO_ENTERO);
+        std::cout << "Elija que desea modificar, ";
+        std::string entrada=entrada_valida("recuerde GUARDAR SUS CAMBIOS (0)", NUMERO_ENTERO);
         opcion=stoi(entrada);
 
         switch(opcion)
@@ -2734,21 +2846,21 @@ void Menuadmin::cargarcomensales()
         line('-');
         std::cout << "Nuevo comensal bajo el ID #:" << idcomensal << std::endl;
         std::cout << std::endl;
-        std::cout << "ingrese NOMBRE/S:" << std::endl;
-        std::string nombre=entrada_valida("Pulse cero para volver", TEXTO_SIN_NUMEROS);
+        std::cout << "ingrese NOMBRE/S,";
+        std::string nombre=entrada_valida(" o pulse cero para volver", TEXTO_SIN_NUMEROS);
         line('-');
         if (nombre=="0")
         {
             break;
         }
-        std::cout << "Ingrese APELLIDO/S, " << std::endl;
+        std::cout << "Ingrese APELLIDO/S, ";
         std::string apellido=entrada_valida("o pulse cero para volver", TEXTO_SIN_NUMEROS);
         line('-');
         if (apellido=="0")
         {
             break;
         }
-        std::cout << "Ingrese DIRECCION," << std::endl;
+        std::cout << "Ingrese DIRECCION,";
         std::string direccion=entrada_valida(" o pulse cero para volver", TEXTO_NO_VACIO);
         line('-');
         if (direccion=="0")
@@ -2799,7 +2911,7 @@ void Menuadmin::cargarcomensales()
             }
             else
             {
-                std::cout << "[ERROR] Dia invalido. Por favor ingrese un numero entre 1 y 12." << std::endl;
+                std::cout << "[ERROR] Mes invalido. Por favor ingrese un numero entre 1 y 12." << std::endl;
 
             }
         }
@@ -2830,7 +2942,7 @@ void Menuadmin::cargarcomensales()
         while(!fechaValida);
 
         std::cout << std::endl;
-        std::cout << "Ingrese el ID del ESTABLECIMIENTO," << std::endl;
+        std::cout << "Ingrese el ID del ESTABLECIMIENTO,";
         std::string entrada=entrada_valida(" o pulse cero para volver", NUMERO_ENTERO);
         line('-');
         if (entrada=="0")
@@ -2961,8 +3073,8 @@ void Menuadmin::modificarcomensales()
         line('-');
         std::cout << "0- Guardar y Salir" << std::endl;
         line('-');
-        std::cout << "Elija que desea modificar: ";
-        std::string entrada=entrada_valida("", NUMERO_ENTERO);
+        std::cout << "Elija que desea modificar, ";
+        std::string entrada=entrada_valida("recuerde GUARDAR SUS CAMBIOS (0)", NUMERO_ENTERO);
         opcion=stoi(entrada);
 
         switch(opcion)
@@ -3214,25 +3326,26 @@ void Menuadmin::cargarpago()
     Archivos <Comensal> arch2 ("Comensales.dat");
     Archivos <CuentaCorriente> arch3 ("CC.dat");
     Archivos <Factura> arch4 ("Facturas.dat");
+
     Fecha fecha_actual;
     fecha_actual.hoy();
     Pagos pago_cargar;
     CuentaCorriente CC_buscado;
-    Factura fc_generar;
     Comensal comensal_buscado;
+
     int id_buscado;
     float importe_cargar;
     float saldo_final;
-    bool loop=false, cliente_encontrado=false;
+    bool loop=false, comensalEncontrado=false;
     do
     {
         system("cls");
-        std::cout << "Seleccione el ID del comensal";
+        std::cout << "=== CARGAR PAGO ===" << std::endl;
+        std::cout << "Seleccione el ID del COMENSAL";
         std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_ENTERO);
-        line('-');
         if (entrada=="0")
         {
-            break;
+            return;
         }
         id_buscado=std::stoi(entrada);
         int registros=arch2.CantidadRegistros();
@@ -3241,7 +3354,11 @@ void Menuadmin::cargarpago()
             comensal_buscado=arch2.Leer(i);
             if (id_buscado==comensal_buscado.getIDcomensal())
             {
-                int registros2=arch3.CantidadRegistros();
+
+                std::cout << "Comensal seleccionado: " << comensal_buscado.getNombre() << " " << comensal_buscado.getApellido() << std::endl;
+                comensalEncontrado = true;
+                break;
+                /*int registros2=arch3.CantidadRegistros();
                 for (int j=0; j<registros2; j++)
                 {
                     CC_buscado=arch3.Leer(j);
@@ -3252,83 +3369,148 @@ void Menuadmin::cargarpago()
                         loop=true;
                         break;
                     }
-                }
-            }
-            else if (!cliente_encontrado)
-            {
-                std::cout << "[ERROR] Comensal NO encontrado, intente nuevamente" << std::endl;
+                }*/
             }
         }
+        if (!comensalEncontrado)
+        {
+            std::cout << "[ERROR] Comensal NO encontrado." << std::endl;
+            system("pause");
+        }
     }
-    while(loop==false);
+    while(!comensalEncontrado);
+
+    bool importeValido = false;
     do
     {
-        std::cout << "Indique el importe para cargar el pago" << std::endl;
-        line('-');
-        std::cout << "Importe: $";
-        std::string entrada=entrada_valida("Pulse cero para volver", NUMERO_FLOTANTE);
-        line('-');
+        std::cout << "Indique el IMPORTE para cargar el pago";
+        std::string entrada=entrada_valida(", o pulse cero para volver", NUMERO_FLOTANTE);
         if (entrada=="0")
         {
-            break;
+            return;
         }
         importe_cargar=std::stof(entrada);
         if (importe_cargar < 0)
         {
             std::cout << "[ERROR] No puede cargar un pago negativo!" << std::endl;
         }
-        int registros=arch3.CantidadRegistros();
-        for (int i=0; i<registros; i++)
+        else
         {
-            CC_buscado=arch3.Leer(i);
-            if (CC_buscado.getcomensal()==comensal_buscado.getIDcomensal())
-            {
-                pago_cargar.setIDcomensal(comensal_buscado);
-                pago_cargar.setimporte(importe_cargar);
-                pago_cargar.setfecha(fecha_actual.hoy());
-                saldo_final=CC_buscado.getSaldoActual()+importe_cargar;
-                CC_buscado.setSaldoActual(saldo_final);
-                if(saldo_final>0)
-                {
-                    bool deudor=false;
-                    CC_buscado.setestadodeuda(deudor);
-                }
-                if (arch3.Guardar(CC_buscado, i)==true&&arch.Guardar(pago_cargar)==true) ///sobreescritura
-                {
-                    loop=true;
-                    std::cout << "Pago agregado exitosamente, Cuenta corriente actualizada" << std::endl;
-                    system("pause");
-                    break;
-                }
-            }
-            else if((arch3.Guardar(CC_buscado, i)==false)||(arch.Guardar(pago_cargar)==false))
-            {
-                std::cout << "[ERROR] Falla de guardado, intente nuevamente" << std::endl;
-                system("pause");
-            }
+            importeValido = true;
         }
     }
-    while(loop==false);
+    while (!importeValido);
+
+    int registros=arch3.CantidadRegistros();
+    bool cc_encontrada = false;
+    for (int i=0; i<registros; i++)
+    {
+        CC_buscado=arch3.Leer(i);
+        if (CC_buscado.getcomensal()==comensal_buscado.getIDcomensal())
+        {
+            int nuevoID = arch.CantidadRegistros() + 1;
+            pago_cargar.setNumeracion(nuevoID);
+            pago_cargar.setIDcomensal(comensal_buscado);
+            pago_cargar.setnombre(comensal_buscado);
+            pago_cargar.setimporte(importe_cargar);
+            pago_cargar.setfecha(fecha_actual.hoy());
+            saldo_final=CC_buscado.getSaldoActual()+importe_cargar;
+            CC_buscado.setSaldoActual(saldo_final);
+            if(saldo_final>=0)
+            {
+                CC_buscado.setestadodeuda(false);
+            }
+
+
+            bool guardoCC = arch3.Guardar(CC_buscado, i);
+            bool guardoPago = arch.Guardar(pago_cargar);
+
+            if (guardoCC && guardoPago)
+            {
+                line('=');
+                std::cout << " PAGO REGISTRADO CON EXITO" << std::endl;
+                std::cout << " Nuevo Saldo: $" << saldo_final << std::endl;
+                line('=');
+                cc_encontrada = true;
+            }
+        }
+        else
+        {
+            std::cout << "[ERROR] Fallo al guardar el pago, intente mas tarde." << std::endl;
+        }
+        break;
+    }
+    if (!cc_encontrada)
+    {
+        std::cout << "[ERROR] El comensal no tiene una Cuenta Corriente activa." << std::endl;
+        // Opcional: Podrías crearla aquí si no existe
+    }
+
+    system("pause");
 }
 
 void Menuadmin::listarpago()
 {
-    system("cls");
+
     Archivos <Pagos> arch ("Pagos.dat"); ///si se puede, listar pagos por comensal
     Pagos pago_listado;
+    bool loop = true;
 
-    line('*');
-    std::cout << "Listando pagos cargados" << std::endl;
-    line('*');
 
-    int registros=arch.CantidadRegistros();
-    for (int i=0; i<registros; i++)
+
+    do
     {
-        pago_listado=arch.Leer(i);
-        std::cout << pago_listado.toString() << std::endl;
-        line('-', 50);
+        system("cls");
+        line('=');
+        std::cout << "--- HISTORIAL DE PAGOS ---" << std::endl;
+        line('=');
+        std::cout << "Ingrese el ID de COMENSAL a buscar";
+        std::string entrada = entrada_valida(", o pulse 0 para volver", NUMERO_ENTERO);
+        int id_filtro = std::stoi(entrada);
+
+        if (id_filtro == 0) return;
+
+        system("cls");
+
+        std::cout << "PAGOS DEL COMENSAL ID #" << id_filtro << std::endl;
+        int registros=arch.CantidadRegistros();
+        bool encontro_algo = false;
+        if (registros == 0)
+        {
+            std::cout << "[ADVERTENCIA] NO HAY PAGOS CARGADOS"  << std::endl;
+            system("pause");
+            return;
+        }
+        else
+        {
+            for (int i=0; i<registros; i++)
+            {
+                pago_listado=arch.Leer(i);
+                if (pago_listado.getIDcomensal() == id_filtro)
+                {
+                    line('-');
+                    std::cout << "| PAGO #: "  << pago_listado.getNumeracion() << std::endl;
+                    line('-');
+                    std::cout << "| FECHA:       "  << pago_listado.getfecha().toString() << std::endl;
+                    std::cout << "| ID CLIENTE # " <<  pago_listado.getIDcomensal()  << " - " << pago_listado.getnombre() << std::endl;
+                    std::cout << "| TOTAL:       $ " << pago_listado.getimporte()  << std::endl;
+                    line('-');
+                    std::cout << std::endl;
+                    encontro_algo = true;
+                }
+            }
+
+        }
+        if (!encontro_algo)
+        {
+            std::cout << "[ADVERTENCIA] No se encontraron pagos" << std::endl;
+
+        }
+        system("pause");
+
+
     }
-    system("pause");
+    while (loop);
 }
 
 void Menuadmin::modificarusuarios()
@@ -3386,10 +3568,11 @@ void Menuadmin::modificarusuarios()
         line('-');
         std::cout << "1- Cambiar CONTRASEÑA" << std::endl;
         std::cout << "2- Cambiar ROL  (Actual: " << usuariomodificado.getRol() << ")" << std::endl;
+        line('-');
         std::cout << "0- Guardar y Salir" << std::endl;
         line('-');
-        std::cout << "Elija que desea modificar: ";
-        std::string entrada=entrada_valida("", NUMERO_ENTERO);
+        std::cout << "Elija que desea modificar, ";
+        std::string entrada=entrada_valida("recuerde GUARDAR SUS CAMBIOS (0)", NUMERO_ENTERO);
         opcion=stoi(entrada);
 
         switch(opcion)

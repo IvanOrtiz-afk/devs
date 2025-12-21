@@ -8,7 +8,7 @@
 #include "Archivos.h"
 #include "Menues.h"
 
-Factura::Factura(int numeroFactura, Comensal comensal, Fecha fecha, Menues idmenu, float importe, bool medioDePago)
+Factura::Factura(int numeroFactura, Comensal comensal, Fecha fecha, Menues idmenu, float importe, int medioDePago)
     :Comprobante(numeroFactura, comensal, fecha, idmenu, importe, medioDePago)
 {
     const int LIMITE_CORRELATIVO = 99999;
@@ -23,6 +23,8 @@ Factura::Factura(int numeroFactura, Comensal comensal, Fecha fecha, Menues idmen
     _id_comensal=comensal.getIDcomensal();
     strncpy(_nombre_comensal, comensal.getNombre(), sizeof(_nombre_comensal) - 1);
     _nombre_comensal[sizeof(_nombre_comensal) - 1] = '\0';
+    strncpy(_apellidocomensal_comensal, comensal.getApellido(), sizeof(_apellidocomensal_comensal) - 1);
+    _apellidocomensal_comensal[sizeof(_apellidocomensal_comensal) - 1] = '\0';
 }
 
 Factura::Factura()
@@ -32,11 +34,26 @@ void Factura::setnombrecomen(Comensal comensal)
 {
     strncpy(_nombre_comensal, comensal.getNombre(), sizeof(_nombre_comensal) - 1);
     _nombre_comensal[sizeof(_nombre_comensal) - 1] = '\0';
+    
+    Comprobante::setNombrecomensal(comensal);
 }
 
 const char *Factura::getnombrecomen()
 {
     return _nombre_comensal;
+}
+
+void Factura::setapellidocomen(Comensal comensal)
+{
+    strncpy(_apellidocomensal_comensal, comensal.getApellido(), sizeof(_apellidocomensal_comensal) - 1);
+    _apellidocomensal_comensal[sizeof(_apellidocomensal_comensal) - 1] = '\0';
+    
+    Comprobante::setApellidocomensal(comensal);
+}
+
+const char *Factura::getapellidocomensal()
+{
+    return _apellidocomensal_comensal;
 }
 
 void Factura::setnumfc(int numeroFactura)

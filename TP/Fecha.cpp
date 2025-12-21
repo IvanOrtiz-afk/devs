@@ -43,7 +43,7 @@ Fecha Fecha::hoy()
     std::tm* tmLocal = std::localtime(&tiempoAhora);
     int dia = tmLocal->tm_mday;
     int mes = tmLocal->tm_mon + 1;      // tm_mon es 0-basado
-    int anio = tmLocal->tm_year + 1925; // tm_year es a¤os desde 1900
+    int anio = tmLocal->tm_year + 1900; // tm_year es a¤os desde 1900
 
     return Fecha(dia, mes, anio);
 }

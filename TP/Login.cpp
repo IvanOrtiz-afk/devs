@@ -14,13 +14,14 @@ login::login()
 
 }
 
-void login::crearNuevoUsuario() ///EVELYN -> BUG ENCONTRADO, deja crear usuarios que ya existen, sobreescribiendolos
+void login::crearNuevoUsuario()
 {
     Archivos <usuario> archUsuario ("Usuario.dat");
 
     char nombreUsuario[20], password[20];
     int rol;
 
+    system("cls");
     std::cout << "--- NUEVO USUARIO ---"  << std::endl;
     std::cout <<"---------------------------" << std::endl;
     std::cout << "Ingrese nombre de usuario, ";
@@ -28,6 +29,21 @@ void login::crearNuevoUsuario() ///EVELYN -> BUG ENCONTRADO, deja crear usuarios
     if (entrada == "0") return;
     strncpy(nombreUsuario, entrada.c_str(), 19);
     nombreUsuario[19] = '\0';
+    
+    int cantidad = archUsuario.CantidadRegistros();
+    for (int i = 0; i < cantidad; i++)
+    {
+        usuario aux = archUsuario.Leer(i);
+        if (aux.getNombreUsuario() == std::string(nombreUsuario))
+        {
+            std::cout << std::endl;
+            std::cout << "[ERROR] El nombre de usuario '" << nombreUsuario << "' ya existe." << std::endl;
+            std::cout << "Por favor, intente con otro nombre." << std::endl;
+            system("pause");
+            return;
+        }
+    }
+    
     std::cout << "Ingrese contraseña: " << std::endl;
     std::cin >> password;
     bool rolValido = false;

@@ -8,8 +8,9 @@
 #include "Fecha.h"
 #include "Archivos.h"
 
-Pagos::Pagos(Comensal comensal, float importe, Fecha fecha)
+Pagos::Pagos(int numeracion, Comensal comensal, float importe, Fecha fecha)
 {
+    _numeracion= numeracion;
     strncpy(_nombre, comensal.getNombre(), sizeof(_nombre) - 1);
     _nombre[sizeof(_nombre) - 1] = '\0';
     _idcomensal=comensal.getIDcomensal();
@@ -21,6 +22,17 @@ Pagos::Pagos()
 {
 
 }
+
+int Pagos::getNumeracion()
+{
+    return _numeracion;
+}
+
+void Pagos::setNumeracion(int numeracion)
+{
+    _numeracion = numeracion;
+}
+
 
 void Pagos::setfecha(Fecha fecha)
 {
