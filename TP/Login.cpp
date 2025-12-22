@@ -29,7 +29,7 @@ void login::crearNuevoUsuario()
     if (entrada == "0") return;
     strncpy(nombreUsuario, entrada.c_str(), 19);
     nombreUsuario[19] = '\0';
-    
+
     int cantidad = archUsuario.CantidadRegistros();
     for (int i = 0; i < cantidad; i++)
     {
@@ -43,8 +43,8 @@ void login::crearNuevoUsuario()
             return;
         }
     }
-    
-    std::cout << "Ingrese contraseña: " << std::endl;
+
+    std::cout << "Ingrese contrasenia: " << std::endl;
     std::cin >> password;
     bool rolValido = false;
     do
@@ -77,8 +77,6 @@ void login::crearNuevoUsuario()
         system("pause");
         system("cls");
     }
-
-
 
 }
 

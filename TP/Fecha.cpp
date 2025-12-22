@@ -28,7 +28,7 @@ bool Fecha::operator==(const Fecha& otra) const
     }
     return false;
 }
-bool Fecha::operator!=(const Fecha& otra) const
+bool Fecha::operator!=(const Fecha& otra) const //Fecha fecha1 == Fecha fecha2
 {
     // Compara el d¡a, mes y a¤o del objeto actual con el objeto 'otra'
     if (_dia!=otra._dia||_mes!=otra._mes||_anio!=otra._anio)

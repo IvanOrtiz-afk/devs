@@ -205,8 +205,6 @@ void Menuadmin::platosmas_vendidos()
                 {
                     platos[x]._cantidadVendida=platos[x]._cantidadVendida+1;
                     plato_encontrado=true;
-                    std::cout << platos[x]._nombre << std::endl; //para testeo
-                    std::cout << platos[x]._cantidadVendida << std::endl; //para testeo
                     break;
                 }
             }
@@ -253,6 +251,7 @@ void Menuadmin::platosmas_vendidos()
         }
         if (cant1>0)
         {
+            system("cls");
             line('=');
             std::cout << "Se mostrara el top 3 de los platos mas vendidos" << std::endl;
             line('=');
@@ -719,6 +718,10 @@ void Menuadmin::listarplatos_semana()
     }
     while(loop==false);
 
+    line('*', 60);
+    std::cout << "Se listaran los menues de toda la semana para el establecimiento " << esta_muestra.getnombreestablecimiento() << std::endl;
+    line('*', 60);
+
     int registros_menus=arch_menus.CantidadRegistros();
     for (int i=0; i<registros_menus; i++)
     {
@@ -729,10 +732,6 @@ void Menuadmin::listarplatos_semana()
             if (std::find(dias_semana_mes.begin(), dias_semana_mes.end(), menu_muestra.getfecha().getDia()) != dias_semana_mes.end())
             {
                 plato_encontrado=true;
-                system("cls");
-                line('*', 60);
-                std::cout << "Se listaran los menues de toda la semana para el establecimiento " << esta_muestra.getnombreestablecimiento() << std::endl;
-                line('*', 60);
                 std::cout << "Menu del dia " << menu_muestra.getfecha().toString() << std::endl;
                 std::cout << menu_muestra.getnombremenu() << std::endl;
                 std::cout << menu_muestra.getdesctipo() << std::endl;
@@ -741,6 +740,7 @@ void Menuadmin::listarplatos_semana()
             }
         }
     }
+    system("pause");
     if (!plato_encontrado)
     {
         system("cls");
@@ -1150,6 +1150,7 @@ void Menuadmin::listar_valoraciones()
     }
     while(loop==false);
 
+    bool hay_valoraciones=false;
     int registros=arch.CantidadRegistros();
     for (int i=0; i<registros; i++)
     {
@@ -1161,6 +1162,7 @@ void Menuadmin::listar_valoraciones()
             int cant_val=plato_muestra.getcant_valoracion();
             if (valoracion!=0&&cant_val!=0)
             {
+                hay_valoraciones=true;
                 line('-');
                 std::cout << "--- LISTADO DE PLATOS VALORADOS POR LOS COMENSALES ---" << std::endl;
                 line('-');
@@ -1171,13 +1173,19 @@ void Menuadmin::listar_valoraciones()
             }
         }
     }
+    if (!hay_valoraciones)
+    {
+        std::cout << "[AVISO] No se encontraron valoraciones para el establecimiento en el dia de la fecha" << std::endl;
+    }
+    system("pause");
 }
 
-Fecha Menuadmin::setear_fecha()
+Fecha Menuadmin::setear_fecha(bool &cancelar)
 {
     int dia=0, mes=0, anio=0;
     Fecha fechabusqueda(dia, mes, anio);
     bool fechaValida = false;
+    cancelar=false;
     time_t t = time(0);
     tm* now = localtime(&t);
     int anioActual = now->tm_year + 1900;
@@ -1189,6 +1197,7 @@ Fecha Menuadmin::setear_fecha()
         if (entrada=="0")
         {
             fechaValida = true;
+            cancelar=true;
             return fechabusqueda;
         }
         if (dia >= 1 && dia <= 31)
@@ -1211,6 +1220,7 @@ Fecha Menuadmin::setear_fecha()
         if (entrada=="0")
         {
             fechaValida = true;
+            cancelar=true;
             return fechabusqueda;
         }
         if (mes >= 1 && mes <= 12)
@@ -1234,6 +1244,7 @@ Fecha Menuadmin::setear_fecha()
         if (entrada=="0")
         {
             fechaValida = true;
+            cancelar=true;
             return fechabusqueda;
         }
         if (anio >= 1925 && anio <= anioActual)
@@ -1252,14 +1263,17 @@ Fecha Menuadmin::setear_fecha()
 
 void Menuadmin::valorar_x_fecha()
 {
-    Fecha fechafiltrar=setear_fecha();
-    if (fechafiltrar.getDia()!=0)
+    bool cancelar;
+    Fecha fechafiltrar=setear_fecha(cancelar);
+    if (!cancelar)
     {
         Archivos <Menues> arch ("Menues.dat");
         Archivos <Establecimientos> arch2 ("Establecimientos.dat");
         Menues plato_muestra;
         Establecimientos esta_muestra;
         bool loop=true, ejecutar_ok;
+        bool establecimientoEncontrado;
+        bool hayPlatos = false;
         do
         {
             std::string entrada=entrada_valida("Ingrese ID de ESTABLECIMIENTO, pulse cero para volver", NUMERO_ENTERO); /// Aca es el ingreso del usuario
@@ -1269,46 +1283,51 @@ void Menuadmin::valorar_x_fecha()
             }
             int id_esta=std::stoi(entrada);
             int registros=arch2.CantidadRegistros();
-            bool establecimientoEncontrado = false;
-            bool hayPlatos = false;
             for (int i=0; i<registros; i++)
             {
+                establecimientoEncontrado=false;
                 esta_muestra=arch2.Leer(i);
                 if (id_esta==esta_muestra.getidestablecimiento())
                 {
                     establecimientoEncontrado = true;
-                    int registros2=arch.CantidadRegistros();
-
-                    for (int j=0; j<registros2; j++)
+                    if (establecimientoEncontrado==true)
                     {
-                        plato_muestra=arch.Leer(j);
-
-                        if (esta_muestra.getidestablecimiento()==plato_muestra.getesta()) //IVAN; modificaciones varias para resumir codigo y arreglar bug de iteraciones
+                        int registros2=arch.CantidadRegistros();
+                        for (int j=0; j<registros2; j++)
                         {
-                            if(fechafiltrar==plato_muestra.getfecha()&&hayPlatos==false)
+                            plato_muestra=arch.Leer(j);
+
+                            if (esta_muestra.getidestablecimiento()==plato_muestra.getesta()) //IVAN; modificaciones varias para resumir codigo y arreglar bug de iteraciones
                             {
+                                std::cout << "Entro el primer IF" << std::endl;
                                 system("pause");
-                                system("cls");
-                                std::cout << "---LISTADO DE PLATOS---" << std::endl;
-                                line('-');
-                            }
-                            if (fechafiltrar==plato_muestra.getfecha())
-                            {
-                                std::cout << "ID #" << plato_muestra.getidmenu() << std::endl;
-                                std::cout << plato_muestra.getdesctipo() << std::endl;
-                                std::cout << plato_muestra.getnombremenu() << std::endl;
-                                line('-');
-                                hayPlatos=true;
+                                if(fechafiltrar==plato_muestra.getfecha()&&hayPlatos==false)
+                                {
+                                    std::cout << "Entro el segundo IF" << std::endl;
+                                    system("pause");
+                                    std::cout << "---LISTADO DE PLATOS---" << std::endl;
+                                    line('-');
+                                }
+                                if (fechafiltrar==plato_muestra.getfecha())
+                                {
+                                    std::cout << "ID #" << plato_muestra.getidmenu() << std::endl;
+                                    std::cout << plato_muestra.getdesctipo() << std::endl;
+                                    std::cout << plato_muestra.getnombremenu() << std::endl;
+                                    line('-');
+                                    hayPlatos=true;
+                                }
                             }
                         }
-                    }
-                    if (hayPlatos==false)
-                    {
-                        std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " en el dia de la fecha" << std::endl;
-                        loop=true;
-                        break;
+                        system("pause");
                     }
                 }
+            }
+            if (hayPlatos==false)
+            {
+                std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " en el dia de la fecha" << std::endl;
+                loop=true;
+                system("pause");
+                break;
             }
             if (establecimientoEncontrado == false) ///id_esta!=esta_muestra.getidestablecimiento()&&i+1==registros) ///ARREGLAR
             {
@@ -3336,7 +3355,7 @@ void Menuadmin::cargarpago()
     int id_buscado;
     float importe_cargar;
     float saldo_final;
-    bool loop=false, comensalEncontrado=false;
+    bool comensalEncontrado=false;
     do
     {
         system("cls");
@@ -3354,22 +3373,21 @@ void Menuadmin::cargarpago()
             comensal_buscado=arch2.Leer(i);
             if (id_buscado==comensal_buscado.getIDcomensal())
             {
-
+                line('=', 70);
                 std::cout << "Comensal seleccionado: " << comensal_buscado.getNombre() << " " << comensal_buscado.getApellido() << std::endl;
+                line('=', 70);
                 comensalEncontrado = true;
-                break;
-                /*int registros2=arch3.CantidadRegistros();
+                int registros2=arch3.CantidadRegistros();
                 for (int j=0; j<registros2; j++)
                 {
                     CC_buscado=arch3.Leer(j);
-                    if (comensal_buscado.getIDcomensal()==CC_buscado.getcomensal())
-                    {
-                        CC_buscado.toString();
-                        cliente_encontrado=true;
-                        loop=true;
+                    if (comensal_buscado.getIDcomensal()==CC_buscado.getcomensal()) //el comensal podria NO TENER una CC
+                    {                                                               //ojo con eso
+                        std::cout << CC_buscado.toString() << std::endl;
+                        line('-', 70);
                         break;
                     }
-                }*/
+                }
             }
         }
         if (!comensalEncontrado)

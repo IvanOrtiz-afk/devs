@@ -104,7 +104,7 @@ inline std::string entrada_valida(const std::string& mensaje, TipoEntrada tipo) 
                 std::cout << "[ERROR] La entrada no puede estar vacia." << std::endl;
                 break;
             }
-            
+
             if (entrada_str == "0") return entrada_str;
 
 
@@ -128,7 +128,7 @@ inline std::string entrada_valida(const std::string& mensaje, TipoEntrada tipo) 
 
             if (tieneNumeros)
             {
-                std::cout << "[ERROR] El texto NO puede contener numeros." << std::endl;
+                std::cout << "[ERROR] El texto NO puede contener numeros, intente nuevamente";
                 break;
             }
             return entrada_str;
@@ -137,10 +137,10 @@ inline std::string entrada_valida(const std::string& mensaje, TipoEntrada tipo) 
         {
 
             std::cout << "[ERROR INTERNO] Tipo de entrada no reconocido" << std::endl;
-            return "";
+            return entrada_str;
         }
         }
     }
 }
-    std::string entrada_valida(const std::string&, TipoEntrada);
-    std::string entrada_cruda(const std::string&);
+std::string entrada_valida(const std::string&, TipoEntrada);
+std::string entrada_cruda(const std::string&);

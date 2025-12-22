@@ -602,9 +602,8 @@ void MenuSistema::gestionarUsuarios()
 
                 login nuevo_usuario;
                 nuevo_usuario.crearNuevoUsuario();
-
-
             }
+            break;
         case 2:
             if (_rolActual == 1)
             {
