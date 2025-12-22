@@ -85,7 +85,7 @@ linea 17 en LOGIN
 EVE
 * Ir cargando las bases de datos nuevas a medida que se revisan los menues en busca de bugs
 
-IVAN
+IVAN -----> OK
 * Ver el filtrado por fecha de los menues, si yo lo ejecuto un domingo tambien me trae el lunes de la semana siguiente
 
 IVAN -----> OK
