@@ -21,11 +21,13 @@ public:
     struct PlatoVendido ///Un struct necesita su propio constructor
     {
         std::string _nombre;
+        std::string _establecimiento;
         int _cantidadVendida;
-        PlatoVendido(std::string nombre, int cantidadVendida)
+        PlatoVendido(std::string nombre, int cantidadVendida, std::string establecimiento)
         {
             _nombre=nombre;
             _cantidadVendida=cantidadVendida;
+            _establecimiento=establecimiento;
         }
     };
     void listarplatos(Fecha fechafiltrar);

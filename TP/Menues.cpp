@@ -109,7 +109,7 @@ std::string Menues::toString()
     ss << std::fixed << std::setprecision(2) << _valorplato;
     //El ss pasado a string
     std::string valor_plato_formateado = ss.str();
-    return std::string(_desctipo) + "/" + std::string(_nombremenu) + "/" + valor_plato_formateado;
+    return "Tipo de plato: " + std::string(_desctipo) + "\nNombre del plato: " + std::string(_nombremenu) + "\nValor: $" + valor_plato_formateado;
 }
 
 

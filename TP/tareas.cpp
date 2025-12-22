@@ -88,28 +88,28 @@ EVE
 IVAN
 * Ver el filtrado por fecha de los menues, si yo lo ejecuto un domingo tambien me trae el lunes de la semana siguiente
 
-IVAN
+IVAN -----> OK
 * Arreglar la funcion de seteo de fecha en valoraciones (linea 1177)
 
-IVAN
+IVAN -----> OK
 * Arreglar valoraciones por fecha BUG
 
-IVAN
+IVAN -----> OK
 * Valorar por plato de hoy emprolijar y arreglar BUG
 
-IVAN
+IVAN -----> OK
 * Probar top 3 de valoraciones y todo lo referido a las valoraciones
 
-IVAN
+IVAN -----> OK
 * Un cliente puede valorar platos de cualquier establecimiento, arreglar
 
-IVAN
+IVAN -----> OK
 * Al valorar un plato no puedo ver los establecimientos en la lista
 
-IVAN
+IVAN -----> OK
 * En platos mas vendidos que figure el establecimiento del menu correspondiente
 
-IVAN
+IVAN -----> OK
 * Al crear un nuevo usuario salta magicamente a la funcion de eliminar usuario
 
 IVAN
