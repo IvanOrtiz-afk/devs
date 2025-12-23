@@ -329,7 +329,7 @@ void MenuSistema::gestionarConsumos()
         cout << "--- CONSUMOS ---" << endl;
         line('-');
         cout << "1- LISTAR CONSUMOS" << endl;
-        cout << "2- VER CONSUMOS POR FECHA" << endl;
+        cout << "2- CONSUMOS DE PLATOS POR FECHA" << endl;
         cout << "3- PLATOS MAS VENDIDOS" << endl;
         line('-');
         cout << "0- Volver al menu principal" << endl;

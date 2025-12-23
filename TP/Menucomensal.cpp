@@ -252,8 +252,9 @@ void Menucomensal::generarconsumo()
                 mostrarTicket(fc_consumo, txtPago);
                
             }
-            else if (tipo_consumo==false) //paga en cuenta corriente
+            else if (tipo_consumo==3) //paga en cuenta corriente
             {
+                txtPago = "Cuenta Corriente";
                 cantregistros=arch2.CantidadRegistros()+1;
                 float saldoauxiliar=consumodelcomensal.getimporte();
                 tiene_deuda=true;
