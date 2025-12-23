@@ -5,8 +5,6 @@
 #include <algorithm>
 #include <cctype>
 
-
-
 inline std::string entrada_cruda(const std::string& mensaje)
 {
     std::string entrada;

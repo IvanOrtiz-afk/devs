@@ -52,7 +52,6 @@ public:
     void listarestablecimientos();
     void cargarcomensales();
     void listarcomensales();
-    void listarconsumos();
     void mostrarmenucargar();
     void cargarmenutodalasemana();
     void menuplatos();
@@ -64,6 +63,7 @@ public:
     void restaurarBackup();
     void exportarDatosCSV();
     void listarUsuarios();
+    void mostrarconsumos();
 
     /* std::string entrada_valida(const std::string&, TipoEntrada);
      std::string entrada_cruda(const std::string&);*/
@@ -71,7 +71,6 @@ public:
 protected:
     void mostrarestablecimientos(Establecimientos establecimientos_muestra);
     void mostrarcomensales(Comensal comensal_muestra);
-    void mostrarconsumos(Consumos consumos_muestra);
 
 private:
     bool copiarArchivo(std::string origen, std::string destino);

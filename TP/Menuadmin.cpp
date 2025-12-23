@@ -329,7 +329,7 @@ void Menuadmin::platosmas_vendidos()
     }
 }
 
-void Menuadmin::cant_platosXfecha() ///CONTINUAR ACA
+void Menuadmin::cant_platosXfecha()
 {
     Archivos <Consumos> arch_consu ("Consumos.dat");
     Archivos <Comensal> arch_comensal ("Comensales.dat");
@@ -507,6 +507,7 @@ void Menuadmin::cant_platosXfecha() ///CONTINUAR ACA
             {
                 std::cout << platos[j]._nombre << " con una cantidad de " << platos[j]._cantidadVendida << std::endl;
                 std::cout << "Establecimiento " << platos[j]._establecimiento << std::endl;
+                line('-');
             }
         }
         system("pause");
@@ -1199,7 +1200,7 @@ void Menuadmin::modificarplatos()
                     system("pause");
 
                 }
-                else 
+                else
                 {
                     loop = true;
                 }
@@ -1229,7 +1230,7 @@ void Menuadmin::modificarplatos()
 
     if (hubocambios == true)
     {
-       Archivos <Menues> arch_escritura ("Menues.dat");
+        Archivos <Menues> arch_escritura ("Menues.dat");
         if (arch_escritura.Guardar(platomodificado, pos))
         {
 
@@ -1266,7 +1267,6 @@ void Menuadmin::listar_valoraciones()
         int id_esta=std::stoi(entrada);
         if (entrada=="0")
         {
-            loop=true;
             break;
         }
         int registros2=arch2.CantidadRegistros();
@@ -1288,35 +1288,38 @@ void Menuadmin::listar_valoraciones()
     }
     while(loop==false);
 
-    bool hay_valoraciones=false;
-    int registros=arch.CantidadRegistros();
-    system("cls");
-    line('-', 50);
-    std::cout << "--- LISTADO DE PLATOS VALORADOS POR LOS COMENSALES ---" << std::endl;
-    line('-', 50);
-    for (int i=0; i<registros; i++)
+    if (loop==true)
     {
-        plato_muestra=arch.Leer(i);
-        if (plato_muestra.getesta()==esta_muestra.getidestablecimiento())
+        bool hay_valoraciones=false;
+        int registros=arch.CantidadRegistros();
+        system("cls");
+        line('-', 50);
+        std::cout << "--- LISTADO DE PLATOS VALORADOS POR LOS COMENSALES ---" << std::endl;
+        line('-', 50);
+        for (int i=0; i<registros; i++)
         {
-            valoracion=plato_muestra.getvaloracion(); /// Funcion que hace un promedio
-            ///de las valoraciones en base a la cantidad de gente que la valoro
-            int cant_val=plato_muestra.getcant_valoracion();
-            if (valoracion!=0&&cant_val!=0)
+            plato_muestra=arch.Leer(i);
+            if (plato_muestra.getesta()==esta_muestra.getidestablecimiento())
             {
-                hay_valoraciones=true;
+                valoracion=plato_muestra.getvaloracion(); /// Funcion que hace un promedio
+                ///de las valoraciones en base a la cantidad de gente que la valoro
+                int cant_val=plato_muestra.getcant_valoracion();
+                if (valoracion!=0&&cant_val!=0)
+                {
+                    hay_valoraciones=true;
 
-                std::cout << plato_muestra.toString() << std::endl;
-                std::cout << "Con una valoracion promedio de: " << (float)valoracion/cant_val << std::endl;
-                line('-', 50);
+                    std::cout << plato_muestra.toString() << std::endl;
+                    std::cout << "Con una valoracion promedio de: " << (float)valoracion/cant_val << std::endl;
+                    line('-', 50);
+                }
             }
         }
+        if (!hay_valoraciones)
+        {
+            std::cout << "[AVISO] No se encontraron valoraciones para el establecimiento en el dia de la fecha" << std::endl;
+        }
+        system("pause");
     }
-    if (!hay_valoraciones)
-    {
-        std::cout << "[AVISO] No se encontraron valoraciones para el establecimiento en el dia de la fecha" << std::endl;
-    }
-    system("pause");
 }
 
 Fecha Menuadmin::setear_fecha(bool &cancelar)
@@ -1408,18 +1411,18 @@ void Menuadmin::valorar_x_fecha()
     bool cancelar;
     Fecha fechafiltrar;
     fechafiltrar=setear_fecha(cancelar);
-    
+
     if (!cancelar)
     {
         Archivos <Menues> arch ("Menues.dat");
         Archivos <Establecimientos> arch2 ("Establecimientos.dat");
         Menues plato_muestra;
         Establecimientos esta_muestra;
-        
+
         bool loop=false, ejecutar_ok;
         do
         {
-            bool establecimientoEncontrado = false; 
+            bool establecimientoEncontrado = false;
             bool hayPlatos = false;
             std::string entrada=entrada_valida("Ingrese ID de ESTABLECIMIENTO, pulse cero para volver", NUMERO_ENTERO); /// Aca es el ingreso del usuario
             if (entrada=="0")
@@ -1457,17 +1460,18 @@ void Menuadmin::valorar_x_fecha()
                                 hayPlatos=true;
                             }
                         }
-                    } break;
-                } 
+                    }
+                    break;
+                }
             }
-            
-             if (establecimientoEncontrado==false) ///id_esta!=esta_muestra.getidestablecimiento()&&i+1==registros) ///ARREGLAR
+
+            if (establecimientoEncontrado==false) ///id_esta!=esta_muestra.getidestablecimiento()&&i+1==registros) ///ARREGLAR
             {
                 std::cout << "[ERROR] El establecimiento no existe o es incorrecto, intente nuevamente" << std::endl;
                 std::cout << std::endl;
                 loop=false;
             }
-            
+
             else if (hayPlatos==false)
             {
                 std::cout << "[AVISO] No se encontro ningun plato para " << esta_muestra.getnombreestablecimiento() << " en el dia de la fecha" << std::endl;
@@ -1475,7 +1479,7 @@ void Menuadmin::valorar_x_fecha()
                 system("pause");
                 break;
             }
-           
+
             else if (hayPlatos==true)
             {
                 std::cout << "Seleccione un plato por su ID para cargar una valoracion" << std::endl;
@@ -3283,17 +3287,58 @@ void Menuadmin::listarcomensales()
 {
     system("cls");
     Archivos <Comensal> arch_comensales ("Comensales.dat");
+    Archivos <Establecimientos> arch_esta ("Establecimientos.dat");
+    Establecimientos esta_muestra;
+    Comensal comensal_muestra;
     std::string nombreesta;
-    int cantidad = arch_comensales.CantidadRegistros();
-    std::cout << "---LISTADO DE COMENSALES---"  << std::endl;
-    line('-');
-    for (int i= 0; i < cantidad; i++)
+    bool loop=false, esta_encontrado=false;
+    do
     {
-        Comensal comensal_muestra = arch_comensales.Leer(i);
-        mostrarcomensales(comensal_muestra);
+        std::cout << "Ingrese ID del establecimiento" << std::endl;
+        std::string entrada=entrada_valida(" o pulse cero para volver", NUMERO_ENTERO);
         line('-');
+        if (entrada=="0")
+        {
+            break;
+        }
+        int idestablecimiento=std::stoi(entrada);
+        int registros_esta=arch_esta.CantidadRegistros();
+        for (int j=0; j<registros_esta; j++)
+        {
+            esta_muestra=arch_esta.Leer(j);
+            if (esta_muestra.getidestablecimiento()==idestablecimiento)
+            {
+                esta_encontrado=true;
+                loop=true;
+                break;
+            }
+        }
+        if (esta_encontrado==false)
+        {
+            std::cout << "[ERROR] Establecimiento no encontrado o inexistente, intente nuevamente" << std::endl;
+            system("pause");
+            system("cls");
+        }
     }
+    while(loop==false);
 
+    if(loop==true)
+    {
+        int cantidad = arch_comensales.CantidadRegistros();
+        system("cls");
+        line('=', 50);
+        std::cout << "---LISTADO DE COMENSALES---"  << std::endl;
+        line('=', 50);
+        for (int i= 0; i < cantidad; i++)
+        {
+            comensal_muestra = arch_comensales.Leer(i);
+            if (comensal_muestra.getIDestablecimiento()==esta_muestra.getidestablecimiento())
+            {
+                mostrarcomensales(comensal_muestra);
+                line('-');
+            }
+        }
+    }
     system("pause");
 }
 
@@ -3305,6 +3350,7 @@ void Menuadmin::mostrarcomensales(Comensal comensal_muestra)
     std::cout << "Direccion: " << comensal_muestra.getDireccion() << std::endl;
     std::cout << "Fecha de nacimiento: " << comensal_muestra.getFechaNacimiento().toString()<< std::endl;
     std::cout << "ID Establecimiento : " << comensal_muestra.getIDestablecimiento() << std::endl;
+    line('-', 50);
 }
 
 void Menuadmin::modificarcomensales()
@@ -3539,11 +3585,11 @@ void Menuadmin::modificarcomensales()
 
     }
     while (opcion != 0);
-    
+
 
     if (hubocambios == true)
     {
-         Archivos <Comensal> arch_Escritura ("Comensales.dat");
+        Archivos <Comensal> arch_Escritura ("Comensales.dat");
         if (arch_Escritura.Guardar(comensalmodificado, pos))
         {
 
@@ -3561,47 +3607,68 @@ void Menuadmin::modificarcomensales()
         std::cout << "No se realizaron cambios." << std::endl;
         system("pause");
     }
-
-
 }
 
-
-void Menuadmin::listarconsumos()
-{
-    system("cls");
-    Archivos <Consumos> arch_consumos ("Consumos.dat");
-    int cantidad = arch_consumos.CantidadRegistros();
-    std::cout << "--- LISTADO DE CONSUMOS ---"  << std::endl;
-    line('-');
-    for (int i= 0; i < cantidad; i++) ///IVAN; saque el <=, no nos olvidemos que i arranca en 0, i al arrancar en 0 debe llegar a cantidad-1
-    {
-        Consumos consumos_muestra = arch_consumos.Leer(i);
-        mostrarconsumos(consumos_muestra);
-        line('-');
-    }
-    system("pause");
-}
-
-void Menuadmin::mostrarconsumos(Consumos consumos_muestra)
+void Menuadmin::mostrarconsumos()
 {
     Archivos <Comensal> arch_comensal ("Comensales.dat");
+    Archivos <Consumos> arch_consumos ("Consumos.dat");
+    Consumos consumos_muestra;
     Comensal comensal_muestra;
-    int registros=arch_comensal.CantidadRegistros();
-    for (int i=0; i<registros; i++)
+    bool loop=false, comensalencontrado=false, consumoencontrado=false;
+    do
     {
-        comensal_muestra=arch_comensal.Leer(i);
-        if (consumos_muestra.getcliente()==comensal_muestra.getIDcomensal())
+        system("cls");
+        std::cout << "Ingrese el ID del comensal" << std::endl;
+        std::string entrada=entrada_valida("o pulse 0 para salir", NUMERO_ENTERO);
+        int id_comensal = std::stoi(entrada);
+        if (entrada=="0")
         {
-            line('-', 50);
-            std::cout << "Fecha del consumo: " << consumos_muestra.getfecha().toString() << std::endl;
-            std::cout << "ID del cliente: " << consumos_muestra.getcliente() << std::endl;
-            std::cout << "Nombre: " << comensal_muestra.getNombre() << " " << comensal_muestra.getApellido() << std::endl;
-            std::cout << "Plato consumido: " << consumos_muestra.getplato() << std::endl;
-            std::cout << "Importe: $" << consumos_muestra.getimporte() << std::endl;
-            line('-', 50);
-            std::cout << std::endl;
+            return;
+        }
+        int registros=arch_comensal.CantidadRegistros();
+        for (int i=0; i<registros; i++)
+        {
+            comensal_muestra=arch_comensal.Leer(i);
+            if (id_comensal==comensal_muestra.getIDcomensal())
+            {
+                comensalencontrado=true;
+                loop=true;
+                int cantidad = arch_consumos.CantidadRegistros();
+                for (int j=0; j<cantidad; j++)
+                {
+                    Consumos consumos_muestra = arch_consumos.Leer(j);
+                    if (consumos_muestra.getcliente()==comensal_muestra.getIDcomensal()&&consumoencontrado==false)
+                    {
+                        system("cls");
+                        line('=');
+                        std::cout << "--- LISTADO DE CONSUMOS ---"  << std::endl;
+                        line('=');
+                    }
+                    if (consumos_muestra.getcliente()==comensal_muestra.getIDcomensal())
+                    {
+                        consumoencontrado=true;
+                        line('-', 50);
+                        std::cout << "Fecha del consumo: " << consumos_muestra.getfecha().toString() << std::endl;
+                        std::cout << "ID del cliente: " << consumos_muestra.getcliente() << std::endl;
+                        std::cout << "Nombre: " << comensal_muestra.getNombre() << " " << comensal_muestra.getApellido() << std::endl;
+                        std::cout << "Plato consumido: " << consumos_muestra.getplato() << std::endl;
+                        std::cout << "Importe: $" << consumos_muestra.getimporte() << std::endl;
+                        line('-', 50);
+                        std::cout << std::endl;
+                    }
+                }
+            }
+        }
+        line('-');
+
+        system("pause");
+        if(comensalencontrado==false)
+        {
+            std::cout << "[ERROR] Comensal NO encontrado o es incorrecto, intente nuevamente." << std::endl;
         }
     }
+    while(loop==false);
 }
 
 void Menuadmin::cargarpago()

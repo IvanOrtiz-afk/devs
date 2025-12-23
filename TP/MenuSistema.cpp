@@ -329,8 +329,11 @@ void MenuSistema::gestionarConsumos()
         cout << "--- CONSUMOS ---" << endl;
         line('-');
         cout << "1- LISTAR CONSUMOS" << endl;
-        cout << "2- CONSUMOS DE PLATOS POR FECHA" << endl;
-        cout << "3- PLATOS MAS VENDIDOS" << endl;
+        if (_rolActual==1)
+        {
+            cout << "2- CONSUMOS DE PLATOS POR FECHA" << endl;
+            cout << "3- PLATOS MAS VENDIDOS" << endl;
+        }
         line('-');
         cout << "0- Volver al menu principal" << endl;
         line('-');
@@ -341,18 +344,28 @@ void MenuSistema::gestionarConsumos()
         {
         case 1:
 
-            _ejecutarmenu.listarconsumos(); /// REPARADO!!!
+            _ejecutarmenu.mostrarconsumos(); /// REPARADO!!!
 
             break;
         case 2:
-
-            _ejecutarmenu.cant_platosXfecha();
-
+            if (_rolActual==1)
+            {
+                _ejecutarmenu.cant_platosXfecha();
+            }
+            else
+            {
+                std::cout << "Acceso denegado" << std::endl;
+            }
             break;
         case 3:
-
-            _ejecutarmenu.platosmas_vendidos();
-
+            if(_rolActual==1)
+            {
+                _ejecutarmenu.platosmas_vendidos();
+            }
+            else
+            {
+                std::cout << "Acceso denegado" << std::endl;
+            }
             break;
         case 0:
             cout << "Volviendo al menu principal... " << endl;
