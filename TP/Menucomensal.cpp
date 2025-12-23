@@ -149,26 +149,41 @@ void Menucomensal::generarconsumo()
     Archivos <Factura> arch3 ("Facturas.dat");
     Archivos <Consumos> arch ("Consumos.dat");
     Archivos <CuentaCorriente> arch2 ("CC.dat");
-    Archivos <Pagos> arch4 ("Pagos.dat");
+
     bool cliente_encontrado=false, tiene_deuda=false, cancel=false;
-    bool tipo_consumo=tipodeconsumo(cancel);
+ std::string txtPago;
+    int tipo_consumo=tipodeconsumo(cancel);
+
     if (cancel==false)
     {
         Fecha fecha_generar;
         fecha_generar.hoy();
         Consumos consumodelcomensal(fecha_generar.hoy(), _clientebuscado, _menubuscado);
         arch.Guardar(consumodelcomensal);
+
         CuentaCorriente actualizar_cuenta;
         int cantregistros=arch2.CantidadRegistros();
+
         for (int i=0; i<cantregistros; i++)
         {
             actualizar_cuenta=arch2.Leer(i);
             if (_clientebuscado.getIDcomensal()==actualizar_cuenta.getcomensal()) ///si el cliente esta en el .dat
             {
-                if (tipo_consumo==true) //pago en efectivo
+                if (tipo_consumo==1 or tipo_consumo==2) 
                 {
-                    float saldo_C_descuento;
-                    saldo_C_descuento=consumodelcomensal.getimporte()-(consumodelcomensal.getimporte()/10);
+                    float importe_final;
+                
+                    if (tipo_consumo == 1)
+                    {
+                        importe_final = consumodelcomensal.getimporte() - (consumodelcomensal.getimporte()/10);
+                        txtPago = "Efectivo (Desc. 10%)";
+                    }
+                    else
+                    {
+                        importe_final = consumodelcomensal.getimporte();
+                        txtPago = "Tarjeta / QR";
+                    }
+                    
                     cantregistros=arch2.CantidadRegistros()+1;
                     float saldo_actual=actualizar_cuenta.getSaldoActual();
                     if (actualizar_cuenta.getSaldoActual()<0)
@@ -177,20 +192,22 @@ void Menucomensal::generarconsumo()
                     }
                     CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, saldo_actual, tiene_deuda);
                     arch2.Guardar(actualizar_cuenta, i); ///uso la posicion i porque es una sobreescritura
-                    
+
                     ///Pagos pago_guardar;
                     ///int nuevoID = arch4.CantidadRegistros() + 1;
-                     /// pago_guardar.setNumeracion(nuevoID);
+                    /// pago_guardar.setNumeracion(nuevoID);
                     ///pago_guardar (nuevoID, _clientebuscado, saldo_C_descuento, fecha_generar.hoy());
-                   /// arch4.Guardar(pago_guardar); ///aca guardo un pago
+                    /// arch4.Guardar(pago_guardar); ///aca guardo un pago
                     int cantregistros2=arch3.CantidadRegistros();
-                    Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, saldo_C_descuento, tipo_consumo);
+                    Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, importe_final, tipo_consumo);
                     arch3.Guardar(fc_consumo); ///0002-00001
+                    mostrarTicket(fc_consumo, txtPago);
                     cliente_encontrado=true;
                     break;
                 }
-                else if (tipo_consumo==false) //paga en cuenta corriente
+                else if (tipo_consumo==3) //paga en cuenta corriente
                 {
+                    txtPago = "Cuenta Corriente";
                     float saldoauxiliar=actualizar_cuenta.getSaldoActual();
                     saldoauxiliar=actualizar_cuenta.getSaldoActual()-consumodelcomensal.getimporte();
                     if (saldoauxiliar<0)
@@ -203,6 +220,8 @@ void Menucomensal::generarconsumo()
                     int cantregistros2=arch3.CantidadRegistros();
                     Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
                     arch3.Guardar(fc_consumo);
+                     
+                mostrarTicket(fc_consumo, txtPago);
                     cliente_encontrado=true;
                     break;
                 }
@@ -210,8 +229,17 @@ void Menucomensal::generarconsumo()
         }
         if (cliente_encontrado==false) ///si el cliente NO esta en el .dat
         {
-            if (tipo_consumo==true) //pago en efectivo
+            if (tipo_consumo == 1 || tipo_consumo == 2) 
             {
+                
+                float importe_final;
+                if (tipo_consumo == 1) {
+                    importe_final = consumodelcomensal.getimporte() - (consumodelcomensal.getimporte()/10);
+                    txtPago = "Efectivo (Desc. 10%)";
+                } else {
+                    importe_final = consumodelcomensal.getimporte();
+                    txtPago = "Tarjeta / QR";
+                }
                 cantregistros=arch2.CantidadRegistros()+1;
                 tiene_deuda=false;
                 CuentaCorriente actualizar_cuenta(cantregistros, _clientebuscado, 0, tiene_deuda);
@@ -221,6 +249,8 @@ void Menucomensal::generarconsumo()
                 int cantregistros2=arch3.CantidadRegistros();
                 Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
                 arch3.Guardar(fc_consumo);
+                mostrarTicket(fc_consumo, txtPago);
+               
             }
             else if (tipo_consumo==false) //paga en cuenta corriente
             {
@@ -232,44 +262,58 @@ void Menucomensal::generarconsumo()
                 int cantregistros2=arch3.CantidadRegistros();
                 Factura fc_consumo(cantregistros2+1, _clientebuscado, fecha_generar.hoy(), _menubuscado, _menubuscado.getvalorplato(), tipo_consumo);
                 arch3.Guardar(fc_consumo);
+                mostrarTicket(fc_consumo, txtPago);
             }
         }
     }
 }
 
-bool Menucomensal::tipodeconsumo(bool &cancel)
+int Menucomensal::tipodeconsumo(bool &cancel)
 {
-    bool loop=false, result=false;
+    bool loop=false;
+    int result=0;
     int opcion;
     do
     {
         system("cls");
+        line('=');
+        std::cout << "SELECCIONE METODO DE PAGO " << std::endl;
+        line('=');
+        std::cout << std::endl;
+        std::cout << "1- Efectivo (10% DE DESCUENTO)" << std::endl;
+        std::cout << "2- Tarjeta / QR / Transferencia" << std::endl;
+        std::cout << "3- Cargar a Cuenta Corriente (Deuda)" << std::endl;
+        std::cout << "0- Cancelar Operacion" << std::endl;
         line('-');
-        std::cout << "Desea abonar ahora o generar deuda en cuenta corriente?" << std::endl;
-        line('-');
-        std::cout << "Pulse 1 para abonar ahora, 2 para cargar deuda en cuenta corriente, 0 para cancelar" << std::endl;
-        std::cout << "En caso de abonar en efectivo obtiene un 10% de descuento!" << std::endl;
         std::string entrada = entrada_valida("Opcion: ", NUMERO_ENTERO);
         opcion = std::stoi(entrada);
         switch(opcion)
         {
         case 1:
-            std::cout << "Gracias por abonar, pago generado exitosamente!" << std::endl;
+            std::cout << "Gracias por abonar, factura generada EXITOSAMENTE!" << std::endl;
+            
             system("pause");
-            system("cls");
             loop=true;
-            result=true; ///abono en efectivo
+            result=1; ///abono en efectivo
             break;
         case 2:
-            std::cout << "Se genero una deuda en su cuenta corriente, puede abonarla mas tarde" << std::endl;
+
+            std::cout << "Pago APROBADO. Gracias por su compra!" << std::endl;
             system("pause");
-            system("cls");
+            loop = true;
+            result = 2;
+            break;
+        case 3:
+            std::cout << "Se genero una deuda en su CUENTA CORRIENTE, puede abonarla mas tarde" << std::endl;
+            system("pause");
             loop=true;
-            result=false; ///deuda en CC
+            result=3; ///deuda en CC
             break;
         case 0:
+            std::cout << "Operacion CANCELADA." << std::endl;
             cancel=true;
             loop=true;
+            result = 0;
             break;
         default:
             std::cout << "Opci¢n incorrecta, intente nuevamente" << std::endl;
@@ -282,6 +326,24 @@ bool Menucomensal::tipodeconsumo(bool &cancel)
     return result;
 }
 
+void Menucomensal::mostrarTicket(Factura fc, std::string textoPago)
+{
+    system("cls");
+    line('=',50);
+    std::cout << "COMPROBANTE GENERADO EXITOSAMENTE " << std::endl;
+    line('=',50);
+    std::cout << "--------------------------------------" << std::endl;
+    std::cout << "| FACTURA NRO: " << fc.getnumfc() << std::endl; 
+    std::cout << "--------------------------------------" << std::endl;
+    std::cout << "| FECHA:       " << fc.getFecha().toString() << std::endl;
+    std::cout << "| CLIENTE:     " << fc.getnombrecomensal() << " " << fc.getApellidocomensal() << std::endl;
+    std::cout << "| MEDIO PAGO:  " << textoPago << std::endl;
+    std::cout << "|                                      " << std::endl;
+    std::cout << "| TOTAL:       $ " << fc.getImporte() << std::endl;
+    std::cout << "--------------------------------------" << std::endl;
+    std::cout << std::endl;
+    system("pause");
+}
 /*
 void Menucomensal::mostrar(int tipo, int num)
 {

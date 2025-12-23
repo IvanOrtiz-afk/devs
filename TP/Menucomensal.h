@@ -19,7 +19,8 @@ public:
     Comensal buscarcliente(int id, bool &loop);
     ///void mostrar(int tipo, int num);
     void generarconsumo();
-    bool tipodeconsumo(bool &cancel);
+    int tipodeconsumo(bool &cancel);
+    void mostrarTicket(Factura fc, std::string textoPago);
 
 private:
 
